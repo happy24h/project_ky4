@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    // border: 1px solid #ccc;
+}
+
+// mobile
+@media (max-width: 1350px) {
+    .container {
+        max-width: 950px;
+    }
+}

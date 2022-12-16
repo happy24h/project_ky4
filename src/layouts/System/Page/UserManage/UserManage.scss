@@ -1,0 +1,60 @@
+.user-redux-container {
+    .title {
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        padding-top: 15px;
+        font-weight: 600;
+        font-size: 17px;
+        text-align: center;
+    }
+    .user-redux-body {
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 100px;
+            padding: 9px 12px;
+            border-radius: var(--border-radius);
+            font-size: 1.3rem;
+            font-weight: 700;
+            // font-family: var(--font-family);
+            cursor: pointer;
+            border: 1px solid transparent;
+            -webkit-user-select: none;
+            user-select: none;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+        .btn-warning {
+            background-color: var(--primary);
+        }
+        .btn-primary {
+            background-color: var(--blue);
+        }
+        .preview-img-container {
+            margin-top: 4px;
+
+            .label-upload {
+                padding: 7px 5px;
+                border-radius: 3px;
+                background: #ddd;
+                cursor: pointer;
+
+                &:hover {
+                    opacity: 0.9;
+                }
+            }
+
+            .preview-image {
+                margin-top: 8px;
+                height: 50px;
+                width: 100%;
+                border: 1px solid #ccc;
+                background: center center no-repeat;
+                background-size: contain;
+                cursor: pointer;
+            }
+            // react image lightbox
+        }
+    }
+}
