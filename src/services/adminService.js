@@ -1,7 +1,7 @@
 import axios from '~/utils/axios';
 
 export const handleLoginApi = (userEmail, userPassword) => {
-    return axios.post('/api/login', { email: userEmail, password: userPassword });
+    return axios.post('/api/v1/login', { email: userEmail, password: userPassword });
 };
 
 // get user manage

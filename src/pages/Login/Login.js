@@ -33,7 +33,7 @@ const Login = ({ submitForm }) => {
     useEffect(() => {
         const fetchApi = async () => {
             let res = await axios.handleLoginApi(values.email, values.password);
-            if (res && res.errCode === 0) {
+            if (res && res.roles) {
                 if (Object.keys(errors).length === 0 && dataIsCorrect) {
                     submitForm(true);
                     navigate('/system/user-manage');

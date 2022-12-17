@@ -57,15 +57,11 @@ function Contact() {
                             </div>
                             <div className="col l-6 c-6 form-group">
                                 <label>Số điện thoại *</label>
-                                <input
-                                    type="number"
-                                    placeholder="Nhập số điện thoại của bạn"
-                                    className="form-control"
-                                />
+                                <input type="text" placeholder="Nhập số điện thoại của bạn" className="form-control" />
                             </div>
                             <div className="col l-6 c-6 form-group">
                                 <label>Email *</label>
-                                <input type="email" placeholder="Nhập địa chỉ email của bạn" className="form-control" />
+                                <input type="text" placeholder="Nhập địa chỉ email của bạn" className="form-control" />
                             </div>
 
                             <div className="col c-12 l-12 form-group">
