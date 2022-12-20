@@ -1,59 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import validation from './validation';
-import { Link } from 'react-router-dom';
+import React from 'react';
+// import validation from './validation';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faGoogle, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 import '../Register/Register.scss';
-import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
-import * as axios from '~/services/adminService';
-import { toast } from 'react-toastify';
+import { loginUser } from '../../redux/apiRequest';
+import { faEnvelope, faKey, faUser } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch } from 'react-redux';
+// import * as axios from '~/services/adminService';
+// import { toast } from 'react-toastify';
 
-const Login = ({ submitForm }) => {
+const Login = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [values, setValues] = useState({
-        email: '',
-        password: '',
+    const formik = useFormik({
+        initialValues: {
+            // username: '',
+            email: '',
+            password: '',
+        },
+        validationSchema: Yup.object({
+            // username: Yup.string().required('Vui lòng nhập tên người dùng').min(4, 'Tên phải lớn hơn 4 ký tự.'),
+            email: Yup.string()
+                .required('Vui lòng nhập email.')
+                .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Vui lòng nhập địa chỉ email hợp lệ.'),
+            password: Yup.string().required('Vui lòng nhập mật khẩu.').min(4, 'Mật khẩu phải lớn hơn 4 ký tự.'),
+        }),
+        onSubmit: (values) => {
+            // window.alert('Form submitted');
+            console.log(values);
+            loginUser(values, dispatch, navigate);
+        },
     });
 
-    const [errors, setErrors] = useState({});
-    const [dataIsCorrect, setDataIsCorrect] = useState(false);
-
-    const handleChange = (event) => {
-        setValues({
-            ...values,
-            [event.target.name]: event.target.value,
-        });
-    };
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-        setErrors(validation(values));
-        setDataIsCorrect(true);
-    };
-    useEffect(() => {
-        const fetchApi = async () => {
-            let res = await axios.handleLoginApi(values.email, values.password);
-            if (res && res.roles) {
-                if (Object.keys(errors).length === 0 && dataIsCorrect) {
-                    submitForm(true);
-                    navigate('/system/user-manage');
-                    setErrors(validation(values));
-                }
-            } else {
-                toast.error('Vui lòng nhập đúng thông tin!');
-            }
-        };
-        fetchApi();
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [errors]);
-
-    let { email, password } = values;
-    console.log('value login ', values);
     return (
         <div className="container-login">
-            <form className="loginForm">
-                <h1 className="heading">Sign In With</h1>
+            <form className="loginForm" onSubmit={formik.handleSubmit}>
+                <h1 className="heading">Login</h1>
                 <div className="socialLogins">
                     <button className="socialLogin1">
                         <FontAwesomeIcon icon={faFacebookF} />
@@ -66,6 +51,23 @@ const Login = ({ submitForm }) => {
                     </button>
                 </div>
                 <span className="standardText">Or use your email instead</span>
+                {/* <div className="field">
+                    <div className="customInput">
+                        <FontAwesomeIcon className="inputicon" icon={faUser} />
+                        <input
+                            className="inputfield"
+                            type="text"
+                            placeholder="Name"
+                            autoComplete="username"
+                            name="username"
+                            value={formik.values.username}
+                            onChange={formik.handleChange}
+                        />
+                    </div>
+                    <div className="message">
+                        {formik.errors.username && <p className="error">{formik.errors.username}</p>}
+                    </div>
+                </div> */}
                 <div className="field">
                     <div className="customInput">
                         <FontAwesomeIcon className="inputicon" icon={faEnvelope} />
@@ -75,12 +77,15 @@ const Login = ({ submitForm }) => {
                             placeholder="Email.."
                             autoComplete="username"
                             name="email"
-                            value={email}
-                            onChange={handleChange}
+                            value={formik.values.email}
+                            onChange={formik.handleChange}
                         />
                     </div>
-                    <div className="message">{errors.email && <p className="error">{errors.email}</p>}</div>
+                    <div className="message">
+                        {formik.errors.email && <p className="error">{formik.errors.email}</p>}
+                    </div>
                 </div>
+
                 <div className="field">
                     <div className="customInput">
                         <FontAwesomeIcon className="inputicon" icon={faKey} />
@@ -90,16 +95,18 @@ const Login = ({ submitForm }) => {
                             placeholder="Password.."
                             autoComplete="new-password"
                             name="password"
-                            value={password}
-                            onChange={handleChange}
+                            value={formik.values.password}
+                            onChange={formik.handleChange}
                         />
                     </div>
-                    <div className="message">{errors.password && <p className="error">{errors.password}</p>}</div>
+                    <div className="message">
+                        {formik.errors.password && <p className="error">{formik.errors.password}</p>}
+                    </div>
                 </div>
                 <div className="field">
                     <span className="linkfield">Forgot Password?</span>
                 </div>
-                <div className="field submitfield" onClick={handleFormSubmit}>
+                <div className="field submitfield">
                     <input className="submit" type="submit" value="SIGN IN" />
                 </div>
                 <div className="field signupfield">

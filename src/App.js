@@ -4,7 +4,7 @@ import { privateRoutes, publicRouters } from './routes';
 import DefaultLayout from './layouts/DefaultLayout';
 import SystemLayout from './layouts/System/SystemLayout';
 import { ToastContainer } from 'react-toastify';
-import Form from './pages/Login/Form';
+import Login from './pages/Login';
 import 'react-toastify/ReactToastify.min.css';
 import './assets/styles/grid.scss';
 
@@ -34,7 +34,7 @@ function App() {
                             />
                         );
                     })}
-                    <Route element={<Form />}>
+                    <Route element={<Login />}>
                         {privateRoutes.map((route, index) => {
                             const Page = route.component;
                             let Layout = SystemLayout;

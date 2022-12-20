@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import _ from 'lodash';
 import * as axios from '~/services/adminService';
 import { toast } from 'react-toastify';
-import { connect } from 'react-redux';
-import { fetchGenderStart } from '~/store/actions/adminActions';
+// import { connect } from 'react-redux';
+// import { fetchGenderStart } from '~/store/actions/adminActions';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -234,16 +234,4 @@ function Modal({ setModal, dataTime }, props) {
     );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        genders: state.admin.genders,
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        getGenders: (actions) => dispatch(fetchGenderStart()),
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Modal);
+export default Modal;

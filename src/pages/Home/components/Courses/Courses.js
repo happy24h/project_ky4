@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Slider from 'react-slick';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 import * as userService from '~/services/userService';
 import classNames from 'classnames/bind';
@@ -12,6 +12,7 @@ const cx = classNames.bind(styles);
 function Courses({ settings }) {
     const navigate = useNavigate();
     const [dataCourses, setDataCourses] = useState([]);
+    // eslint-disable-next-line no-unused-vars
     const [loadData, setLoadData] = useState(false);
 
     useEffect(() => {

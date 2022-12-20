@@ -13,25 +13,25 @@ function Sidebar() {
             data: [
                 {
                     title: 'Danh sách người dùng',
-                    to: '/system/users-manage-redux',
+                    to: '/system/manage-user',
                 },
                 {
                     title: 'Thêm thông tin',
-                    to: '/teacher-info-manage',
+                    to: '/system/manage-user',
                 },
             ],
         },
         {
             icon: <FontAwesomeIcon icon={faUserGraduate} />,
-            title: 'Giáo viên',
+            title: 'Nhân viên',
             data: [
                 {
                     title: 'Thêm lịch hẹn',
-                    to: '/schedule-teacher',
+                    to: '/system/manage-user',
                 },
                 {
-                    title: 'Thêm thông tin giáo viên',
-                    to: '/teacher-info-manage',
+                    title: 'Thêm thông tin nhân viên',
+                    to: '/system/manage-user',
                 },
             ],
         },
@@ -40,12 +40,12 @@ function Sidebar() {
             title: 'Thông tin',
             data: [
                 {
-                    title: 'Trang học tập',
-                    to: '/classroom-manage',
+                    title: 'Cơ sở cắt tóc',
+                    to: '/system/manage-user',
                 },
                 {
-                    title: 'Khóa học',
-                    to: '/specialty-manage',
+                    title: 'Dịch vụ',
+                    to: '/system/manage-user',
                 },
             ],
         },
@@ -55,11 +55,11 @@ function Sidebar() {
             data: [
                 {
                     title: 'React CRUD',
-                    to: '/system/user-manage',
+                    to: '/system/manage-user',
                 },
                 {
                     title: 'Redux CRUD',
-                    to: '/system/user-redux',
+                    to: '/system/manage-user',
                 },
             ],
         },

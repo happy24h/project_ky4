@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import * as useService from '~/services/userService';
 import Slider from 'react-slick';
 import { useNavigate } from 'react-router-dom';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Buffer } from 'buffer';
 import classNames from 'classnames/bind';
 import styles from '../ContentSlider/ContentSlider.module.scss';
@@ -12,6 +12,7 @@ const cx = classNames.bind(styles);
 function Teacher({ settings }) {
     const navigate = useNavigate();
     const [posts, setPosts] = useState([]);
+    // eslint-disable-next-line no-unused-vars
     const [loadData, setLoadData] = useState(false);
     useEffect(() => {
         const fetchApi = async () => {

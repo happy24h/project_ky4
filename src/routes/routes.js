@@ -15,14 +15,13 @@ import DetailCourse from '~/pages/Home/Detail/Course';
 import DetailTeacher from '~/pages/Home/Detail/Teacher/DetailTeacher';
 
 // System
-import TableUser from '~/layouts/System/Page/Manage/TableUser';
-import ManageRedux from '~/layouts/System/Page/ManageRedux/TableUser';
-import ScheduleTeacher from '~/layouts/System/Page/ScheduleTeacher';
-import Classroom from '~/layouts/System/Page/Classroom';
-import Specialty from '~/layouts/System/Page/Specialty';
-import TeacherInfo from '~/layouts/System/Page/TeacherInfo';
-import UserManage from '~/layouts/System/Page/UserManage';
-
+// import TableUser from '~/layouts/System/Page/Manage/TableUser';
+// import ManageRedux from '~/layouts/System/Page/ManageRedux/TableUser';
+// import ScheduleTeacher from '~/layouts/System/Page/ScheduleTeacher';
+// import Classroom from '~/layouts/System/Page/Classroom';
+// import Specialty from '~/layouts/System/Page/Specialty';
+// import TeacherInfo from '~/layouts/System/Page/TeacherInfo';
+import ManageUser from '~/layouts/System/Page/ManageUser';
 const publicRouters = [
     { path: config.routes.home, component: Home },
     { path: config.routes.food, component: Food },
@@ -36,16 +35,17 @@ const publicRouters = [
     { path: config.routes.detailTeacher, component: DetailTeacher, changeLayout: HeaderOnly },
     { path: config.routes.login, component: Login, changeLayout: null },
     { path: config.routes.register, component: Register, changeLayout: null },
+    // { path: config.routes.scheduleTeacher, component: ScheduleTeacher },
+    // { path: config.routes.classroom, component: Classroom },
+    // { path: config.routes.specialty, component: Specialty },
+    // { path: config.routes.teacherInfo, component: TeacherInfo },
+    // { path: config.routes.userManage, component: UserManage },
+    // { path: config.routes.manageUser, component: ManageUser },
 ];
 
 const privateRoutes = [
-    { path: config.routes.TableUser, component: TableUser },
-    { path: config.routes.manageRedux, component: ManageRedux },
-    { path: config.routes.scheduleTeacher, component: ScheduleTeacher },
-    { path: config.routes.classroom, component: Classroom },
-    { path: config.routes.specialty, component: Specialty },
-    { path: config.routes.teacherInfo, component: TeacherInfo },
-    { path: config.routes.userManage, component: UserManage },
+    // { path: config.routes.manageUser, component: ManageUser },
+    { path: config.routes.manageUser, component: ManageUser },
 ];
 
 export { publicRouters, privateRoutes };

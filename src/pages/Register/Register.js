@@ -1,44 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import validation from './validation';
+import React from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import './Register.scss';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faGoogle, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faKey, faUser } from '@fortawesome/free-solid-svg-icons';
+import { registerUser } from '../../redux/apiRequest';
+import { useDispatch } from 'react-redux';
 
-function Register({ submitForm }) {
-    const [state, setState] = useState({
-        email: '',
-        password: '',
-        confirmPassword: '',
+function Register() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const formik = useFormik({
+        initialValues: {
+            username: '',
+            email: '',
+            password: '',
+        },
+        validationSchema: Yup.object({
+            username: Yup.string().required('Vui lòng nhập tên người dùng').min(4, 'Tên phải lớn hơn 4 ký tự.'),
+            email: Yup.string()
+                .required('Vui lòng nhập email.')
+                .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Vui lòng nhập địa chỉ email hợp lệ.'),
+            password: Yup.string()
+                .required('Vui lòng nhập mật khẩu.')
+                .matches(
+                    /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/,
+                    'Mật khẩu phải là 7-19 ký tự và chứa ít nhất một chữ cái, một số và một ký tự đặc biệt.',
+                ),
+        }),
+        onSubmit: (values) => {
+            window.alert('Form submitted');
+            console.log(values);
+            registerUser(values, dispatch, navigate);
+        },
     });
 
-    const [errors, setErrors] = useState({});
-    const [dataIsCorrect, setDataIsCorrect] = useState(false);
-    const handleChange = (event) => {
-        setState({
-            ...state,
-            [event.target.name]: event.target.value,
-        });
-    };
-
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-        setErrors(validation(state));
-        setDataIsCorrect(true);
-    };
-    useEffect(() => {
-        if (Object.keys(errors).length === 0 && dataIsCorrect) {
-            submitForm(true);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [errors]);
-    const { email, password, confirmPassword } = state;
     return (
         <div className="container-login">
-            <form className="loginForm">
-                <h1 className="heading">Create Account</h1>
+            <form className="loginForm" onSubmit={formik.handleSubmit}>
+                <h1 className="heading">Sign Up</h1>
                 <div className="socialLogins">
                     <button className="socialLogin1">
                         <FontAwesomeIcon icon={faFacebookF} />
@@ -53,6 +55,23 @@ function Register({ submitForm }) {
                 <span className="standardText">Or use your email instead</span>
                 <div className="field">
                     <div className="customInput">
+                        <FontAwesomeIcon className="inputicon" icon={faUser} />
+                        <input
+                            className="inputfield"
+                            type="text"
+                            placeholder="Name"
+                            autoComplete="username"
+                            name="username"
+                            value={formik.values.username}
+                            onChange={formik.handleChange}
+                        />
+                    </div>
+                    <div className="message">
+                        {formik.errors.username && <p className="error">{formik.errors.username}</p>}
+                    </div>
+                </div>
+                <div className="field">
+                    <div className="customInput">
                         <FontAwesomeIcon className="inputicon" icon={faEnvelope} />
                         <input
                             className="inputfield"
@@ -60,11 +79,13 @@ function Register({ submitForm }) {
                             placeholder="Email.."
                             autoComplete="username"
                             name="email"
-                            value={email}
-                            onChange={handleChange}
+                            value={formik.values.email}
+                            onChange={formik.handleChange}
                         />
                     </div>
-                    <div className="message">{errors.email && <p className="error">{errors.email}</p>}</div>
+                    <div className="message">
+                        {formik.errors.email && <p className="error">{formik.errors.email}</p>}
+                    </div>
                 </div>
                 <div className="field">
                     <div className="customInput">
@@ -75,13 +96,15 @@ function Register({ submitForm }) {
                             placeholder="Password.."
                             autoComplete="new-password"
                             name="password"
-                            value={password}
-                            onChange={handleChange}
+                            value={formik.values.password}
+                            onChange={formik.handleChange}
                         />
                     </div>
-                    <div className="message">{errors.password && <p className="error">{errors.password}</p>}</div>
+                    <div className="message">
+                        {formik.errors.password && <p className="error">{formik.errors.password}</p>}
+                    </div>
                 </div>
-                <div className="field">
+                {/* <div className="field">
                     <div className="customInput">
                         <FontAwesomeIcon className="inputicon" icon={faKey} />
                         <input
@@ -97,8 +120,8 @@ function Register({ submitForm }) {
                     <div className="message">
                         {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
                     </div>
-                </div>
-                <div className="field submitfield" onClick={handleFormSubmit}>
+                </div> */}
+                <div className="field submitfield">
                     <input className="submit" type="submit" value="SIGN UP" />
                 </div>
                 <div className="field signupfield">

@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Login from './Login';
 import { Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Form = () => {
-    const [formIsSubmitted, setFormIsSubmitted] = useState(false);
+    const user = useSelector((state) => state.auth.login?.currentUser?.username);
 
-    const submitForm = () => {
-        setFormIsSubmitted(true);
-    };
-
-    return <div>{!formIsSubmitted ? <Login submitForm={submitForm} /> : <Outlet />}</div>;
+    return <div>{!user ? <Login /> : <Outlet />}</div>;
 };
 export default Form;
