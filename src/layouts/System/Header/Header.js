@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import config from '~/config';
@@ -11,6 +11,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEarthAsia, faUser, faCoins, faGear, faSignOut } from '@fortawesome/free-solid-svg-icons';
 import 'tippy.js/dist/tippy.css';
 import Menu from '~/components/Popper/Menu';
+import { useDispatch, useSelector } from 'react-redux';
+import { logOut } from '~/redux/apiRequest';
 const cx = classNames.bind(styles);
 
 const MENU_ITEMS = [
@@ -61,6 +63,14 @@ function Header() {
             separate: true,
         },
     ];
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const user = useSelector((state) => state.auth.login?.currentUser);
+    console.log(user);
+    const handleLogout = () => {
+        logOut(dispatch, navigate);
+    };
     return (
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -84,13 +94,15 @@ function Header() {
                         </>
                     ) : (
                         <>
-                            <Button text>
-                                <FontAwesomeIcon icon={faEarthAsia} />
-                                <span className={cx('action-btn-2')}> English</span>
+                            <Button style={{ color: '#808080', display: 'flex' }}>
+                                <FontAwesomeIcon icon={faUser} />
+                                <span className={cx('action-btn-2')}> {user.username}</span>
                             </Button>
-                            <Link to={config.routes.home}>
-                                <Button primary>Log out</Button>
-                            </Link>
+                            {/* <Link to={config.routes.home}> */}
+                            <Button style={{ marginLeft: '0px' }} primary onClick={handleLogout}>
+                                Log out
+                            </Button>
+                            {/* </Link> */}
                         </>
                     )}
 

@@ -2,7 +2,17 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { loginStart, loginSuccess, loginFailed, registerStart, registerSuccess, registerFailed } from './authSlice';
+import {
+    loginStart,
+    loginSuccess,
+    loginFailed,
+    registerStart,
+    registerSuccess,
+    registerFailed,
+    logOutStart,
+    logOutSuccess,
+    logOutFailed,
+} from './authSlice';
 
 export const loginUser = async (user, dispatch, navigate) => {
     // dispatch login start
@@ -31,5 +41,15 @@ export const registerUser = async (user, dispatch, navigate) => {
     } catch (err) {
         dispatch(registerFailed());
         toast.error('Có thứ gì đó không đúng');
+    }
+};
+
+export const logOut = async (dispatch, navigate) => {
+    dispatch(logOutStart());
+    try {
+        dispatch(logOutSuccess());
+        navigate('/login');
+    } catch (err) {
+        dispatch(logOutFailed());
     }
 };
