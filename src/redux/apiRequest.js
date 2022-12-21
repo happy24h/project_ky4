@@ -30,5 +30,6 @@ export const registerUser = async (user, dispatch, navigate) => {
         toast.success('Đăng ký thành công');
     } catch (err) {
         dispatch(registerFailed());
+        toast.error('Có thứ gì đó không đúng');
     }
 };
