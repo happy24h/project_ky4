@@ -17,7 +17,7 @@
 
     width: 400px;
     background: rgb(232, 234, 236, 0.5);
-    height: 580px;
+    min-height: 580px;
     border-radius: 6px;
     margin: 0 auto;
 }
@@ -46,7 +46,9 @@
     margin: auto;
 }
 .error {
-    font-size: 1.4rem;
+    // font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 1.3rem;
     color: red;
 }
 
@@ -62,6 +64,26 @@
     width: 280px;
     margin: 0 auto;
     border-radius: var(--border-radius);
+}
+.radio-input {
+    padding: 8px 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    strong {
+        color: #808080;
+        font-size: 14px;
+    }
+
+    .radio-input-col {
+        display: flex;
+        cursor: pointer;
+        span {
+            color: #808080;
+            font-weight: bold;
+        }
+    }
 }
 
 .inputicon {
