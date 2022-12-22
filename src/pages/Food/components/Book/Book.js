@@ -26,6 +26,11 @@ let dataBook = [
         name: 'Phúc lột xác mái tóc để suốt bao năm giúp ngoại hình mới cực cuốn hút',
         image: 'https://storage.30shine.com/ResourceWeb/data/images/hanh-trinh-toa-sang/30shine-toc-mullet.jpg',
     },
+    {
+        id: 4,
+        name: 'Phúc lột xác mái tóc để suốt bao năm giúp ngoại hình mới cực cuốn hút',
+        image: 'https://storage.30shine.com/ResourceWeb/data/images/hanh-trinh-toa-sang/30shine-toc-mullet.jpg',
+    },
 ];
 function Book({ settings }) {
     return (
