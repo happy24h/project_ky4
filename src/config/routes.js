@@ -13,13 +13,8 @@ const routes = {
     detailTeacher: '/detail-teacher/:id',
 
     // System
-    // TableUser: '/system/user-manage',
-    // manageRedux: '/system/user-redux',
-    scheduleTeacher: '/schedule-teacher',
-    classroom: '/classroom-manage',
-    specialty: '/specialty-manage',
-    teacherInfo: '/teacher-info-manage',
     manageUser: 'system/manage-user',
+    manageSchedule: 'system/manage-schedule',
 };
 
 export default routes;

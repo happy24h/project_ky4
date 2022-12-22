@@ -10,10 +10,11 @@
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    box-shadow: 1px 1px 2px 1px rgba(21, 20, 20, 0.1);
+    box-shadow: rgb(32 33 36 / 28%) 0px 1px 6px;
     transition: transform linear 0.1s;
     will-change: transform;
     border-radius: 5px;
+    border: 1px solid #ccc;
     cursor: pointer;
     // width: 100%;
 

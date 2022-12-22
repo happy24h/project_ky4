@@ -49,6 +49,7 @@ export const logOut = async (dispatch, navigate) => {
     try {
         dispatch(logOutSuccess());
         navigate('/login');
+        toast.success('Logout success');
     } catch (err) {
         dispatch(logOutFailed());
     }

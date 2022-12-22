@@ -4,9 +4,9 @@ import styles from './Header.module.scss';
 import config from '~/config';
 // import Search from '~/layouts/components/Search';
 import images from '~/assets/images';
-import Button from '~/components/Button';
-import Tippy from '@tippyjs/react';
-import { BellIcon } from '~/components/Icons';
+// import Button from '~/components/Button';
+// import Tippy from '@tippyjs/react';
+// import { BellIcon } from '~/components/Icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEarthAsia, faUser, faCoins, faGear, faSignOut } from '@fortawesome/free-solid-svg-icons';
 import 'tippy.js/dist/tippy.css';
@@ -38,32 +38,6 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-    const currentUser = false;
-    const userMenu = [
-        {
-            icon: <FontAwesomeIcon icon={faUser} />,
-            title: 'View profile',
-            to: '/@hoaa',
-        },
-        {
-            icon: <FontAwesomeIcon icon={faCoins} />,
-            title: 'Get coins',
-            to: '/coin',
-        },
-        {
-            icon: <FontAwesomeIcon icon={faGear} />,
-            title: 'Settings',
-            to: '/settings',
-        },
-        ...MENU_ITEMS,
-        {
-            icon: <FontAwesomeIcon icon={faSignOut} />,
-            title: 'Log out',
-            to: '/logout',
-            separate: true,
-        },
-    ];
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector((state) => state.auth.login?.currentUser);
@@ -71,6 +45,38 @@ function Header() {
     const handleLogout = () => {
         logOut(dispatch, navigate);
     };
+    const handleTest = () => {
+        alert('hello world');
+    };
+    const userMenu = [
+        {
+            icon: <FontAwesomeIcon icon={faUser} />,
+            title: 'View profile',
+            // to: '/system/manage-user',
+            handleOnclick: handleTest,
+        },
+        {
+            icon: <FontAwesomeIcon icon={faCoins} />,
+            title: 'Get coins',
+            // to: '/system/manage-user',
+            handleOnclick: handleTest,
+        },
+        {
+            icon: <FontAwesomeIcon icon={faGear} />,
+            title: 'Settings',
+            // to: '/system/manage-user',
+            handleOnclick: handleTest,
+        },
+        ...MENU_ITEMS,
+        {
+            icon: <FontAwesomeIcon icon={faSignOut} />,
+            title: 'Log out',
+            // to: '/logout',
+            separate: true,
+            handleOnclick: handleLogout,
+        },
+    ];
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -82,39 +88,24 @@ function Header() {
                 </div>
                 {/* <Search /> */}
                 <div className={cx('actions')}>
-                    {currentUser ? (
-                        <>
-                            <div className={cx('my-course')}>Khóa học</div>
-                            <Tippy delay={[0, 50]} content="Thông báo" placement="bottom">
-                                <button className={cx('action-btn')}>
-                                    <BellIcon />
-                                    <span className={cx('badge')}>12</span>
-                                </button>
-                            </Tippy>
-                        </>
-                    ) : (
-                        <>
-                            <Button style={{ color: '#808080', display: 'flex' }}>
-                                <FontAwesomeIcon icon={faUser} />
-                                <span className={cx('action-btn-2')}> {user.username}</span>
-                            </Button>
-                            {/* <Link to={config.routes.home}> */}
-                            <Button style={{ marginLeft: '0px' }} primary onClick={handleLogout}>
-                                Log out
-                            </Button>
-                            {/* </Link> */}
-                        </>
-                    )}
+                    {/* <>
+                        <Button style={{ color: '#808080', display: 'flex' }}>
+                            <FontAwesomeIcon icon={faUser} />
+                            <span className={cx('action-btn-2')}> {user?.username}</span>
+                        </Button>
 
-                    {currentUser && (
-                        <Menu items={userMenu}>
-                            <img
-                                className={cx('user-avatar')}
-                                src="https://files.fullstack.edu.vn/f8-prod/user_avatars/1/623d4b2d95cec.png"
-                                alt="Nguyen Van A"
-                            />
-                        </Menu>
-                    )}
+                        <Button style={{ marginLeft: '0px' }} primary onClick={handleLogout}>
+                            Log out
+                        </Button>
+                    </> */}
+
+                    <Menu items={userMenu}>
+                        <img
+                            className={cx('user-avatar')}
+                            src="https://i.pinimg.com/564x/e2/4e/ff/e24effa123797fd2099fbcf3060585bf.jpg"
+                            alt="Nguyen Van A"
+                        />
+                    </Menu>
                 </div>
             </div>
         </div>

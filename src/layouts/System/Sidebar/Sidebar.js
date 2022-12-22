@@ -27,7 +27,7 @@ function Sidebar() {
             data: [
                 {
                     title: 'Thêm lịch hẹn',
-                    to: '/system/manage-user',
+                    to: '/system/manage-schedule',
                 },
                 {
                     title: 'Thêm thông tin nhân viên',

@@ -22,6 +22,7 @@ import DetailTeacher from '~/pages/Home/Detail/Teacher/DetailTeacher';
 // import Specialty from '~/layouts/System/Page/Specialty';
 // import TeacherInfo from '~/layouts/System/Page/TeacherInfo';
 import ManageUser from '~/layouts/System/Page/ManageUser';
+import ManageSchedule from '~/layouts/System/Page/ManageSchedule';
 const publicRouters = [
     { path: config.routes.home, component: Home },
     { path: config.routes.food, component: Food },
@@ -44,7 +45,7 @@ const publicRouters = [
 ];
 
 const privateRoutes = [
-    // { path: config.routes.manageUser, component: ManageUser },
+    { path: config.routes.manageSchedule, component: ManageSchedule },
     { path: config.routes.manageUser, component: ManageUser },
 ];
 

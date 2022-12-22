@@ -4,11 +4,13 @@ import { privateRoutes, publicRouters } from './routes';
 import DefaultLayout from './layouts/DefaultLayout';
 import SystemLayout from './layouts/System/SystemLayout';
 import { ToastContainer } from 'react-toastify';
-import Login from './pages/Login';
 import 'react-toastify/ReactToastify.min.css';
 import './assets/styles/grid.scss';
+import { useSelector } from 'react-redux';
 
 function App() {
+    const user = useSelector((state) => state.auth.login.currentUser?.username);
+    console.log('user', user);
     return (
         <Router>
             <div className="App">
@@ -34,8 +36,9 @@ function App() {
                             />
                         );
                     })}
-                    <Route element={<Login />}>
-                        {privateRoutes.map((route, index) => {
+
+                    {user &&
+                        privateRoutes.map((route, index) => {
                             const Page = route.component;
                             let Layout = SystemLayout;
                             return (
@@ -50,7 +53,6 @@ function App() {
                                 />
                             );
                         })}
-                    </Route>
                 </Routes>
                 <ToastContainer />
             </div>

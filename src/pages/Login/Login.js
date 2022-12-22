@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import validation from './validation';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -7,12 +7,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faGoogle, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 import '../Register/Register.scss';
 import { loginUser } from '../../redux/apiRequest';
-import { faEnvelope, faKey, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faEye, faKey } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 // import * as axios from '~/services/adminService';
 // import { toast } from 'react-toastify';
 
 const Login = () => {
+    const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const formik = useFormik({
@@ -34,6 +35,10 @@ const Login = () => {
             loginUser(values, dispatch, navigate);
         },
     });
+
+    const handleShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
 
     return (
         <div className="container-login">
@@ -91,13 +96,14 @@ const Login = () => {
                         <FontAwesomeIcon className="inputicon" icon={faKey} />
                         <input
                             className="inputfield"
-                            type="password"
+                            type={showPassword ? 'text' : 'password'}
                             placeholder="Password.."
                             autoComplete="new-password"
                             name="password"
                             value={formik.values.password}
                             onChange={formik.handleChange}
                         />
+                        <FontAwesomeIcon onClick={handleShowPassword} className="inputicon" icon={faEye} />
                     </div>
                     <div className="message">
                         {formik.errors.password && <p className="error">{formik.errors.password}</p>}
