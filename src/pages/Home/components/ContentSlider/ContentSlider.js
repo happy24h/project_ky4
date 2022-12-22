@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import Courses from '../Courses';
 import Websites from '../Websites';
 import Teacher from '../Teacher';
+import classNames from 'classnames/bind';
+import styles from './ContentSlider.module.scss';
 
 // Import css files
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './ContentSlider.scss';
+const cx = classNames.bind(styles);
 
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
@@ -71,7 +74,7 @@ export default function ContentSlider() {
         prevArrow: <SamplePrevArrow />,
     };
     return (
-        <div>
+        <div className={cx('wrapper-slider')}>
             <Courses settings={settings} />
             <Websites settings={settings} />
             <Teacher settings={settings} />

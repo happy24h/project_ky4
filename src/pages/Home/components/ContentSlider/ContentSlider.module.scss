@@ -5,6 +5,15 @@
     // border: 1px solid #ccc;
 }
 
+.wrapper-slider {
+    flex-direction: column;
+    /* margin: 0 auto; */
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
 .wrapper-loading {
     position: relative;
     top: -145px;

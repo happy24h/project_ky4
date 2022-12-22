@@ -3,10 +3,15 @@ import Product from '../Product';
 import Food from '../Food';
 import Book from '../Book';
 
+import classNames from 'classnames/bind';
+import styles from './ContentSlider.module.scss';
+
 // Import css files
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../../../Home/components/ContentSlider/ContentSlider.scss';
+
+const cx = classNames.bind(styles);
 
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
@@ -71,7 +76,7 @@ export default function ContentSlider() {
         prevArrow: <SamplePrevArrow />,
     };
     return (
-        <div className="content-blog">
+        <div className={cx('wrapper-slider')}>
             <Product settings={settings} />
             <Food settings={settings} />
             <Book settings={settings} />
