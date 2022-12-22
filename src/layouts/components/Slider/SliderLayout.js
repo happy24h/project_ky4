@@ -2,6 +2,7 @@ import React from 'react';
 import './SliderLayout.scss';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import config from '~/config';
 import {
     faBriefcase,
     faCircleQuestion,
@@ -34,7 +35,7 @@ function SliderLayout() {
                         </Link>
                     </div>
                     <div className="option-child">
-                        <Link to={'/food'}>
+                        <Link to={config.routes.service}>
                             <div className="icon-child">
                                 <FontAwesomeIcon icon={faHandshake} />
                             </div>
@@ -50,7 +51,7 @@ function SliderLayout() {
                         </Link>
                     </div>
                     <div className="option-child">
-                        <Link to={'/food'}>
+                        <Link to={config.routes.service}>
                             <div className="icon-child">
                                 <FontAwesomeIcon icon={faClock} />
                             </div>

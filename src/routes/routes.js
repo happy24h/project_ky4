@@ -2,7 +2,7 @@ import config from '~/config';
 import HeaderOnly from '~/layouts/HeaderOnly';
 
 import Home from '~/pages/Home';
-import Food from '~/pages/Food';
+import Service from '~/pages/Service';
 import Learn from '~/pages/Learn';
 import Login from '~/pages/Login';
 import Register from '~/pages/Register';
@@ -15,17 +15,12 @@ import DetailCourse from '~/pages/Home/Detail/Course';
 import DetailTeacher from '~/pages/Home/Detail/Teacher/DetailTeacher';
 
 // System
-// import TableUser from '~/layouts/System/Page/Manage/TableUser';
-// import ManageRedux from '~/layouts/System/Page/ManageRedux/TableUser';
-// import ScheduleTeacher from '~/layouts/System/Page/ScheduleTeacher';
-// import Classroom from '~/layouts/System/Page/Classroom';
-// import Specialty from '~/layouts/System/Page/Specialty';
-// import TeacherInfo from '~/layouts/System/Page/TeacherInfo';
 import ManageUser from '~/layouts/System/Page/ManageUser';
 import ManageSchedule from '~/layouts/System/Page/ManageSchedule';
+
 const publicRouters = [
     { path: config.routes.home, component: Home },
-    { path: config.routes.food, component: Food },
+    { path: config.routes.service, component: Service },
     { path: config.routes.library, component: Library },
     { path: config.routes.blog, component: Blog },
     { path: config.routes.contact, component: Contact },
@@ -36,12 +31,6 @@ const publicRouters = [
     { path: config.routes.detailTeacher, component: DetailTeacher, changeLayout: HeaderOnly },
     { path: config.routes.login, component: Login, changeLayout: null },
     { path: config.routes.register, component: Register, changeLayout: null },
-    // { path: config.routes.scheduleTeacher, component: ScheduleTeacher },
-    // { path: config.routes.classroom, component: Classroom },
-    // { path: config.routes.specialty, component: Specialty },
-    // { path: config.routes.teacherInfo, component: TeacherInfo },
-    // { path: config.routes.userManage, component: UserManage },
-    // { path: config.routes.manageUser, component: ManageUser },
 ];
 
 const privateRoutes = [

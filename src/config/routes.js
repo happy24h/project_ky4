@@ -1,6 +1,6 @@
 const routes = {
     home: '/',
-    food: '/food',
+    service: '/service',
     learn: '/learn',
     login: '/login',
     register: '/register',

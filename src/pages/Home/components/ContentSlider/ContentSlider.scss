@@ -297,6 +297,9 @@
     }
 
     .section-share {
+        &.section-specialty {
+            height: 220px;
+        }
         height: 180px;
     }
 
@@ -351,6 +354,7 @@
     }
 
     .section-share.section-specialty {
+        height: 200px;
         overflow-y: hidden;
         background: var(--white);
     }

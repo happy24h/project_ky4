@@ -33,7 +33,7 @@ function HairStyle() {
                     {dataHairStyle &&
                         dataHairStyle.map((item, index) => {
                             return (
-                                <div className="col l-2-4 m-4 c-12" key={index}>
+                                <div className="col l-2-4 m-4 c-6" key={index}>
                                     <div
                                         className="item"
                                         style={{
