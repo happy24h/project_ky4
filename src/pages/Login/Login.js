@@ -18,7 +18,6 @@ const Login = () => {
     const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
-            // username: '',
             email: '',
             password: '',
         },
@@ -27,7 +26,7 @@ const Login = () => {
             email: Yup.string()
                 .required('Vui lòng nhập email.')
                 .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Vui lòng nhập địa chỉ email hợp lệ.'),
-            password: Yup.string().required('Vui lòng nhập mật khẩu.').min(4, 'Mật khẩu phải lớn hơn 4 ký tự.'),
+            password: Yup.string().required('Vui lòng nhập mật khẩu.').min(3, 'Mật khẩu phải lớn hơn 3 ký tự.'),
         }),
         onSubmit: (values) => {
             // window.alert('Form submitted');
