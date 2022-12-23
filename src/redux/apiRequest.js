@@ -65,8 +65,6 @@ export const getAllAccount = async (account, dispatch, token) => {
         });
         console.log('check ', res);
         dispatch(accountSuccess(res.data));
-
-        toast.success('Đăng ký thành công');
     } catch (err) {
         dispatch(accountFailed());
         toast.error('Có thứ gì đó không đúng');
