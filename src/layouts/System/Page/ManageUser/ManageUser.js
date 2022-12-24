@@ -87,8 +87,6 @@ function ManageUser() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // console.log('list account', listAccount);
-
     const handleDeleteUser = (account) => {
         alert('hello world' + account.accounts_id);
     };

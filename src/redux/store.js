@@ -9,6 +9,7 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import authReducer from './authSlice';
 import accountReducer from './accountSlice';
+import feedbackReducer from './feedback/feedbackSlice';
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -17,7 +18,10 @@ const persistConfig = {
     version: 1,
     storage,
 };
-const rootReducer = combineReducers({ auth: authReducer, account: accountReducer });
+const rootReducer = combineReducers({ auth: authReducer,
+    account: accountReducer,
+    feedback: feedbackReducer
+});
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
