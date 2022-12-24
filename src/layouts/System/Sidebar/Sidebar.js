@@ -50,16 +50,12 @@ function Sidebar() {
             ],
         },
         {
-            icon: <FontAwesomeIcon icon={faLightbulb} />,
-            title: 'Học tập',
+            icon: <FontAwesomeIcon icon={faUser} />,
+            title: 'Phản hồi',
             data: [
                 {
-                    title: 'React CRUD',
-                    to: '/system/manage-user',
-                },
-                {
-                    title: 'Redux CRUD',
-                    to: '/system/manage-user',
+                    title: 'Danh sách phản hồi',
+                    to: '/system/manage-feedback',
                 },
             ],
         },

@@ -66,12 +66,18 @@ function ManageUser() {
         },
     ];
     let dataAccount = {
-        page: 1,
-        limit: 4,
-        sort: 'asc',
-        role_id: -1,
-        member_ship_class_id: -1,
-        status: -1,
+        "name": "",
+        "email":"",
+        "phone":"",
+        "gender":"",
+        "start":"",
+        "end":"",
+        "page": 1,
+        "limit":4,
+        "sort":"asc",
+        "role_id":"",
+        "member_ship_class_id":"",
+        "status":""
     };
 
     useEffect(() => {
