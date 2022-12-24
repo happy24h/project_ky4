@@ -90,7 +90,7 @@ function ManageUser() {
     }, [loadApi]);
 
     const handleDeleteUser = (account) => {
-        alert('hello world' + account.accounts_id);
+        // alert('hello world' + account.accounts_id);
         deleteAccount(account.accounts_id, user?.accessToken, dispatch);
         setLoadApi(!loadApi);
     };
