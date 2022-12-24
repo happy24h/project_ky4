@@ -60,7 +60,7 @@ export const logOut = async (dispatch, navigate) => {
 export const getAllAccount = async (account, dispatch, token) => {
     dispatch(accountStart());
     try {
-        const res = await axios.get('http://localhost:8078/api/v1/account/search', account, {
+        const res = await axios.post('http://localhost:8078/api/v1/account/search', account, {
             headers: { Authorization: `Bearer ${token}` },
         });
         console.log('check ', res);
@@ -70,3 +70,4 @@ export const getAllAccount = async (account, dispatch, token) => {
         toast.error('Có thứ gì đó không đúng');
     }
 };
+

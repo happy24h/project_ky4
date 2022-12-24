@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 export const getAllFeedback = async (feedback, dispatch, token) => {
     dispatch(feedbackStart());
     try {
-        const res = await axios.get('http://localhost:8078/api/v1/feedback', feedback, {
+        const res = await axios.post('http://localhost:8078/api/v1/feedback', feedback, {
             headers: { Authorization: `Bearer ${token}` },
         });
         dispatch(feedbackSuccess(res.data));

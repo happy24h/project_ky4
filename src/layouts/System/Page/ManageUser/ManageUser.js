@@ -66,18 +66,18 @@ function ManageUser() {
         },
     ];
     let dataAccount = {
-        "name": "",
-        "email":"",
-        "phone":"",
-        "gender":"",
-        "start":"",
-        "end":"",
-        "page": 1,
-        "limit":4,
-        "sort":"asc",
-        "role_id":"",
-        "member_ship_class_id":"",
-        "status":""
+        name: "",
+        email:"",
+        phone:"",
+        gender:"",
+        start:"",
+        end:"",
+        page: 1,
+        limit:4,
+        sort:"asc",
+        role_id:"",
+        member_ship_class_id:"",
+        status:""
     };
 
     useEffect(() => {
@@ -85,14 +85,12 @@ function ManageUser() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // console.log('list account', listAccount);
-
-    const handleDeleteUser = () => {
-        alert('hello world');
+    const handleDeleteUser = (account) => {
+        alert('hello world ' + account.accounts_id);
     };
 
-    const handleEditUser = () => {
-        alert('hello world');
+    const handleEditUser = (account) => {
+        alert('hello world ' + account.accounts_id);
     };
     return (
         <div style={{ marginTop: '120px' }}>
@@ -120,7 +118,7 @@ function ManageUser() {
                     columns={columns}
                     // { listAccount && listAccount.length > 0 ? dataSource={listAccount} : null}
                     dataSource={listAccount}
-                    rowKey={(users) => users.id}
+                    // rowKey={(listAccount) => listAccount.id}
                     // {...this.state.tableConfiguration}
                 />
             </div>
