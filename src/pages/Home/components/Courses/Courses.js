@@ -38,7 +38,7 @@ function Courses({ settings }) {
         <div className="section-share section-specialty">
             <div className="section-container">
                 <div className="section-header">
-                    <span className="title-section">Dịch vụ chăm sóc khách hàng</span>
+                    <span className="title-section">Trải nghiệm dịch vụ</span>
                     <button className="btn-section">Xem thêm</button>
                 </div>
 
