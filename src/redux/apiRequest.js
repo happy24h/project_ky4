@@ -2,6 +2,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+// auth
 import {
     loginStart,
     loginSuccess,
@@ -14,7 +15,15 @@ import {
     logOutFailed,
 } from './authSlice';
 
-import { accountStart, accountSuccess, accountFailed } from './accountSlice';
+// account
+import {
+    accountStart,
+    accountSuccess,
+    accountFailed,
+    deleteAccountStart,
+    deleteAccountsSuccess,
+    deleteAccountFailed,
+} from './accountSlice';
 
 export const loginUser = async (user, dispatch, navigate) => {
     // dispatch login start
@@ -71,3 +80,14 @@ export const getAllAccount = async (account, dispatch, token) => {
     }
 };
 
+export const deleteAccount = async (id, accessToken, dispatch) => {
+    dispatch(deleteAccountStart());
+    try {
+        const res = await axios.get(`http://localhost:8078/api/v1/account/delete/${id}`, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        dispatch(deleteAccountsSuccess());
+    } catch (err) {
+        dispatch(deleteAccountFailed(err.response.data));
+    }
+};

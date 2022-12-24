@@ -21,9 +21,26 @@ const accountSlice = createSlice({
             state.account.isFetching = false;
             state.account.error = true;
         },
+        deleteAccountStart: (state) => {
+            state.account.isFetching = true;
+        },
+        deleteAccountsSuccess: (state) => {
+            state.account.isFetching = false;
+        },
+        deleteAccountFailed: (state) => {
+            state.account.isFetching = false;
+            state.account.error = true;
+        },
     },
 });
 
-export const { accountStart, accountSuccess, accountFailed } = accountSlice.actions;
+export const {
+    accountStart,
+    accountSuccess,
+    accountFailed,
+    deleteAccountStart,
+    deleteAccountsSuccess,
+    deleteAccountFailed,
+} = accountSlice.actions;
 
 export default accountSlice.reducer;

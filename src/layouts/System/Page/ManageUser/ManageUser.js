@@ -1,15 +1,17 @@
 import './ManageUser.scss';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllAccount } from '~/redux/apiRequest';
+import { deleteAccount, getAllAccount } from '~/redux/apiRequest';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Space, Table, Button, Form, Tag, Card } from 'antd';
 import { Link } from 'react-router-dom';
 import { Pagination } from 'antd';
+
 // import 'antd/dist/antd.min.css';
 
 function ManageUser() {
     const [page, setPage] = useState(1);
+    const [loadApi, setLoadApi] = useState(false);
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.login?.currentUser);
     const listAccount = useSelector((state) => state.account.account?.accountCurrent);
@@ -85,10 +87,12 @@ function ManageUser() {
     useEffect(() => {
         getAllAccount(dataAccount, dispatch, user?.accessToken);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [loadApi]);
 
     const handleDeleteUser = (account) => {
         alert('hello world' + account.accounts_id);
+        deleteAccount(account.accounts_id, user?.accessToken, dispatch);
+        setLoadApi(!loadApi);
     };
 
     const handleEditUser = (account) => {
