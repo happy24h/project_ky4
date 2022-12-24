@@ -6,7 +6,7 @@ export const dataCoursesFake = [
             '## 1. TÓC LAYER\r\n\r\n**Trong khóa này chúng ta sẽ cùng nhau xây dựng giao diện 2 trang web là The Band & Shope.**\r\n\r\n',
         descriptionHTML:
             '<h2>1. TÓC LAYER</h2>\r\n<p>Tóc layer có lẽ đã không còn quá xa lạ với hội chị em hiện nay rồi đúng không? Dành cho chị em nào chưa biết đến kiểu tóc nữ layer đó chính là dáng tóc được cắt tỉa nhiều lớp so le đan xen, vừa mang đến vẻ đẹp uyển chuyển lại vừa tạo được độ phồng tự nhiên cho mái tóc.</p>\r\n',
-        image: 'https://storage.30shine.com/ResourceWeb/data/images/landingpage/8lydo/ld-ttb/trang-thiet-bi-sieu-hien-dai-cho-trai-nghiem-vuot-troi-17.jpg',
+        image: 'https://cdn.tgdd.vn/Files/2020/03/28/1245204/tong-do-cat-toc-la-gi-co-bao-nhieu-loai-va-hoat-d-5.jpg',
         createdAt: '2022-07-28T02:40:27.000Z',
         updatedAt: '2022-07-28T02:40:27.000Z',
     },
@@ -17,7 +17,7 @@ export const dataCoursesFake = [
             '## 3. TÓC MULLET\r\n\r\n**Nối đuôi với sự thành công vang dội của kiểu tóc layer thì tóc mullet là cái tên được xướng lên tiếp theo. Lấy cảm hứng từ form tóc layer với những đường nét so le cắt tỉa có chủ đích để tạo được độ phồng tự nhiên. Nhưng ở mullet lại độc đáo hơn ở chi tiết những đường nét so le được thể hiện rõ nét hơn.**',
         descriptionHTML:
             '<h2>3. TÓC MULLET</h2>\r\n<p>Nối đuôi với sự thành công vang dội của kiểu tóc layer thì tóc mullet là cái tên được xướng lên tiếp theo. Lấy cảm hứng từ form tóc layer với những đường nét so le cắt tỉa có chủ đích để tạo được độ phồng tự nhiên. Nhưng ở mullet lại độc đáo hơn ở chi tiết những đường nét so le được thể hiện rõ nét hơn.</p>\r\n\r\n',
-        image: 'https://storage.30shine.com/ResourceWeb/data/images/Service/tat-ca-dich-vu/30shine-kid-combo-cho-be-2.jpg?v=2',
+        image: 'https://pid.com.vn/wp-content/uploads/cam-bang-nhung-dau-ngon-tay-o-mat-duoi-tong-do.jpg',
         createdAt: '2022-07-28T02:44:14.000Z',
         updatedAt: '2022-07-28T02:44:14.000Z',
     },
@@ -28,7 +28,7 @@ export const dataCoursesFake = [
             '## TÓC MÁY BAY\r\n\r\nĐể xét về kiểu tóc mái bay thì sức ảnh hưởng của em nó đã không cần phải bàn đến quá nhiều. Chúng ta có thể dễ dàng nghe đến cái tên mái bay tại các Salon hiện nay. Đa phần khách hàng khi đến đều yêu cầu được cắt mái bay, vậy kiểu tóc này là gì mà lại có sức hút đến như vậy, bạn hãy cùng Hải Triều tìm hiểu nhé.\r\n\r\n',
         descriptionHTML:
             '<h2>TÓC MÁY BAY</h2>\r\n<p>Để xét về kiểu tóc mái bay thì sức ảnh hưởng của em nó đã không cần phải bàn đến quá nhiều. Chúng ta có thể dễ dàng nghe đến cái tên mái bay tại các Salon hiện nay. Đa phần khách hàng khi đến đều yêu cầu được cắt mái bay, vậy kiểu tóc này là gì mà lại có sức hút đến như vậy, bạn hãy cùng Hải Triều tìm hiểu nhé.</p>\r\n\r\n',
-        image: 'https://myspa.vn/blog/wp-content/uploads/2021/08/Goi-duoi-toc.jpg',
+        image: 'https://hocvientoc.edu.vn/wp-content/uploads/2019/05/lich-cat-toc-nu-thang-5.jpg',
         createdAt: '2022-07-28T02:48:43.000Z',
         updatedAt: '2022-07-28T02:48:43.000Z',
     },
@@ -39,7 +39,7 @@ export const dataCoursesFake = [
             '## TÓC TÉM\r\n\r\nỞ thời tiết nắng nóng thế này thì điều mà các cô gái của chúng ta ở một kiểu tóc đó chính là vừa mát mẻ, vừa đẹp lại phải vừa dễ chăm sóc. Vậy thì còn ứng cử viên sáng giá nào bằng mái tóc tém. Đây cũng là một dáng tóc nữ cá tính được rất nhiều các cô nàng hiện đại lựa chọn.',
         descriptionHTML:
             '<h2>TÓC TÉM</h2>\r\n<p>Ở thời tiết nắng nóng thế này thì điều mà các cô gái của chúng ta ở một kiểu tóc đó chính là vừa mát mẻ, vừa đẹp lại phải vừa dễ chăm sóc. Vậy thì còn ứng cử viên sáng giá nào bằng mái tóc tém. Đây cũng là một dáng tóc nữ cá tính được rất nhiều các cô nàng hiện đại lựa chọn.</p>\r\n\r\n',
-        image: 'https://myspa.vn/blog/wp-content/uploads/2021/08/Goi-cat-toc.jpg',
+        image: 'https://sohanews.sohacdn.com/thumb_w/660/160588918557773824/2022/9/30/photo1664511569314-1664511569386366672821.png',
         createdAt: '2022-07-28T02:54:40.000Z',
         updatedAt: '2022-07-28T02:54:40.000Z',
     },

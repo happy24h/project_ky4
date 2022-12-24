@@ -1,16 +1,18 @@
 import './ManageUser.scss';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllAccount } from '~/redux/apiRequest';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Space, Table, Button, Form, Tag, Card } from 'antd';
 import { Link } from 'react-router-dom';
+import { Pagination } from 'antd';
 // import 'antd/dist/antd.min.css';
 
 function ManageUser() {
+    const [page, setPage] = useState(1);
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.login?.currentUser);
-    const listAccount = useSelector((state) => state.account.account?.accountCurrent?.content);
+    const listAccount = useSelector((state) => state.account.account?.accountCurrent);
 
     const columns = [
         {
@@ -66,18 +68,18 @@ function ManageUser() {
         },
     ];
     let dataAccount = {
-        name: "",
-        email:"",
-        phone:"",
-        gender:"",
-        start:"",
-        end:"",
+        name: '',
+        email: '',
+        phone: '',
+        gender: '',
+        start: '',
+        end: '',
         page: 1,
-        limit:4,
-        sort:"asc",
-        role_id:"",
-        member_ship_class_id:"",
-        status:""
+        limit: 4,
+        sort: 'asc',
+        role_id: '',
+        member_ship_class_id: '',
+        status: '',
     };
 
     useEffect(() => {
@@ -86,12 +88,14 @@ function ManageUser() {
     }, []);
 
     const handleDeleteUser = (account) => {
-        alert('hello world ' + account.accounts_id);
+        alert('hello world' + account.accounts_id);
     };
 
     const handleEditUser = (account) => {
-        alert('hello world ' + account.accounts_id);
+        alert('hello world' + account.accounts_id);
     };
+
+    console.log(5 / 4, 'test');
     return (
         <div style={{ marginTop: '120px' }}>
             <div className="container" style={{ width: '1200px', margin: '0 auto' }}>
@@ -104,12 +108,12 @@ function ManageUser() {
                         height: 140,
                     }}
                 >
-                    <h3 style={{ fontSize: '28px' }}>{listAccount?.length}</h3>
+                    <h3 style={{ fontSize: '28px' }}>{listAccount?.totalItems}</h3>
                     <p>Accounts</p>
                 </Card>
                 <Form.Item label="">
                     <Link to={'/add-user'}>
-                        <Button style={{ display: 'flex', margin: '20px auto 0' }} type="primary" htmlType="submit">
+                        <Button style={{ margin: '20px auto 0' }} type="primary" htmlType="submit">
                             Add User
                         </Button>
                     </Link>
@@ -117,10 +121,18 @@ function ManageUser() {
                 <Table
                     columns={columns}
                     // { listAccount && listAccount.length > 0 ? dataSource={listAccount} : null}
-                    dataSource={listAccount}
+                    dataSource={listAccount?.content}
                     // rowKey={(listAccount) => listAccount.id}
-                    // {...this.state.tableConfiguration}
+                    pagination={false}
                 />
+                {listAccount?.totalItems / 5 > 1 && (
+                    <Pagination
+                        total={listAccount?.totalItems}
+                        pageSize={4}
+                        current={page}
+                        onChange={(page) => setPage(page)}
+                    />
+                )}
             </div>
         </div>
     );
