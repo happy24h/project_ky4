@@ -31,6 +31,19 @@ const accountSlice = createSlice({
             state.account.isFetching = false;
             state.account.error = true;
         },
+        createAccountStart: (state) => {
+            state.account.isFetching = true;
+        },
+        createAccountSuccess: (state) => {
+            state.account.isFetching = false;
+            state.account.error = false;
+            // state.account.success = true;
+        },
+        createAccountFailed: (state) => {
+            state.account.isFetching = false;
+            state.account.error = true;
+            // state.account.success = false;
+        },
     },
 });
 
@@ -41,6 +54,9 @@ export const {
     deleteAccountStart,
     deleteAccountsSuccess,
     deleteAccountFailed,
+    createAccountStart,
+    createAccountSuccess,
+    createAccountFailed,
 } = accountSlice.actions;
 
 export default accountSlice.reducer;

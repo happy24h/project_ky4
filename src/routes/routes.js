@@ -18,6 +18,8 @@ import DetailTeacher from '~/pages/Home/Detail/Teacher/DetailTeacher';
 import ManageUser from '~/layouts/System/Page/ManageUser';
 import ManageSchedule from '~/layouts/System/Page/ManageSchedule';
 import ManageFeedback from '~/layouts/System/Page/Feedback';
+import AddAccount from '~/layouts/System/Page/ManageUser/components/AddAccount';
+import EditAccount from '~/layouts/System/Page/ManageUser/components/EditAccount';
 
 const publicRouters = [
     { path: config.routes.home, component: Home },
@@ -38,6 +40,8 @@ const privateRoutes = [
     { path: config.routes.manageSchedule, component: ManageSchedule },
     { path: config.routes.manageUser, component: ManageUser },
     { path: config.routes.manageFeedback, component: ManageFeedback },
+    { path: config.routes.addAccount, component: AddAccount },
+    { path: config.routes.editAccount, component: EditAccount },
 ];
 
 export { publicRouters, privateRoutes };

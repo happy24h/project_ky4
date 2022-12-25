@@ -6,6 +6,7 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Space, Table, Button, Form, Tag, Card } from 'antd';
 import { Link } from 'react-router-dom';
 import { Pagination } from 'antd';
+import CreateAccount from './components/Modal/CreateAccount';
 
 // import 'antd/dist/antd.min.css';
 
@@ -15,6 +16,8 @@ function ManageUser() {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.login?.currentUser);
     const listAccount = useSelector((state) => state.account.account?.accountCurrent);
+
+    console.log('page', page);
 
     const columns = [
         {
@@ -76,7 +79,7 @@ function ManageUser() {
         gender: '',
         start: '',
         end: '',
-        page: 1,
+        page: page,
         limit: 4,
         sort: 'asc',
         role_id: '',
@@ -87,7 +90,7 @@ function ManageUser() {
     useEffect(() => {
         getAllAccount(dataAccount, dispatch, user?.accessToken);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [loadApi]);
+    }, [loadApi || page]);
 
     const handleDeleteUser = (account) => {
         // alert('hello world' + account.accounts_id);
@@ -116,27 +119,34 @@ function ManageUser() {
                     <p>Accounts</p>
                 </Card>
                 <Form.Item label="">
-                    <Link to={'/add-user'}>
+                    {/* <Link to={'/system/manage-user/add'}>
                         <Button style={{ margin: '20px auto 0' }} type="primary" htmlType="submit">
                             Add User
                         </Button>
-                    </Link>
+                    </Link> */}
+                    <CreateAccount accessToken={user?.accessToken} />
                 </Form.Item>
                 <Table
                     columns={columns}
                     // { listAccount && listAccount.length > 0 ? dataSource={listAccount} : null}
                     dataSource={listAccount?.content}
                     // rowKey={(listAccount) => listAccount.id}
-                    pagination={false}
+                    pagination={{
+                        pageSize: 4,
+                        total: listAccount?.totalItems,
+                        onChange: (page) => {
+                            setPage(page);
+                        },
+                    }}
                 />
-                {listAccount?.totalItems / 5 > 1 && (
+                {/* {listAccount?.totalItems / 5 > 1 && (
                     <Pagination
                         total={listAccount?.totalItems}
                         pageSize={4}
                         current={page}
                         onChange={(page) => setPage(page)}
                     />
-                )}
+                )} */}
             </div>
         </div>
     );

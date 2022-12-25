@@ -16,6 +16,8 @@ const routes = {
     manageUser: 'system/manage-user',
     manageSchedule: 'system/manage-schedule',
     manageFeedback: 'system/manage-feedback',
+    addAccount: 'system/manage-user/add',
+    editAccount: 'system/manage-user/edit',
 };
 
 export default routes;

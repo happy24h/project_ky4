@@ -2,7 +2,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// auth
+// Auth
 import {
     loginStart,
     loginSuccess,
@@ -15,7 +15,7 @@ import {
     logOutFailed,
 } from './authSlice';
 
-// account
+// Account
 import {
     accountStart,
     accountSuccess,
@@ -23,6 +23,9 @@ import {
     deleteAccountStart,
     deleteAccountsSuccess,
     deleteAccountFailed,
+    createAccountStart,
+    createAccountSuccess,
+    createAccountFailed,
 } from './accountSlice';
 
 export const loginUser = async (user, dispatch, navigate) => {
@@ -89,5 +92,20 @@ export const deleteAccount = async (id, accessToken, dispatch) => {
         dispatch(deleteAccountsSuccess());
     } catch (err) {
         dispatch(deleteAccountFailed(err.response.data));
+    }
+};
+
+export const createAccount = async (account, dispatch, accessToken) => {
+    dispatch(createAccountStart());
+    try {
+        await axios.post('http://localhost:8078/api/v1/registerCustomer', account, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        dispatch(createAccountSuccess());
+        // navigate('/login');
+        toast.success('Tạo tài khoản thành công');
+    } catch (err) {
+        dispatch(createAccountFailed());
+        toast.error('Có thứ gì đó không đúng');
     }
 };
