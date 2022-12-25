@@ -57,7 +57,7 @@ function CreateAccount({ accessToken }) {
     });
 
     return (
-        <>
+        <div style={{ marginTop: 23 }}>
             <Button type="primary" onClick={showModal}>
                 Open Modal
             </Button>
@@ -180,7 +180,7 @@ function CreateAccount({ accessToken }) {
                     </div>
                 </form>
             </Modal>
-        </>
+        </div>
     );
 }
 
