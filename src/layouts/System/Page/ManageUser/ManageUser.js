@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteAccount, getAllAccount } from '~/redux/apiRequest';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Space, Table, Button, Form, Tag, Card } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Pagination } from 'antd';
 import CreateAccount from './components/Modal/CreateAccount';
 
@@ -16,6 +16,7 @@ function ManageUser() {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.login?.currentUser);
     const listAccount = useSelector((state) => state.account.account?.accountCurrent);
+    const navigate = useNavigate();
 
     console.log('page', page);
 
@@ -99,7 +100,8 @@ function ManageUser() {
     };
 
     const handleEditUser = (account) => {
-        alert('hello world' + account.accounts_id);
+        // alert('hello world' + account.accounts_id);
+        navigate(`/system/manage-user/edit/${account.accounts_id}`);
     };
 
     console.log(5 / 4, 'test');

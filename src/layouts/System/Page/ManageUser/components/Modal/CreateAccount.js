@@ -26,7 +26,7 @@ function CreateAccount({ accessToken }) {
         setIsModalOpen(false);
     };
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
             name: '',
@@ -54,7 +54,8 @@ function CreateAccount({ accessToken }) {
         onSubmit: (values) => {
             console.log(values);
 
-            createAccount(values, dispatch, accessToken);
+            createAccount(values, dispatch, accessToken, handleCancel);
+            // actions.resetForm();
         },
     });
 
