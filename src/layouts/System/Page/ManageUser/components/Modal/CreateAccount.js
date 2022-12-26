@@ -50,37 +50,33 @@ function CreateAccount({ loadApi, accessToken }) {
             password: '',
             phone: '',
             gender: '',
-            roles:[]
+            roles: [],
         },
         validationSchema: Yup.object({
             name: Yup.string().required('Vui lòng nhập tên người dùng.').min(4, 'Tên phải lớn hơn 4 ký tự.'),
             email: Yup.string()
                 .required('Vui lòng nhập email.')
                 .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Vui lòng nhập địa chỉ email hợp lệ.'),
-            password: Yup.string()
-                .required('Vui lòng nhập mật khẩu.')
-                // .matches(
-                //     /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/,
-                //     'Mật khẩu phải là 7-19 ký tự và chứa ít nhất một chữ cái, một số và một ký tự đặc biệt.',
-                // )
-            ,
+            password: Yup.string().required('Vui lòng nhập mật khẩu.'),
+            // .matches(
+            //     /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/,
+            //     'Mật khẩu phải là 7-19 ký tự và chứa ít nhất một chữ cái, một số và một ký tự đặc biệt.',
+            // )
             phone: Yup.string()
                 .required('Vui lòng nhập số điện thoại.')
-                // .matches(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/, 'Phải là số điện thoại hợp lệ')
-            ,
+                .matches(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/, 'Phải là số điện thoại hợp lệ'),
             gender: Yup.string().required('Vui lòng xác nhận giới tính.').min(3, 'Tên phải lớn hơn 3 ký tự.'),
         }),
         onSubmit: async (values) => {
             const submitValue = {
                 ...values,
                 roles: values.roles.map((e) => ({
-                    name: e
-                }))
+                    name: e,
+                })),
             };
             // createAccountCustomer(values, dispatch, accessToken);
             await createAccount(submitValue, dispatch, accessToken, handleCancel);
             loadApi();
-
         },
     });
 
@@ -198,15 +194,14 @@ function CreateAccount({ loadApi, accessToken }) {
                             {/*    />*/}
                             {/*    <span>Khác</span>*/}
                             {/*</div>*/}
-
                         </div>
                         <div className={cx('message')}>
                             {formik.errors.gender && <p className={cx('error')}>{formik.errors.gender}</p>}
                         </div>
                         <div>
-                            {
-                                listRoles && listRoles.map((item, index) => {
-                                    return(
+                            {listRoles &&
+                                listRoles.map((item, index) => {
+                                    return (
                                         <li key={index}>
                                             <input
                                                 type="checkbox"
@@ -221,9 +216,8 @@ function CreateAccount({ loadApi, accessToken }) {
                                                 {item.name}
                                             </label>
                                         </li>
-                                    )
-                                })
-                            }
+                                    );
+                                })}
                         </div>
                     </div>
 
