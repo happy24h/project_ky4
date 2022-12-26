@@ -92,6 +92,11 @@ function ManageUser() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loadApi || page]);
 
+    const handleLoadAPI = () => {
+        // getAllAccount(dataAccount, dispatch, user?.accessToken);
+        setLoadApi(!loadApi);
+    };
+
     const handleDeleteUser = (account) => {
         // alert('hello world' + account.accounts_id);
         deleteAccount(account.accounts_id, user?.accessToken, dispatch);
@@ -125,7 +130,11 @@ function ManageUser() {
                             Add User
                         </Button>
                     </Link> */}
-                    <CreateAccount setLoadApi={setLoadApi} loadApi={loadApi} accessToken={user?.accessToken} />
+
+                    <CreateAccount loadApi = {handleLoadAPI} accessToken={user?.accessToken} />
+
+                    {/*<CreateAccount setLoadApi={setLoadApi} loadApi={loadApi} accessToken={user?.accessToken} />*/}
+
                 </Form.Item>
                 <Table
                     columns={columns}
