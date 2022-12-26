@@ -1,19 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import './CreateAccount.scss';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faGoogle, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faKey, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
-import { createAccount } from '~/redux/apiRequest';
+import { createAccount, getAllAccount, getAllRoles } from '~/redux/apiRequest';
 import { Button, Modal } from 'antd';
 // import { registerUser } from '../../redux/apiRequest';
 
-function CreateAccount({ accessToken }) {
-    console.log('check access token', accessToken);
+function CreateAccount({ loadApi, accessToken }) {
+    // console.log('check access token', accessToken);
     const [isModalOpen, setIsModalOpen] = useState(false);
+
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -25,6 +26,14 @@ function CreateAccount({ accessToken }) {
     };
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        getAllRoles(dispatch, accessToken);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const listRoles = useSelector((state) => state.role.role?.roleCurrent);
+
     const formik = useFormik({
         initialValues: {
             name: '',
@@ -32,6 +41,7 @@ function CreateAccount({ accessToken }) {
             password: '',
             phone: '',
             gender: '',
+            roles:[]
         },
         validationSchema: Yup.object({
             name: Yup.string().required('Vui lòng nhập tên người dùng.').min(4, 'Tên phải lớn hơn 4 ký tự.'),
@@ -40,19 +50,30 @@ function CreateAccount({ accessToken }) {
                 .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Vui lòng nhập địa chỉ email hợp lệ.'),
             password: Yup.string()
                 .required('Vui lòng nhập mật khẩu.')
-                .matches(
-                    /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/,
-                    'Mật khẩu phải là 7-19 ký tự và chứa ít nhất một chữ cái, một số và một ký tự đặc biệt.',
-                ),
+                // .matches(
+                //     /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/,
+                //     'Mật khẩu phải là 7-19 ký tự và chứa ít nhất một chữ cái, một số và một ký tự đặc biệt.',
+                // )
+            ,
             phone: Yup.string()
                 .required('Vui lòng nhập số điện thoại.')
-                .matches(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/, 'Phải là số điện thoại hợp lệ'),
+                // .matches(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/, 'Phải là số điện thoại hợp lệ')
+            ,
             gender: Yup.string().required('Vui lòng xác nhận giới tính.').min(3, 'Tên phải lớn hơn 3 ký tự.'),
         }),
-        onSubmit: (values) => {
-            console.log(values);
+        onSubmit: async (values) => {
+            const submitValue = {
+                ...values,
+                roles: values.roles.map((e) => ({
+                    name: e
+                }))
+            };
 
-            createAccount(values, dispatch, accessToken);
+            console.log(submitValue);
+
+            // createAccountCustomer(values, dispatch, accessToken);
+            await createAccount(submitValue, dispatch, accessToken);
+            loadApi();
         },
     });
 
@@ -159,19 +180,41 @@ function CreateAccount({ accessToken }) {
                                 />
                                 <span>Nữ</span>
                             </div>
-                            <div className="radio-input-col">
-                                <input
-                                    name="gender"
-                                    type="radio"
-                                    value="OTHER"
-                                    class="form-control"
-                                    onChange={formik.handleChange}
-                                />
-                                <span>Khác</span>
-                            </div>
+                            {/*<div className="radio-input-col">*/}
+                            {/*    <input*/}
+                            {/*        name="gender"*/}
+                            {/*        type="radio"*/}
+                            {/*        value="OTHER"*/}
+                            {/*        class="form-control"*/}
+                            {/*        onChange={formik.handleChange}*/}
+                            {/*    />*/}
+                            {/*    <span>Khác</span>*/}
+                            {/*</div>*/}
                         </div>
                         <div className="message">
                             {formik.errors.gender && <p className="error">{formik.errors.gender}</p>}
+                        </div>
+                        <div>
+                            {
+                                listRoles && listRoles.map((item, index) => {
+                                    return(
+                                        <li key={index}>
+                                            <input
+                                                type="checkbox"
+                                                id={item.name}
+                                                name="roles"
+                                                value={item.name}
+                                                onChange={formik.handleChange}
+                                                // checked={item.name === CheckedValue}
+                                                // onChange={handleCheckboxChange}
+                                            />
+                                            <label htmlFor={item.name} className="text-sm ml-1">
+                                                {item.name}
+                                            </label>
+                                        </li>
+                                    )
+                                })
+                            }
                         </div>
                     </div>
 

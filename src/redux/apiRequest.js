@@ -28,6 +28,8 @@ import {
     createAccountFailed,
 } from './accountSlice';
 
+import { roleFailed, roleStart, roleSuccess } from '~/redux/roleSlice';
+
 export const loginUser = async (user, dispatch, navigate) => {
     // dispatch login start
     dispatch(loginStart());
@@ -83,6 +85,21 @@ export const getAllAccount = async (account, dispatch, token) => {
     }
 };
 
+export const getAllRoles = async (dispatch, accessToken) => {
+    dispatch(roleStart());
+    try {
+        const res = await axios.get('http://localhost:8078/api/v1/account/role', {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        dispatch(roleSuccess(res.data));
+        // navigate('/login');
+        // toast.success('Tạo tài khoản thành công');
+    } catch (err) {
+        dispatch(roleFailed());
+        toast.error('Có thứ gì đó không đúng khi lấy roles');
+    }
+}
+
 export const deleteAccount = async (id, accessToken, dispatch) => {
     dispatch(deleteAccountStart());
     try {
@@ -96,6 +113,22 @@ export const deleteAccount = async (id, accessToken, dispatch) => {
 };
 
 export const createAccount = async (account, dispatch, accessToken) => {
+    dispatch(createAccountStart());
+    try {
+        await axios.post('http://localhost:8078/api/v1/register', account, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        dispatch(createAccountSuccess());
+        // navigate('/login');
+        toast.success('Tạo tài khoản thành công');
+    } catch (err) {
+        dispatch(createAccountFailed(err.response.data.message));
+        toast.error(err.response.data.message);
+    }
+};
+
+
+export const createAccountCustomer = async (account, dispatch, accessToken) => {
     dispatch(createAccountStart());
     try {
         await axios.post('http://localhost:8078/api/v1/registerCustomer', account, {
