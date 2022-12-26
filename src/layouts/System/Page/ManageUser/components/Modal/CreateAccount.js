@@ -5,11 +5,13 @@ import './CreateAccount.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebookF, faGoogle, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faKey, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
 import { createAccount, getAllAccount, getAllRoles } from '~/redux/apiRequest';
 import { Button, Modal } from 'antd';
+import classNames from 'classnames/bind';
+import styles from './CreateAccount.module.scss';
 // import { registerUser } from '../../redux/apiRequest';
+const cx = classNames.bind(styles);
 
 function CreateAccount({ loadApi, accessToken }) {
     // console.log('check access token', accessToken);
@@ -25,6 +27,7 @@ function CreateAccount({ loadApi, accessToken }) {
         setIsModalOpen(false);
     };
     const dispatch = useDispatch();
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -68,30 +71,28 @@ function CreateAccount({ loadApi, accessToken }) {
                     name: e
                 }))
             };
-
-            console.log(submitValue);
-
             // createAccountCustomer(values, dispatch, accessToken);
-            await createAccount(submitValue, dispatch, accessToken);
+            await createAccount(submitValue, dispatch, accessToken, handleCancel);
             loadApi();
+
         },
     });
 
     return (
         <div style={{ marginTop: 23 }}>
             <Button type="primary" onClick={showModal}>
-                Open Modal
+                Create Account
             </Button>
             <Modal title="Modal Account" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000}>
                 {/* <h1 className="heading">Tạo tài khoản</h1>
 
                 <span className="standardText">Nhập thông tin tại đậy</span> */}
-                <form className="loginForm" onSubmit={formik.handleSubmit} style={{ width: '950px' }}>
-                    <div className="field">
-                        <div className="customInput">
-                            <FontAwesomeIcon className="inputicon" icon={faUser} />
+                <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '950px' }}>
+                    <div className={cx('field')}>
+                        <div className={cx('customInput')}>
+                            <FontAwesomeIcon className={cx('inputicon')} icon={faUser} />
                             <input
-                                className="inputfield"
+                                className={cx('inputfield')}
                                 type="text"
                                 placeholder="Name..."
                                 autoComplete="username"
@@ -100,15 +101,15 @@ function CreateAccount({ loadApi, accessToken }) {
                                 onChange={formik.handleChange}
                             />
                         </div>
-                        <div className="message">
+                        <div className={cx('message')}>
                             {formik.errors.name && <p className="error">{formik.errors.name}</p>}
                         </div>
                     </div>
-                    <div className="field">
-                        <div className="customInput">
+                    <div className={cx('field')}>
+                        <div className={cx('customInput')}>
                             <FontAwesomeIcon className="inputicon" icon={faEnvelope} />
                             <input
-                                className="inputfield"
+                                className={cx('inputfield')}
                                 type="email"
                                 placeholder="Email.."
                                 autoComplete="username"
@@ -117,15 +118,15 @@ function CreateAccount({ loadApi, accessToken }) {
                                 onChange={formik.handleChange}
                             />
                         </div>
-                        <div className="message">
-                            {formik.errors.email && <p className="error">{formik.errors.email}</p>}
+                        <div className={cx('message')}>
+                            {formik.errors.email && <p className={cx('error')}>{formik.errors.email}</p>}
                         </div>
                     </div>
-                    <div className="field">
-                        <div className="customInput">
-                            <FontAwesomeIcon className="inputicon" icon={faPhone} />
+                    <div className={cx('field')}>
+                        <div className={cx('customInput')}>
+                            <FontAwesomeIcon className={cx('inputicon')} icon={faPhone} />
                             <input
-                                className="inputfield"
+                                className={cx('inputfield')}
                                 type="text"
                                 placeholder="Phone..."
                                 autoComplete="username"
@@ -134,15 +135,15 @@ function CreateAccount({ loadApi, accessToken }) {
                                 onChange={formik.handleChange}
                             />
                         </div>
-                        <div className="message">
+                        <div className={cx('message')}>
                             {formik.errors.phone && <p className="error">{formik.errors.phone}</p>}
                         </div>
                     </div>
-                    <div className="field">
+                    <div className={cx('field')}>
                         <div className="customInput">
-                            <FontAwesomeIcon className="inputicon" icon={faKey} />
+                            <FontAwesomeIcon className={cx('inputicon')} icon={faKey} />
                             <input
-                                className="inputfield"
+                                className={cx('inputfield')}
                                 type="password"
                                 placeholder="Password.."
                                 autoComplete="new-password"
@@ -151,21 +152,21 @@ function CreateAccount({ loadApi, accessToken }) {
                                 onChange={formik.handleChange}
                             />
                         </div>
-                        <div className="message">
-                            {formik.errors.password && <p className="error">{formik.errors.password}</p>}
+                        <div className={cx('message')}>
+                            {formik.errors.password && <p className={cx('error')}>{formik.errors.password}</p>}
                         </div>
                     </div>
                     <div class="field">
-                        <div className="customInput radio-input">
-                            <label for="password_confirmation" class="form-label">
+                        <div className={cx('customInput radio-input')}>
+                            <label for="password_confirmation" class={cx('form-label')}>
                                 <strong>Giới tính: </strong>
                             </label>
-                            <div className="radio-input-col">
+                            <div className={cx('radio-input-col')}>
                                 <input
                                     name="gender"
                                     type="radio"
                                     value="MALE"
-                                    class="form-control"
+                                    className={cx('form-control')}
                                     onChange={formik.handleChange}
                                 />
                                 <span>Nam</span>
@@ -175,11 +176,12 @@ function CreateAccount({ loadApi, accessToken }) {
                                     name="gender"
                                     type="radio"
                                     value="FEMALE"
-                                    class="form-control"
+                                    className={cx('form-control')}
                                     onChange={formik.handleChange}
                                 />
                                 <span>Nữ</span>
                             </div>
+
                             {/*<div className="radio-input-col">*/}
                             {/*    <input*/}
                             {/*        name="gender"*/}
@@ -190,9 +192,10 @@ function CreateAccount({ loadApi, accessToken }) {
                             {/*    />*/}
                             {/*    <span>Khác</span>*/}
                             {/*</div>*/}
+
                         </div>
-                        <div className="message">
-                            {formik.errors.gender && <p className="error">{formik.errors.gender}</p>}
+                        <div className={cx('message')}>
+                            {formik.errors.gender && <p className={cx('error')}>{formik.errors.gender}</p>}
                         </div>
                         <div>
                             {
@@ -218,8 +221,8 @@ function CreateAccount({ loadApi, accessToken }) {
                         </div>
                     </div>
 
-                    <div className="field submitfield" style={{ width: '700px' }}>
-                        <input className="submit" type="submit" value="ADD USER" />
+                    <div className={cx('field submitfield')} style={{ width: '700px' }}>
+                        <input className={cx('submit')} type="submit" value="ADD USER" />
                     </div>
                 </form>
             </Modal>
