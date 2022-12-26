@@ -18,6 +18,8 @@ const routes = {
     manageFeedback: 'system/manage-feedback',
     addAccount: 'system/manage-user/add',
     editAccount: 'system/manage-user/edit/:id',
+
+    detailAccount: 'system/manage-user/detail/:id',
 };
 
 export default routes;

@@ -6,6 +6,7 @@ const accountSlice = createSlice({
             accountCurrent: null,
             isFetching: false,
             error: false,
+            detailAccount: null,
         },
     },
     reducers: {
@@ -44,6 +45,20 @@ const accountSlice = createSlice({
             state.account.error = true;
             // state.account.success = false;
         },
+        detailAccountStart: (state) => {
+            state.account.isFetching = true;
+        },
+        detailAccountSuccess: (state, action) => {
+            state.account.isFetching = false;
+            state.account.detailAccount = action.payload;
+            state.account.error = false;
+            // state.account.success = true;
+        },
+        detailAccountFailed: (state) => {
+            state.account.isFetching = false;
+            state.account.error = true;
+            // state.account.success = false;
+        },
     },
 });
 
@@ -57,6 +72,9 @@ export const {
     createAccountStart,
     createAccountSuccess,
     createAccountFailed,
+    detailAccountStart,
+    detailAccountSuccess,
+    detailAccountFailed,
 } = accountSlice.actions;
 
 export default accountSlice.reducer;

@@ -26,6 +26,9 @@ import {
     createAccountStart,
     createAccountSuccess,
     createAccountFailed,
+    detailAccountStart,
+    detailAccountSuccess,
+    detailAccountFailed,
 } from './accountSlice';
 
 export const loginUser = async (user, dispatch, navigate) => {
@@ -106,6 +109,20 @@ export const createAccount = async (account, dispatch, accessToken, handleCancel
         handleCancel();
     } catch (err) {
         dispatch(createAccountFailed());
+        toast.error('Có thứ gì đó không đúng');
+    }
+};
+
+export const getDetailAccount = async (id, dispatch, accessToken) => {
+    dispatch(detailAccountStart());
+    try {
+        const res = await axios.get(`http://localhost:8078/api/v1/account/${id}`, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        dispatch(detailAccountSuccess(res.data));
+        toast.success('Detail success');
+    } catch (err) {
+        dispatch(detailAccountFailed());
         toast.error('Có thứ gì đó không đúng');
     }
 };

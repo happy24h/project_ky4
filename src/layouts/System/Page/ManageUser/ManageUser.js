@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteAccount, getAllAccount } from '~/redux/apiRequest';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Space, Table, Button, Form, Tag, Card } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
-import { Pagination } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import CreateAccount from './components/Modal/CreateAccount';
 
 // import 'antd/dist/antd.min.css';
@@ -63,7 +62,7 @@ function ManageUser() {
                 <Space size="middle">
                     <Button type="primary" ghost onClick={() => handleEditUser(record)}>
                         <EditOutlined />
-                        Edit
+                        Detail
                     </Button>
                     <Button type="primary" danger ghost onClick={() => handleDeleteUser(record)}>
                         <DeleteOutlined />
@@ -101,7 +100,7 @@ function ManageUser() {
 
     const handleEditUser = (account) => {
         // alert('hello world' + account.accounts_id);
-        navigate(`/system/manage-user/edit/${account.accounts_id}`);
+        navigate(`/system/manage-user/detail/${account.accounts_id}`);
     };
 
     console.log(5 / 4, 'test');
@@ -126,7 +125,7 @@ function ManageUser() {
                             Add User
                         </Button>
                     </Link> */}
-                    <CreateAccount accessToken={user?.accessToken} />
+                    <CreateAccount setLoadApi={setLoadApi} loadApi={loadApi} accessToken={user?.accessToken} />
                 </Form.Item>
                 <Table
                     columns={columns}
