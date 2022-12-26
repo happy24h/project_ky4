@@ -16,7 +16,7 @@ import {
 } from 'antd';
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
-const AddAccount = () => {
+const AddAccount = ({ setLoadApi, loadApi }) => {
     const [componentDisabled, setComponentDisabled] = useState(true);
     // const onFormLayoutChange = ({ disabled }) => {
     //     setComponentDisabled(disabled);

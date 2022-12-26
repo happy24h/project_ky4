@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+
 import './CreateAccount.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+
+// // import './CreateAccount.scss';
+// import { useDispatch } from 'react-redux';
+// // import { Link, useNavigate } from 'react-router-dom';
+// >>>>>>> 481919855f2f9c4aa1187dcda85541d7a767cf62
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faKey, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
 import { createAccount, getAllAccount, getAllRoles } from '~/redux/apiRequest';

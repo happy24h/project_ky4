@@ -3,10 +3,10 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 // import './CreateAccount.scss';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faKey, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
 import { createAccount } from '~/redux/apiRequest';
+
 import { Button, Modal } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './EditAccount.module.scss';
@@ -65,9 +65,6 @@ function EditAccount({ accessToken }) {
                 Create Account
             </Button>
             <Modal title="Modal Account" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000}>
-                {/* <h1 className="heading">Tạo tài khoản</h1>
-
-                <span className="standardText">Nhập thông tin tại đậy</span> */}
                 <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '950px' }}>
                     <div className={cx('field')}>
                         <div className={cx('customInput')}>

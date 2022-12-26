@@ -26,6 +26,9 @@ import {
     createAccountStart,
     createAccountSuccess,
     createAccountFailed,
+    detailAccountStart,
+    detailAccountSuccess,
+    detailAccountFailed,
 } from './accountSlice';
 
 import { roleFailed, roleStart, roleSuccess } from '~/redux/roleSlice';
@@ -140,6 +143,20 @@ export const createAccountCustomer = async (account, dispatch, accessToken) => {
         // handleCancel();
     } catch (err) {
         dispatch(createAccountFailed());
+        toast.error('Có thứ gì đó không đúng');
+    }
+};
+
+export const getDetailAccount = async (id, dispatch, accessToken) => {
+    dispatch(detailAccountStart());
+    try {
+        const res = await axios.get(`http://localhost:8078/api/v1/account/${id}`, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        dispatch(detailAccountSuccess(res.data));
+        toast.success('Detail success');
+    } catch (err) {
+        dispatch(detailAccountFailed());
         toast.error('Có thứ gì đó không đúng');
     }
 };
