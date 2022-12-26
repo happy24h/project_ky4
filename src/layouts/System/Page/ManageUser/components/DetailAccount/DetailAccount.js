@@ -22,7 +22,7 @@ function DetailAccount() {
         getDetailAccount(id, dispatch, user?.accessToken);
     }, []);
 
-    let { name, email, address, phone, gender } = detailAccount;
+    // let { name, email, address, phone, gender } = detailAccount;
 
     return (
         <div className={cx('wrapper')}>
@@ -39,19 +39,19 @@ function DetailAccount() {
             <Card title="Profile" size="default" style={{ width: 800 }}>
                 {/* <Divider orientation="left">Default Size</Divider> */}
                 <List className={cx('list-detail')}>
-                    <strong>Full name:</strong> <span className={cx('text-detail')}>{name}</span>
+                    <strong>Full name:</strong> <span className={cx('text-detail')}>{detailAccount?.name}</span>
                 </List>
                 <List className={cx('list-detail')}>
-                    <strong>Email:</strong> <span className={cx('text-detail')}>{email}</span>
+                    <strong>Email:</strong> <span className={cx('text-detail')}>{detailAccount?.email}</span>
                 </List>
                 <List className={cx('list-detail')}>
-                    <strong>Phone:</strong> <span className={cx('text-detail')}>{phone}</span>
+                    <strong>Phone:</strong> <span className={cx('text-detail')}>{detailAccount?.phone}</span>
                 </List>
                 <List className={cx('list-detail')}>
-                    <strong>Gender:</strong> <span className={cx('text-detail')}>{gender}</span>
+                    <strong>Gender:</strong> <span className={cx('text-detail')}>{detailAccount?.gender}</span>
                 </List>
                 <List className={cx('list-detail')}>
-                    <strong>Address:</strong> <span className={cx('text-detail')}>{address}</span>
+                    <strong>Address:</strong> <span className={cx('text-detail')}>{detailAccount?.address}</span>
                 </List>
             </Card>
         </div>
