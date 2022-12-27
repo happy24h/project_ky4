@@ -62,7 +62,7 @@ function ModalEdit() {
                 .required('Vui lòng nhập số điện thoại.')
                 .matches(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/, 'Phải là số điện thoại hợp lệ'),
             gender: Yup.string().required('Vui lòng xác nhận giới tính.').min(3, 'Tên phải lớn hơn 3 ký tự.'),
-            password: Yup.string().required('Vui lòng nhập mật khẩu.'),
+            password: Yup.string().required('Vui lòng nhập mật khẩu.').min(4, 'Mật khẩu phải lớn hơn 4 ký tự.'),
             // .matches(
             //     /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/,
             //     'Mật khẩu phải là 7-19 ký tự và chứa ít nhất một chữ cái, một số và một ký tự đặc biệt.',
