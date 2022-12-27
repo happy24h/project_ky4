@@ -4,9 +4,9 @@ import * as Yup from 'yup';
 // import './CreateAccount.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAddressBook, faEnvelope, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faAddressBook, faEnvelope, faPhone, faUser, faKey } from '@fortawesome/free-solid-svg-icons';
 import { editDetailAccount, getDetailAccount } from '~/redux/apiRequest';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+// import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 import { Button, Card, Modal } from 'antd';
 import classNames from 'classnames/bind';
@@ -62,6 +62,11 @@ function ModalEdit() {
                 .required('Vui lòng nhập số điện thoại.')
                 .matches(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/, 'Phải là số điện thoại hợp lệ'),
             gender: Yup.string().required('Vui lòng xác nhận giới tính.').min(3, 'Tên phải lớn hơn 3 ký tự.'),
+            password: Yup.string().required('Vui lòng nhập mật khẩu.'),
+            // .matches(
+            //     /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/,
+            //     'Mật khẩu phải là 7-19 ký tự và chứa ít nhất một chữ cái, một số và một ký tự đặc biệt.',
+            // ),
         }),
         onSubmit: (values) => {
             console.log(values);
@@ -129,6 +134,23 @@ function ModalEdit() {
                         </div>
                         <div className={cx('message')}>
                             {formik.errors.phone && <p className="error">{formik.errors.phone}</p>}
+                        </div>
+                    </div>
+                    <div className={cx('field')}>
+                        <div className="customInput">
+                            <FontAwesomeIcon className={cx('inputicon')} icon={faKey} />
+                            <input
+                                className={cx('inputfield')}
+                                type="password"
+                                placeholder="Password.."
+                                autoComplete="new-password"
+                                name="password"
+                                value={formik.values.password}
+                                onChange={formik.handleChange}
+                            />
+                        </div>
+                        <div className={cx('message')}>
+                            {formik.errors.password && <p className={cx('error')}>{formik.errors.password}</p>}
                         </div>
                     </div>
                     <div className={cx('field')}>
