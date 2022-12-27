@@ -142,8 +142,8 @@ export const createAccountCustomer = async (account, dispatch, accessToken) => {
         toast.success('Tạo tài khoản thành công');
         // handleCancel();
     } catch (err) {
-        dispatch(createAccountFailed());
-        toast.error('Có thứ gì đó không đúng');
+        dispatch(createAccountFailed(err.response.data.message));
+        toast.error(err.response.data.message);
     }
 };
 
@@ -154,9 +154,9 @@ export const getDetailAccount = async (id, dispatch, accessToken) => {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         dispatch(detailAccountSuccess(res.data));
-        toast.success('Detail success');
+        // toast.success('Detail success');
     } catch (err) {
-        dispatch(detailAccountFailed());
-        toast.error('Có thứ gì đó không đúng');
+        dispatch(detailAccountFailed(err.response.data.message));
+        toast.error(err.response.data.message);
     }
 };

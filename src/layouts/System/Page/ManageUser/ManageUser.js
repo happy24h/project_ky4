@@ -91,6 +91,7 @@ function ManageUser() {
         getAllAccount(dataAccount, dispatch, user?.accessToken);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loadApi || page]);
+    // check biến nào thay đổi thì sẽ load lại hàm bên trong
 
     const handleLoadAPI = () => {
         // getAllAccount(dataAccount, dispatch, user?.accessToken);

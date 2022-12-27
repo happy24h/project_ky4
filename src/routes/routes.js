@@ -21,6 +21,7 @@ import ManageFeedback from '~/layouts/System/Page/Feedback';
 import AddAccount from '~/layouts/System/Page/ManageUser/components/AddAccount';
 import EditAccount from '~/layouts/System/Page/ManageUser/components/EditAccount';
 import DetailAccount from '~/layouts/System/Page/ManageUser/components/DetailAccount/DetailAccount';
+import DetailFeedback from '~/layouts/System/Page/Feedback/DetailFeedBack';
 
 const publicRouters = [
     { path: config.routes.home, component: Home },
@@ -39,11 +40,14 @@ const publicRouters = [
 
 const privateRoutes = [
     { path: config.routes.manageSchedule, component: ManageSchedule },
+    //Account
     { path: config.routes.manageUser, component: ManageUser },
-    { path: config.routes.manageFeedback, component: ManageFeedback },
     { path: config.routes.addAccount, component: AddAccount },
     { path: config.routes.editAccount, component: EditAccount },
     { path: config.routes.detailAccount, component: DetailAccount },
+    //FeedBack
+    { path: config.routes.manageFeedback, component: ManageFeedback },
+    { path: config.routes.detailFeedback, component: DetailFeedback },
 ];
 
 export { publicRouters, privateRoutes };
