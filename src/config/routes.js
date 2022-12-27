@@ -13,14 +13,19 @@ const routes = {
     detailTeacher: '/detail-teacher/:id',
 
     // System
-    manageUser: 'system/manage-user',
     manageSchedule: 'system/manage-schedule',
-    manageFeedback: 'system/manage-feedback',
+    //Account
+    manageUser: 'system/manage-user',
     addAccount: 'system/manage-user/add',
     editAccount: 'system/manage-user/edit/:id',
+
     modalEdit: 'system/manage-user/modal-edit/:id',
 
     detailAccount: 'system/manage-user/detail/:id',
+
+    //FeedBack
+    manageFeedback: 'system/manage-feedback',
+    detailFeedback: 'system/manage-feedback/detail/:id',
 };
 
 export default routes;
