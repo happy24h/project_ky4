@@ -20,6 +20,7 @@ import ManageSchedule from '~/layouts/System/Page/ManageSchedule';
 import ManageFeedback from '~/layouts/System/Page/Feedback';
 import AddAccount from '~/layouts/System/Page/ManageUser/components/AddAccount';
 import EditAccount from '~/layouts/System/Page/ManageUser/components/EditAccount';
+import ModalEdit from '~/layouts/System/Page/ManageUser/components/EditAccount/ModalEdit';
 import DetailAccount from '~/layouts/System/Page/ManageUser/components/DetailAccount/DetailAccount';
 
 const publicRouters = [
@@ -43,6 +44,7 @@ const privateRoutes = [
     { path: config.routes.manageFeedback, component: ManageFeedback },
     { path: config.routes.addAccount, component: AddAccount },
     { path: config.routes.editAccount, component: EditAccount },
+    { path: config.routes.modalEdit, component: ModalEdit },
     { path: config.routes.detailAccount, component: DetailAccount },
 ];
 
