@@ -2,7 +2,7 @@ import './ManageUser.scss';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteAccount, getAllAccount } from '~/redux/apiRequest';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Space, Table, Button, Form, Tag, Card } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import CreateAccount from './components/Modal/CreateAccount';
@@ -61,7 +61,7 @@ function ManageUser() {
             render: (_, record) => (
                 <Space size="middle">
                     <Button type="primary" ghost onClick={() => handleEditUser(record)}>
-                        <EditOutlined />
+                        <EyeTwoTone />
                         Detail
                     </Button>
                     <Button type="primary" danger ghost onClick={() => handleDeleteUser(record)}>
@@ -131,10 +131,9 @@ function ManageUser() {
                         </Button>
                     </Link> */}
 
-                    <CreateAccount loadApi = {handleLoadAPI} accessToken={user?.accessToken} />
+                    <CreateAccount loadApi={handleLoadAPI} accessToken={user?.accessToken} />
 
                     {/*<CreateAccount setLoadApi={setLoadApi} loadApi={loadApi} accessToken={user?.accessToken} />*/}
-
                 </Form.Item>
                 <Table
                     columns={columns}

@@ -18,6 +18,7 @@ const routes = {
     manageFeedback: 'system/manage-feedback',
     addAccount: 'system/manage-user/add',
     editAccount: 'system/manage-user/edit/:id',
+    modalEdit: 'system/manage-user/modal-edit/:id',
 
     detailAccount: 'system/manage-user/detail/:id',
 };

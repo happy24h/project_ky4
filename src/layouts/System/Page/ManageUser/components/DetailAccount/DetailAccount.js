@@ -1,11 +1,13 @@
-import { Card, List } from 'antd';
+import { Card, List, Button } from 'antd';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getDetailAccount } from '~/redux/apiRequest';
-import EditAccount from '../EditAccount';
+import { EditOutlined } from '@ant-design/icons';
+
+// import EditAccount from '../EditAccount';
 import styles from './DetailAccount.module.scss';
 const cx = classNames.bind(styles);
 const { Meta } = Card;
@@ -28,12 +30,18 @@ function DetailAccount() {
 
     return (
         <>
-            <EditAccount
+            <Link to={'/system/manage-user'}>
+                <Button type="primary" ghost>
+                    {/* <EditOutlined /> */}
+                    Back
+                </Button>
+            </Link>
+            {/* <EditAccount
                 accountId={id}
                 accessToken={user?.accessToken}
                 detailAccount={detailAccount}
                 handleUpdateApi={handleUpdateApi}
-            />
+            /> */}
             <div className={cx('wrapper')}>
                 {' '}
                 <Card
@@ -45,7 +53,20 @@ function DetailAccount() {
                 >
                     <Meta title="Sắp đến tết" description="www.instagram.com" />
                 </Card>
-                <Card title="Profile" size="default" style={{ width: 800 }}>
+                <Card
+                    title="Profile"
+                    size="default"
+                    extra={
+                        <Link to={`/system/manage-user/modal-edit/${id}`}>
+                            <Button type="primary" style={{ background: '#fcaf17' }}>
+                                {' '}
+                                <EditOutlined />
+                                Edit User
+                            </Button>
+                        </Link>
+                    }
+                    style={{ width: 800 }}
+                >
                     {/* <Divider orientation="left">Default Size</Divider> */}
                     <List className={cx('list-detail')}>
                         <strong>Full name:</strong> <span className={cx('text-detail')}>{detailAccount?.name}</span>
