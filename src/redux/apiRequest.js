@@ -29,6 +29,9 @@ import {
     detailAccountStart,
     detailAccountSuccess,
     detailAccountFailed,
+    editAccountSuccess,
+    editAccountFailed,
+    editAccountStart,
 } from './accountSlice';
 
 import { roleFailed, roleStart, roleSuccess } from '~/redux/roleSlice';
@@ -101,7 +104,7 @@ export const getAllRoles = async (dispatch, accessToken) => {
         dispatch(roleFailed());
         toast.error('Có thứ gì đó không đúng khi lấy roles');
     }
-}
+};
 
 export const deleteAccount = async (id, accessToken, dispatch) => {
     dispatch(deleteAccountStart());
@@ -131,7 +134,6 @@ export const createAccount = async (account, dispatch, accessToken, handleCancel
     }
 };
 
-
 export const createAccountCustomer = async (account, dispatch, accessToken) => {
     dispatch(createAccountStart());
     try {
@@ -158,5 +160,20 @@ export const getDetailAccount = async (id, dispatch, accessToken) => {
     } catch (err) {
         dispatch(detailAccountFailed(err.response.data.message));
         toast.error(err.response.data.message);
+    }
+};
+
+export const editDetailAccount = async (id, account, dispatch, accessToken, handleUpdateApi) => {
+    dispatch(editAccountStart());
+    try {
+        const res = await axios.post(`http://localhost:8078/api/v1/account/update/${id}`, account, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        dispatch(editAccountSuccess());
+        toast.success('Edit success');
+        handleUpdateApi();
+    } catch (err) {
+        dispatch(editAccountFailed());
+        toast.error('Có thứ gì đó không đúng');
     }
 };
