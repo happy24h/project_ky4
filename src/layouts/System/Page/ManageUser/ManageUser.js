@@ -17,7 +17,7 @@ function ManageUser() {
     const listAccount = useSelector((state) => state.account.account?.accountCurrent);
     const navigate = useNavigate();
 
-    console.log('page', page);
+    // console.log('page', page);
 
     const columns = [
         {
@@ -89,8 +89,10 @@ function ManageUser() {
 
     useEffect(() => {
         getAllAccount(dataAccount, dispatch, user?.accessToken);
+        console.log("loadApi useEffect ", loadApi);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loadApi || page]);
+    // check biến nào thay đổi thì sẽ load lại hàm bên trong
 
     const handleLoadAPI = () => {
         // getAllAccount(dataAccount, dispatch, user?.accessToken);
@@ -98,6 +100,7 @@ function ManageUser() {
     };
 
     const handleDeleteUser = (account) => {
+        console.log("loadApi before ", loadApi);
         // alert('hello world' + account.accounts_id);
         deleteAccount(account.accounts_id, user?.accessToken, dispatch);
         setLoadApi(!loadApi);
@@ -108,7 +111,7 @@ function ManageUser() {
         navigate(`/system/manage-user/detail/${account.accounts_id}`);
     };
 
-    console.log(5 / 4, 'test');
+    // console.log(5 / 4, 'test');
     return (
         <div style={{ marginTop: '120px' }}>
             <div className="container" style={{ width: '1200px', margin: '0 auto' }}>
