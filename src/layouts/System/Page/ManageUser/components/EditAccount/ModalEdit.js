@@ -93,7 +93,7 @@ function ModalEdit() {
                             className={cx('inputfield')}
                             type="text"
                             placeholder="Name..."
-                            autoComplete="username"
+                            autoComplete="name"
                             name="name"
                             value={formik.values.name}
                             onChange={formik.handleChange}
@@ -110,7 +110,7 @@ function ModalEdit() {
                             className={cx('inputfield')}
                             type="email"
                             placeholder="Email.."
-                            autoComplete="username"
+                            autoComplete="email"
                             name="email"
                             value={formik.values.email}
                             onChange={formik.handleChange}
@@ -127,7 +127,7 @@ function ModalEdit() {
                             className={cx('inputfield')}
                             type="text"
                             placeholder="Phone..."
-                            autoComplete="username"
+                            autoComplete="phone"
                             name="phone"
                             value={formik.values.phone}
                             onChange={formik.handleChange}

@@ -96,7 +96,7 @@ function AddAccount() {
                             className={cx('inputfield')}
                             type="text"
                             placeholder="Name..."
-                            autoComplete="username"
+                            autoComplete="name"
                             name="name"
                             value={formik.values.name}
                             onChange={formik.handleChange}
@@ -113,7 +113,7 @@ function AddAccount() {
                             className={cx('inputfield')}
                             type="email"
                             placeholder="Email.."
-                            autoComplete="username"
+                            autoComplete="email"
                             name="email"
                             value={formik.values.email}
                             onChange={formik.handleChange}
@@ -130,7 +130,7 @@ function AddAccount() {
                             className={cx('inputfield')}
                             type="text"
                             placeholder="Phone..."
-                            autoComplete="username"
+                            autoComplete="phone"
                             name="phone"
                             value={formik.values.phone}
                             onChange={formik.handleChange}
@@ -214,6 +214,9 @@ function AddAccount() {
                                 })}
                         </select>
                     </div>
+                    {/* <div className={cx('message')}>
+                        {!state && <p className={cx('error')}>Vui lòng nhập thông tin</p>}
+                    </div> */}
                 </div>
 
                 <div className={cx('field submitfield')} style={{ width: '700px' }}>

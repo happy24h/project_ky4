@@ -31,7 +31,7 @@ function DetailAccount() {
     return (
         <>
             <Link to={'/system/manage-user'}>
-                <Button type="primary" ghost>
+                <Button type="primary" ghost style={{ backgroundColor: '#fff' }}>
                     {/* <EditOutlined /> */}
                     Back
                 </Button>

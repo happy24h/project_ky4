@@ -74,7 +74,7 @@ function Register() {
                             className="inputfield"
                             type="text"
                             placeholder="Name..."
-                            autoComplete="username"
+                            autoComplete="name"
                             name="name"
                             value={formik.values.name}
                             onChange={formik.handleChange}
@@ -89,7 +89,7 @@ function Register() {
                             className="inputfield"
                             type="email"
                             placeholder="Email.."
-                            autoComplete="username"
+                            autoComplete="email"
                             name="email"
                             value={formik.values.email}
                             onChange={formik.handleChange}
@@ -106,7 +106,7 @@ function Register() {
                             className="inputfield"
                             type="text"
                             placeholder="Phone..."
-                            autoComplete="username"
+                            autoComplete="phone"
                             name="phone"
                             value={formik.values.phone}
                             onChange={formik.handleChange}
@@ -158,7 +158,7 @@ function Register() {
                             />
                             <span>Nữ</span>
                         </div>
-                        <div className="radio-input-col">
+                        {/* <div className="radio-input-col">
                             <input
                                 name="gender"
                                 type="radio"
@@ -167,7 +167,7 @@ function Register() {
                                 onChange={formik.handleChange}
                             />
                             <span>Khác</span>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="message">
                         {formik.errors.gender && <p className="error">{formik.errors.gender}</p>}
