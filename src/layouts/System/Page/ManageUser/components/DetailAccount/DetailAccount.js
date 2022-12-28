@@ -53,7 +53,7 @@ function DetailAccount() {
                 >
                     <div
                         className={cx('detail-image')}
-                        style={{ width: '100%', height: '200px', backgroundImage: `url(${detailAccount.thumbnail})` }}
+                        style={{ backgroundImage: `url(${detailAccount.thumbnail})` }}
                     ></div>
                     <Meta title="Sắp đến tết" description="www.instagram.com" />
                 </Card>
