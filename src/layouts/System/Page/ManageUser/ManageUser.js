@@ -17,8 +17,6 @@ function ManageUser() {
     const listAccount = useSelector((state) => state.account.account?.accountCurrent);
     const navigate = useNavigate();
 
-    // console.log('page', page);
-
     const columns = [
         {
             title: 'ID',
