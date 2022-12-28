@@ -85,7 +85,7 @@ function ModalEdit() {
                 </Button>
             </Link>
 
-            <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '950px' }}>
+            <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '1000px' }}>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
                         <FontAwesomeIcon className={cx('inputicon')} icon={faUser} />
