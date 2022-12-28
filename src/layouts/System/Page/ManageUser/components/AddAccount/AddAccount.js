@@ -84,7 +84,9 @@ function AddAccount() {
     return (
         <div style={{ marginTop: 23 }}>
             <Link to={'/system/manage-user'}>
-                <Button>Back</Button>
+                <Button type="primary" ghost style={{ backgroundColor: '#fff' }}>
+                    Back
+                </Button>
             </Link>
             <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '950px' }}>
                 <div className={cx('field')}>

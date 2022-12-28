@@ -80,10 +80,11 @@ function ModalEdit() {
         <div style={{ marginTop: 23 }}>
             <Link to={`/system/manage-user/detail/${id}`}>
                 {/* <EditOutlined /> */}
-                <Button type="primary">Back</Button>
+                <Button type="primary" ghost style={{ backgroundColor: '#fff' }}>
+                    Back
+                </Button>
             </Link>
-            {/* <Modal title="Modal Account" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000}> */}
-            {/* <Card style={{ width: 1080, margin: '0 auto' }}> */}
+
             <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '950px' }}>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>

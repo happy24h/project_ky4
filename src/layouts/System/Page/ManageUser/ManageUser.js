@@ -130,7 +130,9 @@ function ManageUser() {
                 <Form.Item label="">
                     {/* <CreateAccount loadApi={handleLoadAPI} accessToken={user?.accessToken} /> */}
                     <Link to={'/system/manage-user/add'}>
-                        <Button>ADD USER</Button>
+                        <Button type="primary" style={{ marginTop: '23px' }}>
+                            ADD USER
+                        </Button>
                     </Link>
 
                     {/*<CreateAccount setLoadApi={setLoadApi} loadApi={loadApi} accessToken={user?.accessToken} />*/}
