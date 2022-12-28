@@ -89,7 +89,7 @@ function ManageUser() {
 
     useEffect(() => {
         getAllAccount(dataAccount, dispatch, user?.accessToken);
-        console.log("loadApi useEffect ", loadApi);
+        console.log('loadApi useEffect ', loadApi);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loadApi || page]);
     // check biến nào thay đổi thì sẽ load lại hàm bên trong
@@ -100,7 +100,7 @@ function ManageUser() {
     };
 
     const handleDeleteUser = (account) => {
-        console.log("loadApi before ", loadApi);
+        console.log('loadApi before ', loadApi);
         // alert('hello world' + account.accounts_id);
         deleteAccount(account.accounts_id, user?.accessToken, dispatch);
         setLoadApi(!loadApi);
@@ -128,12 +128,6 @@ function ManageUser() {
                     <p>Accounts</p>
                 </Card>
                 <Form.Item label="">
-                    {/* <Link to={'/system/manage-user/add'}>
-                        <Button style={{ margin: '20px auto 0' }} type="primary" htmlType="submit">
-                            Add User
-                        </Button>
-                    </Link> */}
-
                     <CreateAccount loadApi={handleLoadAPI} accessToken={user?.accessToken} />
 
                     {/*<CreateAccount setLoadApi={setLoadApi} loadApi={loadApi} accessToken={user?.accessToken} />*/}

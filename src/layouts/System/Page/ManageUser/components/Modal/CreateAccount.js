@@ -4,15 +4,10 @@ import * as Yup from 'yup';
 
 import './CreateAccount.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
 
-// // import './CreateAccount.scss';
-// import { useDispatch } from 'react-redux';
-// // import { Link, useNavigate } from 'react-router-dom';
-// >>>>>>> 481919855f2f9c4aa1187dcda85541d7a767cf62
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faKey, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
-import { createAccount, getAllAccount, getAllRoles } from '~/redux/apiRequest';
+import { faEnvelope, faKey, faPhone, faUser, faShieldCat } from '@fortawesome/free-solid-svg-icons';
+import { createAccount, getAllRoles } from '~/redux/apiRequest';
 import { Button, Modal } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './CreateAccount.module.scss';
@@ -22,6 +17,9 @@ const cx = classNames.bind(styles);
 function CreateAccount({ loadApi, accessToken }) {
     // console.log('check access token', accessToken);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [state, setState] = useState();
+
+    console.log('check state', state);
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -34,7 +32,7 @@ function CreateAccount({ loadApi, accessToken }) {
     };
     const dispatch = useDispatch();
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     useEffect(() => {
         getAllRoles(dispatch, accessToken);
@@ -50,7 +48,6 @@ function CreateAccount({ loadApi, accessToken }) {
             password: '',
             phone: '',
             gender: '',
-            roles: [],
         },
         validationSchema: Yup.object({
             name: Yup.string().required('Vui lòng nhập tên người dùng.').min(4, 'Tên phải lớn hơn 4 ký tự.'),
@@ -68,16 +65,21 @@ function CreateAccount({ loadApi, accessToken }) {
                 .matches(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/, 'Phải là số điện thoại hợp lệ'),
             gender: Yup.string().required('Vui lòng xác nhận giới tính.').min(3, 'Tên phải lớn hơn 3 ký tự.'),
         }),
-        onSubmit: async (values) => {
+        onSubmit: (values) => {
             const submitValue = {
                 ...values,
-                roles: values.roles.map((e) => ({
-                    name: e,
-                })),
+                roles: [
+                    {
+                        name: state,
+                    },
+                ],
             };
-            // createAccountCustomer(values, dispatch, accessToken);
-            await createAccount(submitValue, dispatch, accessToken, handleCancel);
-            loadApi();
+            if (state) {
+                createAccount(submitValue, dispatch, accessToken, loadApi);
+                handleCancel();
+            } else {
+                alert('Chưa điền đủ thông tin');
+            }
         },
     });
 
@@ -184,22 +186,11 @@ function CreateAccount({ loadApi, accessToken }) {
                                 />
                                 <span>Nữ</span>
                             </div>
-
-                            {/*<div className="radio-input-col">*/}
-                            {/*    <input*/}
-                            {/*        name="gender"*/}
-                            {/*        type="radio"*/}
-                            {/*        value="OTHER"*/}
-                            {/*        class="form-control"*/}
-                            {/*        onChange={formik.handleChange}*/}
-                            {/*    />*/}
-                            {/*    <span>Khác</span>*/}
-                            {/*</div>*/}
                         </div>
                         <div className={cx('message')}>
                             {formik.errors.gender && <p className={cx('error')}>{formik.errors.gender}</p>}
                         </div>
-                        <div>
+                        {/* <div>
                             {listRoles &&
                                 listRoles.map((item, index) => {
                                     return (
@@ -219,6 +210,34 @@ function CreateAccount({ loadApi, accessToken }) {
                                         </li>
                                     );
                                 })}
+                        </div> */}
+                    </div>
+
+                    <div class="field">
+                        <div className={cx('customInput')}>
+                            <FontAwesomeIcon className={cx('inputicon')} icon={faShieldCat} />
+
+                            <select
+                                className={cx('inputfield')}
+                                // onChange={(event) => {
+                                //     this.onChangeInput(event, 'gender');
+                                // }}
+                                name="roles"
+                                onChange={(e) => setState(e.target.value)}
+                                value={state}
+                            >
+                                <option value="">-- Choose --</option>
+
+                                {listRoles &&
+                                    listRoles.length > 0 &&
+                                    listRoles.map((item, index) => {
+                                        return (
+                                            <option key={index} value={item.name}>
+                                                {item.name}
+                                            </option>
+                                        );
+                                    })}
+                            </select>
                         </div>
                     </div>
 
