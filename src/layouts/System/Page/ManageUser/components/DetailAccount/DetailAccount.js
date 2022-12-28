@@ -49,8 +49,12 @@ function DetailAccount() {
                     style={{
                         width: 240,
                     }}
-                    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+                    // cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
                 >
+                    <div
+                        className={cx('detail-image')}
+                        style={{ width: '100%', height: '200px', backgroundImage: `url(${detailAccount.thumbnail})` }}
+                    ></div>
                     <Meta title="Sắp đến tết" description="www.instagram.com" />
                 </Card>
                 <Card

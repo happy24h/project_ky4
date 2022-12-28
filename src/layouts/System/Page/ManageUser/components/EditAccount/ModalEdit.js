@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 // import './CreateAccount.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAddressBook, faEnvelope, faPhone, faUser, faKey } from '@fortawesome/free-solid-svg-icons';
+import { faAddressBook, faEnvelope, faPhone, faUser, faKey, faImage } from '@fortawesome/free-solid-svg-icons';
 import { editDetailAccount, getDetailAccount } from '~/redux/apiRequest';
 // import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
@@ -43,6 +43,7 @@ function ModalEdit() {
             phone: detailAccount?.phone,
             gender: detailAccount?.gender,
             address: detailAccount?.address,
+            thumbnail: detailAccount?.thumbnail,
             roles: [
                 {
                     name: 'ADMIN',
@@ -169,6 +170,24 @@ function ModalEdit() {
                     </div>
                     <div className={cx('message')}>
                         {formik.errors.address && <p className="error">{formik.errors.address}</p>}
+                    </div>
+                </div>
+
+                <div className={cx('field')}>
+                    <div className={cx('customInput')}>
+                        <FontAwesomeIcon className={cx('inputicon')} icon={faImage} />
+                        <input
+                            className={cx('inputfield')}
+                            type="text"
+                            placeholder="avatar..."
+                            autoComplete="thumbnail"
+                            name="thumbnail"
+                            value={formik.values.thumbnail}
+                            onChange={formik.handleChange}
+                        />
+                    </div>
+                    <div className={cx('message')}>
+                        {formik.errors.thumbnail && <p className="error">{formik.errors.thumbnail}</p>}
                     </div>
                 </div>
 

@@ -6,7 +6,15 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faKey, faPhone, faUser, faShieldCat } from '@fortawesome/free-solid-svg-icons';
+import {
+    faEnvelope,
+    faKey,
+    faPhone,
+    faUser,
+    faShieldCat,
+    faAddressBook,
+    faImage,
+} from '@fortawesome/free-solid-svg-icons';
 import { createAccount, getAllAccount, getAllRoles } from '~/redux/apiRequest';
 import { Button, Modal } from 'antd';
 import classNames from 'classnames/bind';
@@ -47,6 +55,8 @@ function AddAccount() {
             password: '',
             phone: '',
             gender: '',
+            thumbnail: '',
+            address: '',
         },
         validationSchema: Yup.object({
             name: Yup.string().required('Vui lòng nhập tên người dùng.').min(4, 'Tên phải lớn hơn 4 ký tự.'),
@@ -63,6 +73,8 @@ function AddAccount() {
                 .required('Vui lòng nhập số điện thoại.')
                 .matches(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/, 'Phải là số điện thoại hợp lệ'),
             gender: Yup.string().required('Vui lòng xác nhận giới tính.').min(3, 'Tên phải lớn hơn 3 ký tự.'),
+            thumbnail: Yup.string().required('Vui lòng nhập link ảnh.').min(4, 'Tên phải lớn hơn 4 ký tự.'),
+            address: Yup.string().required('Vui lòng nhập địa chỉ.').min(4, 'Tên phải lớn hơn 4 ký tự.'),
         }),
         onSubmit: (values) => {
             const submitValue = {
@@ -112,7 +124,7 @@ function AddAccount() {
                         <input
                             className={cx('inputfield')}
                             type="email"
-                            placeholder="Email.."
+                            placeholder="Email..."
                             autoComplete="email"
                             name="email"
                             value={formik.values.email}
@@ -146,7 +158,7 @@ function AddAccount() {
                         <input
                             className={cx('inputfield')}
                             type="password"
-                            placeholder="Password.."
+                            placeholder="Password..."
                             autoComplete="new-password"
                             name="password"
                             value={formik.values.password}
@@ -194,9 +206,6 @@ function AddAccount() {
 
                         <select
                             className={cx('inputfield')}
-                            // onChange={(event) => {
-                            //     this.onChangeInput(event, 'gender');
-                            // }}
                             name="roles"
                             onChange={(e) => setState(e.target.value)}
                             value={state}
@@ -219,7 +228,42 @@ function AddAccount() {
                     </div> */}
                 </div>
 
-                <div className={cx('field submitfield')} style={{ width: '700px' }}>
+                <div className={cx('field')}>
+                    <div className={cx('customInput')}>
+                        <FontAwesomeIcon className={cx('inputicon')} icon={faAddressBook} />
+                        <input
+                            className={cx('inputfield')}
+                            type="text"
+                            placeholder="Address..."
+                            autoComplete="address"
+                            name="address"
+                            value={formik.values.address}
+                            onChange={formik.handleChange}
+                        />
+                    </div>
+                    <div className={cx('message')}>
+                        {formik.errors.address && <p className="error">{formik.errors.address}</p>}
+                    </div>
+                </div>
+                <div className={cx('field')}>
+                    <div className={cx('customInput')}>
+                        <FontAwesomeIcon className={cx('inputicon')} icon={faImage} />
+                        <input
+                            className={cx('inputfield')}
+                            type="text"
+                            placeholder="avatar..."
+                            autoComplete="thumbnail"
+                            name="thumbnail"
+                            value={formik.values.thumbnail}
+                            onChange={formik.handleChange}
+                        />
+                    </div>
+                    <div className={cx('message')}>
+                        {formik.errors.thumbnail && <p className="error">{formik.errors.thumbnail}</p>}
+                    </div>
+                </div>
+
+                <div className={cx('field submitfield')} style={{ width: '850px' }}>
                     <input className={cx('submit')} type="submit" value="ADD USER" />
                 </div>
             </form>
