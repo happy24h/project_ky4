@@ -1,47 +1,33 @@
-import { Card, List, Button } from 'antd';
-import classNames from 'classnames/bind';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { getDetailAccount } from '~/redux/apiRequest';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getDetailService } from '~/redux/service/apiService';
+import { Button, Card, List } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
+import classNames from 'classnames/bind';
 
-// import EditAccount from '../EditAccount';
-import styles from './DetailAccount.module.scss';
+import styles from './DetailService.module.scss';
 const cx = classNames.bind(styles);
 const { Meta } = Card;
 
-function DetailAccount() {
-    const [loadApi, setLoadApi] = useState(false);
+function DetailService() {
     let { id } = useParams();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.login?.currentUser);
 
-    const detailAccount = useSelector((state) => state.account.account?.detailAccount);
+    const detailService = useSelector((state) => state.service.service?.detailService);
 
     useEffect(() => {
-        getDetailAccount(id, dispatch, user?.accessToken);
-    }, [loadApi]);
-
-    const handleUpdateApi = () => {
-        setLoadApi(!loadApi);
-    };
+        getDetailService(id, dispatch);
+    }, []);
 
     return (
         <>
-            <Link to={'/system/manage-user'}>
+            <Link to={'/system/manage-service'}>
                 <Button type="primary" ghost style={{ backgroundColor: '#fff' }}>
-                    {/* <EditOutlined /> */}
                     Back
                 </Button>
             </Link>
-            {/* <EditAccount
-                accountId={id}
-                accessToken={user?.accessToken}
-                detailAccount={detailAccount}
-                handleUpdateApi={handleUpdateApi}
-            /> */}
             <div className={cx('wrapper')}>
                 {' '}
                 <Card
@@ -53,7 +39,7 @@ function DetailAccount() {
                 >
                     <div
                         className={cx('detail-image')}
-                        style={{ backgroundImage: `url(${detailAccount?.thumbnail})` }}
+                        style={{ backgroundImage: `url(${detailService?.thumbnail})` }}
                     ></div>
                     <Meta title="Sắp đến tết" description="www.instagram.com" />
                 </Card>
@@ -61,11 +47,11 @@ function DetailAccount() {
                     title="Profile"
                     size="default"
                     extra={
-                        <Link to={`/system/manage-user/modal-edit/${id}`}>
+                        <Link to={`/system/manage-service/edit/${id}`}>
                             <Button type="primary" style={{ background: '#fcaf17' }}>
                                 {' '}
                                 <EditOutlined />
-                                Edit User
+                                Sửa dịch vụ
                             </Button>
                         </Link>
                     }
@@ -73,19 +59,22 @@ function DetailAccount() {
                 >
                     {/* <Divider orientation="left">Default Size</Divider> */}
                     <List className={cx('list-detail')}>
-                        <strong>Full name:</strong> <span className={cx('text-detail')}>{detailAccount?.name}</span>
+                        <strong>Tên dịch vụ:</strong> <span className={cx('text-detail')}>{detailService?.name}</span>
                     </List>
                     <List className={cx('list-detail')}>
-                        <strong>Email:</strong> <span className={cx('text-detail')}>{detailAccount?.email}</span>
+                        <strong>Mô tả:</strong> <span className={cx('text-detail')}>{detailService?.description}</span>
                     </List>
                     <List className={cx('list-detail')}>
-                        <strong>Phone:</strong> <span className={cx('text-detail')}>{detailAccount?.phone}</span>
+                        <strong>Giá:</strong> <span className={cx('text-detail')}>{detailService?.price}</span>
                     </List>
                     <List className={cx('list-detail')}>
-                        <strong>Gender:</strong> <span className={cx('text-detail')}>{detailAccount?.gender}</span>
+                        <strong>Loại dịch vụ:</strong> <span className={cx('text-detail')}>{detailService?.typeService.name}</span>
                     </List>
                     <List className={cx('list-detail')}>
-                        <strong>Address:</strong> <span className={cx('text-detail')}>{detailAccount?.address}</span>
+                        <strong>Ngày tạo:</strong> <span className={cx('text-detail')}>{detailService?.created_at}</span>
+                    </List>
+                    <List className={cx('list-detail')}>
+                        <strong>Ngày cập nhật:</strong> <span className={cx('text-detail')}>{detailService?.updated_at}</span>
                     </List>
                 </Card>
             </div>
@@ -93,4 +82,4 @@ function DetailAccount() {
     );
 }
 
-export default DetailAccount;
+export default DetailService
