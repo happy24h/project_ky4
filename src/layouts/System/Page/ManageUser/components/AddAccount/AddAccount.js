@@ -267,7 +267,7 @@ function AddAccount() {
                     <input className={cx('submit')} type="submit" value="ADD USER" />
                 </div>
             </form>
-            {/* </Modal> */}
+            {/* </Add> */}
         </div>
     );
 }

@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getAllService } from '~/redux/service/apiService';
 import { Space, Table, Button, Form, Tag, Card } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import CreateAccount from '~/layouts/System/Page/ManageUser/components/Modal/CreateAccount';
-import CreateService from '~/layouts/System/Page/Service/components/Modal/CreateService';
+import AddService from '~/layouts/System/Page/Service/components/Add/AddService';
 
 
 function ManagerService() {
@@ -128,9 +128,16 @@ function ManagerService() {
                     <p>Phản hồi</p>
                 </Card>
                 <Form.Item label="">
-                    <CreateService loadApi={handleLoadAPI} accessToken={user?.accessToken} />
+                    <Link to={'/system/manage-service/add'}>
+                        <Button type="primary" style={{ marginTop: '23px' }}>
+                            Thêm dịch vụ
+                        </Button>
+                    </Link>
                 </Form.Item>
-                <div style={{ display: 'flex', margin: '20px auto 0' }} />
+                {/*<Form.Item label="">*/}
+                {/*    <AddService loadApi={handleLoadAPI} accessToken={user?.accessToken} />*/}
+                {/*</Form.Item>*/}
+                {/*<div style={{ display: 'flex', margin: '20px auto 0' }} />*/}
                 <Table
                     columns={columns}
                     // { listAccount && listAccount.length > 0 ? dataSource={listAccount} : null}

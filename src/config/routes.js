@@ -29,6 +29,7 @@ const routes = {
 
     //Service
     manageService: 'system/manage-service',
+    addService: 'system/manage-service/add',
     detailService: 'system/manage-service/detail/:id',
 };
 
