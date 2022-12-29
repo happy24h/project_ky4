@@ -1,1 +1,1 @@
-export { default } from './EditAccount';
+export { default } from './ModalEdit';

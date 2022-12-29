@@ -118,7 +118,7 @@ export const deleteAccount = async (id, accessToken, dispatch) => {
     }
 };
 
-export const createAccount = async (account, dispatch, accessToken, loadApi) => {
+export const createAccount = async (account, dispatch, accessToken, loadApi, navigate) => {
     dispatch(createAccountStart());
     try {
         await axios.post('http://localhost:8078/api/v1/register', account, {
@@ -126,7 +126,7 @@ export const createAccount = async (account, dispatch, accessToken, loadApi) => 
         });
         dispatch(createAccountSuccess());
         loadApi();
-        // navigate('/login');
+        navigate('/system/manage-user');
         toast.success('Tạo tài khoản thành công');
     } catch (err) {
         dispatch(createAccountFailed(err.response.data.message));

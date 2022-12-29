@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteAccount, getAllAccount } from '~/redux/apiRequest';
 import { DeleteOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Space, Table, Button, Form, Tag, Card } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CreateAccount from './components/Modal/CreateAccount';
 
 // import 'antd/dist/antd.min.css';
@@ -126,7 +126,12 @@ function ManageUser() {
                     <p>Accounts</p>
                 </Card>
                 <Form.Item label="">
-                    <CreateAccount loadApi={handleLoadAPI} accessToken={user?.accessToken} />
+                    {/* <CreateAccount loadApi={handleLoadAPI} accessToken={user?.accessToken} /> */}
+                    <Link to={'/system/manage-user/add'}>
+                        <Button type="primary" style={{ marginTop: '23px' }}>
+                            ADD USER
+                        </Button>
+                    </Link>
 
                     {/*<CreateAccount setLoadApi={setLoadApi} loadApi={loadApi} accessToken={user?.accessToken} />*/}
                 </Form.Item>

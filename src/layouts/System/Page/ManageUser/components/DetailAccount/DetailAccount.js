@@ -31,7 +31,7 @@ function DetailAccount() {
     return (
         <>
             <Link to={'/system/manage-user'}>
-                <Button type="primary" ghost>
+                <Button type="primary" ghost style={{ backgroundColor: '#fff' }}>
                     {/* <EditOutlined /> */}
                     Back
                 </Button>
@@ -49,8 +49,12 @@ function DetailAccount() {
                     style={{
                         width: 240,
                     }}
-                    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+                    // cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
                 >
+                    <div
+                        className={cx('detail-image')}
+                        style={{ backgroundImage: `url(${detailAccount.thumbnail})` }}
+                    ></div>
                     <Meta title="Sắp đến tết" description="www.instagram.com" />
                 </Card>
                 <Card
