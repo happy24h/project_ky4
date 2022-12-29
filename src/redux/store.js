@@ -11,7 +11,12 @@ import authReducer from './authSlice';
 import accountReducer from './accountSlice';
 import roleReducer from './roleSlice';
 import feedbackReducer from './feedback/feedbackSlice';
+
 import blogReducer from './blog/blogSlice';
+
+import serviceReducer from './service/serviceSilce';
+import cloudReducer from './cloudImage/cloudSlice';
+
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -25,7 +30,11 @@ const rootReducer = combineReducers({
     account: accountReducer,
     feedback: feedbackReducer,
     role: roleReducer,
+
     blog: blogReducer,
+
+    service: serviceReducer,
+    cloudImage: cloudReducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
