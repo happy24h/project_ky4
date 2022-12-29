@@ -16,8 +16,8 @@ function Sidebar() {
                     to: '/system/manage-user',
                 },
                 {
-                    title: 'Thêm thông tin',
-                    to: '/system/manage-user',
+                    title: 'Bài viết',
+                    to: '/system/manage-blog',
                 },
             ],
         },

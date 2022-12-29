@@ -26,6 +26,10 @@ const routes = {
     //FeedBack
     manageFeedback: 'system/manage-feedback',
     detailFeedback: 'system/manage-feedback/detail/:id',
+    // blog
+    manageBlog: 'system/manage-blog',
+    createBlog: 'system/manage-blog/add',
+    detailBlog: 'system/manage-blog/detail/:id',
 };
 
 export default routes;

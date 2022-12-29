@@ -94,10 +94,10 @@ function ManageUser() {
     }, [loadApi || page]);
     // check biến nào thay đổi thì sẽ load lại hàm bên trong
 
-    const handleLoadAPI = () => {
-        // getAllAccount(dataAccount, dispatch, user?.accessToken);
-        setLoadApi(!loadApi);
-    };
+    // const handleLoadAPI = () => {
+    //     // getAllAccount(dataAccount, dispatch, user?.accessToken);
+    //     setLoadApi(!loadApi);
+    // };
 
     const handleDeleteUser = (account) => {
         console.log('loadApi before ', loadApi);

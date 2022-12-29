@@ -23,6 +23,9 @@ import EditAccount from '~/layouts/System/Page/ManageUser/components/EditAccount
 import ModalEdit from '~/layouts/System/Page/ManageUser/components/EditAccount/ModalEdit';
 import DetailAccount from '~/layouts/System/Page/ManageUser/components/DetailAccount/DetailAccount';
 import DetailFeedback from '~/layouts/System/Page/Feedback/DetailFeedBack';
+import ManageBlog from '~/layouts/System/Page/ManageBlog';
+import CreateBlog from '~/layouts/System/Page/ManageBlog/CreateBlog';
+import DetailBlog from '~/layouts/System/Page/ManageBlog/DetailBlog/DetailBlog';
 
 const publicRouters = [
     { path: config.routes.home, component: Home },
@@ -50,6 +53,10 @@ const privateRoutes = [
     //FeedBack
     { path: config.routes.manageFeedback, component: ManageFeedback },
     { path: config.routes.detailFeedback, component: DetailFeedback },
+    // blog
+    { path: config.routes.manageBlog, component: ManageBlog },
+    { path: config.routes.createBlog, component: CreateBlog },
+    { path: config.routes.detailBlog, component: DetailBlog },
 ];
 
 export { publicRouters, privateRoutes };
