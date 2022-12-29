@@ -26,6 +26,11 @@ const routes = {
     //FeedBack
     manageFeedback: 'system/manage-feedback',
     detailFeedback: 'system/manage-feedback/detail/:id',
+
+    //Service
+    manageService: 'system/manage-service',
+    addService: 'system/manage-service/add',
+    detailService: 'system/manage-service/detail/:id',
 };
 
 export default routes;

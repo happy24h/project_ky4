@@ -59,6 +59,16 @@ function Sidebar() {
                 },
             ],
         },
+        {
+            icon: <FontAwesomeIcon icon={faUser} />,
+            title: 'Dịch vụ',
+            data: [
+                {
+                    title: 'Danh sách dịch vụ',
+                    to: '/system/manage-service',
+                },
+            ],
+        },
     ];
     return (
         <nav className={cx('sidebar')}>
