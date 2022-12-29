@@ -23,10 +23,24 @@ export const getAllService = async (serviceSearch, dispatch) => {
 export const getAllTypeService = async (dispatch) => {
     dispatch(typeServiceStart());
     try {
-        const res = await axios.get('http://localhost:8078/api/v1/findAllTypeService');
+        const res = await axios.get('http://localhost:8078/api/v1/service/findAllTypeService');
         dispatch(typeServiceSuccess(res.data));
     } catch (err) {
         dispatch(typeServiceFailed());
         toast.error('Có thứ gì đó không đúng');
+    }
+}
+
+export const createService = async (service,dispatch,accessToken,navigate) => {
+    dispatch(serviceStart());
+    try {
+        const res = await axios.post('http://localhost:8078/api/v1/service/create',service,{
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        toast.success("tạo dịch vụ thành công");
+        navigate('/system/manage-service');
+    } catch (err) {
+        dispatch(typeServiceFailed(err.response.data));
+        toast.error(err.response.data);
     }
 }

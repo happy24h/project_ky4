@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { createAccount, getAllAccount } from '~/redux/apiRequest';
-import { getAllService } from '~/redux/service/apiService';
+import { createService, getAllService, getAllTypeService } from '~/redux/service/apiService';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button } from 'antd';
@@ -22,15 +22,19 @@ import { getUploadImage, uploadImage } from '~/redux/cloudImage/apiCloud';
 const cx = classNames.bind(styles);
 
 function AddService() {
-    const [loadApi, setLoadApi] = useState(false);
     const [file, setFile] = useState();
     const [thumbnailLink, setThumbnailLink] = useState();
+    const  [displayONOFF , setDisplayOnOFF] = useState("block");
     const dispatch = useDispatch();
 
     const user = useSelector((state) => state.auth.login?.currentUser);
-    const handleApi = () => {
-        setLoadApi(!loadApi);
-    };
+    const typeServices = useSelector((state) => state.service.service?.typeService);
+
+
+    useEffect(() => {
+        getAllTypeService(dispatch);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     let navigate = useNavigate();
 
@@ -46,10 +50,13 @@ function AddService() {
             name: Yup.string().required('Vui lòng nhập tên.').min(4, 'Tên phải lớn hơn 4 ký tự.'),
             description: Yup.string().required('Vui lòng nhập mô tả.'),
             price: Yup.string().required('Vui lòng nhập giá.'),
-            thumbnail: Yup.string().required('Vui gửi'),
+            thumbnail: Yup.string().required('Vui lòng gửi ảnh'),
+            typeServiceId: Yup.string().required('Vui lòng chọn loại dịch vụ'),
         }),
         onSubmit: (values) => {
-            alert('OK');
+            console.log(values);
+            createService(values,dispatch,user?.accessToken,navigate);
+
         },
     });
 
@@ -68,7 +75,8 @@ function AddService() {
 
         await uploadImage(formData,dispatch);
         // console.log("linkImage la:" + linkImage);
-        setThumbnailLink(linkImage);
+        // setThumbnailLink(linkImage);
+        await formik.setFieldValue('thumbnail', linkImage);
     };
 
     return (
@@ -85,8 +93,8 @@ function AddService() {
                         <input
                             className={cx('inputfield')}
                             type="text"
-                            placeholder="Tên..."
-                            autoComplete="tên"
+                            placeholder="tên dịch vụ..."
+                            autoComplete="name"
                             name="name"
                             value={formik.values.name}
                             onChange={formik.handleChange}
@@ -132,17 +140,15 @@ function AddService() {
                     <div className={cx('customInput')}>
                         <div>
                             <tr><td>File to upload:</td><td><input type="file" onChange={handleFileChange} /></td></tr>
-                            <tr><td></td><td><button onClick={handleUploadClick}>Upload</button></td></tr>
+                            <tr><td></td><td><button type="button" onClick={handleUploadClick}>Upload</button></td></tr>
                         </div>
                         <FontAwesomeIcon className={cx('inputicon')} icon={faImage} />
                         <input
                             className={cx('inputfield')}
                             type="text"
-                            placeholder="avatar..."
-                            autoComplete="thumbnail"
+                            placeholder="ảnh dịch vụ..."
                             name="thumbnail"
-                            value={thumbnailLink}
-                            onChange={formik.handleChange}
+                            value={formik.values.thumbnail}
                         />
                     </div>
                     <div className={cx('message')}>
@@ -150,7 +156,35 @@ function AddService() {
                     </div>
                 </div>
 
-                <div className={cx('field submitfield')} style={{ width: '850px' }}>
+                <div className="field">
+                    <div className={cx('customInput')}>
+                        <FontAwesomeIcon className={cx('inputicon')} icon={faShieldCat} />
+
+                        <select
+                            className={cx('inputfield')}
+                            name="typeServiceId"
+                            onChange={(e) => formik.setFieldValue('typeServiceId', e.target.value)}
+                            value={formik.values.typeServiceId}
+                        >
+                            <option value="">-- Choose --</option>
+
+                            {typeServices &&
+                                typeServices.length > 0 &&
+                                typeServices.map((item, index) => {
+                                    return (
+                                        <option key={index} value={item.id}>
+                                            {item.name}
+                                        </option>
+                                    );
+                                })}
+                        </select>
+                    </div>
+                    <div className={cx('message')}>
+                        {formik.errors.typeServiceId && <p className="error">{formik.errors.typeServiceId}</p>}
+                    </div>
+                </div>
+
+                <div className={cx('field submitfield')} style={{ width: '850px', display: displayONOFF }}>
                     <input className={cx('submit')} type="submit" value="Tạo" />
                 </div>
             </form>
