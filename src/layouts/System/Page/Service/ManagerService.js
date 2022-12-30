@@ -1,16 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getAllService } from '~/redux/service/apiService';
+import { deleteService, getAllService } from '~/redux/service/apiService';
 import { Space, Table, Button, Form, Tag, Card } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import CreateAccount from '~/layouts/System/Page/ManageUser/components/Modal/CreateAccount';
 import AddService from '~/layouts/System/Page/Service/components/Add/AddService';
+import images from '~/assets/images';
 
 
 function ManagerService() {
     const [page, setPage] = useState(1);
-    const [loadApiCreate, setloadApiCreate] = useState(false);
+    const [loadApi, setloadApi] = useState(false);
 
     //B1: Gọi dispatch để gửi trạng thái reducer
     const dispatch = useDispatch();
@@ -35,7 +36,7 @@ function ManagerService() {
     useEffect(() => {
         getAllService(data, dispatch, user?.accessToken);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [loadApiCreate || page]);
+    }, [loadApi || page]);
 
     //B3: Lấy danh sách
     const listService = useSelector((state) => state.service.service?.serviceCurrent);
@@ -51,6 +52,7 @@ function ManagerService() {
             title: 'Ảnh',
             dataIndex: 'thumbnail',
             key: 'thumbnail',
+            render: (text) => <img src={text} width="35%" />
         },
         {
             title: 'Tiêu đề',
@@ -95,21 +97,18 @@ function ManagerService() {
             ),
         },
     ];
-    console.log("listService la: " + listService);
+
     const handleEditService = (service) => {
-        // deleteFeedback(service.id,dispatch,user?.accessToken);
-        // setloadApiFeedback(!loadApiFeedback);
-        console.log("service la: " + service?.service_id);
-        alert("handleEditService service.service_id la: "+ service.service_id);
+        navigate(`/system/manage-service/detail/${service?.service_id}`);
     };
 
     const handleDeleteService = (service) => {
-        // navigate(`/system/manage-service/detail/${service.id}`);
-        alert("handleDeleteService service.service_id la: "+ service?.service_id);
+        deleteService(service?.service_id,dispatch,user?.accessToken);
+        setloadApi(!loadApi);
     };
 
     const handleLoadAPI = () => {
-        setloadApiCreate(!loadApiCreate);
+        setloadApi(!loadApi);
     };
 
     return (

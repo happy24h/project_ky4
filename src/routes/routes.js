@@ -31,6 +31,8 @@ import EditBlog from '~/layouts/System/Page/ManageBlog/EditBlog/EditBlog';
 
 import ManagerService from '~/layouts/System/Page/Service/ManagerService';
 import AddService from '~/layouts/System/Page/Service/components/Add/AddService';
+import DetailService from '~/layouts/System/Page/Service/components/Detail';
+import EditService from '~/layouts/System/Page/Service/components/Edit';
 
 const publicRouters = [
     { path: config.routes.home, component: Home },
@@ -68,6 +70,8 @@ const privateRoutes = [
     //Service
     { path: config.routes.manageService, component: ManagerService },
     { path: config.routes.addService, component: AddService },
+    { path: config.routes.detailService, component: DetailService },
+    { path: config.routes.editService, component: EditService },
 ];
 
 export { publicRouters, privateRoutes };

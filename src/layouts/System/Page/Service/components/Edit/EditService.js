@@ -1,8 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { createAccount, getAllAccount } from '~/redux/apiRequest';
-import { createService, getAllService, getAllTypeService } from '~/redux/service/apiService';
+import {
+    createService,
+    getAllService,
+    getAllTypeService,
+    getDetailService,
+    updateService,
+} from '~/redux/service/apiService';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button } from 'antd';
@@ -17,34 +23,42 @@ import {
     faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
-import styles from './AddService.module.scss';
+import styles from './EditService.module.scss';
 import { getUploadImage, uploadImage } from '~/redux/cloudImage/apiCloud';
 const cx = classNames.bind(styles);
 
-function AddService() {
+function EditService() {
+    let { id } = useParams();
     const [file, setFile] = useState();
     const [thumbnailLink, setThumbnailLink] = useState();
     const  [displayONOFF , setDisplayOnOFF] = useState("block");
     const dispatch = useDispatch();
-
+    const [loadApi, setLoadApi] = useState(false);
     const user = useSelector((state) => state.auth.login?.currentUser);
     const typeServices = useSelector((state) => state.service.service?.typeService);
+    const detailService = useSelector((state) => state.service.service?.detailService);
 
 
     useEffect(() => {
         getAllTypeService(dispatch);
+        getDetailService(id, dispatch);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [loadApi]);
+
+    const handleUpdateApi = () => {
+        setLoadApi(!loadApi);
+        navigate(`/system/manage-service/detail/${id}`);
+    };
 
     let navigate = useNavigate();
 
     const formik = useFormik({
         initialValues: {
-            name:'',
-            description:'',
-            typeServiceId:'',
-            thumbnail: '',
-            price: '',
+            name: detailService?.name,
+            description: detailService?.description,
+            typeServiceId: detailService.typeService?.id,
+            thumbnail: detailService?.thumbnail,
+            price: detailService?.price,
         },
         validationSchema: Yup.object({
             name: Yup.string().required('Vui lòng nhập tên.').min(4, 'Tên phải lớn hơn 4 ký tự.'),
@@ -55,7 +69,7 @@ function AddService() {
         }),
         onSubmit: (values) => {
             console.log(values);
-            createService(values,dispatch,user?.accessToken,navigate);
+            updateService(id,values,dispatch,user?.accessToken,handleUpdateApi);
 
         },
     });
@@ -185,11 +199,10 @@ function AddService() {
                 </div>
 
                 <div className={cx('field submitfield')} style={{ width: '850px', display: displayONOFF }}>
-                    <input className={cx('submit')} type="submit" value="Tạo" />
+                    <input className={cx('submit')} type="submit" value="Sửa" />
                 </div>
             </form>
         </div>
     );
 }
-
-export default AddService;
+export default EditService;

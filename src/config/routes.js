@@ -37,6 +37,7 @@ const routes = {
     manageService: 'system/manage-service',
     addService: 'system/manage-service/add',
     detailService: 'system/manage-service/detail/:id',
+    editService: 'system/manage-service/edit/:id',
 };
 
 export default routes;
