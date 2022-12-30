@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faPhone, faUser, faImage } from '@fortawesome/free-solid-svg-icons';
+import { faCircleInfo, faPenToSquare, faFilePen, faImage } from '@fortawesome/free-solid-svg-icons';
 import { getDetailAccount } from '~/redux/apiRequest';
 
 import { Button } from 'antd';
@@ -67,7 +67,7 @@ function EditBlog() {
             <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '1000px' }}>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faUser} />
+                        <FontAwesomeIcon className={cx('inputicon')} icon={faCircleInfo} />
                         <input
                             className={cx('inputfield')}
                             type="text"
@@ -84,7 +84,7 @@ function EditBlog() {
                 </div>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className="inputicon" icon={faEnvelope} />
+                        <FontAwesomeIcon className="inputicon" icon={faPenToSquare} />
                         <input
                             className={cx('inputfield')}
                             type="text"
@@ -101,7 +101,7 @@ function EditBlog() {
                 </div>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faPhone} />
+                        <FontAwesomeIcon className={cx('inputicon')} icon={faFilePen} />
                         <input
                             className={cx('inputfield')}
                             type="text"

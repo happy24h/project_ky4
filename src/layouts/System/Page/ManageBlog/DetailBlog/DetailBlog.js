@@ -37,6 +37,7 @@ function DetailBlog() {
                     style={{
                         width: 240,
                     }}
+                    title="Avatar"
                 >
                     <div
                         className={cx('detail-image')}
