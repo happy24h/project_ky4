@@ -36,12 +36,7 @@ function DetailAccount() {
                     Back
                 </Button>
             </Link>
-            {/* <EditAccount
-                accountId={id}
-                accessToken={user?.accessToken}
-                detailAccount={detailAccount}
-                handleUpdateApi={handleUpdateApi}
-            /> */}
+
             <div className={cx('wrapper')}>
                 {' '}
                 <Card
@@ -49,6 +44,7 @@ function DetailAccount() {
                     style={{
                         width: 240,
                     }}
+                    title="Avatar"
                     // cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
                 >
                     <div
