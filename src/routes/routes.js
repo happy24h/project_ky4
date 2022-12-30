@@ -27,6 +27,7 @@ import DetailFeedback from '~/layouts/System/Page/Feedback/DetailFeedBack';
 import ManageBlog from '~/layouts/System/Page/ManageBlog';
 import CreateBlog from '~/layouts/System/Page/ManageBlog/CreateBlog';
 import DetailBlog from '~/layouts/System/Page/ManageBlog/DetailBlog/DetailBlog';
+import EditBlog from '~/layouts/System/Page/ManageBlog/EditBlog/EditBlog';
 
 import ManagerService from '~/layouts/System/Page/Service/ManagerService';
 import AddService from '~/layouts/System/Page/Service/components/Add/AddService';
@@ -62,6 +63,7 @@ const privateRoutes = [
     { path: config.routes.manageBlog, component: ManageBlog },
     { path: config.routes.createBlog, component: CreateBlog },
     { path: config.routes.detailBlog, component: DetailBlog },
+    { path: config.routes.editBlog, component: EditBlog },
 
     //Service
     { path: config.routes.manageService, component: ManagerService },

@@ -5,7 +5,7 @@ import { deleteAccount, getAllAccount } from '~/redux/apiRequest';
 import { DeleteOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Space, Table, Button, Form, Tag, Card } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
-import CreateAccount from './components/Modal/CreateAccount';
+// import CreateAccount from './components/Modal/CreateAccount';
 
 // import 'antd/dist/antd.min.css';
 

@@ -46,6 +46,18 @@ const blogSlice = createSlice({
             state.blog.isFetching = false;
             state.blog.error = true;
         },
+        editBlogStart: (state) => {
+            state.blog.isFetching = true;
+        },
+        editBlogSuccess: (state, action) => {
+            state.blog.isFetching = false;
+            state.blog.error = false;
+            state.blog.detailData = action.payload;
+        },
+        editBlogFailed: (state) => {
+            state.blog.isFetching = false;
+            state.blog.error = true;
+        },
     },
 });
 
@@ -59,6 +71,9 @@ export const {
     detailBlogStart,
     detailBlogSuccess,
     detailBlogFailed,
+    editBlogStart,
+    editBlogSuccess,
+    editBlogFailed,
 } = blogSlice.actions;
 
 export default blogSlice.reducer;

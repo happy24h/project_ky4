@@ -1,60 +1,45 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-
-// import './CreateAccount.scss';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faEnvelope,
-    faKey,
-    faPhone,
-    faUser,
-    faShieldCat,
-    faAddressBook,
-    faImage,
-} from '@fortawesome/free-solid-svg-icons';
-import { createAccount, getAllAccount, getAllRoles } from '~/redux/apiRequest';
-import { Button, Modal } from 'antd';
+import { faEnvelope, faPhone, faUser, faImage } from '@fortawesome/free-solid-svg-icons';
+import { getDetailAccount } from '~/redux/apiRequest';
+
+import { Button } from 'antd';
 import classNames from 'classnames/bind';
-import styles from './CreateBlog.module.scss';
-import { Link, useNavigate } from 'react-router-dom';
-import { createBlog } from '~/redux/blog/apiBlog';
-// import { registerUser } from '../../redux/apiRequest';
+import styles from './EditBlog.module.scss';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import { editBlog } from '~/redux/blog/apiBlog';
 const cx = classNames.bind(styles);
 
-function CreateBlog() {
-    // const [modal, setModal] = useState(false);
-
+function EditBlog() {
     const [loadApi, setLoadApi] = useState(false);
-    const [state, setState] = useState();
+    let { id } = useParams();
+    let navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.login?.currentUser);
-    const handleApi = () => {
+
+    const detailBlog = useSelector((state) => state.blog.blog?.detailData);
+
+    useEffect(() => {
+        getDetailAccount(id, dispatch, user?.accessToken);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loadApi]);
+
+    const handleUpdateApi = () => {
         setLoadApi(!loadApi);
+        // navigate(`/system/manage-blog/detail/${id}`);
+        navigate(`/system/manage-blog`);
     };
 
-    let navigate = useNavigate();
-    useEffect(() => {
-        getAllRoles(dispatch, user?.accessToken);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
-        getAllAccount();
-        console.log('loadApi useEffect ', loadApi);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [handleApi]);
-
-    // const listRoles = useSelector((state) => state.role.role?.roleCurrent);
-
+    // const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
-            title: '',
-            description: '',
-            content: '',
-            thumbnail: '',
+            title: detailBlog?.title,
+            description: detailBlog?.description,
+            content: detailBlog?.content,
+            thumbnail: detailBlog?.thumbnail,
         },
         validationSchema: Yup.object({
             title: Yup.string().required('Vui lòng nhập tiêu đề.').min(4, 'Tên phải lớn hơn 4 ký tự.'),
@@ -63,17 +48,22 @@ function CreateBlog() {
             thumbnail: Yup.string().required('Vui lòng nhập link avatar.').min(4, 'Tên phải lớn hơn 4 ký tự.'),
         }),
         onSubmit: (values) => {
-            createBlog(values, dispatch, user?.accessToken, handleApi, navigate);
+            console.log(values);
+
+            editBlog(id, values, dispatch, user?.accessToken, handleUpdateApi);
+            // actions.resetForm();
         },
     });
 
     return (
         <div style={{ marginTop: 23 }}>
-            <Link to={'/system/manage-blog'}>
+            <Link to={`/system/manage-blog/detail/${id}`}>
+                {/* <EditOutlined /> */}
                 <Button type="primary" ghost style={{ backgroundColor: '#fff' }}>
                     Back
                 </Button>
             </Link>
+
             <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '1000px' }}>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
@@ -146,12 +136,11 @@ function CreateBlog() {
                 </div>
 
                 <div className={cx('field submitfield')} style={{ width: '850px' }}>
-                    <input className={cx('submit')} type="submit" value="Add Blog" />
+                    <input className={cx('submit')} type="submit" value="Update Blog" />
                 </div>
             </form>
-            {/* </Modal> */}
         </div>
     );
 }
 
-export default CreateBlog;
+export default EditBlog;
