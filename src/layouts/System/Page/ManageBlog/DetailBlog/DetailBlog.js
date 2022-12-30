@@ -1,36 +1,29 @@
 import { Card, List, Button } from 'antd';
 import classNames from 'classnames/bind';
-import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { getDetailAccount } from '~/redux/apiRequest';
 import { EditOutlined } from '@ant-design/icons';
 
-// import EditAccount from '../EditAccount';
 import styles from './DetailBlog.module.scss';
+import { getDetailBlog } from '~/redux/blog/apiBlog';
 const cx = classNames.bind(styles);
 const { Meta } = Card;
 
 function DetailBlog() {
-    const [loadApi, setLoadApi] = useState(false);
     let { id } = useParams();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.login?.currentUser);
 
-    const detailBlog = useSelector((state) => state.blog.blog?.detailBlog);
+    const detailBlog = useSelector((state) => state.blog.blog?.detailData);
 
     useEffect(() => {
-        getDetailAccount(id, dispatch, user?.accessToken);
-    }, [loadApi]);
-
-    const handleUpdateApi = () => {
-        setLoadApi(!loadApi);
-    };
+        getDetailBlog(id, dispatch, user?.accessToken);
+    }, []);
 
     return (
         <>
-            <Link to={'/system/manage-user'}>
+            <Link to={'/system/manage-blog'}>
                 <Button type="primary" ghost style={{ backgroundColor: '#fff' }}>
                     {/* <EditOutlined /> */}
                     Back
@@ -47,7 +40,7 @@ function DetailBlog() {
                 >
                     <div
                         className={cx('detail-image')}
-                        style={{ backgroundImage: `url(${detailBlog.thumbnail})` }}
+                        style={{ backgroundImage: `url(${detailBlog?.thumbnail})` }}
                     ></div>
                     <Meta title="Sắp đến tết" description="www.instagram.com" />
                 </Card>
@@ -55,11 +48,11 @@ function DetailBlog() {
                     title="Profile"
                     size="default"
                     extra={
-                        <Link to={`/system/manage-user/modal-edit/${id}`}>
+                        <Link to={`/system/manage-blog/edit/${id}`}>
                             <Button type="primary" style={{ background: '#fcaf17' }}>
                                 {' '}
                                 <EditOutlined />
-                                Edit User
+                                Edit Blog
                             </Button>
                         </Link>
                     }
@@ -67,17 +60,15 @@ function DetailBlog() {
                 >
                     {/* <Divider orientation="left">Default Size</Divider> */}
                     <List className={cx('list-detail')}>
-                        <strong>Full name:</strong> <span className={cx('text-detail')}>{detailBlog?.title}</span>
+                        <strong>Title:</strong> <span className={cx('text-detail')}>{detailBlog?.title}</span>
                     </List>
                     <List className={cx('list-detail')}>
-                        <strong>Email:</strong> <span className={cx('text-detail')}>{detailBlog?.description}</span>
+                        <strong>Description:</strong>{' '}
+                        <span className={cx('text-detail')}>{detailBlog?.description}</span>
                     </List>
                     <List className={cx('list-detail')}>
-                        <strong>Phone:</strong> <span className={cx('text-detail')}>{detailBlog?.content}</span>
+                        <strong>Content:</strong> <span className={cx('text-detail')}>{detailBlog?.content}</span>
                     </List>
-                    {/* <List className={cx('list-detail')}>
-                        <strong>Gender:</strong> <span className={cx('text-detail')}>{detailBlog?.thumbnail}</span>
-                    </List> */}
                 </Card>
             </div>
         </>

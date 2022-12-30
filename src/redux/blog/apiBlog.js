@@ -13,6 +13,9 @@ import {
     detailBlogStart,
     detailBlogSuccess,
     detailBlogFailed,
+    editBlogStart,
+    editBlogSuccess,
+    editBlogFailed,
 } from './blogSlice';
 export const getBlog = async (account, dispatch, accessToken) => {
     dispatch(getBlogStart());
@@ -46,16 +49,33 @@ export const createBlog = async (account, dispatch, accessToken, loadApi, naviga
     }
 };
 
-export const getDetailAccount = async (id, dispatch, accessToken) => {
+export const getDetailBlog = async (id, dispatch, accessToken, getBlog) => {
     dispatch(detailBlogStart());
     try {
         const res = await axios.get(`http://localhost:8078/api/v1/blog/${id}`, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         dispatch(detailBlogSuccess(res.data));
+
         // toast.success('Detail success');
     } catch (err) {
         dispatch(detailBlogFailed());
         toast.error('Có thứ gì đó không ổn ?');
+    }
+};
+
+export const editBlog = async (id, account, dispatch, accessToken, handleUpdateApi) => {
+    dispatch(editBlogStart());
+
+    try {
+        await axios.post(`http://localhost:8078/api/v1/blog/update/${id}`, account, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        dispatch(editBlogSuccess());
+        toast.success('Edit success');
+        handleUpdateApi();
+    } catch (err) {
+        dispatch(editBlogFailed());
+        toast.error('Có thứ gì đó không đúng');
     }
 };

@@ -1,12 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { getBlog } from '~/redux/blog/apiBlog';
 
 import { DeleteOutlined, EyeTwoTone } from '@ant-design/icons';
-import { Space, Table, Button, Form, Tag, Card } from 'antd';
+import { Space, Table, Button, Form, Card } from 'antd';
 
 function ManageBlog() {
+    const [page, setPage] = useState(1);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector((state) => state.auth.login?.currentUser);
@@ -16,8 +17,8 @@ function ManageBlog() {
         auth_name: '',
         start: '',
         end: '',
-        page: 1,
-        limit: 4,
+        page: page,
+        limit: 3,
         sort: 'asc',
         status: '',
     };
@@ -25,7 +26,7 @@ function ManageBlog() {
         getBlog(dataBlog, dispatch, user?.accessToken);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [page]);
 
     const columns = [
         {
@@ -70,7 +71,7 @@ function ManageBlog() {
     ];
     const handleDeleteUser = () => {};
     const handleEditUser = (blog) => {
-        // alert('hello world' + account.accounts_id);
+        // alert('hello world' + blog.id);
         navigate(`/system/manage-blog/detail/${blog.id}`);
     };
 
@@ -79,7 +80,7 @@ function ManageBlog() {
             <div className="container" style={{ width: '1200px', margin: '0 auto' }}>
                 <Card
                     size="small"
-                    title="Total Accounts"
+                    title="Total Blogs"
                     // extra={<a href="#">More</a>}
                     style={{
                         width: 180,
@@ -87,12 +88,12 @@ function ManageBlog() {
                     }}
                 >
                     <h3 style={{ fontSize: '28px' }}>{listBlog?.totalItems}</h3>
-                    <p>Accounts</p>
+                    <p>Blogs</p>
                 </Card>
                 <Form.Item label="">
                     <Link to={'/system/manage-blog/add'}>
                         <Button type="primary" style={{ marginTop: '23px' }}>
-                            ADD USER
+                            Add Blog
                         </Button>
                     </Link>
                 </Form.Item>
@@ -100,11 +101,11 @@ function ManageBlog() {
                     columns={columns}
                     dataSource={listBlog?.content}
                     pagination={{
-                        pageSize: 4,
+                        pageSize: 3,
                         total: listBlog?.totalItems,
-                        // onChange: (page) => {
-                        //     setPage(page);
-                        // },
+                        onChange: (page) => {
+                            setPage(page);
+                        },
                     }}
                 />
                 {/* {listAccount?.totalItems / 5 > 1 && (
