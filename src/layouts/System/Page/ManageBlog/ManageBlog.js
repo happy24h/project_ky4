@@ -83,7 +83,7 @@ function ManageBlog() {
                     title="Total Blogs"
                     // extra={<a href="#">More</a>}
                     style={{
-                        width: 180,
+                        width: 160,
                         height: 140,
                     }}
                 >

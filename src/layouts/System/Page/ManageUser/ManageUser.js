@@ -5,8 +5,12 @@ import { deleteAccount, getAllAccount } from '~/redux/apiRequest';
 import { DeleteOutlined, EyeTwoTone, PlusCircleOutlined } from '@ant-design/icons';
 import { Space, Table, Button, Form, Tag, Card } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
-
 import { Input, Select } from 'antd';
+
+import classNames from 'classnames/bind';
+import styles from './ManageUser.module.scss';
+
+const cx = classNames.bind(styles);
 const { Option } = Select;
 
 function ManageUser() {
@@ -128,10 +132,10 @@ function ManageUser() {
 
     const layoutInput = () => {
         return (
-            <div style={{ display: 'flex' }}>
-                <Input.Group compact>
+            <div className={cx('wrapper-input-group')}>
+                <Input.Group className={cx('input-group')} compact>
                     <Input
-                        style={{ width: '15%', height: 32 }}
+                        style={{ width: '30%', height: 32 }}
                         placeholder="Search name"
                         name="name"
                         value={state?.name}
@@ -139,21 +143,22 @@ function ManageUser() {
                     />
 
                     <Input
-                        style={{ width: '15%', height: 32 }}
+                        style={{ width: '30%', height: 32 }}
                         placeholder="Search email"
                         name="email"
                         value={state?.email}
                         onChange={handleOnchangeInput}
                     />
                     <Input
-                        style={{ width: '12%', height: 32 }}
+                        style={{ width: '20%', height: 32 }}
                         placeholder="Search phone"
                         name="phone"
                         value={state?.phone}
                         onChange={handleOnchangeInput}
                     />
                     <Select
-                        style={{ width: '12%', height: 32 }}
+                        className={cx('input-select')}
+                        style={{ width: '20%', height: 32 }}
                         placeholder="Select gender"
                         name="gender"
                         defaultValue="Select"
