@@ -159,9 +159,9 @@ function ManageUser() {
                     <Select
                         className={cx('input-select')}
                         style={{ width: '20%', height: 32 }}
-                        placeholder="Select gender"
+                        placeholder="Gender"
                         name="gender"
-                        defaultValue="Select"
+                        // defaultValue="Gender"
                         onChange={handleSelectChange}
                     >
                         <Option value="">Tất cả</Option>
