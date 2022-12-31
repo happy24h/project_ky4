@@ -82,6 +82,9 @@ function ManageUser() {
         },
     ];
 
+    let totalState = state?.name.length + state?.email.length + state?.phone + state?.gender;
+    console.log('check total state', totalState);
+
     let dataAccount = {
         name: state?.name,
         email: state?.email,
@@ -110,7 +113,7 @@ function ManageUser() {
         getAllAccount(dataAccount, dispatch, user?.accessToken);
         console.log('loadApi useEffect ', loadApi);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dataAccount?.name || dataAccount?.email || dataAccount?.phone || dataAccount?.gender]);
+    }, [totalState]);
 
     useEffect(() => {
         getAllAccount(dataAccount, dispatch, user?.accessToken);
