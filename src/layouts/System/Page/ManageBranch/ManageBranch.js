@@ -108,7 +108,7 @@ function ManageBranch() {
                     <p>Blogs</p>
                 </Card>
                 <Form.Item label="">
-                    <Link to={'/system/manage-blog/add'}>
+                    <Link to={'/system/manage-branch/add'}>
                         <Button type="primary" style={{ marginTop: '23px' }}>
                             Add Branch
                         </Button>

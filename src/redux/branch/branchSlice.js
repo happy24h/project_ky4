@@ -22,9 +22,29 @@ const branchSlice = createSlice({
             state.branch.isFetching = false;
             state.branch.error = true;
         },
+
+        createBranchStart: (state) => {
+            state.branch.isFetching = true;
+        },
+        createBranchSuccess: (state, action) => {
+            state.branch.isFetching = false;
+            state.branch.error = false;
+            state.branch.listData = action.payload;
+        },
+        createBranchFailed: (state) => {
+            state.branch.isFetching = false;
+            state.branch.error = true;
+        },
     },
 });
 
-export const { getBranchStart, getBranchSuccess, getBranchFailed } = branchSlice.actions;
+export const {
+    getBranchStart,
+    getBranchSuccess,
+    getBranchFailed,
+    createBranchStart,
+    createBranchSuccess,
+    createBranchFailed,
+} = branchSlice.actions;
 
 export default branchSlice.reducer;

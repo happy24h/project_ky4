@@ -31,6 +31,7 @@ import DetailBlog from '~/layouts/System/Page/ManageBlog/DetailBlog/DetailBlog';
 import EditBlog from '~/layouts/System/Page/ManageBlog/EditBlog/EditBlog';
 //branch
 import ManageBranch from '~/layouts/System/Page/ManageBranch';
+import AddBranch from '~/layouts/System/Page/ManageBranch/components/AddBranch';
 
 import ManagerService from '~/layouts/System/Page/Service/ManagerService';
 import AddService from '~/layouts/System/Page/Service/components/Add/AddService';
@@ -71,6 +72,7 @@ const privateRoutes = [
     { path: config.routes.editBlog, component: EditBlog },
     // branch
     { path: config.routes.manageBranch, component: ManageBranch },
+    { path: config.routes.addBranch, component: AddBranch },
 
     //Service
     { path: config.routes.manageService, component: ManagerService },
