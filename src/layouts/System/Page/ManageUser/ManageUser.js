@@ -83,7 +83,7 @@ function ManageUser() {
     ];
 
     let totalState = state?.name.length + state?.email.length + state?.phone + state?.gender;
-    console.log('check total state', totalState);
+    // console.log('check total state', totalState);
 
     let dataAccount = {
         name: state?.name,
