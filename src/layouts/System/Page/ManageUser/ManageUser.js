@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteAccount, getAllAccount } from '~/redux/apiRequest';
 import { DeleteOutlined, EyeTwoTone, PlusCircleOutlined } from '@ant-design/icons';
-import { Space, Table, Button, Form, Tag, Card } from 'antd';
+import { Space, Table, Button, Form, Tag, Card, Pagination } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { Input, Select } from 'antd';
 import { InputNumber } from 'antd';
@@ -16,7 +16,7 @@ const { Option } = Select;
 
 function ManageUser() {
     const [page, setPage] = useState(1);
-    const [lineNumber, setLineNumber] = useState(5);
+    const [lineNumber, setLineNumber] = useState(4);
     const [loadApi, setLoadApi] = useState(false);
     const [state, setState] = useState({
         name: '',
@@ -186,6 +186,20 @@ function ManageUser() {
         );
     };
 
+    const tableFooter = () => {
+        return (
+            <div className={cx('table-footer')}>
+                <InputNumber min={1} max={10} defaultValue={4} onChange={onChange} />
+                <Pagination
+                    pageSize={lineNumber}
+                    total={listAccount?.totalItems}
+                    // current={page}
+                    onChange={(page) => setPage(page)}
+                />
+            </div>
+        );
+    };
+
     const onChange = (value) => {
         // console.log('changed', value);
         setLineNumber(value);
@@ -215,14 +229,15 @@ function ManageUser() {
                     // rowKey={(listAccount) => listAccount.id}
                     bordered
                     title={() => layoutInput()}
-                    footer={() => <InputNumber min={1} max={10} defaultValue={4} onChange={onChange} />}
-                    pagination={{
-                        pageSize: lineNumber,
-                        total: listAccount?.totalItems,
-                        onChange: (page) => {
-                            setPage(page);
-                        },
-                    }}
+                    footer={() => tableFooter()}
+                    pagination={false}
+                    // pagination={{
+                    //     pageSize: lineNumber,
+                    //     total: listAccount?.totalItems,
+                    //     onChange: (page) => {
+                    //         setPage(page);
+                    //     },
+                    // }}
                 />
             </div>
         </div>

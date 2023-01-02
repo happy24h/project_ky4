@@ -5,12 +5,9 @@
 }
 .input-group {
     width: 600px;
-    input {
-        // box-shadow: rgb(32 33 36 / 28%) 0px 1px 6px;
-        // border: 1px solid #ccc;
-    }
-    .input-select {
-        // box-shadow: rgb(32 33 36 / 28%) 0px 1px 6px;
-        // border: 1px solid #ccc;
-    }
+}
+
+.table-footer {
+    display: flex;
+    justify-content: space-between;
 }
