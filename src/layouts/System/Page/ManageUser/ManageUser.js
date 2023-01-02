@@ -6,6 +6,7 @@ import { DeleteOutlined, EyeTwoTone, PlusCircleOutlined } from '@ant-design/icon
 import { Space, Table, Button, Form, Tag, Card } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { Input, Select } from 'antd';
+import { InputNumber } from 'antd';
 
 import classNames from 'classnames/bind';
 import styles from './ManageUser.module.scss';
@@ -15,6 +16,7 @@ const { Option } = Select;
 
 function ManageUser() {
     const [page, setPage] = useState(1);
+    const [lineNumber, setLineNumber] = useState(5);
     const [loadApi, setLoadApi] = useState(false);
     const [state, setState] = useState({
         name: '',
@@ -93,7 +95,7 @@ function ManageUser() {
         start: '',
         end: '',
         page: page,
-        limit: 4,
+        limit: lineNumber,
         sort: 'asc',
         role_id: '',
         member_ship_class_id: '',
@@ -113,7 +115,7 @@ function ManageUser() {
         getAllAccount(dataAccount, dispatch, user?.accessToken);
         console.log('loadApi useEffect ', loadApi);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [totalState]);
+    }, [totalState, lineNumber]);
 
     useEffect(() => {
         getAllAccount(dataAccount, dispatch, user?.accessToken);
@@ -174,7 +176,7 @@ function ManageUser() {
                 </Input.Group>
                 {/* <Form.Item label=""> */}
                 <Link to={'/system/manage-user/add'}>
-                    <Button type="primary" style={{ fontWeight: 600, fontSize: 10 }}>
+                    <Button type="primary" style={{ fontWeight: 600, fontSize: 10, backgroundColor: '#fcaf17' }}>
                         <PlusCircleOutlined />
                         Add User
                     </Button>
@@ -184,7 +186,12 @@ function ManageUser() {
         );
     };
 
-    console.log('test state', state);
+    const onChange = (value) => {
+        // console.log('changed', value);
+        setLineNumber(value);
+    };
+
+    // console.log('test state', state);
     return (
         <div style={{ marginTop: '110px' }}>
             <div className="container" style={{ width: '1200px', margin: '0 auto' }}>
@@ -201,36 +208,22 @@ function ManageUser() {
                     <h3 style={{ fontSize: '28px' }}>{listAccount?.totalItems}</h3>
                     <p>Accounts</p>
                 </Card>
-                {/* <Form.Item label="">
-                    <Link to={'/system/manage-user/add'}>
-                        <Button type="primary" style={{ marginTop: '23px' }}>
-                            ADD USER
-                        </Button>
-                    </Link>
-                </Form.Item> */}
+
                 <Table
                     columns={columns}
                     dataSource={listAccount?.content}
                     // rowKey={(listAccount) => listAccount.id}
                     bordered
                     title={() => layoutInput()}
+                    footer={() => <InputNumber min={1} max={10} defaultValue={4} onChange={onChange} />}
                     pagination={{
-                        pageSize: 4,
+                        pageSize: lineNumber,
                         total: listAccount?.totalItems,
                         onChange: (page) => {
                             setPage(page);
                         },
                     }}
                 />
-
-                {/* {listAccount?.totalItems / 5 > 1 && (
-                    <Pagination
-                        total={listAccount?.totalItems}
-                        pageSize={4}
-                        current={page}
-                        onChange={(page) => setPage(page)}
-                    />
-                )} */}
             </div>
         </div>
     );

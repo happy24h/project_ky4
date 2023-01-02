@@ -7,7 +7,7 @@ import { Space, Table, Button, Form, Card } from 'antd';
 import { deleteBranch, getBranch } from '~/redux/branch/apiBranch';
 import classNames from 'classnames/bind';
 import styles from './ManageBranch.module.scss';
-// import Slider from '~/layouts/components/Slider';
+
 const cx = classNames.bind(styles);
 
 function ManageBranch() {
@@ -71,7 +71,7 @@ function ManageBranch() {
             dataIndex: 'thumbnail',
             key: 'thumbnail',
             render: (text) => {
-                if (text.length > 4) {
+                if (text.length > 9) {
                     return <div className={cx('thumbnail-branch')} style={{ backgroundImage: `url(${text})` }}></div>;
                 } else {
                     return <div className={cx('thumbnail-branch')}></div>;
@@ -110,7 +110,7 @@ function ManageBranch() {
             <div className="container" style={{ width: '1200px', margin: '0 auto' }}>
                 <Card
                     size="small"
-                    title="Total Blogs"
+                    title="Total Branches"
                     // extra={<a href="#">More</a>}
                     style={{
                         width: 160,
@@ -118,7 +118,7 @@ function ManageBranch() {
                     }}
                 >
                     <h3 style={{ fontSize: '28px' }}>{listBranch?.totalItems}</h3>
-                    <p>Blogs</p>
+                    <p>Branches</p>
                 </Card>
                 <Form.Item label="">
                     <Link to={'/system/manage-branch/add'}>
@@ -138,14 +138,6 @@ function ManageBranch() {
                         },
                     }}
                 />
-                {/* {listAccount?.totalItems / 5 > 1 && (
-            <Pagination
-                total={listAccount?.totalItems}
-                pageSize={4}
-                current={page}
-                onChange={(page) => setPage(page)}
-            />
-        )} */}
             </div>
         </div>
     );
