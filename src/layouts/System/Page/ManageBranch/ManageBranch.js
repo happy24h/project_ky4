@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { DeleteOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Space, Table, Button, Form, Card } from 'antd';
-import { getBranch } from '~/redux/branch/apiBranch';
+import { deleteBranch, getBranch } from '~/redux/branch/apiBranch';
 import classNames from 'classnames/bind';
 import styles from './ManageBranch.module.scss';
 // import Slider from '~/layouts/components/Slider';
@@ -12,6 +12,7 @@ const cx = classNames.bind(styles);
 
 function ManageBranch() {
     const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector((state) => state.auth.login?.currentUser);
@@ -27,11 +28,20 @@ function ManageBranch() {
         sort: 'asc',
         status: '',
     };
+
+    useEffect(() => {
+        getBranch(dataBranch, dispatch, user?.accessToken);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loading]);
     useEffect(() => {
         getBranch(dataBranch, dispatch, user?.accessToken);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page]);
+    const handleLoading = () => {
+        setLoading(!loading);
+    };
 
     const columns = [
         {
@@ -86,10 +96,13 @@ function ManageBranch() {
             ),
         },
     ];
-    const handleDeleteUser = () => {};
-    const handleEditUser = (blog) => {
-        // alert('hello world' + blog.id);
-        navigate(`/system/manage-blog/detail/${blog.id}`);
+    const handleDeleteUser = (data) => {
+        // alert('hello world' + data.id);
+        deleteBranch(data.id, user?.accessToken, dispatch, handleLoading);
+    };
+    const handleEditUser = (data) => {
+        alert('ID: ' + data.id);
+        // navigate(`/system/manage-blog/detail/${data.id}`);
     };
 
     return (

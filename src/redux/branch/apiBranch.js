@@ -8,6 +8,9 @@ import {
     createBranchStart,
     createBranchSuccess,
     createBranchFailed,
+    deleteBranchStart,
+    deleteBranchSuccess,
+    deleteBranchFailed,
 } from './branchSlice';
 
 export const getBranch = async (dataValues, dispatch, accessToken) => {
@@ -35,6 +38,20 @@ export const createBranch = async (dataValues, dispatch, accessToken, loadApi, n
         toast.success('create branch success');
     } catch (err) {
         dispatch(createBranchFailed());
+        toast.error('Có thứ gì đó không ổn ?');
+    }
+};
+
+export const deleteBranch = async (id, accessToken, dispatch, handleLoading) => {
+    dispatch(deleteBranchStart());
+    try {
+        await axios.get(`http://localhost:8078/api/v1/branch/delete/${id}`, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        dispatch(deleteBranchSuccess());
+        handleLoading();
+    } catch (err) {
+        dispatch(deleteBranchFailed());
         toast.error('Có thứ gì đó không ổn ?');
     }
 };
