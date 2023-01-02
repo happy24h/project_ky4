@@ -101,8 +101,8 @@ function ManageBranch() {
         deleteBranch(data.id, user?.accessToken, dispatch, handleLoading);
     };
     const handleEditUser = (data) => {
-        alert('ID: ' + data.id);
-        // navigate(`/system/manage-blog/detail/${data.id}`);
+        // alert('ID: ' + data.id);
+        navigate(`/system/manage-branch/detail/${data.id}`);
     };
 
     return (

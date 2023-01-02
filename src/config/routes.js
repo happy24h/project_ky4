@@ -36,6 +36,8 @@ const routes = {
     // branch
     manageBranch: 'system/manage-branch',
     addBranch: 'system/manage-branch/add',
+    detailBranch: 'system/manage-branch/detail/:id',
+    editBranch: 'system/manage-branch/edit/:id',
 
     //Service
     manageService: 'system/manage-service',

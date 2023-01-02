@@ -45,6 +45,30 @@ const branchSlice = createSlice({
             state.branch.isFetching = false;
             state.branch.error = true;
         },
+        detailBranchStart: (state) => {
+            state.branch.isFetching = true;
+        },
+        detailBranchSuccess: (state, action) => {
+            state.branch.isFetching = false;
+            state.branch.error = false;
+            state.branch.detailData = action.payload;
+        },
+        detailBranchFailed: (state) => {
+            state.branch.isFetching = false;
+            state.branch.error = true;
+        },
+        editBranchStart: (state) => {
+            state.branch.isFetching = true;
+        },
+        editBranchSuccess: (state, action) => {
+            state.branch.isFetching = false;
+            state.branch.error = false;
+            state.branch.detailData = action.payload;
+        },
+        editBranchFailed: (state) => {
+            state.branch.isFetching = false;
+            state.branch.error = true;
+        },
     },
 });
 
@@ -59,6 +83,12 @@ export const {
     deleteBranchStart,
     deleteBranchSuccess,
     deleteBranchFailed,
+    detailBranchStart,
+    detailBranchSuccess,
+    detailBranchFailed,
+    editBranchStart,
+    editBranchSuccess,
+    editBranchFailed,
 } = branchSlice.actions;
 
 export default branchSlice.reducer;

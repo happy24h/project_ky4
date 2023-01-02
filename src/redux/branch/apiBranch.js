@@ -11,6 +11,12 @@ import {
     deleteBranchStart,
     deleteBranchSuccess,
     deleteBranchFailed,
+    detailBranchStart,
+    detailBranchSuccess,
+    detailBranchFailed,
+    editBranchStart,
+    editBranchSuccess,
+    editBranchFailed,
 } from './branchSlice';
 
 export const getBranch = async (dataValues, dispatch, accessToken) => {
@@ -53,5 +59,36 @@ export const deleteBranch = async (id, accessToken, dispatch, handleLoading) => 
     } catch (err) {
         dispatch(deleteBranchFailed());
         toast.error('Có thứ gì đó không ổn ?');
+    }
+};
+
+export const getDetailBranch = async (id, dispatch, accessToken) => {
+    dispatch(detailBranchStart());
+    try {
+        const res = await axios.get(`http://localhost:8078/api/v1/branch/${id}`, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        dispatch(detailBranchSuccess(res.data));
+
+        // toast.success('Detail success');
+    } catch (err) {
+        dispatch(detailBranchFailed());
+        toast.error('Có thứ gì đó không ổn ?');
+    }
+};
+
+export const editBranch = async (id, account, dispatch, accessToken, handleUpdateApi) => {
+    dispatch(editBranchStart());
+
+    try {
+        await axios.post(`http://localhost:8078/api/v1/branch/update/${id}`, account, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        dispatch(editBranchSuccess());
+        toast.success('Edit success');
+        handleUpdateApi();
+    } catch (err) {
+        dispatch(editBranchFailed());
+        toast.error('Có thứ gì đó không đúng');
     }
 };
