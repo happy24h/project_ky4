@@ -11,3 +11,15 @@
     display: flex;
     justify-content: space-between;
 }
+
+.counter-number {
+    padding: 0 3px;
+    cursor: pointer;
+    // border: 1px solid #ff4d4f;
+    // border-radius: 12px;
+    color: #ccc;
+    font-size: 20px;
+    &:hover {
+        background-color: #f2f2f2;
+    }
+}

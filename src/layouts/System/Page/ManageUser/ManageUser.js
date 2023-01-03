@@ -2,7 +2,7 @@ import './ManageUser.scss';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteAccount, getAllAccount } from '~/redux/apiRequest';
-import { DeleteOutlined, EyeTwoTone, PlusCircleOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EyeTwoTone, PlusCircleOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import { Space, Table, Button, Form, Tag, Card, Pagination } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { Input, Select } from 'antd';
@@ -186,10 +186,49 @@ function ManageUser() {
         );
     };
 
+    const handleIncrement = () => {
+        return (
+            <div
+                className={cx('counter-number')}
+                // style={{ padding: '0 5px', cursor: 'pointer', border: '1px solid #ccc', borderRadius: '12px' }}
+                onClick={() => setLineNumber(lineNumber + 1)}
+            >
+                <PlusCircleOutlined />
+            </div>
+        );
+    };
+    const handleDecrement = () => {
+        if (lineNumber < 2) {
+            return (
+                <div className={cx('counter-number')} onClick={() => setLineNumber(1)}>
+                    <MinusCircleOutlined />
+                </div>
+            );
+        } else {
+            return (
+                <div className={cx('counter-number')} onClick={() => setLineNumber(lineNumber - 1)}>
+                    <MinusCircleOutlined />
+                </div>
+            );
+        }
+    };
+
     const tableFooter = () => {
         return (
             <div className={cx('table-footer')}>
-                <InputNumber min={1} max={10} defaultValue={4} onChange={onChange} />
+                <div style={{ display: 'flex', width: '150px' }}>
+                    {/* <Button onClick={() => setLineNumber(lineNumber + 1)}>+</Button> */}
+                    <InputNumber
+                        addonBefore={handleDecrement()}
+                        addonAfter={handleIncrement()}
+                        min={1}
+                        max={10}
+                        // defaultValue={lineNumber}
+                        value={lineNumber}
+                        onChange={onChange}
+                    />{' '}
+                    {/* <Button onClick={() => setLineNumber(lineNumber - 1)}>-</Button> */}
+                </div>
                 <Pagination
                     pageSize={lineNumber}
                     total={listAccount?.totalItems}
