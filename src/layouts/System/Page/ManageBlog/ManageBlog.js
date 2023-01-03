@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { getBlog } from '~/redux/blog/apiBlog';
 
-import { DeleteOutlined, EyeTwoTone, PlusCircleOutlined } from '@ant-design/icons';
-import { Space, Table, Button, Form, Card } from 'antd';
+import { DeleteOutlined, EyeTwoTone, PlusCircleOutlined, MinusCircleOutlined } from '@ant-design/icons';
+import { Space, Table, Button, Form, Card, InputNumber, Pagination } from 'antd';
 // import { Space, Table, Button, Form, Tag, Card, Pagination } from 'antd';
 import { Input } from 'antd';
 
@@ -14,6 +14,7 @@ import styles from './ManageBlog.module.scss';
 const cx = classNames.bind(styles);
 
 function ManageBlog() {
+    const [lineNumber, setLineNumber] = useState(3);
     const [page, setPage] = useState(1);
     const [state, setState] = useState({
         title: '',
@@ -29,7 +30,7 @@ function ManageBlog() {
         start: '',
         end: '',
         page: page,
-        limit: 3,
+        limit: lineNumber,
         sort: 'asc',
         status: '',
     };
@@ -44,7 +45,7 @@ function ManageBlog() {
         getBlog(dataBlog, dispatch, user?.accessToken);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [page]);
+    }, [page, lineNumber]);
     useEffect(() => {
         getBlog(dataBlog, dispatch, user?.accessToken);
 
@@ -64,11 +65,7 @@ function ManageBlog() {
             key: 'title',
             render: (text) => <span style={{ color: '#1677ff' }}>{text}</span>,
         },
-        {
-            title: 'Description',
-            dataIndex: 'description',
-            key: 'description',
-        },
+
         {
             title: 'Account',
             dataIndex: 'account',
@@ -79,6 +76,18 @@ function ManageBlog() {
             title: 'Content',
             dataIndex: 'content',
             key: 'content',
+        },
+        {
+            title: 'Thumbnail',
+            dataIndex: 'thumbnail',
+            key: 'thumbnail',
+            render: (text) => {
+                if (text.length > 9) {
+                    return <div className={cx('thumbnail-branch')} style={{ backgroundImage: `url(${text})` }}></div>;
+                } else {
+                    return <div className={cx('thumbnail-branch')}></div>;
+                }
+            },
         },
 
         {
@@ -136,6 +145,64 @@ function ManageBlog() {
         );
     };
 
+    const handleIncrement = () => {
+        return (
+            <div
+                className={cx('counter-number')}
+                // style={{ padding: '0 5px', cursor: 'pointer', border: '1px solid #ccc', borderRadius: '12px' }}
+                onClick={() => setLineNumber(lineNumber + 1)}
+            >
+                <PlusCircleOutlined />
+            </div>
+        );
+    };
+    const handleDecrement = () => {
+        if (lineNumber < 2) {
+            return (
+                <div className={cx('counter-number')} onClick={() => setLineNumber(1)}>
+                    <MinusCircleOutlined />
+                </div>
+            );
+        } else {
+            return (
+                <div className={cx('counter-number')} onClick={() => setLineNumber(lineNumber - 1)}>
+                    <MinusCircleOutlined />
+                </div>
+            );
+        }
+    };
+
+    const tableFooter = () => {
+        return (
+            <div className={cx('table-footer')}>
+                <div style={{ display: 'flex', width: '150px' }}>
+                    {/* <Button onClick={() => setLineNumber(lineNumber + 1)}>+</Button> */}
+                    <InputNumber
+                        addonBefore={handleDecrement()}
+                        addonAfter={handleIncrement()}
+                        min={1}
+                        max={10}
+                        // defaultValue={lineNumber}
+                        value={lineNumber}
+                        onChange={onChange}
+                    />{' '}
+                    {/* <Button onClick={() => setLineNumber(lineNumber - 1)}>-</Button> */}
+                </div>
+                <Pagination
+                    pageSize={lineNumber}
+                    total={listBlog?.totalItems}
+                    // current={page}
+                    onChange={(page) => setPage(page)}
+                />
+            </div>
+        );
+    };
+
+    const onChange = (value) => {
+        // console.log('changed', value);
+        setLineNumber(value);
+    };
+
     return (
         <div style={{ marginTop: '110px' }}>
             <div className="container" style={{ width: '1200px', margin: '0 auto' }}>
@@ -163,13 +230,16 @@ function ManageBlog() {
                     columns={columns}
                     dataSource={listBlog?.content}
                     title={() => layoutInput()}
-                    pagination={{
-                        pageSize: 3,
-                        total: listBlog?.totalItems,
-                        onChange: (page) => {
-                            setPage(page);
-                        },
-                    }}
+                    bordered
+                    footer={() => tableFooter()}
+                    pagination={false}
+                    // pagination={{
+                    //     pageSize: lineNumber,
+                    //     total: listBlog?.totalItems,
+                    //     onChange: (page) => {
+                    //         setPage(page);
+                    //     },
+                    // }}
                 />
                 {/* {listAccount?.totalItems / 5 > 1 && (
             <Pagination
