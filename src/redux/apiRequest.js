@@ -114,19 +114,19 @@ export const deleteAccount = async (id, accessToken, dispatch) => {
         });
         dispatch(deleteAccountsSuccess());
     } catch (err) {
-        dispatch(deleteAccountFailed(err.response.data));
+        dispatch(deleteAccountFailed());
     }
 };
 
-export const createAccount = async (account, dispatch, accessToken, handleCancel) => {
+export const createAccount = async (account, dispatch, accessToken, loadApi, navigate) => {
     dispatch(createAccountStart());
     try {
         await axios.post('http://localhost:8078/api/v1/register', account, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         dispatch(createAccountSuccess());
-        handleCancel();
-        // navigate('/login');
+        loadApi();
+        navigate('/system/manage-user');
         toast.success('Tạo tài khoản thành công');
     } catch (err) {
         dispatch(createAccountFailed(err.response.data.message));

@@ -42,7 +42,7 @@ const Login = () => {
 
     return (
         <div className="container-login">
-            <form className="loginForm" onSubmit={formik.handleSubmit}>
+            <form className="loginForm" style={{ minHeight: '500px' }} onSubmit={formik.handleSubmit}>
                 <h1 className="heading">Login</h1>
                 <div className="socialLogins">
                     <button className="socialLogin1">

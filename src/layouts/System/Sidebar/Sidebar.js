@@ -16,8 +16,8 @@ function Sidebar() {
                     to: '/system/manage-user',
                 },
                 {
-                    title: 'Thêm thông tin',
-                    to: '/system/manage-user',
+                    title: 'Bài viết',
+                    to: '/system/manage-blog',
                 },
             ],
         },
@@ -30,8 +30,8 @@ function Sidebar() {
                     to: '/system/manage-schedule',
                 },
                 {
-                    title: 'Thêm thông tin nhân viên',
-                    to: '/system/manage-user',
+                    title: 'Cơ sở cắt tóc',
+                    to: '/system/manage-branch',
                 },
             ],
         },
@@ -56,6 +56,16 @@ function Sidebar() {
                 {
                     title: 'Danh sách phản hồi',
                     to: '/system/manage-feedback',
+                },
+            ],
+        },
+        {
+            icon: <FontAwesomeIcon icon={faUser} />,
+            title: 'Dịch vụ',
+            data: [
+                {
+                    title: 'Danh sách dịch vụ',
+                    to: '/system/manage-service',
                 },
             ],
         },

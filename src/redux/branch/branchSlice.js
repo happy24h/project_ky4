@@ -1,58 +1,94 @@
 import { createSlice } from '@reduxjs/toolkit';
-const feedbackSlice = createSlice({
-    name: 'feedback',
+const branchSlice = createSlice({
+    name: 'branch',
     initialState: {
-        feedback: {
-            feedbackCurrent: null,
+        branch: {
+            listData: null,
             isFetching: false,
             error: false,
-            detailFeedback: null,
+            detailData: null,
         },
     },
     reducers: {
-        feedbackStart: (state) => {
-            state.feedback.isFetching = true;
+        getBranchStart: (state) => {
+            state.branch.isFetching = true;
         },
-        feedbackSuccess: (state, action) => {
-            state.feedback.isFetching = false;
-            state.feedback.error = false;
-            state.feedback.feedbackCurrent = action.payload;
+        getBranchSuccess: (state, action) => {
+            state.branch.isFetching = false;
+            state.branch.error = false;
+            state.branch.listData = action.payload;
         },
-        feedbackFailed: (state) => {
-            state.feedback.isFetching = false;
-            state.feedback.error = true;
-        },
-
-        detailFeedbackStart: (state) => {
-            state.feedback.isFetching = true;
-        },
-        detailFeedbackSuccess: (state, action) => {
-            state.feedback.isFetching = false;
-            state.feedback.error = false;
-            state.feedback.detailFeedback = action.payload;
-        },
-        detailFeedbackFailed: (state) => {
-            state.feedback.isFetching = false;
-            state.feedback.error = true;
+        getBranchFailed: (state) => {
+            state.branch.isFetching = false;
+            state.branch.error = true;
         },
 
-        deleteFeedbackStart: (state) => {
-            state.feedback.isFetching = true;
+        createBranchStart: (state) => {
+            state.branch.isFetching = true;
         },
-        deleteFeedbackSuccess: (state) => {
-            state.feedback.isFetching = false;
-            state.feedback.error = false;
+        createBranchSuccess: (state, action) => {
+            state.branch.isFetching = false;
+            state.branch.error = false;
+            state.branch.listData = action.payload;
         },
-        deleteFeedbackFailed: (state) => {
-            state.feedback.isFetching = false;
-            state.feedback.error = true;
+        createBranchFailed: (state) => {
+            state.branch.isFetching = false;
+            state.branch.error = true;
+        },
+        deleteBranchStart: (state) => {
+            state.branch.isFetching = true;
+        },
+        deleteBranchSuccess: (state) => {
+            state.branch.isFetching = false;
+        },
+        deleteBranchFailed: (state) => {
+            state.branch.isFetching = false;
+            state.branch.error = true;
+        },
+        detailBranchStart: (state) => {
+            state.branch.isFetching = true;
+        },
+        detailBranchSuccess: (state, action) => {
+            state.branch.isFetching = false;
+            state.branch.error = false;
+            state.branch.detailData = action.payload;
+        },
+        detailBranchFailed: (state) => {
+            state.branch.isFetching = false;
+            state.branch.error = true;
+        },
+        editBranchStart: (state) => {
+            state.branch.isFetching = true;
+        },
+        editBranchSuccess: (state, action) => {
+            state.branch.isFetching = false;
+            state.branch.error = false;
+            state.branch.detailData = action.payload;
+        },
+        editBranchFailed: (state) => {
+            state.branch.isFetching = false;
+            state.branch.error = true;
         },
     },
 });
 
-export const { feedbackStart, feedbackSuccess, feedbackFailed,
-                detailFeedbackStart, detailFeedbackSuccess, detailFeedbackFailed,
-                deleteFeedbackStart, deleteFeedbackSuccess, deleteFeedbackFailed
-} = feedbackSlice.actions;
+export const {
+    getBranchStart,
+    getBranchSuccess,
+    getBranchFailed,
+    createBranchStart,
+    createBranchSuccess,
+    createBranchFailed,
 
-export default feedbackSlice.reducer;
+    deleteBranchStart,
+    deleteBranchSuccess,
+    deleteBranchFailed,
+    detailBranchStart,
+    detailBranchSuccess,
+    detailBranchFailed,
+    editBranchStart,
+    editBranchSuccess,
+    editBranchFailed,
+} = branchSlice.actions;
+
+export default branchSlice.reducer;

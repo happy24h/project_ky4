@@ -31,17 +31,12 @@ function DetailAccount() {
     return (
         <>
             <Link to={'/system/manage-user'}>
-                <Button type="primary" ghost>
+                <Button type="primary" ghost style={{ backgroundColor: '#fff' }}>
                     {/* <EditOutlined /> */}
                     Back
                 </Button>
             </Link>
-            {/* <EditAccount
-                accountId={id}
-                accessToken={user?.accessToken}
-                detailAccount={detailAccount}
-                handleUpdateApi={handleUpdateApi}
-            /> */}
+
             <div className={cx('wrapper')}>
                 {' '}
                 <Card
@@ -49,8 +44,13 @@ function DetailAccount() {
                     style={{
                         width: 240,
                     }}
-                    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+                    title="Avatar"
+                    // cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
                 >
+                    <div
+                        className={cx('detail-image')}
+                        style={{ backgroundImage: `url(${detailAccount?.thumbnail})` }}
+                    ></div>
                     <Meta title="Sắp đến tết" description="www.instagram.com" />
                 </Card>
                 <Card

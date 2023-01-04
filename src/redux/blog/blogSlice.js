@@ -3,56 +3,77 @@ const blogSlice = createSlice({
     name: 'blog',
     initialState: {
         blog: {
-            blogCurrent: null,
+            listData: null,
             isFetching: false,
             error: false,
-            detailBlog: null,
+            detailData: null,
         },
     },
     reducers: {
-        blogStart: (state) => {
+        getBlogStart: (state) => {
             state.blog.isFetching = true;
         },
-        blogSuccess: (state, action) => {
+        getBlogSuccess: (state, action) => {
             state.blog.isFetching = false;
             state.blog.error = false;
-            state.blog.blogCurrent = action.payload;
+            state.blog.listData = action.payload;
         },
-        blogFailed: (state) => {
+        getBlogFailed: (state) => {
             state.blog.isFetching = false;
             state.blog.error = true;
         },
-
+        createBlogStart: (state) => {
+            state.blog.isFetching = true;
+        },
+        createBlogSuccess: (state, action) => {
+            state.blog.isFetching = false;
+            state.blog.error = false;
+            state.blog.listData = action.payload;
+        },
+        createBlogFailed: (state) => {
+            state.blog.isFetching = false;
+            state.blog.error = true;
+        },
         detailBlogStart: (state) => {
             state.blog.isFetching = true;
         },
         detailBlogSuccess: (state, action) => {
             state.blog.isFetching = false;
             state.blog.error = false;
-            state.blog.detailBlog = action.payload;
+            state.blog.detailData = action.payload;
         },
         detailBlogFailed: (state) => {
             state.blog.isFetching = false;
             state.blog.error = true;
         },
-
-        deleteBlogStart: (state) => {
+        editBlogStart: (state) => {
             state.blog.isFetching = true;
         },
-        deleteBlogSuccess: (state) => {
+        editBlogSuccess: (state, action) => {
             state.blog.isFetching = false;
             state.blog.error = false;
+            state.blog.detailData = action.payload;
         },
-        deleteBlogFailed: (state) => {
+        editBlogFailed: (state) => {
             state.blog.isFetching = false;
             state.blog.error = true;
         },
     },
 });
 
-export const { blogStart, blogSuccess, blogFailed,
-    detailBlogStart, detailBlogSuccess, detailBlogFailed,
-    deleteBlogStart, deleteBlogSuccess, deleteBlogFailed
+export const {
+    getBlogStart,
+    getBlogSuccess,
+    getBlogFailed,
+    createBlogStart,
+    createBlogSuccess,
+    createBlogFailed,
+    detailBlogStart,
+    detailBlogSuccess,
+    detailBlogFailed,
+    editBlogStart,
+    editBlogSuccess,
+    editBlogFailed,
 } = blogSlice.actions;
 
 export default blogSlice.reducer;

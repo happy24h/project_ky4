@@ -24,6 +24,22 @@ import ModalEdit from '~/layouts/System/Page/ManageUser/components/EditAccount/M
 import DetailAccount from '~/layouts/System/Page/ManageUser/components/DetailAccount/DetailAccount';
 import DetailFeedback from '~/layouts/System/Page/Feedback/DetailFeedBack';
 
+// blog
+import ManageBlog from '~/layouts/System/Page/ManageBlog';
+import CreateBlog from '~/layouts/System/Page/ManageBlog/CreateBlog';
+import DetailBlog from '~/layouts/System/Page/ManageBlog/DetailBlog/DetailBlog';
+import EditBlog from '~/layouts/System/Page/ManageBlog/EditBlog/EditBlog';
+//branch
+import ManageBranch from '~/layouts/System/Page/ManageBranch';
+import AddBranch from '~/layouts/System/Page/ManageBranch/components/AddBranch';
+import DetailBranch from '~/layouts/System/Page/ManageBranch/components/DetailBranch';
+import EditBranch from '~/layouts/System/Page/ManageBranch/components/EditBranch';
+//service
+import ManagerService from '~/layouts/System/Page/Service/ManagerService';
+import AddService from '~/layouts/System/Page/Service/components/Add/AddService';
+import DetailService from '~/layouts/System/Page/Service/components/Detail';
+import EditService from '~/layouts/System/Page/Service/components/Edit';
+
 const publicRouters = [
     { path: config.routes.home, component: Home },
     { path: config.routes.service, component: Service },
@@ -50,6 +66,23 @@ const privateRoutes = [
     //FeedBack
     { path: config.routes.manageFeedback, component: ManageFeedback },
     { path: config.routes.detailFeedback, component: DetailFeedback },
+
+    // blog
+    { path: config.routes.manageBlog, component: ManageBlog },
+    { path: config.routes.createBlog, component: CreateBlog },
+    { path: config.routes.detailBlog, component: DetailBlog },
+    { path: config.routes.editBlog, component: EditBlog },
+    // branch
+    { path: config.routes.manageBranch, component: ManageBranch },
+    { path: config.routes.addBranch, component: AddBranch },
+    { path: config.routes.detailBranch, component: DetailBranch },
+    { path: config.routes.editBranch, component: EditBranch },
+
+    //Service
+    { path: config.routes.manageService, component: ManagerService },
+    { path: config.routes.addService, component: AddService },
+    { path: config.routes.detailService, component: DetailService },
+    { path: config.routes.editService, component: EditService },
 ];
 
 export { publicRouters, privateRoutes };
