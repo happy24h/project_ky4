@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import Button from '~/components/Button';
 import './ManageSchedule.scss';
+import { useTranslation } from 'react-i18next';
 
 function ManageSchedule() {
     const [active, setActive] = useState(false);
+    const { t } = useTranslation();
+
     const handleClickBtnTime = () => {
         setActive(!active);
     };
@@ -23,6 +26,7 @@ function ManageSchedule() {
     return (
         <div className="manage-schedule-container">
             <div className="m-s-title">QUẢN LÝ KẾ HOẠCH THỜI GIAN CỦA NHÂN VIÊN</div>
+            <h1>{t('manageUser.title')}</h1>
             <div className="container">
                 <div className="row">
                     <div className="col l-6 form-group">

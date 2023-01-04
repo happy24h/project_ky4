@@ -9,15 +9,19 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 
 const cx = classNames.bind(styles);
 
-const defaultFn = () => {};
+const defaultFn = () => {
+    alert('hello');
+};
 
 function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn }) {
     const [history, setHistory] = useState([{ data: items }]);
     const current = history[history.length - 1];
+    console.log('current', current);
 
     const renderItems = () => {
         return current.data.map((item, index) => {
             const isParent = !!item.children;
+
             return (
                 <MenuItem
                     key={index}
@@ -25,10 +29,13 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn 
                     onClick={() => {
                         if (isParent) {
                             setHistory((prev) => [...prev, item.children]);
+                        } else if (item.code) {
+                            item.handleOnclick(item.code);
                         } else {
-                            item.handleOnclick();
+                            item.handleOnclick('hello world');
                         }
                     }}
+                    // onChange={() => onChange()}
                 />
             );
         });

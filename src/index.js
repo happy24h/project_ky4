@@ -7,6 +7,9 @@ import { Provider } from 'react-redux';
 import { store, persistor } from './redux/store';
 import GlobalStyles from '~/components/GlobalStyles';
 import { PersistGate } from 'redux-persist/integration/react';
+// import './i18next';
+// import './i18n';
+import './utils/translate/i18n';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

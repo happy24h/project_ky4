@@ -258,7 +258,7 @@ function ManageUser() {
 
     // console.log('test state', state);
     return (
-        <div style={{ marginTop: '110px' }}>
+        <div style={{ marginTop: '106px' }}>
             <div className="container" style={{ width: '1200px', margin: '0 auto' }}>
                 <Card
                     size="small"
@@ -267,7 +267,7 @@ function ManageUser() {
                     style={{
                         width: 160,
                         height: 140,
-                        marginBottom: 40,
+                        marginBottom: 25,
                     }}
                 >
                     <h3 style={{ fontSize: '28px' }}>{listAccount?.totalItems}</h3>
