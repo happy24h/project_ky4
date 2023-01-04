@@ -65,6 +65,18 @@ function ManageUser() {
                 }
             },
         },
+        {
+            title: 'Thumbnail',
+            dataIndex: 'thumbnail',
+            key: 'thumbnail',
+            render: (text) => {
+                if (text?.length > 9) {
+                    return <div className={cx('thumbnail-account')} style={{ backgroundImage: `url(${text})` }}></div>;
+                } else {
+                    return <div className={cx('thumbnail-account')}></div>;
+                }
+            },
+        },
 
         {
             title: 'Action',
