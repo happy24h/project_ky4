@@ -16,6 +16,7 @@ import blogReducer from './blog/blogSlice';
 
 import serviceReducer from './service/serviceSilce';
 import cloudReducer from './cloudImage/cloudSlice';
+import typeServiceReducer from './type_service/typeServiceSilce';
 
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
 
     service: serviceReducer,
     cloudImage: cloudReducer,
+    typeService: typeServiceReducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

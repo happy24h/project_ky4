@@ -33,6 +33,10 @@ import ManagerService from '~/layouts/System/Page/Service/ManagerService';
 import AddService from '~/layouts/System/Page/Service/components/Add/AddService';
 import DetailService from '~/layouts/System/Page/Service/components/Detail';
 import EditService from '~/layouts/System/Page/Service/components/Edit';
+import ManagerTypeService from '~/layouts/System/Page/TypeService/ManagerTypeService';
+import AddTypeService from '~/layouts/System/Page/TypeService/components/Add/AddTypeService';
+import DetailTypeService from '~/layouts/System/Page/TypeService/components/Detail/DetailTypeService';
+import EditTypeService from '~/layouts/System/Page/TypeService/components/Edit/EditTypeService';
 
 const publicRouters = [
     { path: config.routes.home, component: Home },
@@ -72,6 +76,12 @@ const privateRoutes = [
     { path: config.routes.addService, component: AddService },
     { path: config.routes.detailService, component: DetailService },
     { path: config.routes.editService, component: EditService },
+
+    //Type Service
+    { path: config.routes.manageTypeService, component: ManagerTypeService },
+    { path: config.routes.addTypeService, component: AddTypeService },
+    { path: config.routes.detailTypeService, component: DetailTypeService },
+    { path: config.routes.editTypeService, component: EditTypeService },
 ];
 
 export { publicRouters, privateRoutes };

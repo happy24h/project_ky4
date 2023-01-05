@@ -6,10 +6,9 @@ import {
     deleteServiceStart, deleteServiceSuccess, detailServiceFailed, detailServiceStart, detailServiceSuccess,
     serviceFailed,
     serviceStart,
-    serviceSuccess, typeServiceFailed,
-    typeServiceStart,
-    typeServiceSuccess,
+    serviceSuccess
 } from '~/redux/service/serviceSilce';
+import { typeServiceFailed, typeServiceStart, typeServiceSuccess } from '~/redux/type_service/typeServiceSilce';
 
 export const getAllService = async (serviceSearch, dispatch) => {
     dispatch(serviceStart());
@@ -36,7 +35,7 @@ export const getAllTypeService = async (dispatch) => {
 export const createService = async (service,dispatch,accessToken,navigate) => {
     dispatch(serviceStart());
     try {
-        const res = await axios.post('http://localhost:8078/api/v1/service/create',service,{
+         await axios.post('http://localhost:8078/api/v1/service/create',service,{
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         toast.success("tạo dịch vụ thành công");
@@ -50,7 +49,7 @@ export const createService = async (service,dispatch,accessToken,navigate) => {
 export const updateService = async (id,service,dispatch,accessToken,loadAPI) => {
     dispatch(serviceStart());
     try {
-        const res = await axios.post('http://localhost:8078/api/v1/service/update/'+id,service,{
+        await axios.post('http://localhost:8078/api/v1/service/update/'+id,service,{
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         toast.success("sửa dịch vụ thành công");

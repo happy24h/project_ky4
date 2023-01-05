@@ -102,7 +102,7 @@ function DetailFeedback() {
                                 ? ''
                                 : <option value="0">Chưa đọc</option>
                             }
-                        <option value="-1">Thư rác</option>
+                        {/*<option value="-1">Thư rác</option>*/}
                     </select>
                     </span>
                 </List>

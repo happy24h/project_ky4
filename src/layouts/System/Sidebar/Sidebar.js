@@ -67,6 +67,10 @@ function Sidebar() {
                     title: 'Danh sách dịch vụ',
                     to: '/system/manage-service',
                 },
+                {
+                    title: 'Danh sách loại dịch vụ',
+                    to: '/system/manage-type-service',
+                },
             ],
         },
     ];

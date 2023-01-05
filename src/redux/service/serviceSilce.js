@@ -6,7 +6,7 @@ const serviceSlice = createSlice({
             serviceCurrent: null,
             isFetching: false,
             error: false,
-            detailService: null,
+            // detailService: null,
             typeService: null,
         },
     },
@@ -24,19 +24,19 @@ const serviceSlice = createSlice({
             state.service.isFetching = false;
             state.service.error = true;
         },
-        //Type service
-        typeServiceStart: (state) => {
-            state.service.isFetching = true;
-        },
-        typeServiceSuccess: (state, action) => {
-            state.service.isFetching = false;
-            state.service.error = false;
-            state.service.typeService = action.payload;
-        },
-        typeServiceFailed: (state) => {
-            state.service.isFetching = false;
-            state.service.error = true;
-        },
+        // //Type service
+        // typeServiceStart: (state) => {
+        //     state.service.isFetching = true;
+        // },
+        // typeServiceSuccess: (state, action) => {
+        //     state.service.isFetching = false;
+        //     state.service.error = false;
+        //     state.service.typeService = action.payload;
+        // },
+        // typeServiceFailed: (state) => {
+        //     state.service.isFetching = false;
+        //     state.service.error = true;
+        // },
         //Detail service
         detailServiceStart: (state) => {
             state.service.isFetching = true;
@@ -67,7 +67,7 @@ const serviceSlice = createSlice({
 
 export const { serviceStart, serviceSuccess, serviceFailed,
     detailServiceStart, detailServiceSuccess, detailServiceFailed,
-    typeServiceStart, typeServiceSuccess, typeServiceFailed,
+    // typeServiceStart, typeServiceSuccess, typeServiceFailed,
     deleteServiceStart, deleteServiceSuccess, deleteServiceFailed
 } = serviceSlice.actions;
 

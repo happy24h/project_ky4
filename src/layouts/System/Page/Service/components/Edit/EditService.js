@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { createAccount, getAllAccount } from '~/redux/apiRequest';
 import {
-    createService,
-    getAllService,
     getAllTypeService,
     getDetailService,
     updateService,
@@ -14,11 +11,8 @@ import * as Yup from 'yup';
 import { Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faAddressBook, faEgg,
-    faEnvelope,
+    faEgg,
     faImage,
-    faKey,
-    faPhone,
     faShieldCat,
     faUser,
 } from '@fortawesome/free-solid-svg-icons';
@@ -30,12 +24,11 @@ const cx = classNames.bind(styles);
 function EditService() {
     let { id } = useParams();
     const [file, setFile] = useState();
-    const [thumbnailLink, setThumbnailLink] = useState();
     const  [displayONOFF , setDisplayOnOFF] = useState("block");
     const dispatch = useDispatch();
     const [loadApi, setLoadApi] = useState(false);
     const user = useSelector((state) => state.auth.login?.currentUser);
-    const typeServices = useSelector((state) => state.service.service?.typeService);
+    const typeServices = useSelector((state) => state.typeService.typeService?.typeServiceCurrent);
     const detailService = useSelector((state) => state.service.service?.detailService);
 
 
@@ -95,7 +88,7 @@ function EditService() {
 
     return (
         <div style={{ marginTop: 23 }}>
-            <Link to={'/system/manage-user'}>
+            <Link to={'/system/manage-service/detail/'+id}>
                 <Button type="primary" ghost style={{ backgroundColor: '#fff' }}>
                     Back
                 </Button>
