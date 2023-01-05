@@ -14,16 +14,29 @@ const cx = classNames.bind(styles);
 function ManageBooking() {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
+    const [state, setState] = useState();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector((state) => state.auth.login?.currentUser);
     const listBooking = useSelector((state) => state.booking.booking?.listData);
     console.log('list booking', listBooking);
+
+    let today = new Date();
+    if (state) {
+        today = new Date(state);
+    } else {
+    }
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = dd + '-' + mm + '-' + yyyy;
+    console.log('today', today);
     let dataBooking = {
         branch_id: '1',
         employee_id: '',
         role: '',
-        date_booking: '',
+        date_booking: today,
         time_booking: '',
         start: '',
         end: '',
@@ -41,76 +54,34 @@ function ManageBooking() {
         getBooking(dataBooking, dispatch, user?.accessToken);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [page]);
+    }, [today]);
     const handleLoading = () => {
         setLoading(!loading);
     };
 
-    const columns = [
-        // {
-        //     title: 'ID',
-        //     dataIndex: 'id',
-        //     key: 'id',
-        //     // render: (text) => <Link>{text}</Link>,
-        // },
-        {
-            title: 'Employee_name',
-            dataIndex: 'employee_name',
-            key: 'employee_name',
-            render: (text) => <span style={{ color: '#1677ff' }}>{text?.employee_name}</span>,
-        },
-        // {
-        //     title: 'Address',
-        //     dataIndex: 'address',
-        //     key: 'address',
-        // },
-        // {
-        //     title: 'Hot line',
-        //     dataIndex: 'hot_line',
-        //     key: 'hot_line',
-        // },
-        // {
-        //     title: 'Thumbnail',
-        //     dataIndex: 'thumbnail',
-        //     key: 'thumbnail',
-        //     render: (text) => {
-        //         if (text.length > 9) {
-        //             return <div className={cx('thumbnail-branch')} style={{ backgroundImage: `url(${text})` }}></div>;
-        //         } else {
-        //             return <div className={cx('thumbnail-branch')}></div>;
-        //         }
-        //     },
-        // },
-
-        {
-            title: 'Action',
-            key: 'action',
-            render: (_, record) => (
-                <Space size="middle">
-                    <Button type="primary" ghost onClick={() => handleEditUser(record)}>
-                        <EyeTwoTone />
-                        Detail
-                    </Button>
-                    <Button type="primary" danger ghost onClick={() => handleDeleteUser(record)}>
-                        <DeleteOutlined />
-                        Delete
-                    </Button>
-                </Space>
-            ),
-        },
-    ];
-    const handleDeleteUser = (data) => {
-        // alert('hello world' + data.id);
-        deleteBranch(data.id, user?.accessToken, dispatch, handleLoading);
-    };
-    const handleEditUser = (data) => {
-        // alert('ID: ' + data.id);
-        navigate(`/system/manage-branch/detail/${data.id}`);
-    };
+    // const handleDeleteUser = (data) => {
+    //     // alert('hello world' + data.id);
+    //     deleteBranch(data.id, user?.accessToken, dispatch, handleLoading);
+    // };
+    // const handleEditUser = (data) => {
+    //     // alert('ID: ' + data.id);
+    //     navigate(`/system/manage-branch/detail/${data.id}`);
+    // };
 
     return (
         <div style={{ marginTop: '120px' }}>
             <div className="container" style={{ width: '1200px', margin: '0 auto' }}>
+                <div className=" l-6 form-group">
+                    <label>Chọn ngày</label>
+                    <input
+                        type="date"
+                        className="form-control"
+                        name="currentDate"
+                        dateformat="dd-mm-YY"
+                        required
+                        onChange={(e) => setState(e.target.value)}
+                    />
+                </div>
                 <Card
                     size="small"
                     title="Total Booking"
@@ -153,7 +124,7 @@ function ManageBooking() {
                                         // extra={<a href="#">More</a>}
                                         style={{
                                             // width: 260,
-                                            height: 160,
+                                            height: 170,
                                         }}
                                         key={index}
                                     >
@@ -161,9 +132,27 @@ function ManageBooking() {
                                         <p>
                                             Ngày: <span>{item.employee.bookingByTime_bookings[0].date_booking}</span>
                                         </p>
-                                        <p>
+                                        {/* <p>
                                             Số lượng: <span>{item.employee.bookingByTime_bookings.length}</span>
-                                        </p>
+                                        </p> */}
+                                        <div style={{ display: 'flex', marginTop: 8 }}>
+                                            {item.employee.bookingByTime_bookings.map((item, index) => {
+                                                return (
+                                                    <div key={index} style={{ marginRight: '5px' }}>
+                                                        <Button
+                                                            type="primary"
+                                                            style={{
+                                                                fontWeight: 600,
+                                                                fontSize: 10,
+                                                                backgroundColor: '#fcaf17',
+                                                            }}
+                                                        >
+                                                            {item.time_booking}h
+                                                        </Button>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
                                     </Card>
                                 </div>
                             );
