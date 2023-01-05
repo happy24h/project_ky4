@@ -126,7 +126,7 @@ function ManageBooking() {
                 <Form.Item label="">
                     <Link to={'/system/manage-branch/add'}>
                         <Button type="primary" style={{ marginTop: '23px' }}>
-                            Add Branch
+                            Add booking
                         </Button>
                     </Link>
                 </Form.Item>

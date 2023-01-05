@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import Button from '~/components/Button';
-import './ManageSchedule.scss';
+// import './ManageSchedule.scss';
 import { useTranslation } from 'react-i18next';
 
 function AddSchedule() {
     const [active, setActive] = useState(false);
     const { t } = useTranslation();
+    const [state, setState] = useState();
+    console.log('check state', state);
 
     const handleClickBtnTime = () => {
         setActive(!active);
@@ -13,6 +15,15 @@ function AddSchedule() {
     const handleSaveSchedule = () => {
         alert('hello world');
     };
+
+    var today = new Date(state);
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = dd + '-' + mm + '-' + yyyy;
+    console.log('today', today);
+
     let dataBtnTime = [
         { name: '8h' },
         { name: '9h' },
@@ -47,8 +58,9 @@ function AddSchedule() {
                             type="date"
                             className="form-control"
                             name="currentDate"
-                            dateformat="YYYY-MM-DD"
+                            dateformat="dd-mm-YY"
                             required
+                            onChange={(e) => setState(e.target.value)}
                         />
                     </div>
                     <div className="col l-12 pick-hour-container">

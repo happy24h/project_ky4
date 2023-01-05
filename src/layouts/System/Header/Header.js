@@ -50,8 +50,10 @@ function Header() {
     const handleLogout = () => {
         logOut(dispatch, navigate);
     };
-    const handleTest = (value) => {
-        // alert(value);
+    const handleTest = () => {
+        alert('hello world');
+    };
+    const handleLanguage = (value) => {
         clickLanguage(value);
     };
     const MENU_ITEMS = [
@@ -65,13 +67,13 @@ function Header() {
                         type: 'language',
                         code: 'en',
                         title: 'English',
-                        handleOnclick: handleTest,
+                        handleOnclick: handleLanguage,
                     },
                     {
                         type: 'language',
                         code: 'vi',
                         title: 'Tiếng Việt',
-                        handleOnclick: handleTest,
+                        handleOnclick: handleLanguage,
                     },
                 ],
             },
