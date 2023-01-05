@@ -23,7 +23,7 @@ function ManageBooking() {
         branch_id: '1',
         employee_id: '',
         role: '',
-        date_booking: '04-01-2022',
+        date_booking: '',
         time_booking: '',
         start: '',
         end: '',
@@ -158,7 +158,12 @@ function ManageBooking() {
                                         key={index}
                                     >
                                         <h3 style={{ fontSize: '20px' }}>{item.employee.employee_name}</h3>
-                                        <p>Branches</p>
+                                        <p>
+                                            Ngày: <span>{item.employee.bookingByTime_bookings[0].date_booking}</span>
+                                        </p>
+                                        <p>
+                                            Số lượng: <span>{item.employee.bookingByTime_bookings.length}</span>
+                                        </p>
                                     </Card>
                                 </div>
                             );
