@@ -43,7 +43,7 @@ function Sidebar() {
             data: [
                 {
                     title: t('systemSidebar.information.data.title1'),
-                    to: '/system/manage-user',
+                    to: '/system/manage-booking',
                 },
                 {
                     title: t('systemSidebar.information.data.title2'),

@@ -14,6 +14,7 @@ import feedbackReducer from './feedback/feedbackSlice';
 
 import blogReducer from './blog/blogSlice';
 import branchReducer from './branch/branchSlice';
+import bookingReducer from './booking/bookingSlice';
 
 import serviceReducer from './service/serviceSilce';
 import cloudReducer from './cloudImage/cloudSlice';
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
 
     blog: blogReducer,
     branch: branchReducer,
+    booking: bookingReducer,
 
     service: serviceReducer,
     cloudImage: cloudReducer,
