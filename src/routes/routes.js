@@ -46,6 +46,11 @@ import EditTypeService from '~/layouts/System/Page/TypeService/components/Edit/E
 import ManagerOrder from '~/layouts/System/Page/Order/ManagerOrder';
 import OrderDetail from '~/layouts/System/Page/Order/component/Detail/OrderDetail';
 
+//booking
+import ManageBooking from '~/layouts/System/Page/ManageBooking';
+import AddBooking from '~/layouts/System/Page/ManageBooking/components/AddBooking';
+import EditBooking from '~/layouts/System/Page/ManageBooking/components/EditBooking';
+
 const publicRouters = [
     { path: config.routes.home, component: Home },
     { path: config.routes.service, component: Service },
@@ -90,6 +95,7 @@ const privateRoutes = [
     { path: config.routes.detailService, component: DetailService },
     { path: config.routes.editService, component: EditService },
 
+
     //Type Service
     { path: config.routes.manageTypeService, component: ManagerTypeService },
     { path: config.routes.addTypeService, component: AddTypeService },
@@ -99,6 +105,12 @@ const privateRoutes = [
     //Order
     { path: config.routes.manageOrder, component: ManagerOrder },
     { path: config.routes.detailOrder, component: OrderDetail },
+
+    // booking
+    { path: config.routes.manageBooking, component: ManageBooking },
+    { path: config.routes.addBooking, component: AddBooking },
+    { path: config.routes.editBooking, component: EditBooking },
+
 ];
 
 export { publicRouters, privateRoutes };

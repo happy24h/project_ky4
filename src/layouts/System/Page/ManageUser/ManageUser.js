@@ -16,7 +16,7 @@ const { Option } = Select;
 
 function ManageUser() {
     const [page, setPage] = useState(1);
-    const [lineNumber, setLineNumber] = useState(4);
+    const [lineNumber, setLineNumber] = useState(6);
     const [loadApi, setLoadApi] = useState(false);
     const [state, setState] = useState({
         name: '',

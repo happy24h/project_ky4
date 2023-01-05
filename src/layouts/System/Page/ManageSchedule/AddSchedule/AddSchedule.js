@@ -3,7 +3,7 @@ import Button from '~/components/Button';
 import './ManageSchedule.scss';
 import { useTranslation } from 'react-i18next';
 
-function ManageSchedule() {
+function AddSchedule() {
     const [active, setActive] = useState(false);
     const { t } = useTranslation();
 
@@ -14,7 +14,7 @@ function ManageSchedule() {
         alert('hello world');
     };
     let dataBtnTime = [
-        { name: '8h ' },
+        { name: '8h' },
         { name: '9h' },
         { name: '10h ' },
         { name: '11h ' },
@@ -77,4 +77,4 @@ function ManageSchedule() {
     );
 }
 
-export default ManageSchedule;
+export default AddSchedule;
