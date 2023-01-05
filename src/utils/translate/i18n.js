@@ -29,7 +29,7 @@ const resources = {
                 information: {
                     title: 'Information',
                     data: {
-                        title1: 'Hair salon',
+                        title1: 'Booking',
                         title2: 'Service',
                     },
                 },
@@ -67,7 +67,7 @@ const resources = {
                 information: {
                     title: 'Thông tin',
                     data: {
-                        title1: 'Cơ sở cắt tóc',
+                        title1: 'Đặt lịch',
                         title2: 'Dịch vụ',
                     },
                 },

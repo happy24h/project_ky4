@@ -13,7 +13,9 @@ const routes = {
     detailTeacher: '/detail-teacher/:id',
 
     // System
+    //schedule
     manageSchedule: 'system/manage-schedule',
+    addSchedule: 'system/manage-schedule/add',
     //Account
     manageUser: 'system/manage-user',
     addAccount: 'system/manage-user/add',
