@@ -39,6 +39,11 @@ const routes = {
     detailBranch: 'system/manage-branch/detail/:id',
     editBranch: 'system/manage-branch/edit/:id',
 
+    // booking
+    manageBooking: 'system/manage-booking',
+    addBooking: 'system/manage-booking/add',
+    editBooking: 'system/manage-booking/edit/:id',
+
     //Service
     manageService: 'system/manage-service',
     addService: 'system/manage-service/add',

@@ -2,69 +2,65 @@ import classNames from 'classnames/bind';
 import styles from './Sidebar.module.scss';
 import MenuItem from './Menu/MenuItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleInfo, faLightbulb, faUser, faUserGraduate } from '@fortawesome/free-solid-svg-icons';
+import { faCircleInfo, faUser, faUserGraduate } from '@fortawesome/free-solid-svg-icons';
 // import { faBlogger } from '@fortawesome/free-brands-svg-icons';
+import { useTranslation } from 'react-i18next';
 const cx = classNames.bind(styles);
 function Sidebar() {
+    const { t } = useTranslation();
     const MENU_ITEMS = [
         {
             icon: <FontAwesomeIcon icon={faUser} />,
-            title: 'Người dùng',
+            title: t('systemSidebar.users.title'),
             data: [
                 {
-                    title: 'Danh sách người dùng',
+                    title: t('systemSidebar.users.data.title1'),
                     to: '/system/manage-user',
                 },
                 {
-                    title: 'Bài viết',
+                    title: t('systemSidebar.users.data.title2'),
                     to: '/system/manage-blog',
                 },
             ],
         },
         {
             icon: <FontAwesomeIcon icon={faUserGraduate} />,
-            title: 'Nhân viên',
+            title: t('systemSidebar.employees.title'),
             data: [
                 {
-                    title: 'Thêm lịch hẹn',
+                    title: t('systemSidebar.employees.data.title1'),
                     to: '/system/manage-schedule',
                 },
                 {
-                    title: 'Cơ sở cắt tóc',
+                    title: t('systemSidebar.employees.data.title2'),
                     to: '/system/manage-branch',
                 },
             ],
         },
         {
             icon: <FontAwesomeIcon icon={faCircleInfo} />,
-            title: 'Thông tin',
+            title: t('systemSidebar.information.title'),
             data: [
                 {
-                    title: 'Cơ sở cắt tóc',
-                    to: '/system/manage-user',
+                    title: t('systemSidebar.information.data.title1'),
+                    to: '/system/manage-booking',
                 },
                 {
-                    title: 'Dịch vụ',
+                    title: t('systemSidebar.information.data.title2'),
                     to: '/system/manage-user',
                 },
             ],
         },
         {
             icon: <FontAwesomeIcon icon={faUser} />,
-            title: 'Phản hồi',
+            title: t('systemSidebar.feedback.title'),
             data: [
                 {
-                    title: 'Danh sách phản hồi',
+                    title: t('systemSidebar.feedback.data.title1'),
                     to: '/system/manage-feedback',
                 },
-            ],
-        },
-        {
-            icon: <FontAwesomeIcon icon={faUser} />,
-            title: 'Dịch vụ',
-            data: [
                 {
-                    title: 'Danh sách dịch vụ',
+                    title: t('systemSidebar.feedback.data.title2'),
                     to: '/system/manage-service',
                 },
             ],

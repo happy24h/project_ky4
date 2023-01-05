@@ -40,6 +40,11 @@ import AddService from '~/layouts/System/Page/Service/components/Add/AddService'
 import DetailService from '~/layouts/System/Page/Service/components/Detail';
 import EditService from '~/layouts/System/Page/Service/components/Edit';
 
+//booking
+import ManageBooking from '~/layouts/System/Page/ManageBooking';
+import AddBooking from '~/layouts/System/Page/ManageBooking/components/AddBooking';
+import EditBooking from '~/layouts/System/Page/ManageBooking/components/EditBooking';
+
 const publicRouters = [
     { path: config.routes.home, component: Home },
     { path: config.routes.service, component: Service },
@@ -83,6 +88,11 @@ const privateRoutes = [
     { path: config.routes.addService, component: AddService },
     { path: config.routes.detailService, component: DetailService },
     { path: config.routes.editService, component: EditService },
+
+    // booking
+    { path: config.routes.manageBooking, component: ManageBooking },
+    { path: config.routes.addBooking, component: AddBooking },
+    { path: config.routes.editBooking, component: EditBooking },
 ];
 
 export { publicRouters, privateRoutes };
