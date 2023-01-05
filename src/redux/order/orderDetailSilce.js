@@ -11,16 +11,16 @@ const orderDetailSlice = createSlice({
     reducers: {
         // Order
         orderDetailStart: (state) => {
-            state.service.isFetching = true;
+            state.orderDetail.isFetching = true;
         },
         orderDetailSuccess: (state, action) => {
-            state.service.isFetching = false;
-            state.service.error = false;
-            state.service.orderDetailCurrent = action.payload;
+            state.orderDetail.isFetching = false;
+            state.orderDetail.error = false;
+            state.orderDetail.orderDetailCurrent = action.payload;
         },
         orderDetailFailed: (state) => {
-            state.service.isFetching = false;
-            state.service.error = true;
+            state.orderDetail.isFetching = false;
+            state.orderDetail.error = true;
         },
     },
 });

@@ -11,16 +11,16 @@ const orderSlice = createSlice({
     reducers: {
         // Order
         orderStart: (state) => {
-            state.service.isFetching = true;
+            state.order.isFetching = true;
         },
         orderSuccess: (state, action) => {
-            state.service.isFetching = false;
-            state.service.error = false;
-            state.service.orderCurrent = action.payload;
+            state.order.isFetching = false;
+            state.order.error = false;
+            state.order.orderCurrent = action.payload;
         },
         orderFailed: (state) => {
-            state.service.isFetching = false;
-            state.service.error = true;
+            state.order.isFetching = false;
+            state.order.error = true;
         },
     },
 });

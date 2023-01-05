@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { orderFailed, orderStart, orderSuccess } from '~/redux/order/orderSilce';
@@ -6,6 +5,7 @@ import { orderDetailFailed, orderDetailStart, orderDetailSuccess } from '~/redux
 
 export const getAllOrder = async (orderSearch, dispatch,accessToken) => {
     dispatch(orderStart());
+    console.log("kiem tra orderSearch" + orderSearch);
     try {
         const res = await axios.post('http://localhost:8078/api/v1/order/search', orderSearch,{
             headers: { Authorization: `Bearer ${accessToken}` },
@@ -20,7 +20,7 @@ export const getAllOrder = async (orderSearch, dispatch,accessToken) => {
 export const getDetailOrder = async (id, dispatch,accessToken) => {
     dispatch(orderDetailStart());
     try {
-        const res = await axios.get('http://localhost:8078/api/v1/order/', id,{
+        const res = await axios.get('http://localhost:8078/api/v1/order/'+ id,{
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         dispatch(orderDetailSuccess(res.data));
