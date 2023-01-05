@@ -13,6 +13,7 @@ import roleReducer from './roleSlice';
 import feedbackReducer from './feedback/feedbackSlice';
 
 import blogReducer from './blog/blogSlice';
+import branchReducer from './branch/branchSlice';
 
 import serviceReducer from './service/serviceSilce';
 import cloudReducer from './cloudImage/cloudSlice';
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
     role: roleReducer,
 
     blog: blogReducer,
+    branch: branchReducer,
 
     service: serviceReducer,
     cloudImage: cloudReducer,

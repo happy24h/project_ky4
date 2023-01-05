@@ -1,33 +1,15 @@
-.container-login {
-    background-image: url(../../assets/images/image.jpg);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-image: #eee;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 90%;
-}
 .loginForm {
     text-align: center;
-    padding-top: 3em;
+    padding-top: 2em;
+    display: flex;
+    flex-wrap: wrap;
 
-    width: 400px;
-    background: rgb(232, 234, 236, 0.5);
-    min-height: 570px;
+    width: 700px;
+    background: #fff;
+    min-height: 470px;
     border-radius: 6px;
     margin: 0 auto;
 }
-
-.heading {
-    font-size: 180%;
-    color: var(--text-color);
-    padding-bottom: 5px;
-}
-
 .field {
     margin: 1.3em auto;
 }

@@ -2,16 +2,29 @@ import './ManageUser.scss';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteAccount, getAllAccount } from '~/redux/apiRequest';
-import { DeleteOutlined, EyeTwoTone } from '@ant-design/icons';
-import { Space, Table, Button, Form, Tag, Card } from 'antd';
+import { DeleteOutlined, EyeTwoTone, PlusCircleOutlined, MinusCircleOutlined } from '@ant-design/icons';
+import { Space, Table, Button, Form, Tag, Card, Pagination } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
-// import CreateAccount from './components/Modal/CreateAccount';
+import { Input, Select } from 'antd';
+import { InputNumber } from 'antd';
 
-// import 'antd/dist/antd.min.css';
+import classNames from 'classnames/bind';
+import styles from './ManageUser.module.scss';
+
+const cx = classNames.bind(styles);
+const { Option } = Select;
 
 function ManageUser() {
     const [page, setPage] = useState(1);
+    const [lineNumber, setLineNumber] = useState(4);
     const [loadApi, setLoadApi] = useState(false);
+    const [state, setState] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        gender: '',
+        number: '',
+    });
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.login?.currentUser);
     const listAccount = useSelector((state) => state.account.account?.accountCurrent);
@@ -52,6 +65,18 @@ function ManageUser() {
                 }
             },
         },
+        {
+            title: 'Thumbnail',
+            dataIndex: 'thumbnail',
+            key: 'thumbnail',
+            render: (text) => {
+                if (text?.length > 9) {
+                    return <div className={cx('thumbnail-account')} style={{ backgroundImage: `url(${text})` }}></div>;
+                } else {
+                    return <div className={cx('thumbnail-account')}></div>;
+                }
+            },
+        },
 
         {
             title: 'Action',
@@ -70,32 +95,45 @@ function ManageUser() {
             ),
         },
     ];
+
+    let totalState = state?.name + state?.email + state?.phone + state?.gender;
+    // console.log('check total state', totalState);
+
     let dataAccount = {
-        name: '',
-        email: '',
-        phone: '',
-        gender: '',
+        name: state?.name,
+        email: state?.email,
+        phone: state?.phone,
+        gender: state?.gender,
         start: '',
         end: '',
         page: page,
-        limit: 4,
+        limit: lineNumber,
         sort: 'asc',
         role_id: '',
         member_ship_class_id: '',
         status: '',
+    };
+    const handleOnchangeInput = (e) => {
+        let { name, value } = e.target;
+
+        setState({ ...state, [name]: value });
+    };
+
+    const handleSelectChange = (value) => {
+        setState({ ...state, gender: value });
     };
 
     useEffect(() => {
         getAllAccount(dataAccount, dispatch, user?.accessToken);
         console.log('loadApi useEffect ', loadApi);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [loadApi || page]);
-    // check biến nào thay đổi thì sẽ load lại hàm bên trong
+    }, [totalState, lineNumber]);
 
-    // const handleLoadAPI = () => {
-    //     // getAllAccount(dataAccount, dispatch, user?.accessToken);
-    //     setLoadApi(!loadApi);
-    // };
+    useEffect(() => {
+        getAllAccount(dataAccount, dispatch, user?.accessToken);
+        console.log('loadApi useEffect ', loadApi);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loadApi || page]);
 
     const handleDeleteUser = (account) => {
         console.log('loadApi before ', loadApi);
@@ -109,53 +147,149 @@ function ManageUser() {
         navigate(`/system/manage-user/detail/${account.accounts_id}`);
     };
 
-    // console.log(5 / 4, 'test');
+    const layoutInput = () => {
+        return (
+            <div className={cx('wrapper-input-group')}>
+                <Input.Group className={cx('input-group')} compact>
+                    <Input
+                        style={{ width: '30%', height: 32 }}
+                        placeholder="Search name"
+                        name="name"
+                        value={state?.name}
+                        onChange={handleOnchangeInput}
+                    />
+
+                    <Input
+                        style={{ width: '30%', height: 32 }}
+                        placeholder="Search email"
+                        name="email"
+                        value={state?.email}
+                        onChange={handleOnchangeInput}
+                    />
+                    <Input
+                        style={{ width: '20%', height: 32 }}
+                        placeholder="Search phone"
+                        name="phone"
+                        value={state?.phone}
+                        onChange={handleOnchangeInput}
+                    />
+                    <Select
+                        className={cx('input-select')}
+                        style={{ width: '20%', height: 32 }}
+                        placeholder="Gender"
+                        name="gender"
+                        // defaultValue="Gender"
+                        onChange={handleSelectChange}
+                    >
+                        <Option value="">Tất cả</Option>
+                        <Option value="MALE">Nam</Option>
+                        <Option value="FEMALE">Nữ</Option>
+                    </Select>
+                </Input.Group>
+                {/* <Form.Item label=""> */}
+                <Link to={'/system/manage-user/add'}>
+                    <Button type="primary" style={{ fontWeight: 600, fontSize: 10, backgroundColor: '#fcaf17' }}>
+                        <PlusCircleOutlined />
+                        Add User
+                    </Button>
+                </Link>
+                {/* </Form.Item> */}
+            </div>
+        );
+    };
+
+    const handleIncrement = () => {
+        return (
+            <div
+                className={cx('counter-number')}
+                // style={{ padding: '0 5px', cursor: 'pointer', border: '1px solid #ccc', borderRadius: '12px' }}
+                onClick={() => setLineNumber(lineNumber + 1)}
+            >
+                <PlusCircleOutlined />
+            </div>
+        );
+    };
+    const handleDecrement = () => {
+        if (lineNumber < 2) {
+            return (
+                <div className={cx('counter-number')} onClick={() => setLineNumber(1)}>
+                    <MinusCircleOutlined />
+                </div>
+            );
+        } else {
+            return (
+                <div className={cx('counter-number')} onClick={() => setLineNumber(lineNumber - 1)}>
+                    <MinusCircleOutlined />
+                </div>
+            );
+        }
+    };
+
+    const tableFooter = () => {
+        return (
+            <div className={cx('table-footer')}>
+                <div style={{ display: 'flex', width: '150px' }}>
+                    {/* <Button onClick={() => setLineNumber(lineNumber + 1)}>+</Button> */}
+                    <InputNumber
+                        addonBefore={handleDecrement()}
+                        addonAfter={handleIncrement()}
+                        min={1}
+                        max={10}
+                        // defaultValue={lineNumber}
+                        value={lineNumber}
+                        onChange={onChange}
+                    />{' '}
+                    {/* <Button onClick={() => setLineNumber(lineNumber - 1)}>-</Button> */}
+                </div>
+                <Pagination
+                    pageSize={lineNumber}
+                    total={listAccount?.totalItems}
+                    // current={page}
+                    onChange={(page) => setPage(page)}
+                />
+            </div>
+        );
+    };
+
+    const onChange = (value) => {
+        // console.log('changed', value);
+        setLineNumber(value);
+    };
+
+    // console.log('test state', state);
     return (
-        <div style={{ marginTop: '120px' }}>
+        <div style={{ marginTop: '106px' }}>
             <div className="container" style={{ width: '1200px', margin: '0 auto' }}>
                 <Card
                     size="small"
                     title="Total Accounts"
                     // extra={<a href="#">More</a>}
                     style={{
-                        width: 180,
+                        width: 160,
                         height: 140,
+                        marginBottom: 25,
                     }}
                 >
                     <h3 style={{ fontSize: '28px' }}>{listAccount?.totalItems}</h3>
                     <p>Accounts</p>
                 </Card>
-                <Form.Item label="">
-                    {/* <CreateAccount loadApi={handleLoadAPI} accessToken={user?.accessToken} /> */}
-                    <Link to={'/system/manage-user/add'}>
-                        <Button type="primary" style={{ marginTop: '23px' }}>
-                            ADD USER
-                        </Button>
-                    </Link>
 
-                    {/*<CreateAccount setLoadApi={setLoadApi} loadApi={loadApi} accessToken={user?.accessToken} />*/}
-                </Form.Item>
                 <Table
                     columns={columns}
-                    // { listAccount && listAccount.length > 0 ? dataSource={listAccount} : null}
                     dataSource={listAccount?.content}
                     // rowKey={(listAccount) => listAccount.id}
-                    pagination={{
-                        pageSize: 4,
-                        total: listAccount?.totalItems,
-                        onChange: (page) => {
-                            setPage(page);
-                        },
-                    }}
+                    bordered
+                    title={() => layoutInput()}
+                    footer={() => tableFooter()}
+                    pagination={false}
+                    // pagination={{
+                    //     pageSize: lineNumber,
+                    //     total: listAccount?.totalItems,
+                    //     onChange: (page) => {
+                    //         setPage(page);
+                    //     },
+                    // }}
                 />
-                {/* {listAccount?.totalItems / 5 > 1 && (
-                    <Pagination
-                        total={listAccount?.totalItems}
-                        pageSize={4}
-                        current={page}
-                        onChange={(page) => setPage(page)}
-                    />
-                )} */}
             </div>
         </div>
     );

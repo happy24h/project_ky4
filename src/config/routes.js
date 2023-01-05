@@ -33,6 +33,12 @@ const routes = {
     detailBlog: 'system/manage-blog/detail/:id',
     editBlog: 'system/manage-blog/edit/:id',
 
+    // branch
+    manageBranch: 'system/manage-branch',
+    addBranch: 'system/manage-branch/add',
+    detailBranch: 'system/manage-branch/detail/:id',
+    editBranch: 'system/manage-branch/edit/:id',
+
     //Service
     manageService: 'system/manage-service',
     addService: 'system/manage-service/add',

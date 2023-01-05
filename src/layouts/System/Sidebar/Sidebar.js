@@ -30,8 +30,8 @@ function Sidebar() {
                     to: '/system/manage-schedule',
                 },
                 {
-                    title: 'Thêm thông tin nhân viên',
-                    to: '/system/manage-user',
+                    title: 'Cơ sở cắt tóc',
+                    to: '/system/manage-branch',
                 },
             ],
         },

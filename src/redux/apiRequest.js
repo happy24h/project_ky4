@@ -114,7 +114,7 @@ export const deleteAccount = async (id, accessToken, dispatch) => {
         });
         dispatch(deleteAccountsSuccess());
     } catch (err) {
-        dispatch(deleteAccountFailed(err.response.data));
+        dispatch(deleteAccountFailed());
     }
 };
 
