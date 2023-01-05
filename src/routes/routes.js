@@ -43,6 +43,8 @@ import ManagerTypeService from '~/layouts/System/Page/TypeService/ManagerTypeSer
 import AddTypeService from '~/layouts/System/Page/TypeService/components/Add/AddTypeService';
 import DetailTypeService from '~/layouts/System/Page/TypeService/components/Detail/DetailTypeService';
 import EditTypeService from '~/layouts/System/Page/TypeService/components/Edit/EditTypeService';
+import ManagerOrder from '~/layouts/System/Page/Order/ManagerOrder';
+import OrderDetail from '~/layouts/System/Page/Order/component/Detail/OrderDetail';
 
 const publicRouters = [
     { path: config.routes.home, component: Home },
@@ -93,6 +95,10 @@ const privateRoutes = [
     { path: config.routes.addTypeService, component: AddTypeService },
     { path: config.routes.detailTypeService, component: DetailTypeService },
     { path: config.routes.editTypeService, component: EditTypeService },
+
+    //Order
+    { path: config.routes.manageOrder, component: ManagerOrder },
+    { path: config.routes.detailOrder, component: OrderDetail },
 ];
 
 export { publicRouters, privateRoutes };

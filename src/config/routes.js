@@ -50,6 +50,10 @@ const routes = {
     addTypeService: 'system/manage-type-service/add',
     detailTypeService: 'system/manage-type-service/detail/:id',
     editTypeService: 'system/manage-type-service/edit/:id',
+
+    //Order
+    manageOrder : '/system/manage-order',
+    detailOrder : '/system/manage-order/detail/:id',
 };
 
 export default routes;

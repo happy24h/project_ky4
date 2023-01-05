@@ -73,6 +73,16 @@ function Sidebar() {
                 },
             ],
         },
+        {
+            icon: <FontAwesomeIcon icon={faUser} />,
+            title: 'Hóa đơn',
+            data: [
+                {
+                    title: 'Danh sách hóa đơn',
+                    to: '/system/manage-order',
+                },
+            ],
+        },
     ];
     return (
         <nav className={cx('sidebar')}>
