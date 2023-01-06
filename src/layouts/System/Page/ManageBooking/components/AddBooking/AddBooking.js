@@ -3,7 +3,7 @@ import Button from '~/components/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { DatePicker, Select } from 'antd';
 
-// import './ManageSchedule.scss';
+import './AddBooking.scss';
 import { useTranslation } from 'react-i18next';
 import { getAllAccount } from '~/redux/apiRequest';
 import { getBranch } from '~/redux/branch/apiBranch';
