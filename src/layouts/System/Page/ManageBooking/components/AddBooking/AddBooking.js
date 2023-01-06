@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Button from '~/components/Button';
 import { useDispatch, useSelector } from 'react-redux';
+import { DatePicker, Select } from 'antd';
 
 // import './ManageSchedule.scss';
 import { useTranslation } from 'react-i18next';
@@ -20,6 +21,7 @@ let dataBtnTime = [
 ];
 function AddBooking() {
     const [dataTime, setDataTime] = useState([...dataBtnTime]);
+    // const [secondCity, setSecondCity] = useState();
     const { t } = useTranslation();
     const [state, setState] = useState({
         currentDate: '',
@@ -27,6 +29,14 @@ function AddBooking() {
         accountId: '',
         branchId: '',
     });
+
+    const onChange = (date, dateString) => {
+        console.log('test', date, 'aaaa', dateString);
+        setState((prev) => ({
+            ...prev,
+            currentDate: dateString,
+        }));
+    };
 
     console.log('check---state', state);
 
@@ -110,62 +120,80 @@ function AddBooking() {
         let { name, value } = e.target;
         setState({ ...state, [name]: value });
     };
+
+    const handleOnchangeEmployee = (value, name) => {
+        // console.log('----', name);
+
+        setState((prev) => ({
+            ...prev,
+            accountId: value,
+        }));
+    };
+    const handleOnchangeBranch = (value, name) => {
+        // console.log('----', name);
+
+        setState((prev) => ({
+            ...prev,
+            branchId: value,
+        }));
+    };
     return (
         <div className="manage-schedule-container">
-            <div className="m-s-title">QUẢN LÝ KẾ HOẠCH THỜI GIAN CỦA NHÂN VIÊN</div>
-            {/* <h1>{t('manageUser.title')}</h1> */}
+            <div className="m-s-title" style={{ margin: '75px 0 25px' }}>
+                QUẢN LÝ KẾ HOẠCH THỜI GIAN CỦA NHÂN VIÊN
+            </div>
+
             <div className="container">
                 <div className="row">
                     <div className="col l-6 form-group">
-                        <label>Chọn nhân viên </label>
-
-                        <select className="form-control l-12" name="accountId" onChange={handleOnchangeInput}>
-                            <option value="">Choose...</option>;
-                            {listAccount.map((item, index) => {
-                                return (
-                                    <option key={index} value={item.accounts_id}>
-                                        {item.accounts_name}
-                                    </option>
-                                );
-                            })}
-                        </select>
-                    </div>
-                    <div className="col l-6 form-group">
-                        <label>Chọn chi nhánh </label>
-
-                        <select className="form-control l-12" name="branchId" onChange={handleOnchangeInput}>
-                            <option value="">Choose...</option>;
-                            {listBranch.map((item, index) => {
-                                return (
-                                    <option key={index} value={item.id}>
-                                        {item.address}
-                                    </option>
-                                );
-                            })}
-                        </select>
-                    </div>
-                    <div className="col l-6 form-group">
-                        <label>Chọn ngày</label>
-                        <input
-                            type="date"
-                            className="form-control"
-                            name="currentDate"
-                            dateformat="dd-mm-YY"
-                            required
-                            onChange={handleOnchangeInput}
+                        {' '}
+                        {/* <label>Chọn ngày </label> */}
+                        <DatePicker
+                            onChange={onChange}
+                            style={{
+                                width: '100%',
+                                height: 32,
+                                margin: '0 0 20px',
+                            }}
                         />
                     </div>
-                    {/* <div className="col l-6 form-group">
-                        <label>Chọn ngày</label>
-                        <input
-                            type="date"
-                            className="form-control"
-                            name="currentDate"
-                            dateformat="dd-mm-YY"
-                            required
-                            onChange={handleOnchangeInput}
+                    <div className="col l-6 form-group">
+                        {' '}
+                        {/* <label>Chọn nhân viên </label> */}
+                        <Select
+                            style={{
+                                width: '100%',
+                                margin: '0 0 20px',
+                            }}
+                            name="accountId"
+                            // value=""
+                            placeholder="Select account"
+                            onChange={handleOnchangeEmployee}
+                            options={listAccount.map((item) => ({
+                                label: item.accounts_name,
+                                value: item.accounts_id,
+                            }))}
                         />
-                    </div> */}
+                    </div>
+                    <div className="col l-6 form-group">
+                        {' '}
+                        {/* <label>Chọn chi nhánh </label> */}
+                        <Select
+                            style={{
+                                width: '100%',
+                                margin: '0 0 20px',
+                            }}
+                            name="accountId"
+                            placeholder="Select address"
+                            onChange={handleOnchangeBranch}
+                            options={listBranch.map((item) => ({
+                                label: item.address,
+                                value: item.id,
+                                name: 'accountId',
+                            }))}
+                        />
+                    </div>
+
                     <div className="col l-12 pick-hour-container">
                         {dataTime.map((item, index) => {
                             return (
