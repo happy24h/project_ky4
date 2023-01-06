@@ -33,7 +33,7 @@ function ManageBooking() {
     today = dd + '-' + mm + '-' + yyyy;
     console.log('today', today);
     let dataBooking = {
-        branch_id: '1',
+        branch_id: '',
         employee_id: '',
         role: '',
         date_booking: today,
@@ -95,7 +95,7 @@ function ManageBooking() {
                     <p>Booking</p>
                 </Card>
                 <Form.Item label="">
-                    <Link to={'/system/manage-branch/add'}>
+                    <Link to={'/system/manage-booking/add'}>
                         <Button type="primary" style={{ marginTop: '23px' }}>
                             Add booking
                         </Button>
