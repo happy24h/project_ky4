@@ -113,7 +113,7 @@ function AddBooking() {
     return (
         <div className="manage-schedule-container">
             <div className="m-s-title">QUẢN LÝ KẾ HOẠCH THỜI GIAN CỦA NHÂN VIÊN</div>
-            <h1>{t('manageUser.title')}</h1>
+            {/* <h1>{t('manageUser.title')}</h1> */}
             <div className="container">
                 <div className="row">
                     <div className="col l-6 form-group">
