@@ -52,11 +52,8 @@ export const createBooking = async (booking, dispatch, accessToken, navigate) =>
 export const getDetailBooking = async (id, dispatch, accessToken, getBooking) => {
     dispatch(detailBookingStart());
     try {
-        const res = await axios.get(`http://localhost:8078/api/v1/blog/${id}`, {
-            headers: { Authorization: `Bearer ${accessToken}` },
-        });
+        const res = await axios.get(`http://localhost:8078/api/v1/booking/${id}`);
         dispatch(detailBookingSuccess(res.data));
-
         // toast.success('Detail success');
     } catch (err) {
         dispatch(detailBookingFailed());

@@ -1,13 +1,22 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { Button, Card, Space, Table, Tag } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
+import { Link, useNavigate } from 'react-router-dom';
+import { Button, Card, Input, InputNumber, Pagination, Select, Space, Table, Tag } from 'antd';
+import { EditOutlined, MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { getAllOrder } from '~/redux/order/apiOrder';
+import classNames from 'classnames/bind';
+import styles from './ManageOrder.module.scss';
+
+const cx = classNames.bind(styles);
 
 function ManagerOrder() {
     const [page, setPage] = useState(1);
-    const [loadApiFeedback, setloadApiFeedback] = useState(false);
+    const [lineNumber, setLineNumber] = useState(6);
+    const [loadApiOrder, setloadApiOrder] = useState(false);
+    const [state, setState] = useState({
+        booking_id: '',
+        voucher_id: '',
+    });
 
     //B1: Gọi dispatch để gửi trạng thái reducer
     const dispatch = useDispatch();
@@ -19,23 +28,30 @@ function ManagerOrder() {
 
     //B2: gọi api
     let data = {
-        booking_id:"",
+        booking_id: state?.booking_id,
         customer_id:"",
-        voucher_id:"",
+        voucher_id: state?.voucher_id,
         rangeTotalPriceStart:"",
         rangeTotalPriceEnd:"",
         status:"",
         start:"",
         end:"",
-        limit:4,
+        limit:lineNumber,
         page:page,
         sort:""
     };
 
+    let totalState = state?.booking_id + state?.voucher_id;
+
     useEffect(() => {
         getAllOrder(data, dispatch, user?.accessToken);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [loadApiFeedback || page]);
+    }, [loadApiOrder || page]);
+
+    useEffect(() => {
+        getAllOrder(data, dispatch, user?.accessToken);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [totalState,lineNumber]);
 
     //B3: Lấy danh sách
     const listOrder = useSelector((state) => state.order.order?.orderCurrent);
@@ -53,6 +69,12 @@ function ManagerOrder() {
             dataIndex: 'booking.email',
             key: 'booking.email',
             render: (text) => <span style={{ color: '#1677ff' }}>{text}</span>,
+        },
+        {
+            title: 'Mã đặt lịch',
+            dataIndex: 'booking',
+            key: 'booking',
+            render: (text) => <span style={{ color: '#1677ff' }}>{text.id}</span>,
         },
         {
             title: 'Khung giờ',
@@ -118,13 +140,119 @@ function ManagerOrder() {
         },
     ];
 
-    // const handleDeleteUser = (order) => {
-    //     // deleteFeedback(feedback.id,dispatch,user?.accessToken);
-    //     // setloadApiFeedback(!loadApiFeedback);
-    // };
 
     const handleEditUser = (order) => {
         navigate(`/system/manage-order/detail/${order.id}`);
+    };
+
+    const handleIncrement = () => {
+        return (
+            <div
+                className={cx('counter-number')}
+                // style={{ padding: '0 5px', cursor: 'pointer', border: '1px solid #ccc', borderRadius: '12px' }}
+                onClick={() => setLineNumber(lineNumber + 1)}
+            >
+                <PlusCircleOutlined />
+            </div>
+        );
+    };
+
+    const handleDecrement = () => {
+        if (lineNumber < 2) {
+            return (
+                <div className={cx('counter-number')} onClick={() => setLineNumber(1)}>
+                    <MinusCircleOutlined />
+                </div>
+            );
+        } else {
+            return (
+                <div className={cx('counter-number')} onClick={() => setLineNumber(lineNumber - 1)}>
+                    <MinusCircleOutlined />
+                </div>
+            );
+        }
+    };
+
+    const onChange = (value) => {
+        // console.log('changed', value);
+        setLineNumber(value);
+    };
+
+    const handleOnchangeInput = (e) => {
+        let { name, value } = e.target;
+
+        setState({ ...state, [name]: value });
+    };
+
+    const layoutInput = () => {
+        return (
+            <div className={cx('wrapper-input-group')}>
+                <Input.Group className={cx('input-group')} compact>
+                    <Input
+                        style={{ width: '30%', height: 32 }}
+                        placeholder="Tìm mã đặt lịch"
+                        name="booking_id"
+                        value={state?.booking_id}
+                        onChange={handleOnchangeInput}
+                    />
+                    <Input
+                        style={{ width: '30%', height: 32 }}
+                        placeholder="Tìm mã giảm giá"
+                        name="voucher_id"
+                        value={state?.voucher_id}
+                        onChange={handleOnchangeInput}
+                    />
+
+
+                    {/*<Select*/}
+                    {/*    className={cx('input-select')}*/}
+                    {/*    style={{ width: '20%', height: 32 }}*/}
+                    {/*    placeholder="Gender"*/}
+                    {/*    name="gender"*/}
+                    {/*    // defaultValue="Gender"*/}
+                    {/*    onChange={handleSelectChange}*/}
+                    {/*>*/}
+                    {/*    <Option value="">Tất cả</Option>*/}
+                    {/*    <Option value="MALE">Nam</Option>*/}
+                    {/*    <Option value="FEMALE">Nữ</Option>*/}
+                    {/*</Select>*/}
+                </Input.Group>
+                {/* <Form.Item label=""> */}
+                {/*<Link to={'/system/manage-user/add'}>*/}
+                {/*    <Button type="primary" style={{ fontWeight: 600, fontSize: 10, backgroundColor: '#fcaf17' }}>*/}
+                {/*        <PlusCircleOutlined />*/}
+                {/*        Add User*/}
+                {/*    </Button>*/}
+                {/*</Link>*/}
+                {/* </Form.Item> */}
+            </div>
+        );
+    };
+
+    const tableFooter = () => {
+        return (
+            <div className={cx('table-footer')}>
+                <div style={{ display: 'flex', width: '150px' }}>
+                    {/* <Button onClick={() => setLineNumber(lineNumber + 1)}>+</Button> */}
+                    <InputNumber
+                        addonBefore={handleDecrement()}
+                        addonAfter={handleIncrement()}
+                        min={1}
+                        max={10}
+                        // defaultValue={lineNumber}
+                        value={lineNumber}
+                        onChange={onChange}
+                    />{' '}
+                    {/* <Button onClick={() => setLineNumber(lineNumber - 1)}>-</Button> */}
+                </div>
+                <Pagination
+                    pageSize={lineNumber}
+                    total={listOrder?.totalItems}
+                    // current={page}
+                    onChange={(page) => setPage(page)}
+                />
+            </div>
+        );
     };
 
     return (
@@ -155,13 +283,15 @@ function ManagerOrder() {
                     // { listAccount && listAccount.length > 0 ? dataSource={listAccount} : null}
                     dataSource={listOrder?.content}
                     // rowKey={(orders) => orders.id}
-                    pagination={{
-                        pageSize: data.limit,
-                        total: listOrder?.totalItems,
-                        onChange: (page) => {
-                            setPage(page);
-                        },
-                    }}
+                    title={() => layoutInput()}
+                    footer={() => tableFooter()}
+                    // pagination={{
+                    //     pageSize: data.limit,
+                    //     total: listOrder?.totalItems,
+                    //     onChange: (page) => {
+                    //         setPage(page);
+                    //     },
+                    // }}
                 />
             </div>
         </div>
