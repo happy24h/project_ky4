@@ -29,3 +29,14 @@ export const getDetailOrder = async (id, dispatch,accessToken) => {
         toast.error(err.response.data);
     }
 }
+
+export const updateStatusOrder = async (id, status, dispatch,accessToken) => {
+    try {
+        const res = await axios.get('http://localhost:8078/api/v1/order/update/status/'+ id + "?status="+status,{
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+        toast.success("Đổi trạng thái đơn hàng thành công");
+    } catch (err) {
+        toast.error(err.response.data);
+    }
+}
