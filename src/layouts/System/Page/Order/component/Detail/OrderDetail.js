@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Card, List } from 'antd';
-
-import { EditOutlined } from '@ant-design/icons';
 import { getDetailOrder } from '~/redux/order/apiOrder';
 import classNames from 'classnames/bind';
 import styles from './DetailOrder.module.scss';
+import { getDetailBooking } from '~/redux/booking/apiBooking';
 const cx = classNames.bind(styles);
 const { Meta } = Card;
 
@@ -16,9 +15,11 @@ function OrderDetail() {
     const user = useSelector((state) => state.auth.login?.currentUser);
 
     const orderDetail = useSelector((state) => state.orderDetail.orderDetail?.orderDetailCurrent);
+    const bookingDetail = useSelector((state) => state.booking.booking?.detailData);
 
     useEffect(() => {
         getDetailOrder(id, dispatch, user?.accessToken);
+        getDetailBooking(orderDetail[0]?.order.booking_id,dispatch)
     }, []);
 
     return (
@@ -68,9 +69,15 @@ function OrderDetail() {
                     <List className={cx('list-detail')}>
                         <strong>Mã đặt lịch:</strong> <span className={cx('text-detail')}>{orderDetail[0]?.order.booking_id}</span>
                     </List>
-                    {/*<List className={cx('list-detail')}>*/}
-                    {/*    <strong>Trạng thái:</strong> <span className={cx('text-detail')}>{orderDetail?.order.status}</span>*/}
-                    {/*</List>*/}
+                    <List className={cx('list-detail')}>
+                        <strong>Ngày đặt:</strong> <span className={cx('text-detail')}>{bookingDetail?.date_booking}</span>
+                    </List>
+                    <List className={cx('list-detail')}>
+                        <strong>Khung giờ:</strong> <span className={cx('text-detail')}>{bookingDetail?.time_booking}</span>
+                    </List>
+                    <List className={cx('list-detail')}>
+                        <strong>Trạng thái:</strong> <span className={cx('text-detail')}>{orderDetail[0]?.order.status}</span>
+                    </List>
                     <table>
                         <tr>
                             <th>Id</th>
