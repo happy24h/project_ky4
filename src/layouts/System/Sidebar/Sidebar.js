@@ -29,7 +29,7 @@ function Sidebar() {
             data: [
                 {
                     title: t('systemSidebar.employees.data.title1'),
-                    to: '/system/manage-schedule',
+                    to: '/system/manage-booking',
                 },
                 {
                     title: t('systemSidebar.employees.data.title2'),

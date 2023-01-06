@@ -147,21 +147,23 @@ function AddBooking() {
                 <div className="row">
                     <div className="col l-6 form-group">
                         {' '}
+                        {/* <label>Chọn ngày </label> */}
                         <DatePicker
                             onChange={onChange}
                             style={{
                                 width: '100%',
                                 height: 32,
-                                margin: '10px 0',
+                                margin: '0 0 20px',
                             }}
                         />
                     </div>
                     <div className="col l-6 form-group">
                         {' '}
+                        {/* <label>Chọn nhân viên </label> */}
                         <Select
                             style={{
                                 width: '100%',
-                                margin: '10px 0',
+                                margin: '0 0 20px',
                             }}
                             name="accountId"
                             // value=""
@@ -175,10 +177,11 @@ function AddBooking() {
                     </div>
                     <div className="col l-6 form-group">
                         {' '}
+                        {/* <label>Chọn chi nhánh </label> */}
                         <Select
                             style={{
                                 width: '100%',
-                                margin: '10px 0',
+                                margin: '0 0 20px',
                             }}
                             name="accountId"
                             placeholder="Select address"
