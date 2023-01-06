@@ -1,12 +1,12 @@
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import { deleteService, getAllService } from '~/redux/service/apiService';
-import { Space, Table, Button, Form, Tag, Card } from 'antd';
+import { deleteForTypeService, searchTypeService } from '~/redux/type_service/apiTypeService';
+import { Button, Card, Form, Space, Table, Tag } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
-
-function ManagerService() {
+function ManagerTypeService() {
     const [page, setPage] = useState(1);
     const [loadApi, setloadApi] = useState(false);
 
@@ -21,7 +21,6 @@ function ManagerService() {
     //B2: gọi api
     let data = {
         name:"",
-        type_service_id:"",
         status:"",
         start:"",
         end:"",
@@ -31,37 +30,25 @@ function ManagerService() {
     }
 
     useEffect(() => {
-        getAllService(data, dispatch, user?.accessToken);
+        searchTypeService(data, dispatch);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loadApi || page]);
 
     //B3: Lấy danh sách
-    const listService = useSelector((state) => state.service.service?.serviceCurrent);
+    const typeServices = useSelector((state) => state.typeService.typeService?.typeServiceCurrent);
 
     //B4: Tạo cột
     const columns = [
         {
             title: 'ID',
-            dataIndex: 'service_id',
-            key: 'service_id',
+            dataIndex: 'id',
+            key: 'id',
         },
         {
-            title: 'Ảnh',
-            dataIndex: 'thumbnail',
-            key: 'thumbnail',
-            render: (text) => <img src={text} width="35%" />
-        },
-        {
-            title: 'Tiêu đề',
-            dataIndex: 'service_name',
-            key: 'service_name',
+            title: 'Tên loại dịch vụ',
+            dataIndex: 'name',
+            key: 'name',
             render: (text) => <span style={{ color: '#1677ff' }}>{text}</span>,
-        },
-        {
-            title: 'Loại dịch vụ',
-            dataIndex: 'type_service',
-            key: 'type_service',
-            render: (text) => <span style={{ color: '#1677ff' }}>{text.name}</span>,
         },
         {
             title: 'Trạng thái',
@@ -84,15 +71,15 @@ function ManagerService() {
             render: (_, record) => (
                 <Space size="middle">
                     <Button
-                        type="primary" ghost onClick={() => handleEditService(record)}>
+                        type="primary" ghost onClick={() => handleEditTypeService(record)}>
                         <EditOutlined />
                         Chi tiết
                     </Button>
                     <Button
                         style={{display: user.roles.map(item => (
                                 item === "ADMIN" ? "block" : "none"
-                        ))}}
-                        type="primary" danger ghost onClick={() => handleDeleteService(record)}>
+                            ))}}
+                        type="primary" danger ghost onClick={() => handleDeleteTypeService(record)}>
                         <DeleteOutlined />
                         Delete
                     </Button>
@@ -101,16 +88,12 @@ function ManagerService() {
         },
     ];
 
-    const handleEditService = (service) => {
-        navigate(`/system/manage-service/detail/${service?.service_id}`);
+    const handleEditTypeService = (type_service) => {
+        navigate(`/system/manage-type-service/detail/${type_service?.id}`);
     };
 
-    const handleDeleteService = (service) => {
-        deleteService(service?.service_id,dispatch,user?.accessToken);
-        setloadApi(!loadApi);
-    };
-
-    const handleLoadAPI = () => {
+    const handleDeleteTypeService = (type_service) => {
+        deleteForTypeService(type_service?.id,dispatch,user?.accessToken);
         setloadApi(!loadApi);
     };
 
@@ -126,27 +109,23 @@ function ManagerService() {
                         height: 140,
                     }}
                 >
-                    <h3 style={{ fontSize: '28px' }}>{listService?.totalItems}</h3>
-                    <p>Dịch vụ</p>
+                    <h3 style={{ fontSize: '28px' }}>{typeServices?.totalItems}</h3>
+                    <p>Loại dịch vụ</p>
                 </Card>
                 <Form.Item label="">
-                    <Link to={'/system/manage-service/add'}>
+                    <Link to={'/system/manage-type-service/add'}>
                         <Button type="primary" style={{ marginTop: '23px' }}>
-                            Thêm dịch vụ
+                            Thêm loại dịch vụ
                         </Button>
                     </Link>
                 </Form.Item>
-                {/*<Form.Item label="">*/}
-                {/*    <AddService loadApi={handleLoadAPI} accessToken={user?.accessToken} />*/}
-                {/*</Form.Item>*/}
-                {/*<div style={{ display: 'flex', margin: '20px auto 0' }} />*/}
                 <Table
                     columns={columns}
                     // { listAccount && listAccount.length > 0 ? dataSource={listAccount} : null}
-                    dataSource={listService?.content}
+                    dataSource={typeServices?.content}
                     pagination={{
                         pageSize: 4,
-                        total: listService?.totalItems,
+                        total: typeServices?.totalItems,
                         onChange: (page) => {
                             setPage(page);
                         },
@@ -156,4 +135,4 @@ function ManagerService() {
         </div>
     );
 }
-export default ManagerService;
+export default ManagerTypeService;

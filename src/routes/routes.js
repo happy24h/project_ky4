@@ -42,6 +42,12 @@ import ManagerService from '~/layouts/System/Page/Service/ManagerService';
 import AddService from '~/layouts/System/Page/Service/components/Add/AddService';
 import DetailService from '~/layouts/System/Page/Service/components/Detail';
 import EditService from '~/layouts/System/Page/Service/components/Edit';
+import ManagerTypeService from '~/layouts/System/Page/TypeService/ManagerTypeService';
+import AddTypeService from '~/layouts/System/Page/TypeService/components/Add/AddTypeService';
+import DetailTypeService from '~/layouts/System/Page/TypeService/components/Detail/DetailTypeService';
+import EditTypeService from '~/layouts/System/Page/TypeService/components/Edit/EditTypeService';
+import ManagerOrder from '~/layouts/System/Page/Order/ManagerOrder';
+import OrderDetail from '~/layouts/System/Page/Order/component/Detail/OrderDetail';
 
 //booking
 import ManageBooking from '~/layouts/System/Page/ManageBooking';
@@ -94,10 +100,22 @@ const privateRoutes = [
     { path: config.routes.detailService, component: DetailService },
     { path: config.routes.editService, component: EditService },
 
+
+    //Type Service
+    { path: config.routes.manageTypeService, component: ManagerTypeService },
+    { path: config.routes.addTypeService, component: AddTypeService },
+    { path: config.routes.detailTypeService, component: DetailTypeService },
+    { path: config.routes.editTypeService, component: EditTypeService },
+
+    //Order
+    { path: config.routes.manageOrder, component: ManagerOrder },
+    { path: config.routes.detailOrder, component: OrderDetail },
+
     // booking
     { path: config.routes.manageBooking, component: ManageBooking },
     { path: config.routes.addBooking, component: AddBooking },
     { path: config.routes.editBooking, component: EditBooking },
+
 ];
 
 export { publicRouters, privateRoutes };

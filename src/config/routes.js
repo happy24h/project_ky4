@@ -51,6 +51,16 @@ const routes = {
     addService: 'system/manage-service/add',
     detailService: 'system/manage-service/detail/:id',
     editService: 'system/manage-service/edit/:id',
+
+    //Type Service
+    manageTypeService: 'system/manage-type-service',
+    addTypeService: 'system/manage-type-service/add',
+    detailTypeService: 'system/manage-type-service/detail/:id',
+    editTypeService: 'system/manage-type-service/edit/:id',
+
+    //Order
+    manageOrder : '/system/manage-order',
+    detailOrder : '/system/manage-order/detail/:id',
 };
 
 export default routes;

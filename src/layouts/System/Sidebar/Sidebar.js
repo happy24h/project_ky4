@@ -63,6 +63,20 @@ function Sidebar() {
                     title: t('systemSidebar.feedback.data.title2'),
                     to: '/system/manage-service',
                 },
+                {
+                    title: 'Danh sách loại dịch vụ',
+                    to: '/system/manage-type-service',
+                },
+            ],
+        },
+        {
+            icon: <FontAwesomeIcon icon={faUser} />,
+            title: 'Hóa đơn',
+            data: [
+                {
+                    title: 'Danh sách hóa đơn',
+                    to: '/system/manage-order',
+                },
             ],
         },
     ];

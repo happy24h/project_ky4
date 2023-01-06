@@ -1,12 +1,11 @@
-import "./ManageFeedback.css"
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteFeedback, getAllFeedback } from '~/redux/feedback/apiFeedback';
-import { Button, Card, Form, Space, Table, Tag } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { Button, Card, Space, Table, Tag } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
+import { getAllOrder } from '~/redux/order/apiOrder';
 
-function ManageFeedback() {
+function ManagerOrder() {
     const [page, setPage] = useState(1);
     const [loadApiFeedback, setloadApiFeedback] = useState(false);
 
@@ -19,9 +18,12 @@ function ManageFeedback() {
     const user = useSelector((state) => state.auth.login?.currentUser);
 
     //B2: gọi api
-    let dataFeedback = {
-        title:"",
-        email:"",
+    let data = {
+        booking_id:"",
+        customer_id:"",
+        voucher_id:"",
+        rangeTotalPriceStart:"",
+        rangeTotalPriceEnd:"",
         status:"",
         start:"",
         end:"",
@@ -31,12 +33,12 @@ function ManageFeedback() {
     };
 
     useEffect(() => {
-        getAllFeedback(dataFeedback, dispatch, user?.accessToken);
+        getAllOrder(data, dispatch, user?.accessToken);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loadApiFeedback || page]);
 
     //B3: Lấy danh sách
-    const listFeedback = useSelector((state) => state.feedback.feedback?.feedbackCurrent);
+    const listOrder = useSelector((state) => state.order.order?.orderCurrent);
 
     //B4: Tạo cột
     const columns = [
@@ -47,20 +49,22 @@ function ManageFeedback() {
             // render: (text) => <Link>{text}</Link>,
         },
         {
-            title: 'Tiêu đề',
-            dataIndex: 'title',
-            key: 'title',
+            title: 'Email Khách',
+            dataIndex: 'booking.email',
+            key: 'booking.email',
             render: (text) => <span style={{ color: '#1677ff' }}>{text}</span>,
         },
         {
-            title: 'Email',
-            dataIndex: 'email',
-            key: 'email',
+            title: 'Khung giờ',
+            dataIndex: 'booking',
+            key: 'booking',
+            render: (text) => <span style={{ color: '#1677ff' }}>{text.time_booking}</span>,
         },
         {
-            title: 'Điện thoại',
-            dataIndex: 'phone',
-            key: 'phone',
+            title: 'Ngày',
+            dataIndex: 'booking',
+            key: 'booking',
+            render: (text) => <span style={{ color: '#1677ff' }}>{text.date_booking}</span>,
         },
         {
             title: 'Trạng thái',
@@ -68,10 +72,12 @@ function ManageFeedback() {
             key: 'status',
             render: (text) => {
                 switch (text){
+                    case 2:
+                        return <Tag color="blue">Đã đến</Tag>;
                     case 1:
-                        return <Tag color="success">Đã đọc</Tag>;
+                        return <Tag color="success">Đang đặt</Tag>;
                     case 0:
-                        return <Tag color="volcano">Chưa đọc</Tag>;
+                        return <Tag color="volcano">Chưa đặt</Tag>;
                     case -1:
                         return <Tag color="red">Đã xóa</Tag>;
                     default:
@@ -81,8 +87,8 @@ function ManageFeedback() {
         },
         {
             title: 'Đối tượng khách',
-            dataIndex: 'account_id',
-            key: 'account_id',
+            dataIndex: 'booking.user_id',
+            key: 'booking.user_id',
             render: (text) => {
                 switch (text){
                     case 1:
@@ -101,32 +107,24 @@ function ManageFeedback() {
                 <Space size="middle">
                     <Button
                         style={{display: user.roles.map(item => (
-                                item === "ADMIN" || "CUSTOMER_CARE" ? "block" : "none"
+                                item === "ADMIN" ? "block" : "none"
                             ))}}
                         type="primary" ghost onClick={() => handleEditUser(record)}>
                         <EditOutlined />
                         Edit
-                    </Button>
-                    <Button
-                        style={{display: user.roles.map(item => (
-                                item === "ADMIN" ? "block" : "none"
-                            ))}}
-                        type="primary" danger ghost onClick={() => handleDeleteUser(record)}>
-                        <DeleteOutlined />
-                        Delete
                     </Button>
                 </Space>
             ),
         },
     ];
 
-    const handleDeleteUser = (feedback) => {
-        deleteFeedback(feedback.id,dispatch,user?.accessToken);
-        setloadApiFeedback(!loadApiFeedback);
-    };
+    // const handleDeleteUser = (order) => {
+    //     // deleteFeedback(feedback.id,dispatch,user?.accessToken);
+    //     // setloadApiFeedback(!loadApiFeedback);
+    // };
 
-    const handleEditUser = (feedback) => {
-        navigate(`/system/manage-feedback/detail/${feedback.id}`);
+    const handleEditUser = (order) => {
+        navigate(`/system/manage-order/detail/${order.id}`);
     };
 
     return (
@@ -141,8 +139,8 @@ function ManageFeedback() {
                         height: 140,
                     }}
                 >
-                    <h3 style={{ fontSize: '28px' }}>{listFeedback?.totalItems}</h3>
-                    <p>Phản hồi</p>
+                    <h3 style={{ fontSize: '28px' }}>{listOrder?.totalItems}</h3>
+                    <p>Đơn hàng</p>
                 </Card>
                 {/*<Form.Item label="">*/}
                 {/*    <Link to={'/add-feedback'}>*/}
@@ -155,11 +153,11 @@ function ManageFeedback() {
                 <Table
                     columns={columns}
                     // { listAccount && listAccount.length > 0 ? dataSource={listAccount} : null}
-                    dataSource={listFeedback?.content}
-                    rowKey={(feedbacks) => feedbacks.id}
+                    dataSource={listOrder?.content}
+                    // rowKey={(orders) => orders.id}
                     pagination={{
-                        pageSize: 4,
-                        total: listFeedback?.totalItems,
+                        pageSize: data.limit,
+                        total: listOrder?.totalItems,
                         onChange: (page) => {
                             setPage(page);
                         },
@@ -169,5 +167,4 @@ function ManageFeedback() {
         </div>
     );
 }
-
-export default ManageFeedback;
+export default ManagerOrder;
