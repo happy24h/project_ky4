@@ -1,80 +1,129 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import * as axios from '~/services/adminService';
-import _ from 'lodash';
-import ProfileTeacher from '../Course/ProfileTeacher';
-import TeacherSchedule from '../Teacher/Schedule/TeacherSchedule';
-import InfoAboutTeachers from '../Teacher/Info/InfoAboutTeachers';
-import './DetailWebsite.scss';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
+import { DatePicker } from 'antd';
+
+import { Button, Form, Card } from 'antd';
+import classNames from 'classnames/bind';
+import styles from './DetailWebsite.module.scss';
+import { getBooking } from '~/redux/booking/apiBooking';
+
+const cx = classNames.bind(styles);
+
 function DetailWebsite() {
-    const [state, setState] = useState({});
-    let { id } = useParams();
-    console.log('id--->', id);
-    console.log('-----> ', state);
+    const [state, setState] = useState();
+    const dispatch = useDispatch();
+    const { id } = useParams();
+    // const navigate = useNavigate();
+    const user = useSelector((state) => state.auth.login?.currentUser);
+    const listBooking = useSelector((state) => state.booking.booking?.listData);
+    // console.log('list booking', listBooking);
+
+    const onChange = (date, dateString) => {
+        console.log('test', date, 'aaaa', dateString);
+        setState(dateString);
+    };
+
+    let today = new Date();
+    if (state) {
+        today = new Date(state);
+    } else {
+    }
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = dd + '-' + mm + '-' + yyyy;
+    console.log('today', today);
+    let dataBooking = {
+        branch_id: id,
+        employee_id: '',
+        role: '',
+        date_booking: today,
+        time_booking: '',
+        start: '',
+        end: '',
+        limit: 4,
+        page: 1,
+        sort: 'asc',
+    };
 
     useEffect(() => {
-        const fetchApi = async () => {
-            let res = await axios.getAllDetailClinicById({ id: id });
-            if (res && res.errCode === 0) {
-                let data = res.data;
-                let arrWebsiteId = [];
-                if (data && !_.isEmpty(res.data)) {
-                    let arrData = data.doctorClinic;
-                    if (arrData && arrData.length > 0) {
-                        arrData.map((item) => {
-                            return arrWebsiteId.push(item.doctorId);
-                        });
-                    }
-                }
-                setState({
-                    dataDetailWebsite: res.data,
-                    arrWebsiteId: arrWebsiteId,
-                });
-                console.log(data);
-            }
-        };
-        fetchApi();
-    }, [id]);
+        getBooking(dataBooking, dispatch, user?.accessToken);
 
-    let { dataDetailWebsite, arrWebsiteId } = state;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id]);
+    useEffect(() => {
+        getBooking(dataBooking, dispatch, user?.accessToken);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [today]);
 
     return (
-        <div className="detail-specialty-container">
-            <div className="detail-specialty-body">
-                <div className="description-specialty">
-                    {dataDetailWebsite && !_.isEmpty(dataDetailWebsite) && (
-                        <>
-                            <div>{dataDetailWebsite.name}</div>
-                            <div dangerouslySetInnerHTML={{ __html: dataDetailWebsite.descriptionHTML }}></div>
-                        </>
-                    )}
-                </div>
-                {arrWebsiteId &&
-                    arrWebsiteId.length > 0 &&
-                    arrWebsiteId.map((item, index) => {
-                        return (
-                            <div className="each-doctor" key={index}>
-                                <div className="dt-content-left">
-                                    <div className="profile-doctor">
-                                        <ProfileTeacher
-                                            teacherId={item}
-                                            isShowDescriptionTeacher={true}
-                                            isShowLinkDetail={true}
-                                            // dataTime={dataTime}
-                                        />
+        <div style={{ marginTop: '106px' }}>
+            <div className="container" style={{ width: '1200px', margin: '0 auto' }}>
+                <Card
+                    title={<DatePicker onChange={onChange} />}
+                    // extra={
+                    //     <Form.Item label="">
+                    //         <Link to={'/system/manage-booking/add'}>
+                    //             <Button type="primary" style={{ marginTop: '23px', backgroundColor: '#fcaf17' }}>
+                    //                 Add booking
+                    //             </Button>
+                    //         </Link>
+                    //     </Form.Item>
+                    // }
+                    style={{
+                        width: 1200,
+                        minHeight: 600,
+                        backgroundColor: '#e5e5e5',
+                    }}
+                >
+                    <div className="grid wide">
+                        <div className="row">
+                            {listBooking?.content.map((item, index) => {
+                                return (
+                                    <div className="col l-3 m-4 c-6">
+                                        <Card
+                                            size="small"
+                                            title="Đặt lịch"
+                                            // extra={<a href="#">More</a>}
+                                            style={{
+                                                // width: 260,
+                                                minHeight: 170,
+                                            }}
+                                            key={index}
+                                        >
+                                            <h3 style={{ fontSize: '20px' }}>{item.employee.employee_name}</h3>
+                                            <p>
+                                                Ngày:{' '}
+                                                <span>{item.employee.bookingByTime_bookings[0].date_booking}</span>
+                                            </p>
+                                            <div style={{ display: 'flex', marginTop: 8 }}>
+                                                {item.employee.bookingByTime_bookings.map((item, index) => {
+                                                    return (
+                                                        <div key={index} style={{ marginRight: '5px' }}>
+                                                            <Button
+                                                                type="primary"
+                                                                style={{
+                                                                    fontWeight: 600,
+                                                                    fontSize: 10,
+                                                                    backgroundColor: '#fcaf17',
+                                                                }}
+                                                            >
+                                                                {item.time_booking}h
+                                                            </Button>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+                                        </Card>
                                     </div>
-                                </div>
-                                <div className="dt-content-right">
-                                    <div className="doctor-schedule">
-                                        <TeacherSchedule teacherIdFromParent={item} />
-                                    </div>
-                                    <div className="doctor-extra-infor">
-                                        <InfoAboutTeachers teacherIdFromParent={item} />
-                                    </div>
-                                </div>
-                            </div>
-                        );
-                    })}
+                                );
+                            })}
+                        </div>
+                    </div>
+                </Card>
             </div>
         </div>
     );

@@ -24,7 +24,7 @@ function ManageBranch() {
         start: '',
         end: '',
         page: 1,
-        limit: 4,
+        limit: 6,
         sort: 'asc',
         status: '',
     };
@@ -131,7 +131,7 @@ function ManageBranch() {
                     columns={columns}
                     dataSource={listBranch?.content}
                     pagination={{
-                        pageSize: 3,
+                        pageSize: 6,
                         total: listBranch?.totalItems,
                         onChange: (page) => {
                             setPage(page);

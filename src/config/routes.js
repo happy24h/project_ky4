@@ -8,7 +8,7 @@ const routes = {
     blog: '/blog',
     contact: '/contact',
     hairStyle: '/hairStyle',
-    detailWebsite: '/detail-learn-website/:id',
+    detailWebsite: '/detail-learn-branch/:id',
     detailCourse: '/detail-course/:id',
     detailTeacher: '/detail-teacher/:id',
 
@@ -59,8 +59,8 @@ const routes = {
     editTypeService: 'system/manage-type-service/edit/:id',
 
     //Order
-    manageOrder : '/system/manage-order',
-    detailOrder : '/system/manage-order/detail/:id',
+    manageOrder: '/system/manage-order',
+    detailOrder: '/system/manage-order/detail/:id',
 };
 
 export default routes;
