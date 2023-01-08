@@ -123,18 +123,11 @@ function ManageBooking() {
                                                 Ngày:{' '}
                                                 <span>{item.employee.bookingByTime_bookings[0].date_booking}</span>
                                             </p>
-                                            <div style={{ display: 'flex', marginTop: 8 }}>
+                                            <div className={cx('wrapper-btn')}>
                                                 {item.employee.bookingByTime_bookings.map((item, index) => {
                                                     return (
                                                         <div key={index} style={{ marginRight: '5px' }}>
-                                                            <Button
-                                                                type="primary"
-                                                                style={{
-                                                                    fontWeight: 600,
-                                                                    fontSize: 10,
-                                                                    backgroundColor: '#fcaf17',
-                                                                }}
-                                                            >
+                                                            <Button type="primary" className={cx('btn-booking')}>
                                                                 {item.time_booking}h
                                                             </Button>
                                                         </div>

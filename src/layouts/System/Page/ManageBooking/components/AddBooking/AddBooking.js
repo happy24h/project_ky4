@@ -187,7 +187,7 @@ function AddBooking() {
                             placeholder="Select address"
                             onChange={handleOnchangeBranch}
                             options={listBranch.map((item) => ({
-                                label: item.address,
+                                label: item.name,
                                 value: item.id,
                                 name: 'accountId',
                             }))}
