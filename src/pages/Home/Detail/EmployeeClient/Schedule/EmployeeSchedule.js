@@ -90,7 +90,6 @@ function EmployeeSchedule() {
                                             title="Đặt lịch"
                                             // extra={<a href="#">More</a>}
                                             style={{
-                                                // width: 260,
                                                 minHeight: 170,
                                             }}
                                             key={index}
@@ -122,6 +121,38 @@ function EmployeeSchedule() {
                                     </div>
                                 );
                             })}
+                            {listBooking?.content.length < 1 && (
+                                <div className="col l-12 m-12 c-12">
+                                    <Card
+                                        size="small"
+                                        title="Đặt lịch"
+                                        // extra={<a href="#">More</a>}
+                                        style={{
+                                            minHeight: 170,
+                                        }}
+                                    >
+                                        <h3 style={{ fontSize: '20px' }}>Chưa có lịch hẹn</h3>
+                                        <p>
+                                            Ngày: <span>{today}</span>
+                                        </p>
+                                        <div style={{ display: 'flex', marginTop: 8 }}>
+                                            {/* <div style={{ marginRight: '5px' }}>
+                                                <Button
+                                                    type="primary"
+                                                    style={{
+                                                        fontWeight: 600,
+                                                        fontSize: 10,
+                                                        backgroundColor: '#fcaf17',
+                                                    }}
+                                                ></Button>
+                                            </div> */}
+                                            <span style={{ fontSize: '12px', fontWeight: 'bold' }}>
+                                                Vui lòng chọn ngày khác
+                                            </span>
+                                        </div>
+                                    </Card>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </Card>
