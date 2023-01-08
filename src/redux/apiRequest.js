@@ -129,8 +129,8 @@ export const createAccount = async (account, dispatch, accessToken, loadApi, nav
         navigate('/system/manage-user');
         toast.success('Tạo tài khoản thành công');
     } catch (err) {
-        dispatch(createAccountFailed(err.response.data.message));
-        toast.error(err.response.data.message);
+        dispatch(createAccountFailed());
+        toast.error('Có thứ gì đó không ổn');
     }
 };
 
@@ -144,8 +144,8 @@ export const createAccountCustomer = async (account, dispatch, accessToken) => {
         toast.success('Tạo tài khoản thành công');
         // handleCancel();
     } catch (err) {
-        dispatch(createAccountFailed(err.response.data.message));
-        toast.error(err.response.data.message);
+        dispatch(createAccountFailed());
+        toast.error('có thứ gì đó không ổn');
     }
 };
 
@@ -158,8 +158,8 @@ export const getDetailAccount = async (id, dispatch, accessToken) => {
         dispatch(detailAccountSuccess(res.data));
         // toast.success('Detail success');
     } catch (err) {
-        dispatch(detailAccountFailed(err.response.data.message));
-        toast.error(err.response.data.message);
+        dispatch(detailAccountFailed());
+        toast.error('có thứ gì đó không đúng');
     }
 };
 

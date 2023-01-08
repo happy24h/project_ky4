@@ -4,7 +4,6 @@ import Slider from 'react-slick';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from '../ContentSlider/ContentSlider.module.scss';
-import { dataWebsiteFake } from '../../../../assets/dataFake/dataService';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBranch } from '~/redux/branch/apiBranch';
 

@@ -10,7 +10,7 @@ const routes = {
     hairStyle: '/hairStyle',
     detailWebsite: '/detail-learn-branch/:id',
     detailCourse: '/detail-course/:id',
-    detailTeacher: '/detail-teacher/:id',
+    detailTeacher: '/detail-employee/:id',
 
     // System
     //schedule

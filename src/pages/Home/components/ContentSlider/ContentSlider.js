@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Courses from '../Courses';
 import Branch from '../Branch';
-import Teacher from '../Teacher';
+import Teacher from '../Employee';
 import classNames from 'classnames/bind';
 import styles from './ContentSlider.module.scss';
 

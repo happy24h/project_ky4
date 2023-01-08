@@ -1,37 +1,49 @@
 import { useState, useEffect } from 'react';
-import * as useService from '~/services/userService';
 import Slider from 'react-slick';
 import { useNavigate } from 'react-router-dom';
 // import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Buffer } from 'buffer';
+// import { Buffer } from 'buffer';
 import classNames from 'classnames/bind';
 import styles from '../ContentSlider/ContentSlider.module.scss';
 import { dataTeacherFake } from '../../../../assets/dataFake/dataService';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllAccount } from '~/redux/apiRequest';
 const cx = classNames.bind(styles);
-function Teacher({ settings }) {
+function Employee({ settings }) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [posts, setPosts] = useState([]);
     // eslint-disable-next-line no-unused-vars
     const [loadData, setLoadData] = useState(false);
+    const user = useSelector((state) => state.auth.login?.currentUser);
+    const listAccount = useSelector((state) => state.account.account?.accountCurrent?.content);
+    let dataAccount = {
+        name: '',
+        email: '',
+        phone: '',
+        gender: '',
+        start: '',
+        end: '',
+        page: 1,
+        limit: 6,
+        sort: 'asc',
+        role_id: '1' || '3',
+        member_ship_class_id: '',
+        status: '',
+    };
     useEffect(() => {
-        const fetchApi = async () => {
-            setLoadData(true);
-            let result = await useService.teacher();
-            setPosts(result);
-            if (result && result.length > 0) {
-                console.log('check load data:');
-                setLoadData(false);
-            }
-        };
-        fetchApi();
+        getAllAccount();
+        getAllAccount(dataAccount, dispatch, user?.accessToken);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    const handleViewDetailTeacher = (teacher) => {
-        navigate(`detail-teacher/${teacher.id}`);
+    const handleViewDetailEmployee = (employee) => {
+        navigate(`detail-employee/${employee.accounts_id}`);
     };
     console.log('posts >>>', posts);
 
-    let newDataTeacher = posts && posts.length > 0 ? posts : dataTeacherFake;
+    // let newDataTeacher = posts && posts.length > 0 ? posts : dataTeacherFake;
     return (
         <div className="section-share section-specialty">
             <div className="section-container">
@@ -42,25 +54,21 @@ function Teacher({ settings }) {
 
                 <div className={cx('slider')}>
                     <Slider className={cx('container')} {...settings}>
-                        {newDataTeacher &&
-                            newDataTeacher.length > 0 &&
-                            newDataTeacher.map((item, index) => {
-                                var imageBase64 =
-                                    posts && posts.length > 0 ? Buffer.from(item.image, 'base64') : item.image.data;
-                                // console.log('base64', imageBase64);
-
+                        {listAccount &&
+                            listAccount.length > 0 &&
+                            listAccount.map((item, index) => {
                                 return (
                                     <div
                                         className="section-customize"
                                         key={index}
-                                        onClick={() => handleViewDetailTeacher(item)}
+                                        onClick={() => handleViewDetailEmployee(item)}
                                     >
                                         <div className="item-center">
                                             <div
                                                 className="bg-image section-outstanding-doctor"
-                                                style={{ backgroundImage: `url(${imageBase64})` }}
+                                                style={{ backgroundImage: `url(${item.thumbnail})` }}
                                             ></div>
-                                            <div className="name-specialty">{`${item.lastName} ${item.firstName}`}</div>
+                                            <div className="name-specialty">{`${item.accounts_name}`}</div>
                                         </div>
                                     </div>
                                 );
@@ -78,4 +86,4 @@ function Teacher({ settings }) {
     );
 }
 
-export default Teacher;
+export default Employee;
