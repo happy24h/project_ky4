@@ -10,9 +10,9 @@ import Library from '~/pages/Library';
 import Contact from '~/pages/Contact';
 import HairStyle from '~/pages/HairStyle';
 import Blog from '~/pages/Blog';
-import DetailWebsite from '~/pages/Home/Detail/Website';
+import ViewBranch from '~/pages/Home/Detail/Branch';
 import DetailCourse from '~/pages/Home/Detail/Course';
-import DetailTeacher from '~/pages/Home/Detail/EmployeeClient/DetailEmployee';
+import DetailEmployee from '~/pages/Home/Detail/EmployeeClient/DetailEmployee';
 
 // System
 import ManageUser from '~/layouts/System/Page/ManageUser';
@@ -62,9 +62,9 @@ const publicRouters = [
     { path: config.routes.contact, component: Contact },
     { path: config.routes.hairStyle, component: HairStyle },
     { path: config.routes.learn, component: Learn, changeLayout: HeaderOnly },
-    { path: config.routes.detailWebsite, component: DetailWebsite, changeLayout: HeaderOnly },
+    { path: config.routes.viewBranch, component: ViewBranch, changeLayout: HeaderOnly },
     { path: config.routes.detailCourse, component: DetailCourse, changeLayout: HeaderOnly },
-    { path: config.routes.detailTeacher, component: DetailTeacher, changeLayout: HeaderOnly },
+    { path: config.routes.detailEmployee, component: DetailEmployee, changeLayout: HeaderOnly },
     { path: config.routes.login, component: Login, changeLayout: null },
     { path: config.routes.register, component: Register, changeLayout: null },
 ];

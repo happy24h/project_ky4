@@ -5,7 +5,7 @@ import { DatePicker } from 'antd';
 
 import { Button, Form, Card } from 'antd';
 import classNames from 'classnames/bind';
-import styles from './DetailWebsite.module.scss';
+import styles from './ViewBranch.module.scss';
 import { getBooking } from '~/redux/booking/apiBooking';
 
 const cx = classNames.bind(styles);

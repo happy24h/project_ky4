@@ -8,9 +8,9 @@ const routes = {
     blog: '/blog',
     contact: '/contact',
     hairStyle: '/hairStyle',
-    detailWebsite: '/detail-learn-branch/:id',
+    viewBranch: '/detail-learn-branch/:id',
     detailCourse: '/detail-course/:id',
-    detailTeacher: '/detail-employee/:id',
+    detailEmployee: '/detail-employee/:id',
 
     // System
     //schedule
