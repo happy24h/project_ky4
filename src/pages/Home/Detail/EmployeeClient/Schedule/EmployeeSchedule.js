@@ -6,7 +6,7 @@ import moment from 'moment';
 import localization from 'moment/locale/vi';
 import Modal from '../Modal/Modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './TeacherSchedule.scss';
+import './EmployeeSchedule.scss';
 import { faCalendarAlt, faHandPointUp } from '@fortawesome/free-solid-svg-icons';
 function TeacherSchedule({ teacherIdFromParent }) {
     const [availableTime, setAvailableTime] = useState({ allAvailableTime: [] });

@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import TeacherSchedule from './Schedule/TeacherSchedule';
-import InfoAboutTeachers from './Info/InfoAboutTeachers';
-import './DetailTeacher.scss';
+import TeacherSchedule from './Schedule/EmployeeSchedule';
+import InfoAboutTeachers from './Info/InfoAboutEmployee';
+import './DetailEmployee.scss';
 import { getDetailAccount } from '~/redux/apiRequest';
 import { useDispatch, useSelector } from 'react-redux';
 
-function DetailTeacher() {
+function DetailEmployee() {
     const { id } = useParams();
     const dispatch = useDispatch();
 
@@ -57,4 +57,4 @@ function DetailTeacher() {
     );
 }
 
-export default DetailTeacher;
+export default DetailEmployee;

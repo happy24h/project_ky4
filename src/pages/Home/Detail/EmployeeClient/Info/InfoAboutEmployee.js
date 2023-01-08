@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import * as axios from '~/services/adminService';
 import NumberFormat from 'react-number-format';
-import './InfoAboutTeachers.scss';
+import './InfoAboutEmployee.scss';
 
 function InfoAboutTeachers({ teacherIdFromParent }) {
     const [infoTeacher, setInfoTeacher] = useState();

@@ -12,7 +12,7 @@ import HairStyle from '~/pages/HairStyle';
 import Blog from '~/pages/Blog';
 import DetailWebsite from '~/pages/Home/Detail/Website';
 import DetailCourse from '~/pages/Home/Detail/Course';
-import DetailTeacher from '~/pages/Home/Detail/Teacher/DetailTeacher';
+import DetailTeacher from '~/pages/Home/Detail/EmployeeClient/DetailEmployee';
 
 // System
 import ManageUser from '~/layouts/System/Page/ManageUser';
@@ -100,7 +100,6 @@ const privateRoutes = [
     { path: config.routes.detailService, component: DetailService },
     { path: config.routes.editService, component: EditService },
 
-
     //Type Service
     { path: config.routes.manageTypeService, component: ManagerTypeService },
     { path: config.routes.addTypeService, component: AddTypeService },
@@ -115,7 +114,6 @@ const privateRoutes = [
     { path: config.routes.manageBooking, component: ManageBooking },
     { path: config.routes.addBooking, component: AddBooking },
     { path: config.routes.editBooking, component: EditBooking },
-
 ];
 
 export { publicRouters, privateRoutes };
