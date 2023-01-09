@@ -5,12 +5,12 @@ import { DatePicker } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Button, Form, Card } from 'antd';
-// import classNames from 'classnames/bind';
-// import styles from './ViewBranch.module.scss';
+import classNames from 'classnames/bind';
+import styles from './EmployeeSchedule.module.scss';
 import { getBooking } from '~/redux/booking/apiBooking';
 import { faCalendarAlt, faHandPointUp } from '@fortawesome/free-solid-svg-icons';
 
-// const cx = classNames.bind(styles);
+const cx = classNames.bind(styles);
 function EmployeeSchedule() {
     const [state, setState] = useState();
     const dispatch = useDispatch();
@@ -99,19 +99,12 @@ function EmployeeSchedule() {
                                                 Ngày:{' '}
                                                 <span>{item.employee.bookingByTime_bookings[0].date_booking}</span>
                                             </p>
-                                            <div style={{ display: 'flex', marginTop: 8 }}>
+                                            <div className={cx('wrapper-btn')}>
                                                 {item.employee.bookingByTime_bookings.map((item, index) => {
                                                     return (
-                                                        <div key={index} style={{ marginRight: '5px' }}>
-                                                            <Button
-                                                                type="primary"
-                                                                style={{
-                                                                    fontWeight: 600,
-                                                                    fontSize: 10,
-                                                                    backgroundColor: '#fcaf17',
-                                                                }}
-                                                            >
-                                                                {item.time_booking}h
+                                                        <div key={index} style={{ marginRight: '6px' }}>
+                                                            <Button type="primary" className={cx('btn-booking')}>
+                                                                {item.time_booking}:00 - {item.time_booking}:30
                                                             </Button>
                                                         </div>
                                                     );
@@ -136,16 +129,6 @@ function EmployeeSchedule() {
                                             Ngày: <span>{today}</span>
                                         </p>
                                         <div style={{ display: 'flex', marginTop: 8 }}>
-                                            {/* <div style={{ marginRight: '5px' }}>
-                                                <Button
-                                                    type="primary"
-                                                    style={{
-                                                        fontWeight: 600,
-                                                        fontSize: 10,
-                                                        backgroundColor: '#fcaf17',
-                                                    }}
-                                                ></Button>
-                                            </div> */}
                                             <span style={{ fontSize: '12px', fontWeight: 'bold' }}>
                                                 Vui lòng chọn ngày khác
                                             </span>
