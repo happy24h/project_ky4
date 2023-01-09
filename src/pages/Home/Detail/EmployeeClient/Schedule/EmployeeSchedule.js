@@ -61,6 +61,10 @@ function EmployeeSchedule() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [today]);
 
+    const handleTimeBooking = (id) => {
+        alert('check id ' + id);
+    };
+
     return (
         <>
             {' '}
@@ -112,6 +116,7 @@ function EmployeeSchedule() {
                                                                     <Button
                                                                         type="primary"
                                                                         className={cx('btn-booking')}
+                                                                        onClick={() => handleTimeBooking(item.id)}
                                                                     >
                                                                         {item.time_booking}:00 - {item.time_booking}:30
                                                                     </Button>

@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
-import * as axios from '~/services/adminService';
 import NumberFormat from 'react-number-format';
 import './InfoAboutEmployee.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDetailBranch } from '~/redux/branch/apiBranch';
 
-function InfoAboutTeachers({ EmployeeIdFromParent }) {
-    const [infoTeacher, setInfoTeacher] = useState();
+function InfoAboutEmployee({ EmployeeIdFromParent }) {
     const [showDetail, setShowDetail] = useState(false);
-    console.log('state--->', infoTeacher);
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.login?.currentUser);
 
@@ -58,4 +55,4 @@ function InfoAboutTeachers({ EmployeeIdFromParent }) {
     );
 }
 
-export default InfoAboutTeachers;
+export default InfoAboutEmployee;
