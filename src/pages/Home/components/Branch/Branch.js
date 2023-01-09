@@ -9,8 +9,8 @@ import { getBranch } from '~/redux/branch/apiBranch';
 
 const cx = classNames.bind(styles);
 function Branch({ settings }) {
-    const [dataWebsites, setDataWebsites] = useState([]);
-    const [loadData, setLoadData] = useState(false);
+    // const [dataWebsites, setDataWebsites] = useState([]);
+    // const [loadData, setLoadData] = useState(false);
 
     const dispatch = useDispatch();
 

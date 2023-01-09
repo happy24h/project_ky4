@@ -23,11 +23,11 @@ function DetailEmployee() {
             <div className="intro-doctor">
                 <div
                     className="content-left"
-                    style={{
-                        backgroundImage: `url(${
-                            detailAccount && detailAccount.thumbnail ? detailAccount.thumbnail : ''
-                        })`,
-                    }}
+                    style={
+                        detailAccount?.thumbnail && {
+                            backgroundImage: `url(${detailAccount.thumbnail})`,
+                        }
+                    }
                 ></div>
                 <div className="content-right">
                     <div className="up">{detailAccount?.name}</div>
@@ -39,14 +39,14 @@ function DetailEmployee() {
                     </div>
                 </div>
             </div>
-            <div className="schedule-doctor">
+            <TeacherSchedule />
+            {/* <div className="schedule-doctor">
                 <div className="content-left">
-                    <TeacherSchedule teacherIdFromParent={id} />
                 </div>
                 <div className="content-right">
-                    <InfoAboutTeachers teacherIdFromParent={id} />
+                    <InfoAboutTeachers  />
                 </div>
-            </div>
+            </div> */}
             <div className="detail-infor-doctor">
                 {/* {detailTeacher && detailTeacher.Markdown && detailTeacher.Markdown.contentHTML && (
                     <div dangerouslySetInnerHTML={{ __html: detailTeacher.Markdown.contentHTML }}></div>

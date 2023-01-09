@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { DatePicker } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import InfoAboutEmployee from '../Info/InfoAboutEmployee';
 
 import { Button, Form, Card } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './EmployeeSchedule.module.scss';
 import { getBooking } from '~/redux/booking/apiBooking';
-import { faCalendarAlt, faHandPointUp } from '@fortawesome/free-solid-svg-icons';
+// import { faCalendarAlt, faHandPointUp } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 function EmployeeSchedule() {
@@ -62,83 +63,99 @@ function EmployeeSchedule() {
 
     return (
         <>
-            <div className="doctor-schedule-container">
-                <Card
-                    title={<DatePicker onChange={onChange} />}
-                    // extra={
-                    //     <Form.Item label="">
-                    //         <Link to={'/system/manage-booking/add'}>
-                    //             <Button type="primary" style={{ marginTop: '23px', backgroundColor: '#fcaf17' }}>
-                    //                 Add booking
-                    //             </Button>
-                    //         </Link>
-                    //     </Form.Item>
-                    // }
-                    style={{
-                        width: 600,
-                        minHeight: 300,
-                        backgroundColor: '#e5e5e5',
-                    }}
-                >
-                    <div className="grid wide">
-                        <div className="row">
-                            {listBooking?.content.map((item, index) => {
-                                return (
-                                    <div className="col l-12 m-12 c-12">
-                                        <Card
-                                            size="small"
-                                            title="Đặt lịch"
-                                            // extra={<a href="#">More</a>}
-                                            style={{
-                                                minHeight: 170,
-                                            }}
-                                            key={index}
-                                        >
-                                            <h3 style={{ fontSize: '20px' }}>{item.employee.employee_name}</h3>
-                                            <p>
-                                                Ngày:{' '}
-                                                <span>{item.employee.bookingByTime_bookings[0].date_booking}</span>
-                                            </p>
-                                            <div className={cx('wrapper-btn')}>
-                                                {item.employee.bookingByTime_bookings.map((item, index) => {
-                                                    return (
-                                                        <div key={index} style={{ marginRight: '6px' }}>
-                                                            <Button type="primary" className={cx('btn-booking')}>
-                                                                {item.time_booking}:00 - {item.time_booking}:30
-                                                            </Button>
-                                                        </div>
-                                                    );
-                                                })}
+            {' '}
+            <div className="schedule-doctor">
+                <div className="content-left">
+                    <div className="doctor-schedule-container">
+                        <Card
+                            title={<DatePicker onChange={onChange} />}
+                            // extra={
+                            //     <Form.Item label="">
+                            //         <Link to={'/system/manage-booking/add'}>
+                            //             <Button type="primary" style={{ marginTop: '23px', backgroundColor: '#fcaf17' }}>
+                            //                 Add booking
+                            //             </Button>
+                            //         </Link>
+                            //     </Form.Item>
+                            // }
+                            style={{
+                                width: 600,
+                                minHeight: 300,
+                                backgroundColor: '#e5e5e5',
+                            }}
+                        >
+                            <div className="grid wide">
+                                <div className="row">
+                                    {listBooking?.content.map((item, index) => {
+                                        return (
+                                            <div key={index} className="col l-12 m-12 c-12">
+                                                <Card
+                                                    size="small"
+                                                    title="Đặt lịch"
+                                                    // extra={<a href="#">More</a>}
+                                                    style={{
+                                                        minHeight: 170,
+                                                    }}
+                                                    key={index}
+                                                >
+                                                    <h3 style={{ fontSize: '20px' }}>{item.employee.employee_name}</h3>
+                                                    <p>
+                                                        Ngày:{' '}
+                                                        <span>
+                                                            {item.employee.bookingByTime_bookings[0].date_booking}
+                                                        </span>
+                                                    </p>
+                                                    <div className={cx('wrapper-btn')}>
+                                                        {item.employee.bookingByTime_bookings.map((item, index) => {
+                                                            return (
+                                                                <div key={index} style={{ marginRight: '6px' }}>
+                                                                    <Button
+                                                                        type="primary"
+                                                                        className={cx('btn-booking')}
+                                                                    >
+                                                                        {item.time_booking}:00 - {item.time_booking}:30
+                                                                    </Button>
+                                                                </div>
+                                                            );
+                                                        })}
+                                                    </div>
+                                                </Card>
                                             </div>
-                                        </Card>
-                                    </div>
-                                );
-                            })}
-                            {listBooking?.content.length < 1 && (
-                                <div className="col l-12 m-12 c-12">
-                                    <Card
-                                        size="small"
-                                        title="Đặt lịch"
-                                        // extra={<a href="#">More</a>}
-                                        style={{
-                                            minHeight: 170,
-                                        }}
-                                    >
-                                        <h3 style={{ fontSize: '20px' }}>Chưa có lịch hẹn</h3>
-                                        <p>
-                                            Ngày: <span>{today}</span>
-                                        </p>
-                                        <div style={{ display: 'flex', marginTop: 8 }}>
-                                            <span style={{ fontSize: '12px', fontWeight: 'bold' }}>
-                                                Vui lòng chọn ngày khác
-                                            </span>
+                                        );
+                                    })}
+                                    {listBooking?.content.length < 1 && (
+                                        <div className="col l-12 m-12 c-12">
+                                            <Card
+                                                size="small"
+                                                title="Đặt lịch"
+                                                // extra={<a href="#">More</a>}
+                                                style={{
+                                                    minHeight: 170,
+                                                }}
+                                            >
+                                                <h3 style={{ fontSize: '20px' }}>Chưa có lịch hẹn</h3>
+                                                <p>
+                                                    Ngày: <span>{today}</span>
+                                                </p>
+                                                <div style={{ display: 'flex', marginTop: 8 }}>
+                                                    <span style={{ fontSize: '12px', fontWeight: 'bold' }}>
+                                                        Vui lòng chọn ngày khác
+                                                    </span>
+                                                </div>
+                                            </Card>
                                         </div>
-                                    </Card>
+                                    )}
                                 </div>
-                            )}
-                        </div>
+                            </div>
+                        </Card>
+                        {}
                     </div>
-                </Card>
+                </div>
+                <div className="content-right">
+                    <InfoAboutEmployee
+                        EmployeeIdFromParent={listBooking?.content[0]?.employee?.bookingByTime_bookings[0].branch_id}
+                    />
+                </div>
             </div>
             {/* {modal && <Modal setModal={setModal} dataTime={dataTime} />} */}
         </>

@@ -2,43 +2,50 @@ import { useEffect, useState } from 'react';
 import * as axios from '~/services/adminService';
 import NumberFormat from 'react-number-format';
 import './InfoAboutEmployee.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDetailBranch } from '~/redux/branch/apiBranch';
 
-function InfoAboutTeachers({ teacherIdFromParent }) {
+function InfoAboutTeachers({ EmployeeIdFromParent }) {
     const [infoTeacher, setInfoTeacher] = useState();
     const [showDetail, setShowDetail] = useState(false);
     console.log('state--->', infoTeacher);
-    useEffect(() => {
-        const fetchApi = async () => {
-            let res = await axios.getExtraInforDoctorById(teacherIdFromParent);
-            setInfoTeacher(res.data);
-        };
-        fetchApi();
-    }, [teacherIdFromParent]);
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.auth.login?.currentUser);
 
+    const detailBranch = useSelector((state) => state.branch.branch?.detailData);
+
+    useEffect(() => {
+        getDetailBranch(EmployeeIdFromParent, dispatch, user?.accessToken);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [EmployeeIdFromParent]);
     return (
         <div className="doctor-extra-infor-container">
             <div className="content-up">
                 <div className="text-address">Địa chỉ</div>
-                <div className="name-clinic">Cơ sở hà nội</div>
-                <div className="detail-address">Lê Duẩn - Hai Bà Trưng - Hà Nội</div>
+                <div className="name-clinic">{detailBranch?.name}</div>
+                <div className="detail-address">{detailBranch?.address}</div>
             </div>
             <div className="content-down">
                 <>
-                    <div className="title-price">Giá dịch vụ:</div>
+                    {/* <div className="title-price">Tư vấn:</div> */}
                     <div className="detail-infor">
                         <div className="price">
-                            <span className="left">Giá dịch vụ:</span>
-                            <span className="right">
-                                <NumberFormat
-                                    className="currency"
-                                    value="50000"
-                                    displayType={'text'}
-                                    thousandSeparator={true}
-                                    suffix={'VND'}
-                                />
-                            </span>
+                            <div style={{ marginTop: 3 }} className="note">
+                                HỖ TRỢ KHÁCH HÀNG
+                            </div>
+                            <div style={{ marginTop: 6 }}>
+                                <span className="left">Số điện thoại tư vấn:</span>
+                                <span className="right">
+                                    <NumberFormat
+                                        className="currency"
+                                        value="0339007770"
+                                        displayType={'text'}
+                                        // thousandSeparator={true}
+                                        suffix={''}
+                                    />
+                                </span>
+                            </div>
                         </div>
-                        <div className="note">Học tập là con mắt của trí tuệ.</div>
                     </div>
 
                     <div className="payment">Khác hàng có thể thanh toán chi phí bằng hình thức: Tiền mặt</div>

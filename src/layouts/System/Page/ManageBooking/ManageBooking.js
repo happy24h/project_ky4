@@ -114,7 +114,8 @@ function ManageBooking() {
                                             // extra={<a href="#">More</a>}
                                             style={{
                                                 // width: 260,
-                                                minHeight: 170,
+                                                minHeight: 160,
+                                                marginBottom: 15,
                                             }}
                                             key={index}
                                         >
