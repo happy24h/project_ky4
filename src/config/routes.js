@@ -11,6 +11,7 @@ const routes = {
     viewBranch: '/detail-learn-branch/:id',
     detailCourse: '/detail-course/:id',
     detailEmployee: '/detail-employee/:id',
+    orderModal: '/order-modal/:id',
 
     // System
     //schedule

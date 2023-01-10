@@ -13,6 +13,7 @@ import Blog from '~/pages/Blog';
 import ViewBranch from '~/pages/Home/Detail/Branch';
 import DetailCourse from '~/pages/Home/Detail/Course';
 import DetailEmployee from '~/pages/Home/Detail/EmployeeClient/DetailEmployee';
+import OrderModal from '~/pages/Home/Detail/EmployeeClient/OrderModal';
 
 // System
 import ManageUser from '~/layouts/System/Page/ManageUser';
@@ -65,6 +66,7 @@ const publicRouters = [
     { path: config.routes.viewBranch, component: ViewBranch, changeLayout: HeaderOnly },
     { path: config.routes.detailCourse, component: DetailCourse, changeLayout: HeaderOnly },
     { path: config.routes.detailEmployee, component: DetailEmployee, changeLayout: HeaderOnly },
+    { path: config.routes.orderModal, component: OrderModal, changeLayout: HeaderOnly },
     { path: config.routes.login, component: Login, changeLayout: null },
     { path: config.routes.register, component: Register, changeLayout: null },
 ];

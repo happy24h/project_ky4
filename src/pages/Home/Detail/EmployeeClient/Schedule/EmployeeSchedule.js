@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { DatePicker } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import InfoAboutEmployee from '../Info/InfoAboutEmployee';
@@ -16,7 +16,8 @@ function EmployeeSchedule() {
     const [state, setState] = useState();
     const dispatch = useDispatch();
     const { id } = useParams();
-    // const navigate = useNavigate();
+
+    const navigate = useNavigate();
     const user = useSelector((state) => state.auth.login?.currentUser);
     const listBooking = useSelector((state) => state.booking.booking?.listData);
     // console.log('list booking', listBooking);
@@ -62,7 +63,7 @@ function EmployeeSchedule() {
     }, [today]);
 
     const handleTimeBooking = (id) => {
-        alert('check id ' + id);
+        navigate(`/order-modal/${id}`);
     };
 
     return (
