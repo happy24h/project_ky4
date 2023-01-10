@@ -2,20 +2,23 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Card, Input, InputNumber, Pagination, Select, Space, Table, Tag } from 'antd';
-import { EditOutlined, MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
-import { getAllOrder } from '~/redux/order/apiOrder';
+import { DeleteOutlined, EditOutlined, MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
+
 import classNames from 'classnames/bind';
-import styles from './ManageOrder.module.scss';
+import styles from './ManageVoucher.module.scss';
+import { deleteVoucherByVoucherCode, getAllVoucher } from '~/redux/voucher/apiVoucher';
+const { Option } = Select;
 
 const cx = classNames.bind(styles);
 
-function ManagerOrder() {
+function ManagerVoucher() {
     const [page, setPage] = useState(1);
     const [lineNumber, setLineNumber] = useState(6);
-    const [loadApiOrder, setloadApiOrder] = useState(false);
+    const [loadApiVoucher, setLoadApiVoucher] = useState(false);
     const [state, setState] = useState({
-        booking_id: '',
-        voucher_id: '',
+        name: '',
+        voucher_code: '',
+        is_used: '',
     });
 
     //B1: Gọi dispatch để gửi trạng thái reducer
@@ -28,33 +31,29 @@ function ManagerOrder() {
 
     //B2: gọi api
     let data = {
-        booking_id: state?.booking_id,
-        customer_id:"",
-        voucher_id: state?.voucher_id,
-        rangeTotalPriceStart:"",
-        rangeTotalPriceEnd:"",
+        name: state?.name,
+        voucher_code: state?.voucher_code,
+        is_used: state?.is_used,
         status:"",
-        start:"",
-        end:"",
         limit:lineNumber,
         page:page,
         sort:""
     };
 
-    let totalState = state?.booking_id + state?.voucher_id;
+    let totalState = state?.name + state?.voucher_code + state?.is_used;
 
     useEffect(() => {
-        getAllOrder(data, dispatch, user?.accessToken);
+        getAllVoucher(data, dispatch, user?.accessToken);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [loadApiOrder || page]);
+    }, [loadApiVoucher || page]);
 
     useEffect(() => {
-        getAllOrder(data, dispatch, user?.accessToken);
+        getAllVoucher(data, dispatch, user?.accessToken);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [totalState,lineNumber]);
 
     //B3: Lấy danh sách
-    const listOrder = useSelector((state) => state.order.order?.orderCurrent);
+    const listVoucher = useSelector((state) => state.voucher.voucher?.voucherCurrent);
 
     //B4: Tạo cột
     const columns = [
@@ -62,63 +61,43 @@ function ManagerOrder() {
             title: 'ID',
             dataIndex: 'id',
             key: 'id',
-            // render: (text) => <Link>{text}</Link>,
         },
         {
-            title: 'Email Khách',
-            dataIndex: 'booking.email',
-            key: 'booking.email',
+            title: 'Tên voucher',
+            dataIndex: 'name',
+            key: 'name',
             render: (text) => <span style={{ color: '#1677ff' }}>{text}</span>,
         },
         {
-            title: 'Mã đặt lịch',
-            dataIndex: 'booking',
-            key: 'booking',
-            render: (text) => <span style={{ color: '#1677ff' }}>{text.id}</span>,
+            title: 'Giảm giá',
+            dataIndex: 'discount',
+            key: 'discount',
+            render: (text) => <span style={{ color: '#1677ff' }}>{text}</span>,
         },
         {
-            title: 'Khung giờ',
-            dataIndex: 'booking',
-            key: 'booking',
-            render: (text) => <span style={{ color: '#1677ff' }}>{text.time_booking}</span>,
+            title: 'Ngày hết hạn',
+            dataIndex: 'expired_date',
+            key: 'expired_date',
+            render: (text) => <span style={{ color: '#1677ff' }}>{text}</span>,
         },
         {
-            title: 'Ngày',
-            dataIndex: 'booking',
-            key: 'booking',
-            render: (text) => <span style={{ color: '#1677ff' }}>{text.date_booking}</span>,
+            title: 'Mã voucher',
+            dataIndex: 'voucherCode',
+            key: 'voucherCode',
+            render: (text) => <span style={{ color: '#1677ff' }}>{text}</span>,
         },
         {
             title: 'Trạng thái',
-            dataIndex: 'status',
-            key: 'status',
+            dataIndex: 'is_used',
+            key: 'is_used',
             render: (text) => {
                 switch (text){
-                    case 2:
-                        return <Tag color="blue">Đã đến</Tag>;
                     case 1:
-                        return <Tag color="success">Đã đặt</Tag>;
+                        return <Tag color="success">Đã dùng</Tag>;
                     case 0:
-                        return <Tag color="volcano">Chưa đặt</Tag>;
-                    case -1:
-                        return <Tag color="red">Đã xóa</Tag>;
+                        return <Tag color="volcano">Chưa dùng</Tag>;
                     default:
                         return <Tag color="blue">{text}</Tag>;
-                }
-            },
-        },
-        {
-            title: 'Đối tượng khách',
-            dataIndex: 'booking.user_id',
-            key: 'booking.user_id',
-            render: (text) => {
-                switch (text){
-                    case 1:
-                        return <Tag color="blue">Khách vãng lai</Tag>;
-                    case 0:
-                        return <Tag color="blue">Khách vãng lai</Tag>;
-                    default:
-                        return <Tag color="success">Khách đã đăng ký</Tag>;
                 }
             },
         },
@@ -131,18 +110,18 @@ function ManagerOrder() {
                         style={{display: user.roles.map(item => (
                                 item === "ADMIN" ? "block" : "none"
                             ))}}
-                        type="primary" ghost onClick={() => handleEditUser(record)}>
-                        <EditOutlined />
-                        Edit
+                        type="primary" danger ghost onClick={() => handleDeleteVoucher(record)}>
+                        <DeleteOutlined />
+                        Delete
                     </Button>
                 </Space>
             ),
         },
     ];
 
-
-    const handleEditUser = (order) => {
-        navigate(`/system/manage-order/detail/${order.id}`);
+    const handleDeleteVoucher = (voucher) => {
+        deleteVoucherByVoucherCode(voucher.voucherCode, user?.accessToken, dispatch);
+        setLoadApiVoucher(!loadApiVoucher);
     };
 
     const handleIncrement = () => {
@@ -184,25 +163,39 @@ function ManagerOrder() {
         setState({ ...state, [name]: value });
     };
 
+    const handleSelectIs_usedChange = (value) => {
+        setState({ ...state, is_used: value });
+    };
+
     const layoutInput = () => {
         return (
             <div className={cx('wrapper-input-group')}>
                 <Input.Group className={cx('input-group')} compact>
                     <Input
                         style={{ width: '30%', height: 32 }}
-                        placeholder="Tìm mã đặt lịch"
-                        name="booking_id"
-                        value={state?.booking_id}
+                        placeholder="Tìm tên"
+                        name="name"
+                        value={state?.name}
                         onChange={handleOnchangeInput}
                     />
                     <Input
                         style={{ width: '30%', height: 32 }}
                         placeholder="Tìm mã giảm giá"
-                        name="voucher_id"
-                        value={state?.voucher_id}
+                        name="voucher_code"
+                        value={state?.voucher_code}
                         onChange={handleOnchangeInput}
                     />
-
+                    <Select
+                        className={cx('input-select')}
+                        style={{ width: '20%', height: 32 }}
+                        placeholder="Trạng thái"
+                        name="is_used"
+                        onChange={handleSelectIs_usedChange}
+                    >
+                        <Option value="">Trạng thái</Option>
+                        <Option value="0">Chưa dùng</Option>
+                        <Option value="1">Đã dùng</Option>
+                    </Select>
 
                     {/*<Select*/}
                     {/*    className={cx('input-select')}*/}
@@ -247,7 +240,7 @@ function ManagerOrder() {
                 </div>
                 <Pagination
                     pageSize={lineNumber}
-                    total={listOrder?.totalItems}
+                    total={listVoucher?.totalItems}
                     // current={page}
                     onChange={(page) => setPage(page)}
                 />
@@ -267,8 +260,8 @@ function ManagerOrder() {
                         height: 140,
                     }}
                 >
-                    <h3 style={{ fontSize: '28px' }}>{listOrder?.totalItems}</h3>
-                    <p>Đơn hàng</p>
+                    <h3 style={{ fontSize: '28px' }}>{listVoucher?.totalItems}</h3>
+                    <p>Mã giảm giá </p>
                 </Card>
                 {/*<Form.Item label="">*/}
                 {/*    <Link to={'/add-feedback'}>*/}
@@ -281,7 +274,7 @@ function ManagerOrder() {
                 <Table
                     columns={columns}
                     // { listAccount && listAccount.length > 0 ? dataSource={listAccount} : null}
-                    dataSource={listOrder?.content}
+                    dataSource={listVoucher?.content}
                     // rowKey={(orders) => orders.id}
                     title={() => layoutInput()}
                     footer={() => tableFooter()}
@@ -297,4 +290,4 @@ function ManagerOrder() {
         </div>
     );
 }
-export default ManagerOrder;
+export default ManagerVoucher;

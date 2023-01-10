@@ -61,6 +61,10 @@ const routes = {
     //Order
     manageOrder: '/system/manage-order',
     detailOrder: '/system/manage-order/detail/:id',
+
+    //Type Service
+    manageVoucher: 'system/manage-voucher',
+    addVoucher: 'system/manage-voucher/add',
 };
 
 export default routes;

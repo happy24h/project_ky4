@@ -53,6 +53,9 @@ import OrderDetail from '~/layouts/System/Page/Order/component/Detail/OrderDetai
 import ManageBooking from '~/layouts/System/Page/ManageBooking';
 import AddBooking from '~/layouts/System/Page/ManageBooking/components/AddBooking';
 import EditBooking from '~/layouts/System/Page/ManageBooking/components/EditBooking';
+import ManagerVoucher from '~/layouts/System/Page/Voucher/ManagerVoucher';
+import AddVoucher from '~/layouts/System/Page/Voucher/component/Add/AddVoucher';
+
 
 const publicRouters = [
     { path: config.routes.home, component: Home },
@@ -114,6 +117,11 @@ const privateRoutes = [
     { path: config.routes.manageBooking, component: ManageBooking },
     { path: config.routes.addBooking, component: AddBooking },
     { path: config.routes.editBooking, component: EditBooking },
+
+    // voucher
+    { path: config.routes.manageVoucher, component: ManagerVoucher },
+    { path: config.routes.addVoucher, component: AddVoucher },
+
 ];
 
 export { publicRouters, privateRoutes };
