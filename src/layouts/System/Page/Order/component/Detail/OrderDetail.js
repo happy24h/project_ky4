@@ -20,19 +20,19 @@ function OrderDetail() {
 
     useEffect(() => {
         getDetailOrder(id, dispatch, user?.accessToken);
-        getDetailBooking(orderDetail[0]?.order.booking_id,dispatch)
+        getDetailBooking(orderDetail[0]?.order.booking_id, dispatch);
     }, []);
 
     const handleChangeStatus = (e) => {
-        if(window.confirm('Bạn có chắc muốn thay đổi trạng thái?')){
+        if (window.confirm('Bạn có chắc muốn thay đổi trạng thái?')) {
             // changeStatusDetailFeedback(id,e.target.value, dispatch, user?.accessToken);
-            updateStatusOrder(id,e.target.value,dispatch, user?.accessToken);
+            updateStatusOrder(id, e.target.value, dispatch, user?.accessToken);
             setStatusOrderDetailChange(!statusOrderDetailChange);
-        };
-    }
+        }
+    };
 
-    const checkOrderStatus = () =>{
-        switch (orderDetail[0]?.order.status){
+    const checkOrderStatus = () => {
+        switch (orderDetail[0]?.order.status) {
             case 2:
                 return <Tag color="blue">Đã đến</Tag>;
             case 1:
@@ -44,7 +44,7 @@ function OrderDetail() {
             default:
                 return <Tag color="blue">{orderDetail[0]?.order.status}</Tag>;
         }
-    }
+    };
 
     return (
         <>
@@ -88,33 +88,42 @@ function OrderDetail() {
                         <strong>Id Đơn hàng:</strong> <span className={cx('text-detail')}>{id}</span>
                     </List>
                     <List className={cx('list-detail')}>
-                        <strong>Khách hàng:</strong> <span className={cx('text-detail')}>{orderDetail[0]?.order.customer.name}</span>
+                        <strong>Khách hàng:</strong>{' '}
+                        <span className={cx('text-detail')}>{orderDetail[0]?.order?.customer?.name}</span>
                     </List>
                     <List className={cx('list-detail')}>
-                        <strong>Mã đặt lịch:</strong> <span className={cx('text-detail')}>{orderDetail[0]?.order.booking_id}</span>
+                        <strong>Mã đặt lịch:</strong>{' '}
+                        <span className={cx('text-detail')}>{orderDetail[0]?.order.booking_id}</span>
                     </List>
                     <List className={cx('list-detail')}>
-                        <strong>Ngày đặt:</strong> <span className={cx('text-detail')}>{bookingDetail?.date_booking}</span>
+                        <strong>Ngày đặt:</strong>{' '}
+                        <span className={cx('text-detail')}>{bookingDetail?.date_booking}</span>
                     </List>
                     <List className={cx('list-detail')}>
-                        <strong>Khung giờ:</strong> <span className={cx('text-detail')}>{bookingDetail?.time_booking}</span>
+                        <strong>Khung giờ:</strong>{' '}
+                        <span className={cx('text-detail')}>{bookingDetail?.time_booking}</span>
                     </List>
                     <List className={cx('list-detail')}>
                         <strong>Trạng thái:</strong> <span className={cx('text-detail')}>{checkOrderStatus()}</span>
                         <span>
-                        <select style={{display: user.roles.map(item => (
-                                item === "ADMIN" || "CUSTOMER_CARE" ? "" : "none"
-                            ))}}
-                        value={orderDetail[0]?.order.status} onChange={handleChangeStatus}>
-                        <option value="2">Đã đến</option>
-                            {
-                                (orderDetail[0]?.order.status === 2 || orderDetail[0]?.order.status === -1)
-                                    ? ''
-                                    : <option value="1">Đã đặt</option>
-                            }
-                            <option value="-1">Hủy</option>
-                        </select>
-                    </span>
+                            <select
+                                style={{
+                                    display: user.roles.map((item) =>
+                                        item === 'ADMIN' || 'CUSTOMER_CARE' ? '' : 'none',
+                                    ),
+                                }}
+                                value={orderDetail[0]?.order.status}
+                                onChange={handleChangeStatus}
+                            >
+                                <option value="2">Đã đến</option>
+                                {orderDetail[0]?.order.status === 2 || orderDetail[0]?.order.status === -1 ? (
+                                    ''
+                                ) : (
+                                    <option value="1">Đã đặt</option>
+                                )}
+                                <option value="-1">Hủy</option>
+                            </select>
+                        </span>
                     </List>
                     <table>
                         <tr>
@@ -122,17 +131,16 @@ function OrderDetail() {
                             <th>Tên sản phẩm</th>
                             <th>Giá</th>
                         </tr>
-                        {
-                            orderDetail && orderDetail.map((item, index) => {
+                        {orderDetail &&
+                            orderDetail.map((item, index) => {
                                 return (
                                     <tr key={index}>
                                         <td>{item.serviceModel.id}</td>
                                         <td>{item.serviceModel.name}</td>
                                         <td>{item.serviceModel.price}</td>
                                     </tr>
-                                )
-                            })
-                        }
+                                );
+                            })}
                     </table>
                 </Card>
             </div>
