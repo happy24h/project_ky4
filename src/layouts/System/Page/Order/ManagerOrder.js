@@ -99,9 +99,9 @@ function ManagerOrder() {
                     case 1:
                         return <Tag color="success">Đã đặt</Tag>;
                     case 0:
-                        return <Tag color="volcano">Chưa đặt</Tag>;
+                        return <Tag color="orange">Chưa đặt</Tag>;
                     case -1:
-                        return <Tag color="red">Đã xóa</Tag>;
+                        return <Tag color="red">Đã Hủy</Tag>;
                     default:
                         return <Tag color="blue">{text}</Tag>;
                 }
