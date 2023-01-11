@@ -4,9 +4,6 @@ import { useEffect, useState } from 'react';
 import { deleteService, getAllService } from '~/redux/service/apiService';
 import { Space, Table, Button, Form, Tag, Card } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import CreateAccount from '~/layouts/System/Page/ManageUser/components/Modal/CreateAccount';
-import AddService from '~/layouts/System/Page/Service/components/Add/AddService';
-import images from '~/assets/images';
 
 
 function ManagerService() {
@@ -23,14 +20,14 @@ function ManagerService() {
 
     //B2: gọi api
     let data = {
-        "name":"",
-        "type_service_id":"",
-        "status":"",
-        "start":"",
-        "end":"",
-        "limit":4,
-        "page":page,
-        "sort":"asc"
+        name:"",
+        type_service_id:"",
+        status:"",
+        start:"",
+        end:"",
+        limit:4,
+        page:page,
+        sort:"asc"
     }
 
     useEffect(() => {
@@ -62,8 +59,9 @@ function ManagerService() {
         },
         {
             title: 'Loại dịch vụ',
-            dataIndex: 'typeServiceId',
-            key: 'typeServiceId',
+            dataIndex: 'type_service',
+            key: 'type_service',
+            render: (text) => <span style={{ color: '#1677ff' }}>{text.name}</span>,
         },
         {
             title: 'Trạng thái',
@@ -85,11 +83,16 @@ function ManagerService() {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <Button type="primary" ghost onClick={() => handleEditService(record)}>
+                    <Button
+                        type="primary" ghost onClick={() => handleEditService(record)}>
                         <EditOutlined />
-                        Edit
+                        Chi tiết
                     </Button>
-                    <Button type="primary" danger ghost onClick={() => handleDeleteService(record)}>
+                    <Button
+                        style={{display: user.roles.map(item => (
+                                item === "ADMIN" ? "block" : "none"
+                        ))}}
+                        type="primary" danger ghost onClick={() => handleDeleteService(record)}>
                         <DeleteOutlined />
                         Delete
                     </Button>
@@ -124,7 +127,7 @@ function ManagerService() {
                     }}
                 >
                     <h3 style={{ fontSize: '28px' }}>{listService?.totalItems}</h3>
-                    <p>Phản hồi</p>
+                    <p>Dịch vụ</p>
                 </Card>
                 <Form.Item label="">
                     <Link to={'/system/manage-service/add'}>

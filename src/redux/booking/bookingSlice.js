@@ -25,10 +25,9 @@ const bookingSlice = createSlice({
         createBookingStart: (state) => {
             state.booking.isFetching = true;
         },
-        createBookingSuccess: (state, action) => {
+        createBookingSuccess: (state) => {
             state.booking.isFetching = false;
             state.booking.error = false;
-            state.booking.listData = action.payload;
         },
         createBookingFailed: (state) => {
             state.booking.isFetching = false;

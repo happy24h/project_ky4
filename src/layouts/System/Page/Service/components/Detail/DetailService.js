@@ -48,7 +48,12 @@ function DetailService() {
                     size="default"
                     extra={
                         <Link to={`/system/manage-service/edit/${id}`}>
-                            <Button type="primary" style={{ background: '#fcaf17' }}>
+                            <Button
+                                type="primary" style={{ background: '#fcaf17',
+                                display: user.roles.map(item => (
+                                    item === "ADMIN" ? "block" : "none"
+                                ))
+                            }}>
                                 {' '}
                                 <EditOutlined />
                                 Sửa dịch vụ

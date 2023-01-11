@@ -28,8 +28,7 @@ function AddService() {
     const dispatch = useDispatch();
 
     const user = useSelector((state) => state.auth.login?.currentUser);
-    const typeServices = useSelector((state) => state.service.service?.typeService);
-
+    const typeServices = useSelector((state) => state.typeService.typeService?.typeServiceCurrent);
 
     useEffect(() => {
         getAllTypeService(dispatch);
@@ -81,7 +80,7 @@ function AddService() {
 
     return (
         <div style={{ marginTop: 23 }}>
-            <Link to={'/system/manage-user'}>
+            <Link to={'/system/manage-service'}>
                 <Button type="primary" ghost style={{ backgroundColor: '#fff' }}>
                     Back
                 </Button>

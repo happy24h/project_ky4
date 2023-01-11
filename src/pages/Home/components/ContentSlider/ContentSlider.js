@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Courses from '../Courses';
-import Websites from '../Websites';
-import Teacher from '../Teacher';
+import Branch from '../Branch';
+import Teacher from '../Employee';
 import classNames from 'classnames/bind';
 import styles from './ContentSlider.module.scss';
 
@@ -76,7 +76,7 @@ export default function ContentSlider() {
     return (
         <div className={cx('wrapper-slider')}>
             <Courses settings={settings} />
-            <Websites settings={settings} />
+            <Branch settings={settings} />
             <Teacher settings={settings} />
         </div>
     );

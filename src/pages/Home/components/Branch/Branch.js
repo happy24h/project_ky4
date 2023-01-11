@@ -1,36 +1,34 @@
 import { useState, useEffect } from 'react';
-import * as userService from '~/services/userService';
 import Slider from 'react-slick';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from '../ContentSlider/ContentSlider.module.scss';
-import { dataWebsiteFake } from '../../../../assets/dataFake/dataService';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBranch } from '~/redux/branch/apiBranch';
 
 const cx = classNames.bind(styles);
-function Websites({ settings }) {
+function Branch({ settings }) {
+    // const [dataWebsites, setDataWebsites] = useState([]);
+    // const [loadData, setLoadData] = useState(false);
+
+    const dispatch = useDispatch();
+
     const navigate = useNavigate();
-    const [dataWebsites, setDataWebsites] = useState([]);
-    const [loadData, setLoadData] = useState(false);
+    // const user = useSelector((state) => state.auth.login?.currentUser);
+    const listBranch = useSelector((state) => state.branch.branch?.listData?.content);
+    console.log('check list branch', listBranch);
     useEffect(() => {
-        const fetchApi = async () => {
-            setLoadData(true);
-            let result = await userService.websites();
-            setDataWebsites(result);
-            if (result && result.length > 0) {
-                console.log('check load data:');
-                setLoadData(false);
-            }
-        };
-        fetchApi();
+        getBranch();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleViewDetailWebsites = (website) => {
-        navigate(`detail-learn-website/${website.id}`);
+    const handleViewDetailBranch = (branch) => {
+        navigate(`detail-learn-branch/${branch.id}`);
     };
 
-    let newDataWebsite = dataWebsites && dataWebsites.length > 0 ? dataWebsites : dataWebsiteFake;
+    // let newDataWebsite = dataWebsites && dataWebsites.length > 0 ? dataWebsites : dataWebsiteFake;
 
     return (
         <div className="section-share section-specialty">
@@ -42,17 +40,17 @@ function Websites({ settings }) {
 
                 <div className={cx('slider')}>
                     <Slider className={cx('container')} {...settings}>
-                        {newDataWebsite &&
-                            newDataWebsite.length > 0 &&
-                            newDataWebsite.map((item, index) => (
+                        {listBranch &&
+                            listBranch.length > 0 &&
+                            listBranch.map((item, index) => (
                                 <div
                                     key={index}
                                     className="section-customize"
-                                    onClick={() => handleViewDetailWebsites(item)}
+                                    onClick={() => handleViewDetailBranch(item)}
                                 >
                                     <div
                                         className="bg-image section-specialty"
-                                        style={{ backgroundImage: `url(${item.image})` }}
+                                        style={{ backgroundImage: `url(${item.thumbnail})` }}
                                     ></div>
                                     <div className="name-specialty">{item.name}</div>
                                 </div>
@@ -70,4 +68,4 @@ function Websites({ settings }) {
     );
 }
 
-export default Websites;
+export default Branch;

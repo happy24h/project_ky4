@@ -10,19 +10,23 @@ import Library from '~/pages/Library';
 import Contact from '~/pages/Contact';
 import HairStyle from '~/pages/HairStyle';
 import Blog from '~/pages/Blog';
-import DetailWebsite from '~/pages/Home/Detail/Website';
+import ViewBranch from '~/pages/Home/Detail/Branch';
 import DetailCourse from '~/pages/Home/Detail/Course';
-import DetailTeacher from '~/pages/Home/Detail/Teacher/DetailTeacher';
+import DetailEmployee from '~/pages/Home/Detail/EmployeeClient/DetailEmployee';
+import OrderModal from '~/pages/Home/Detail/EmployeeClient/OrderModal';
 
 // System
 import ManageUser from '~/layouts/System/Page/ManageUser';
-import ManageSchedule from '~/layouts/System/Page/ManageSchedule';
 import ManageFeedback from '~/layouts/System/Page/Feedback';
 import AddAccount from '~/layouts/System/Page/ManageUser/components/AddAccount';
 import EditAccount from '~/layouts/System/Page/ManageUser/components/EditAccount';
 import ModalEdit from '~/layouts/System/Page/ManageUser/components/EditAccount/ModalEdit';
 import DetailAccount from '~/layouts/System/Page/ManageUser/components/DetailAccount/DetailAccount';
 import DetailFeedback from '~/layouts/System/Page/Feedback/DetailFeedBack';
+
+// booking
+import ManageSchedule from '~/layouts/System/Page/ManageSchedule';
+import AddSchedule from '~/layouts/System/Page/ManageSchedule/AddSchedule';
 
 // blog
 import ManageBlog from '~/layouts/System/Page/ManageBlog';
@@ -39,6 +43,12 @@ import ManagerService from '~/layouts/System/Page/Service/ManagerService';
 import AddService from '~/layouts/System/Page/Service/components/Add/AddService';
 import DetailService from '~/layouts/System/Page/Service/components/Detail';
 import EditService from '~/layouts/System/Page/Service/components/Edit';
+import ManagerTypeService from '~/layouts/System/Page/TypeService/ManagerTypeService';
+import AddTypeService from '~/layouts/System/Page/TypeService/components/Add/AddTypeService';
+import DetailTypeService from '~/layouts/System/Page/TypeService/components/Detail/DetailTypeService';
+import EditTypeService from '~/layouts/System/Page/TypeService/components/Edit/EditTypeService';
+import ManagerOrder from '~/layouts/System/Page/Order/ManagerOrder';
+import OrderDetail from '~/layouts/System/Page/Order/component/Detail/OrderDetail';
 
 //booking
 import ManageBooking from '~/layouts/System/Page/ManageBooking';
@@ -53,15 +63,18 @@ const publicRouters = [
     { path: config.routes.contact, component: Contact },
     { path: config.routes.hairStyle, component: HairStyle },
     { path: config.routes.learn, component: Learn, changeLayout: HeaderOnly },
-    { path: config.routes.detailWebsite, component: DetailWebsite, changeLayout: HeaderOnly },
+    { path: config.routes.viewBranch, component: ViewBranch, changeLayout: HeaderOnly },
     { path: config.routes.detailCourse, component: DetailCourse, changeLayout: HeaderOnly },
-    { path: config.routes.detailTeacher, component: DetailTeacher, changeLayout: HeaderOnly },
+    { path: config.routes.detailEmployee, component: DetailEmployee, changeLayout: HeaderOnly },
+    { path: config.routes.orderModal, component: OrderModal, changeLayout: HeaderOnly },
     { path: config.routes.login, component: Login, changeLayout: null },
     { path: config.routes.register, component: Register, changeLayout: null },
 ];
 
 const privateRoutes = [
+    // schedule
     { path: config.routes.manageSchedule, component: ManageSchedule },
+    { path: config.routes.addSchedule, component: AddSchedule },
     //Account
     { path: config.routes.manageUser, component: ManageUser },
     { path: config.routes.addAccount, component: AddAccount },
@@ -88,6 +101,16 @@ const privateRoutes = [
     { path: config.routes.addService, component: AddService },
     { path: config.routes.detailService, component: DetailService },
     { path: config.routes.editService, component: EditService },
+
+    //Type Service
+    { path: config.routes.manageTypeService, component: ManagerTypeService },
+    { path: config.routes.addTypeService, component: AddTypeService },
+    { path: config.routes.detailTypeService, component: DetailTypeService },
+    { path: config.routes.editTypeService, component: EditTypeService },
+
+    //Order
+    { path: config.routes.manageOrder, component: ManagerOrder },
+    { path: config.routes.detailOrder, component: OrderDetail },
 
     // booking
     { path: config.routes.manageBooking, component: ManageBooking },

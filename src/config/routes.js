@@ -8,12 +8,15 @@ const routes = {
     blog: '/blog',
     contact: '/contact',
     hairStyle: '/hairStyle',
-    detailWebsite: '/detail-learn-website/:id',
+    viewBranch: '/detail-learn-branch/:id',
     detailCourse: '/detail-course/:id',
-    detailTeacher: '/detail-teacher/:id',
+    detailEmployee: '/detail-employee/:id',
+    orderModal: '/order-modal/:id',
 
     // System
+    //schedule
     manageSchedule: 'system/manage-schedule',
+    addSchedule: 'system/manage-schedule/add',
     //Account
     manageUser: 'system/manage-user',
     addAccount: 'system/manage-user/add',
@@ -49,6 +52,16 @@ const routes = {
     addService: 'system/manage-service/add',
     detailService: 'system/manage-service/detail/:id',
     editService: 'system/manage-service/edit/:id',
+
+    //Type Service
+    manageTypeService: 'system/manage-type-service',
+    addTypeService: 'system/manage-type-service/add',
+    detailTypeService: 'system/manage-type-service/detail/:id',
+    editTypeService: 'system/manage-type-service/edit/:id',
+
+    //Order
+    manageOrder: '/system/manage-order',
+    detailOrder: '/system/manage-order/detail/:id',
 };
 
 export default routes;

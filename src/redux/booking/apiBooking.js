@@ -2,7 +2,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// blog
+// booking
 import {
     getBookingStart,
     getBookingSuccess,
@@ -33,16 +33,16 @@ export const getBooking = async (booking, dispatch, accessToken) => {
     }
 };
 
-export const createBooking = async (account, dispatch, accessToken, loadApi, navigate) => {
+export const createBooking = async (booking, dispatch, accessToken, navigate) => {
     dispatch(createBookingStart());
     try {
-        await axios.post('http://localhost:8078/api/v1/blog/create', account, {
+        await axios.post('http://localhost:8078/api/v1/booking/create', booking, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         dispatch(createBookingSuccess());
-        loadApi();
-        navigate('/system/manage-blog');
-        toast.success('Tạo tài khoản thành công');
+
+        navigate('/system/manage-booking');
+        toast.success('Tạo lịch hẹn thành công');
     } catch (err) {
         dispatch(createBookingFailed());
         toast.error('Có thứ gì đó không ổn ?');
@@ -52,11 +52,8 @@ export const createBooking = async (account, dispatch, accessToken, loadApi, nav
 export const getDetailBooking = async (id, dispatch, accessToken, getBooking) => {
     dispatch(detailBookingStart());
     try {
-        const res = await axios.get(`http://localhost:8078/api/v1/blog/${id}`, {
-            headers: { Authorization: `Bearer ${accessToken}` },
-        });
+        const res = await axios.get(`http://localhost:8078/api/v1/booking/${id}`);
         dispatch(detailBookingSuccess(res.data));
-
         // toast.success('Detail success');
     } catch (err) {
         dispatch(detailBookingFailed());

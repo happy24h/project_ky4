@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteFeedback, getAllFeedback } from '~/redux/feedback/apiFeedback';
 import { Button, Card, Form, Space, Table, Tag } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 function ManageFeedback() {
@@ -99,11 +99,19 @@ function ManageFeedback() {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <Button type="primary" ghost onClick={() => handleEditUser(record)}>
+                    <Button
+                        style={{display: user.roles.map(item => (
+                                item === "ADMIN" || "CUSTOMER_CARE" ? "block" : "none"
+                            ))}}
+                        type="primary" ghost onClick={() => handleEditUser(record)}>
                         <EditOutlined />
                         Edit
                     </Button>
-                    <Button type="primary" danger ghost onClick={() => handleDeleteUser(record)}>
+                    <Button
+                        style={{display: user.roles.map(item => (
+                                item === "ADMIN" ? "block" : "none"
+                            ))}}
+                        type="primary" danger ghost onClick={() => handleDeleteUser(record)}>
                         <DeleteOutlined />
                         Delete
                     </Button>

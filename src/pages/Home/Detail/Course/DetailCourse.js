@@ -3,8 +3,8 @@ import _ from 'lodash';
 import * as axios from '~/services/adminService';
 import { useParams } from 'react-router-dom';
 import ProfileTeacher from './ProfileTeacher';
-import TeacherSchedule from '../Teacher/Schedule/TeacherSchedule';
-import InfoAboutTeachers from '../Teacher/Info/InfoAboutTeachers';
+import TeacherSchedule from '../EmployeeClient/Schedule/EmployeeSchedule';
+import InfoAboutTeachers from '../EmployeeClient/Info/InfoAboutEmployee';
 import './DetailCourse.scss';
 
 function DetailCourse() {

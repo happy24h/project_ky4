@@ -1,18 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-// import './CreateAccount.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAddressBook, faEnvelope, faPhone, faUser, faKey, faImage } from '@fortawesome/free-solid-svg-icons';
 import { editDetailAccount, getDetailAccount } from '~/redux/apiRequest';
-// import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-
 import { Button } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './EditAccount.module.scss';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-// import { registerUser } from '../../redux/apiRequest';
 const cx = classNames.bind(styles);
 
 function ModalEdit() {
