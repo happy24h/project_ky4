@@ -87,7 +87,7 @@ function ManageBooking() {
                 </Card>
 
                 <Card
-                    title={<DatePicker onChange={onChange} />}
+                    title={<DatePicker onChange={onChange} placeholder={today} />}
                     extra={
                         <Form.Item label="">
                             <Link to={'/system/manage-booking/add'}>
