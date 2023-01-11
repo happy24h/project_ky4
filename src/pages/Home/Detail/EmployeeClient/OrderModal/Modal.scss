@@ -2,6 +2,41 @@
     --pink-color: #e26e70;
 }
 
+.row-todo {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 15px;
+}
+.checkbox-row {
+    // width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkbox-todo {
+    width: 720px;
+    display: flex;
+    // width: 100%;
+    justify-content: space-between;
+    font-size: 16px;
+    color: black;
+}
+@media (max-width: 820px) {
+    .checkbox-todo {
+        width: 425px;
+    }
+}
+.time-todo {
+    padding-left: 24px;
+    font-size: 12px;
+    font-weight: 500;
+}
+.description-todo {
+    margin-top: 3px;
+    padding-left: 24px;
+}
+///////
 .open-modal-btn {
     padding: 20px 40px;
     border: none;
