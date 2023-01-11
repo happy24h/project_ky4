@@ -48,10 +48,11 @@ const routes = {
     editBooking: 'system/manage-booking/edit/:id',
 
     //Service
-    manageService: 'system/manage-service',
+    manageService: '',
     addService: 'system/manage-service/add',
     detailService: 'system/manage-service/detail/:id',
     editService: 'system/manage-service/edit/:id',
+
 
     //Type Service
     manageTypeService: 'system/manage-type-service',
@@ -62,6 +63,15 @@ const routes = {
     //Order
     manageOrder: '/system/manage-order',
     detailOrder: '/system/manage-order/detail/:id',
+
+
+    //Dashboard
+
+    manageDashBoardSerivce:"system/manage-dash-board-service",
+    manageDashBoardBooking:"system/manage-dash-board-booking",
+    manageDashBoardOrder:"system/manage-dash-board-order",
+    manageTable:'system/manage-table-system',
+
 };
 
 export default routes;

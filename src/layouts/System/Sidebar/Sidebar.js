@@ -2,13 +2,31 @@ import classNames from 'classnames/bind';
 import styles from './Sidebar.module.scss';
 import MenuItem from './Menu/MenuItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleInfo, faUser, faUserGraduate } from '@fortawesome/free-solid-svg-icons';
+import { faCircleInfo, faDashboard, faTable, faUser, faUserGraduate } from '@fortawesome/free-solid-svg-icons';
 // import { faBlogger } from '@fortawesome/free-brands-svg-icons';
 import { useTranslation } from 'react-i18next';
 const cx = classNames.bind(styles);
 function Sidebar() {
     const { t } = useTranslation();
     const MENU_ITEMS = [
+        {
+            icon: <FontAwesomeIcon icon={faDashboard} />,
+            title: t('systemSidebar.dashboard.title'),
+            data: [
+                {
+                    title: t('systemSidebar.dashboard.data.title_booking'),
+                    to: '/system/manage-dash-board-booking',
+                },
+                {
+                    title: t('systemSidebar.dashboard.data.title_service'),
+                    to: '/system/manage-dash-board-service',
+                },
+                {
+                    title: t('systemSidebar.dashboard.data.title_order'),
+                    to: '/system/manage-dash-board-order',
+                },
+            ],
+        },
         {
             icon: <FontAwesomeIcon icon={faUser} />,
             title: t('systemSidebar.users.title'),

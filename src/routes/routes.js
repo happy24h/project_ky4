@@ -54,6 +54,9 @@ import OrderDetail from '~/layouts/System/Page/Order/component/Detail/OrderDetai
 import ManageBooking from '~/layouts/System/Page/ManageBooking';
 import AddBooking from '~/layouts/System/Page/ManageBooking/components/AddBooking';
 import EditBooking from '~/layouts/System/Page/ManageBooking/components/EditBooking';
+import ManageDashBoardBooking from '~/layouts/System/Page/DasBoard/DashboardBooking';
+import ManageDashBoardOrder from '~/layouts/System/Page/DasBoard/DashboardOrder';
+import ManageDashBoardService from '~/layouts/System/Page/DasBoard/DashboardService';
 
 const publicRouters = [
     { path: config.routes.home, component: Home },
@@ -116,6 +119,10 @@ const privateRoutes = [
     { path: config.routes.manageBooking, component: ManageBooking },
     { path: config.routes.addBooking, component: AddBooking },
     { path: config.routes.editBooking, component: EditBooking },
+    //dash board
+    { path: config.routes.manageDashBoardBooking, component: ManageDashBoardBooking },
+    { path: config.routes.manageDashBoardOrder, component: ManageDashBoardOrder },
+    { path: config.routes.manageDashBoardSerivce, component: ManageDashBoardService },
 ];
 
 export { publicRouters, privateRoutes };
