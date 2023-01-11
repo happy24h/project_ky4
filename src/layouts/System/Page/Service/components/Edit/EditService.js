@@ -1,21 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import {
-    getAllTypeService,
-    getDetailService,
-    updateService,
-} from '~/redux/service/apiService';
+import { getAllTypeService, getDetailService, updateService } from '~/redux/service/apiService';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faEgg,
-    faImage,
-    faShieldCat,
-    faUser,
-} from '@fortawesome/free-solid-svg-icons';
+import { faEgg, faImage, faShieldCat, faUser } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
 import styles from './EditService.module.scss';
 import { getUploadImage, uploadImage } from '~/redux/cloudImage/apiCloud';
@@ -24,13 +15,12 @@ const cx = classNames.bind(styles);
 function EditService() {
     let { id } = useParams();
     const [file, setFile] = useState();
-    const  [displayONOFF , setDisplayOnOFF] = useState("block");
+    const [displayONOFF, setDisplayOnOFF] = useState('block');
     const dispatch = useDispatch();
     const [loadApi, setLoadApi] = useState(false);
     const user = useSelector((state) => state.auth.login?.currentUser);
     const typeServices = useSelector((state) => state.typeService.typeService?.typeServiceCurrent);
     const detailService = useSelector((state) => state.service.service?.detailService);
-
 
     useEffect(() => {
         getAllTypeService(dispatch);
@@ -51,7 +41,7 @@ function EditService() {
             description: detailService?.description,
             typeServiceId: detailService.typeService?.id,
             thumbnail: detailService?.thumbnail,
-            price: detailService?.price,
+            price: +detailService?.price,
         },
         validationSchema: Yup.object({
             name: Yup.string().required('Vui lòng nhập tên.').min(4, 'Tên phải lớn hơn 4 ký tự.'),
@@ -62,8 +52,7 @@ function EditService() {
         }),
         onSubmit: (values) => {
             console.log(values);
-            updateService(id,values,dispatch,user?.accessToken,handleUpdateApi);
-
+            updateService(id, values, dispatch, user?.accessToken, handleUpdateApi);
         },
     });
 
@@ -80,7 +69,7 @@ function EditService() {
         const formData = new FormData();
         formData.append('file', file);
 
-        await uploadImage(formData,dispatch);
+        await uploadImage(formData, dispatch);
         // console.log("linkImage la:" + linkImage);
         // setThumbnailLink(linkImage);
         await formik.setFieldValue('thumbnail', linkImage);
@@ -88,7 +77,7 @@ function EditService() {
 
     return (
         <div style={{ marginTop: 23 }}>
-            <Link to={'/system/manage-service/detail/'+id}>
+            <Link to={'/system/manage-service/detail/' + id}>
                 <Button type="primary" ghost style={{ backgroundColor: '#fff' }}>
                     Back
                 </Button>
@@ -132,7 +121,7 @@ function EditService() {
                     <FontAwesomeIcon className="inputicon" icon={faEgg} />
                     <input
                         className={cx('inputfield')}
-                        type="number"
+                        type="text"
                         placeholder="Giá..."
                         autoComplete="price"
                         name="price"
@@ -146,8 +135,20 @@ function EditService() {
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
                         <div>
-                            <tr><td>File to upload:</td><td><input type="file" onChange={handleFileChange} /></td></tr>
-                            <tr><td></td><td><button type="button" onClick={handleUploadClick}>Upload</button></td></tr>
+                            <tr>
+                                <td>File to upload:</td>
+                                <td>
+                                    <input type="file" onChange={handleFileChange} />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <button type="button" onClick={handleUploadClick}>
+                                        Upload
+                                    </button>
+                                </td>
+                            </tr>
                         </div>
                         <FontAwesomeIcon className={cx('inputicon')} icon={faImage} />
                         <input

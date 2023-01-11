@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Row, Tag, Checkbox, Button } from 'antd';
+import NumberFormat from 'react-number-format';
 
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,7 +12,7 @@ import { createOder, createOderDetail } from '~/redux/order/apiOrder';
 import { getAllService } from '~/redux/service/apiService';
 // import moment from 'moment';
 
-function OrderModal({ setModal }, props) {
+function OrderModal() {
     const [state, setState] = useState({
         name_booking: '',
         phone: '',
@@ -20,6 +21,7 @@ function OrderModal({ setModal }, props) {
         service: '',
         isShowLoading: false,
     });
+    const [dataPrice, setDataPrice] = useState([]);
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -35,7 +37,7 @@ function OrderModal({ setModal }, props) {
     //B3: Lấy danh sách
 
     const values = {
-        booking_id: 'HN14',
+        booking_id: 'HN21',
         customer_id: '1',
         email: state?.email,
         phone: state?.phone,
@@ -51,31 +53,25 @@ function OrderModal({ setModal }, props) {
     };
     console.log('check state modal', state);
 
+    const handleCheckbox = (item) => {
+        // alert('service_id = ' + item.service_id + ' and price = ' + item.price);
+        setDataPrice((prev) => {
+            return [...prev, { service_id: item.service_id, unit_price: item.price }];
+        });
+    };
+    console.log('check box', dataPrice);
+
     const handleConfirmBooking = async () => {
         await createOder(values, dispatch, user?.accessToken);
-        console.log('test create', dataCreateOrder.customer.id);
+        console.log('test create', dataCreateOrder.id);
         const dataService = {
-            order_id: +dataCreateOrder.customer.id,
-            orderDetails: [
-                {
-                    service_id: 1,
-                    unit_price: 1000,
-                },
-                {
-                    service_id: 2,
-                    unit_price: 2000,
-                },
-            ],
+            order_id: +dataCreateOrder.id,
+            orderDetails: [...dataPrice],
         };
         await createOderDetail(dataService, dispatch, user?.accessToken);
     };
     const handleClose = () => {
         navigate('/');
-    };
-
-    const handleCheckbox = (item) => {
-        alert('service_id = ' + item.service_id + ' and price = ' + item.price);
-        // alert(item.price);
     };
 
     return (
@@ -149,7 +145,15 @@ function OrderModal({ setModal }, props) {
                                 <Checkbox className="checkbox-row" onChange={() => handleCheckbox(item)}>
                                     <div className="checkbox-todo">
                                         <span>{item.service_name}</span>
-                                        <span className="checkbox-todo-price">{item.price}</span>
+                                        <span className="checkbox-todo-price">
+                                            {' '}
+                                            <NumberFormat
+                                                value={item.price}
+                                                displayType={'text'}
+                                                thousandSeparator={true}
+                                                suffix={' VND'}
+                                            />{' '}
+                                        </span>
                                     </div>
                                 </Checkbox>
                             </Row>

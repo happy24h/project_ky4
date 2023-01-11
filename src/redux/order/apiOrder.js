@@ -35,7 +35,7 @@ export const createOder = async (oder, dispatch, accessToken) => {
         });
         dispatch(createOderSuccess(res.data));
 
-        toast.success('Tạo tài đặt lịch thành công');
+        toast.success('create success');
     } catch (err) {
         dispatch(createOderFailed());
         toast.error('Có thứ gì đó không ổn... ?');
