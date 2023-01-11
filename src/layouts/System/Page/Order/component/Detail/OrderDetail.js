@@ -102,7 +102,10 @@ function OrderDetail() {
                     <List className={cx('list-detail')}>
                         <strong>Trạng thái:</strong> <span className={cx('text-detail')}>{checkOrderStatus()}</span>
                         <span>
-                        <select value={orderDetail[0]?.order.status} onChange={handleChangeStatus}>
+                        <select style={{display: user.roles.map(item => (
+                                item === "ADMIN" || "CUSTOMER_CARE" ? "" : "none"
+                            ))}}
+                        value={orderDetail[0]?.order.status} onChange={handleChangeStatus}>
                         <option value="2">Đã đến</option>
                             {
                                 (orderDetail[0]?.order.status === 2 || orderDetail[0]?.order.status === -1)
@@ -110,7 +113,7 @@ function OrderDetail() {
                                     : <option value="1">Đã đặt</option>
                             }
                             <option value="-1">Hủy</option>
-                    </select>
+                        </select>
                     </span>
                     </List>
                     <table>
