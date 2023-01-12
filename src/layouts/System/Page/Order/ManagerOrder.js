@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
 import { Button, Card, DatePicker, Input, InputNumber, Pagination, Select, Space, Table, Tag } from 'antd';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+
 import { EditOutlined, MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { getAllOrder } from '~/redux/order/apiOrder';
 import classNames from 'classnames/bind';
@@ -13,6 +14,7 @@ const cx = classNames.bind(styles);
 
 function ManagerOrder() {
     const [page, setPage] = useState(1);
+    const [statusParam, setSearchParams] = useSearchParams();
     const [lineNumber, setLineNumber] = useState(6);
     const [loadApiOrder, setloadApiOrder] = useState(false);
     const [state, setState] = useState({
@@ -22,16 +24,21 @@ function ManagerOrder() {
         time_booking: '',
         rangeTotalPriceStart: '',
         rangeTotalPriceEnd: '',
+        voucher_id: '',
+        status: '',
     });
 
     //B1: Gọi dispatch để gửi trạng thái reducer
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+const dataSelector = useSelector((state) =>  state.dashBoarOderSlices.dashboardOrder?.listData);
+    // console.log(12312314,dataSelector);
     //B2: Lấy token
     // useSelector để lấy dữ liệu
     const user = useSelector((state) => state.auth.login?.currentUser);
-
+    if(statusParam.get('status')!=null){
+        setState({ ...state, status: statusParam.get('status') })
+    }
     //B2: gọi api
     let data = {
         booking_id: state?.booking_id,
@@ -58,7 +65,7 @@ function ManagerOrder() {
     useEffect(() => {
         getAllOrder(data, dispatch, user?.accessToken);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [totalState,lineNumber]);
+    }, [totalState, lineNumber]);
 
     //B3: Lấy danh sách
     const listOrder = useSelector((state) => state.order.order?.orderCurrent);
@@ -126,9 +133,9 @@ function ManagerOrder() {
             dataIndex: 'status',
             key: 'status',
             render: (text) => {
-                switch (text){
+                switch (text) {
                     case 2:
-                        return <Tag color="blue">Đã đến</Tag>;
+                        return <Tag color='blue'>Đã đến</Tag>;
                     case 1:
                         return <Tag color="success">Đã đặt</Tag>;
                     case 0:
@@ -136,7 +143,7 @@ function ManagerOrder() {
                     case -1:
                         return <Tag color="red">Đã Hủy</Tag>;
                     default:
-                        return <Tag color="blue">{text}</Tag>;
+                        return <Tag color='blue'>{text}</Tag>;
                 }
             },
         },
@@ -151,13 +158,13 @@ function ManagerOrder() {
             dataIndex: 'booking.user_id',
             key: 'booking.user_id',
             render: (text) => {
-                switch (text){
+                switch (text) {
                     case 1:
-                        return <Tag color="blue">Khách vãng lai</Tag>;
+                        return <Tag color='blue'>Khách vãng lai</Tag>;
                     case 0:
-                        return <Tag color="blue">Khách vãng lai</Tag>;
+                        return <Tag color='blue'>Khách vãng lai</Tag>;
                     default:
-                        return <Tag color="success">Khách đã đăng ký</Tag>;
+                        return <Tag color='success'>Khách đã đăng ký</Tag>;
                 }
             },
         },
@@ -165,12 +172,14 @@ function ManagerOrder() {
             title: 'Hành động',
             key: 'action',
             render: (_, record) => (
-                <Space size="middle">
+                <Space size='middle'>
                     <Button
-                        style={{display: user.roles.map(item => (
-                                item === "ADMIN" ? "block" : "none"
-                            ))}}
-                        type="primary" ghost onClick={() => handleEditUser(record)}>
+                        style={{
+                            display: user.roles.map(item => (
+                                item === 'ADMIN' ? 'block' : 'none'
+                            )),
+                        }}
+                        type='primary' ghost onClick={() => handleEditUser(record)}>
                         <EditOutlined />
                         Edit
                     </Button>
@@ -239,8 +248,8 @@ function ManagerOrder() {
                 <Input.Group className={cx('input-group')} compact>
                     <Input
                         style={{ width: '30%', height: 32 }}
-                        placeholder="Tìm mã đặt lịch"
-                        name="booking_id"
+                        placeholder='Tìm mã đặt lịch'
+                        name='booking_id'
                         value={state?.booking_id}
                         onChange={handleOnchangeInput}
                     />
@@ -346,10 +355,10 @@ function ManagerOrder() {
 
     return (
         <div style={{ marginTop: '120px' }}>
-            <div className="container" style={{ width: '1200px', margin: '0 auto' }}>
+            <div className='container' style={{ width: '1200px', margin: '0 auto' }}>
                 <Card
-                    size="small"
-                    title="Total Accounts"
+                    size='small'
+                    title='Total Accounts'
                     // extra={<a href="#">More</a>}
                     style={{
                         width: 180,
@@ -386,4 +395,5 @@ function ManagerOrder() {
         </div>
     );
 }
+
 export default ManagerOrder;
