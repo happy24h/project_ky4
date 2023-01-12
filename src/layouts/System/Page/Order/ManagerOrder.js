@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Card, Input, InputNumber, Pagination, Select, Space, Table, Tag } from 'antd';
+import { Button, Card, DatePicker, Input, InputNumber, Pagination, Select, Space, Table, Tag } from 'antd';
 import { EditOutlined, MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { getAllOrder } from '~/redux/order/apiOrder';
 import classNames from 'classnames/bind';
 import styles from './ManageOrder.module.scss';
+import { Option } from 'antd/es/mentions';
+import { split } from 'lodash';
 
 const cx = classNames.bind(styles);
 
@@ -15,7 +17,11 @@ function ManagerOrder() {
     const [loadApiOrder, setloadApiOrder] = useState(false);
     const [state, setState] = useState({
         booking_id: '',
-        voucher_id: '',
+        sort: '',
+        // voucher_id: '',
+        time_booking: '',
+        rangeTotalPriceStart: '',
+        rangeTotalPriceEnd: '',
     });
 
     //B1: Gọi dispatch để gửi trạng thái reducer
@@ -30,18 +36,19 @@ function ManagerOrder() {
     let data = {
         booking_id: state?.booking_id,
         customer_id:"",
-        voucher_id: state?.voucher_id,
-        rangeTotalPriceStart:"",
-        rangeTotalPriceEnd:"",
+        // voucher_id: state?.voucher_id,
+        time_booking: state?.time_booking,
+        rangeTotalPriceStart:state?.rangeTotalPriceStart,
+        rangeTotalPriceEnd:state?.rangeTotalPriceEnd,
         status:"",
-        start:"",
-        end:"",
+        start:state?.start,
+        end:state?.end,
         limit:lineNumber,
         page:page,
-        sort:""
+        sort: state?.sort
     };
 
-    let totalState = state?.booking_id + state?.voucher_id;
+    let totalState = state?.booking_id + state?.sort + state?.time_booking + state?.rangeTotalPriceStart + state?.rangeTotalPriceEnd + state?.start+ state?.end ;
 
     useEffect(() => {
         getAllOrder(data, dispatch, user?.accessToken);
@@ -65,10 +72,10 @@ function ManagerOrder() {
             // render: (text) => <Link>{text}</Link>,
         },
         {
-            title: 'Email Khách',
-            dataIndex: 'booking.email',
-            key: 'booking.email',
-            render: (text) => <span style={{ color: '#1677ff' }}>{text}</span>,
+            title: 'Email',
+            dataIndex: 'booking',
+            key: 'booking',
+            render: (text) => <span style={{ color: '#1677ff' }}>{text.email}</span>,
         },
         {
             title: 'Mã đặt lịch',
@@ -83,10 +90,36 @@ function ManagerOrder() {
             render: (text) => <span style={{ color: '#1677ff' }}>{text.time_booking}</span>,
         },
         {
-            title: 'Ngày',
+            title: 'Đặt ngày',
             dataIndex: 'booking',
             key: 'booking',
             render: (text) => <span style={{ color: '#1677ff' }}>{text.date_booking}</span>,
+        },
+        // {
+        //     title: 'Mã giảm giá',
+        //     dataIndex: 'voucher',
+        //     key: 'voucher',
+        //     render: (text) => <span style={{ color: '#1677ff' }}>{text}</span>,
+        // },
+        {
+            title: 'Tổng tiền',
+            dataIndex: 'total_price',
+            key: 'total_price',
+            render: (text) => <span style={{ color: '#1677ff' }}>{text}</span>,
+        },
+        {
+            title: 'Ngày tạo',
+            dataIndex: 'created_at',
+            key: 'created_at',
+            render: (text) => {
+                const getDate = text.split(" ");
+                const convertDate = new Date(getDate[0]);
+                var dd = String(convertDate.getDate()).padStart(2, '0');
+                var mm = String(convertDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+                var yyyy = convertDate.getFullYear();
+
+                return <span style={{ color: '#1677ff' }}>{dd+"-"+mm+"-"+yyyy}</span>;
+            },
         },
         {
             title: 'Trạng thái',
@@ -99,13 +132,19 @@ function ManagerOrder() {
                     case 1:
                         return <Tag color="success">Đã đặt</Tag>;
                     case 0:
-                        return <Tag color="orange">Chưa đặt</Tag>;
+                        return <Tag color="purple">Chưa đặt</Tag>;
                     case -1:
                         return <Tag color="red">Đã Hủy</Tag>;
                     default:
                         return <Tag color="blue">{text}</Tag>;
                 }
             },
+        },
+        {
+            title: 'Tổng tiền',
+            dataIndex: 'total_price',
+            key: 'total_price',
+            render: (text) => <span style={{ color: '#1677ff' }}>{numberFormat(text)}</span>,
         },
         {
             title: 'Đối tượng khách',
@@ -173,6 +212,12 @@ function ManagerOrder() {
         }
     };
 
+    const numberFormat = (value) =>
+        new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        }).format(value);
+
     const onChange = (value) => {
         // console.log('changed', value);
         setLineNumber(value);
@@ -182,6 +227,10 @@ function ManagerOrder() {
         let { name, value } = e.target;
 
         setState({ ...state, [name]: value });
+    };
+
+    const handleSelectSort = (value) => {
+        setState({ ...state, sort: value });
     };
 
     const layoutInput = () => {
@@ -195,27 +244,67 @@ function ManagerOrder() {
                         value={state?.booking_id}
                         onChange={handleOnchangeInput}
                     />
-                    <Input
-                        style={{ width: '30%', height: 32 }}
-                        placeholder="Tìm mã giảm giá"
-                        name="voucher_id"
-                        value={state?.voucher_id}
-                        onChange={handleOnchangeInput}
-                    />
-
-
-                    {/*<Select*/}
-                    {/*    className={cx('input-select')}*/}
-                    {/*    style={{ width: '20%', height: 32 }}*/}
-                    {/*    placeholder="Gender"*/}
-                    {/*    name="gender"*/}
-                    {/*    // defaultValue="Gender"*/}
-                    {/*    onChange={handleSelectChange}*/}
-                    {/*>*/}
-                    {/*    <Option value="">Tất cả</Option>*/}
-                    {/*    <Option value="MALE">Nam</Option>*/}
-                    {/*    <Option value="FEMALE">Nữ</Option>*/}
-                    {/*</Select>*/}
+                    {/*<Input*/}
+                    {/*    style={{ width: '30%', height: 32 }}*/}
+                    {/*    placeholder="Tìm mã giảm giá"*/}
+                    {/*    name="voucher_id"*/}
+                    {/*    value={state?.voucher_id}*/}
+                    {/*    onChange={handleOnchangeInput}*/}
+                    {/*/>*/}
+                    <Select
+                        className={cx('input-select')}
+                        style={{ width: '25%', height: 32 }}
+                        placeholder="Khung giờ"
+                        name="time_booking"
+                        onChange={(value)=>{
+                            setState({ ...state, time_booking: value });
+                        }}>
+                        <Option value="">--Chọn--</Option>
+                        <Option value="8">8</Option>
+                        <Option value="9">9</Option>
+                        <Option value="10">10</Option>
+                        <Option value="11">11</Option>
+                        <Option value="13">13</Option>
+                        <Option value="14">14</Option>
+                        <Option value="15">15</Option>
+                        <Option value="16">16</Option>
+                    </Select>
+                    <Select
+                        className={cx('input-select')}
+                        style={{ width: '25%', height: 32 }}
+                        placeholder="Theo id tăng dần"
+                        name="sort"
+                        onChange={handleSelectSort}>
+                        <Option value="asc">Theo id tăng dần</Option>
+                        <Option value="desc">Theo id giảm dần</Option>
+                    </Select>
+                    <DatePicker
+                    format="DD-MM-YYYY"
+                    onChange={
+                        (value)=>{
+                            setState({ ...state, start: value.format("YYYY-MM-DD") });
+                        }
+                    } placeholder="ngày bắt đầu" />
+                    <DatePicker
+                        format="DD-MM-YYYY"
+                        onChange={
+                            (value)=>{
+                                setState({ ...state, end: value.format("YYYY-MM-DD") });
+                            }
+                        } placeholder="ngày kết thúc" />
+                    <Select
+                        className={cx('input-select')}
+                        style={{ width: '25%', height: 32 }}
+                        placeholder="Chọn khoảng giá"
+                        name="sort"
+                        onChange={(value) =>{
+                            const rangePrice = value.split("-");
+                            setState({ ...state, rangeTotalPriceStart: rangePrice[0], rangeTotalPriceEnd: rangePrice[1] });
+                        }}>
+                        <Option value="">Chọn khoảng giá</Option>
+                        <Option value="1000-3000">1000-3000</Option>
+                        <Option value="4000-5000">4000-5000</Option>
+                    </Select>
                 </Input.Group>
                 {/* <Form.Item label=""> */}
                 {/*<Link to={'/system/manage-user/add'}>*/}

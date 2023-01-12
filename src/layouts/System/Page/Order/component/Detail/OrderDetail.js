@@ -21,14 +21,16 @@ function OrderDetail() {
     useEffect(() => {
         getDetailOrder(id, dispatch, user?.accessToken);
         getDetailBooking(orderDetail[0]?.order.booking_id,dispatch)
-    }, []);
+    }, [statusOrderDetailChange]);
 
     const handleChangeStatus = (e) => {
-        if(window.confirm('Bạn có chắc muốn thay đổi trạng thái?')){
-            // changeStatusDetailFeedback(id,e.target.value, dispatch, user?.accessToken);
-            updateStatusOrder(id,e.target.value,dispatch, user?.accessToken);
-            setStatusOrderDetailChange(!statusOrderDetailChange);
-        };
+        if (e.target.value !== ""){
+            if(window.confirm('Bạn có chắc muốn thay đổi trạng thái?')){
+                // changeStatusDetailFeedback(id,e.target.value, dispatch, user?.accessToken);
+                updateStatusOrder(id,e.target.value,dispatch, user?.accessToken);
+                setStatusOrderDetailChange(!statusOrderDetailChange);
+            }
+        }
     }
 
     const checkOrderStatus = () =>{
@@ -106,6 +108,7 @@ function OrderDetail() {
                                 item === "ADMIN" || "CUSTOMER_CARE" ? "" : "none"
                             ))}}
                         value={orderDetail[0]?.order.status} onChange={handleChangeStatus}>
+                        <option value="">--Chọn--</option>
                         <option value="2">Đã đến</option>
                             {
                                 (orderDetail[0]?.order.status === 2 || orderDetail[0]?.order.status === -1)
