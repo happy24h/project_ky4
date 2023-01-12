@@ -1,17 +1,31 @@
 import styles from '../ManageDashBoard.module.scss';
 import classNames from 'classnames/bind';
+import configRoutes from '~/config';
 import React, { useState, useEffect } from 'react';
 import { Line, Pie, Bar } from '@ant-design/plots';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
+import OrderPage from 'src/layouts/System/Page/Order/ManagerOrder';
 
-import { Button, Card, Col, DatePicker, Popover, Row, Space } from 'antd';
+import { Button, Card, Col, DatePicker, Popover, Row, Space, Switch } from 'antd';
 import { faMoneyBill, faRefresh } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDashboardOder, getDashboardOderStart } from '~/redux/dashboard/order/dashboardOrderSlice';
+import {
+    getDashBoardColumn,
+    getDashBoardLine,
+    getDashBoardPei,
+    getDashBoardStatus,
+} from '~/redux/dashboard/order/apiOrderDashBoard';
+
 
 const { RangePicker } = DatePicker;
 const cx = classNames.bind(styles);
 const titlePage = 'Đơn hàng';
-const keyStorage = 'dashboard_order_dataLine';
+const keyStorageLine = 'dashboard_order_dataLine';
+const keyStoragePei = 'dashboard_order_dataPei';
+const keyStorageColumn = 'dashboard_order_dataColumn';
 
 function ManageDashBoardOrder() {
     const [data, setData] = useState([]);
@@ -20,34 +34,66 @@ function ManageDashBoardOrder() {
     const [timeDate, setTimeDate] = useState([]);
     const [open, setOpen] = useState(false);
     const [showInfo, setShowInfo] = useState(false);
-    let config = getConfigLineChart(data);
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.auth.login?.currentUser);
+    let config = getConfigLineChart(data, dispatch);
     let configPie = getConfigPieChart(dataPie);
     let configBar = getConfigBarChart(dataBar);
+    const [stateStatus, setStateStatus] = useState();
+    const objectNull = {
+        price: 0,
+        count: 0,
+    };
+    let menuStatusMiss = objectNull;
+    let menuStatusPaided = objectNull;
+    let menuStatusDissMiss = objectNull;
+    let menuStatusTotal = objectNull;
+    if (stateStatus != null)
+    {
+        Object.values(stateStatus).map((e, index) => {
+            Object.values(e).map((element, indexz) => {
+                switch (element.status){
+                    case 1:
+                        menuStatusMiss = element;
+                        break;
+                    case 0:
+                        menuStatusTotal = element;
+                        break;
+                    case 2:
+                        menuStatusPaided = element;
+                        break;
+                    case -1:
+                        menuStatusDissMiss = element;
+                        break;
+                }
+            });
 
+        });
+    }
     const showTimeLine = () => {
         setShowInfo(!showInfo);
     };
     const handerSubmitTime = () => {
-        console.log(timeDate);
         if (timeDate.length != 0) {
-            console.log(1);
-            let datalineStorage = localStorage.getItem(keyStorage);
+            let datalineStorage = localStorage.getItem(keyStorageLine);
             let dataTranform = Array.from(JSON.parse(datalineStorage));
             var data = dataTranform.filter((value) => {
                 let startDate = timeDate[0];
                 let endDate = timeDate[1];
-                console.log(moment(startDate).isBefore(moment(value.Date)), moment(endDate).isAfter(moment(value.Date)));
-                return moment(startDate).isBefore(value.Date) && moment(endDate).isAfter(moment(value.Date));
+                return moment(startDate).isBefore(moment(value.Date)) && moment(endDate).isAfter(moment(value.Date));
             });
-            console.log(data);
             setData(
                 data,
             );
         }
     };
     const refreshDataLine = () => {
-        localStorage.removeItem(keyStorage);
+        localStorage.removeItem(keyStorageLine);
+        localStorage.removeItem(keyStoragePei);
+        localStorage.removeItem(keyStorageColumn);
         asyncFetch();
+        asyncFetchPei();
+        asyncFetchBar();
     };
     const showTimeLineYear = () => {
         asyncFetchYearOrMonth('year');
@@ -65,26 +111,16 @@ function ManageDashBoardOrder() {
         asyncFetch();
         asyncFetchPei();
         asyncFetchBar();
+        asyncFetchStatus();
 
     }, []);
 
-    const asyncFetch = () => {
+    const asyncFetch = async () => {
         let dataLine;
-        let datalineStorage = localStorage.getItem(keyStorage);
+        let datalineStorage = localStorage.getItem(keyStorageLine);
         if (datalineStorage == undefined) {
-            dataLine = [
-                {
-                    Date: '2012-12-01',
-                    scales: 555,
-                    id: 100,
-                },
-                {
-                    Date: '2012-11-01',
-                    scales: 555,
-                    id: 101,
-                },
-            ];
-            localStorage.setItem(keyStorage, JSON.stringify(dataLine));
+            dataLine = await getDashBoardLine({}, user?.accessToken);
+            localStorage.setItem(keyStorageLine, JSON.stringify(dataLine));
             setData(dataLine);
         } else {
             setData(Array.from(JSON.parse(datalineStorage)));
@@ -96,7 +132,7 @@ function ManageDashBoardOrder() {
         let dataTranform;
         let dataYears;
         let dataMonths;
-        let datalineStorage = localStorage.getItem(keyStorage);
+        let datalineStorage = localStorage.getItem(keyStorageLine);
         dataTranform = Array.from(JSON.parse(datalineStorage));
         switch (type) {
             case 'year':
@@ -158,71 +194,33 @@ function ManageDashBoardOrder() {
 
     };
 
-    const asyncFetchPei = () => {
-        setDataPei([
-            {
-                type: '分类一',
-                value: 27,
-            },
-            {
-                type: '分类二',
-                value: 25,
-            },
-            {
-                type: '分类三',
-                value: 18,
-            },
-            {
-                type: '分类四',
-                value: 15,
-            },
-            {
-                type: '分类五',
-                value: 10,
-            },
-            {
-                type: '其他',
-                value: 5,
-            },
-        ]);
+    const asyncFetchPei = async () => {
+        let dataPei;
+        let dataPeiStorage = localStorage.getItem(keyStoragePei);
+        if (dataPeiStorage == undefined) {
+            dataPei = await getDashBoardPei({}, user?.accessToken);
+            localStorage.setItem(keyStoragePei, JSON.stringify(dataPei[0]));
+            setDataPei(dataPei[0]);
+        } else {
+            setDataPei(Array.from(JSON.parse(dataPeiStorage)));
+        }
     };
-    const asyncFetchBar = () => {
-        setDataBar([
-            {
-                type: '家具家电',
-                sales: 38,
-            },
-            {
-                type: '粮油副食',
-                sales: 52,
-            },
-            {
-                type: '生鲜水果',
-                sales: 61,
-            },
-            {
-                type: '美容洗护',
-                sales: 145,
-            },
-            {
-                type: '母婴用品',
-                sales: 48,
-            },
-            {
-                type: '进口食品',
-                sales: 38,
-            },
-            {
-                type: '食品饮料',
-                sales: 38,
-            },
-            {
-                type: '家庭清洁',
-                sales: 38,
-            },
-        ]);
+    const asyncFetchBar = async () => {
+        let dataColumn;
+        let dataColumnStorage = localStorage.getItem(keyStorageColumn);
+        if (dataColumnStorage == undefined) {
+            dataColumn = await getDashBoardColumn({}, user?.accessToken);
+            localStorage.setItem(keyStorageColumn, JSON.stringify(dataColumn[0]));
+            setDataBar(dataColumn[0]);
+        } else {
+            setDataBar(Array.from(JSON.parse(dataColumnStorage)));
+        }
     };
 
+    const asyncFetchStatus = async () => {
+        let dataLine = await getDashBoardStatus({}, user?.accessToken);
+        setStateStatus(dataLine);
+    };
 
     return (
 
@@ -235,81 +233,130 @@ function ManageDashBoardOrder() {
                 <h1>{titlePage ?? ''}</h1>
             </Row>
             <div className='container' style={{ width: '1200px', margin: '0 auto' }}>
-
                 <Col style={{ padding: '5px' }} className='cart-item col-6' span={24}> <Card title='' bordered={true}>
                     <Row className='cards-dashboard'>
-                        <Col style={{ padding: '5px' }} span={6}>
-                            <Card
-                                className={styles['cart-item-header']}
-                                title='Đã thanh toán' bordered={true}>
-                                <div className={styles['flex-just-space-center']} style={{
-                                    paddingBottom: '15px',
-                                }}>
-                                    <h1>30</h1>
-                                </div>
-                                <div className={styles['flex-just-space-between']}>
-                                    <FontAwesomeIcon icon={faMoneyBill} />
-                                    <span>50,000,000 (đ)</span>
-                                </div>
-                            </Card></Col>
+
 
                         <Col style={{ padding: '5px' }} span={6}>
-                            <Card
-                                className={styles['cart-item-header']}
-                                title='Chưa thanh toán' bordered={true}>
-                                <div className={styles['flex-just-space-center']} style={{
-                                    paddingBottom: '15px',
-                                }}>
-                                    <h1>30</h1>
-                                </div>
-                                <div className={styles['flex-just-space-between']}>
-                                    <FontAwesomeIcon icon={faMoneyBill} />
-                                    <span>50,000,000 (đ)</span>
-                                </div>
-                            </Card></Col>
+                            <Link
+
+                                to={{
+                                    pathname: configRoutes.routes.manageOrder,
+                                    search: "?status=2",
+                                }}
+                           >
+
+                                <Card
+                                    className={styles['cart-item-header']}
+                                    title='Đã Đến' bordered={true}>
+                                    <div className={styles['flex-just-space-center']} style={{
+                                        paddingBottom: '15px',
+                                    }}>
+                                        <h1>{menuStatusPaided.count}</h1>
+                                    </div>
+                                    <div className={styles['flex-just-space-between']}>
+                                        <FontAwesomeIcon icon={faMoneyBill} />
+                                        <span>{menuStatusPaided.price}(đ)</span>
+                                    </div>
+                                </Card> </Link>
+                        </Col>
 
                         <Col style={{ padding: '5px' }} span={6}>
-                            <Card
-                                className={styles['cart-item-header']}
-                                title='Đã hủy thanh toán' bordered={true}>
-                                <div className={styles['flex-just-space-center']} style={{
-                                    paddingBottom: '15px',
-                                }}>
-                                    <h1>30</h1>
-                                </div>
-                                <div className={styles['flex-just-space-between']}>
-                                    <FontAwesomeIcon icon={faMoneyBill} />
-                                    <span>50,000,000 (đ)</span>
-                                </div>
-                            </Card></Col>
+                            <Link
+
+                                to={{
+                                    pathname: configRoutes.routes.manageOrder,
+                                    search: "?status=1",
+                                }}
+                            >
+
+                                <Card
+                                    className={styles['cart-item-header']}
+                                    title='Đã đặt' bordered={true}>
+                                    <div className={styles['flex-just-space-center']} style={{
+                                        paddingBottom: '15px',
+                                    }}>
+                                        <h1>{menuStatusMiss.count}</h1>
+                                    </div>
+                                    <div className={styles['flex-just-space-between']}>
+                                        <FontAwesomeIcon icon={faMoneyBill} />
+                                        <span>{menuStatusMiss.price}(đ)</span>
+                                    </div>
+                                </Card> </Link>
+                        </Col>
 
                         <Col style={{ padding: '5px' }} span={6}>
-                            <Card
-                                className={styles['cart-item-header']}
-                                title='Tổng hoa đơn' bordered={true}>
-                                <div className={styles['flex-just-space-center']} style={{
-                                    paddingBottom: '15px',
-                                }}>
-                                    <h1>30</h1>
-                                </div>
-                                <div className={styles['flex-just-space-between']}>
-                                    <FontAwesomeIcon icon={faMoneyBill} />
-                                    <span>50,000,000 (đ)</span>
-                                </div>
-                            </Card></Col>
+                            <Link
+
+                                to={{
+                                    pathname: configRoutes.routes.manageOrder,
+                                    search: "?status=-1",
+                                }}
+                            >
+
+                                <Card
+                                    className={styles['cart-item-header']}
+                                    title='Đã Hủy' bordered={true}>
+                                    <div className={styles['flex-just-space-center']} style={{
+                                        paddingBottom: '15px',
+                                    }}>
+                                        <h1>{menuStatusDissMiss.count}</h1>
+                                    </div>
+                                    <div className={styles['flex-just-space-between']}>
+                                        <FontAwesomeIcon icon={faMoneyBill} />
+                                        <span>{menuStatusDissMiss.price}(đ)</span>
+                                    </div>
+                                </Card> </Link>
+                        </Col>
+
+                        <Col style={{ padding: '5px' }} span={6}>
+                            <Link
+
+                                to={{
+                                    pathname: configRoutes.routes.manageOrder,
+                                    search: "?status=0",
+                                }}
+                            >
+
+                                <Card
+                                    className={styles['cart-item-header']}
+                                    title='Chưa đến' bordered={true}>
+                                    <div className={styles['flex-just-space-center']} style={{
+                                        paddingBottom: '15px',
+                                    }}>
+                                        <h1>{menuStatusTotal.count}</h1>
+                                    </div>
+                                    <div className={styles['flex-just-space-between']}>
+                                        <FontAwesomeIcon icon={faMoneyBill} />
+                                        <span>{menuStatusTotal.price}(đ)</span>
+                                    </div>
+                                </Card> </Link>
+                        </Col>
                     </Row>
                 </Card></Col>
 
                 <Row className={styles['cards-dashboard']}>
                     <Col style={{ padding: '5px' }} className='cart-item col-6' span={12}> <Card
-                        title='Biểu đồ hóa đơn theo nhánh' bordered={true}>
+                        title='Biểu đồ hóa đơn theo nhánh'
+                        extra={(
+                            <div>
+                                <Button type='primary' onClick={refreshDataLine}><FontAwesomeIcon
+                                    icon={faRefresh} /></Button>
+                            </div>)}
+                        bordered={true}>
                         <div className={styles['cart-chart']}>
                             <Pie {...configPie} />
                         </div>
                     </Card></Col>
 
                     <Col style={{ padding: '5px' }} className='cart-item col-6' span={12}> <Card
-                        title='Danh sách khách hàng tiềm năng' bordered={true}>
+                        title='Danh sách khách hàng tiềm năng'
+                        extra={(
+                            <div>
+                                <Button type='primary' onClick={refreshDataLine}><FontAwesomeIcon
+                                    icon={faRefresh} /></Button>
+                            </div>)}
+                        bordered={true}>
                         <div className={styles['cart-chart']}>
                             <Bar {...configBar} />;
                         </div>
@@ -461,7 +508,9 @@ function getConfigBarChart(data) {
     };
 }
 
-function getConfigLineChart(data) {
+function getConfigLineChart(data, dispatch) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+
     return {
         data,
         padding: 'auto',
@@ -497,7 +546,9 @@ function getConfigLineChart(data) {
             plot.chart.on('plot:click', (evt) => {
                 const { x, y } = evt;
                 var item = plot.chart.getTooltipItems({ x, y })[0];
-                console.log(item.data);
+
+                dispatch(getDashboardOderStart());
+                dispatch(getDashboardOder(item.data));
             });
         },
 
