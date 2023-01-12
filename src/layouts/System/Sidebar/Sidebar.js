@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faCalendarDay,
     faCartShopping,
-    faComment,
+    faComment, faDashboard,
     faHandScissors,
     faNetworkWired,
     faNewspaper,
@@ -20,20 +20,24 @@ function Sidebar() {
     const { t } = useTranslation();
     const MENU_ITEMS = [
         {
+            // eslint-disable-next-line no-undef
             icon: <FontAwesomeIcon icon={faDashboard} />,
             title: t('systemSidebar.dashboard.title'),
             data: [
                 {
                     title: t('systemSidebar.dashboard.data.title_booking'),
                     to: '/system/manage-dash-board-booking',
+                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
                 },
                 {
                     title: t('systemSidebar.dashboard.data.title_service'),
                     to: '/system/manage-dash-board-service',
+                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
                 },
                 {
                     title: t('systemSidebar.dashboard.data.title_order'),
                     to: '/system/manage-dash-board-order',
+                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
                 },
             ],
         },
