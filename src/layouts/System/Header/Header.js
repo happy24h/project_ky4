@@ -13,31 +13,36 @@ import 'tippy.js/dist/tippy.css';
 import Menu from '~/components/Popper/Menu';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from '~/redux/apiRequest';
+import { useTranslation } from 'react-i18next';
 const cx = classNames.bind(styles);
 
-const MENU_ITEMS = [
-    {
-        icon: <FontAwesomeIcon icon={faEarthAsia} />,
-        title: 'English',
-        children: {
-            title: 'Language',
-            data: [
-                {
-                    type: 'language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: 'language',
-                    code: 'vi',
-                    title: 'Tiếng Việt',
-                },
-            ],
-        },
-    },
-];
+// const MENU_ITEMS = [
+//     {
+//         icon: <FontAwesomeIcon icon={faEarthAsia} />,
+//         title: 'English',
+//         children: {
+//             title: 'Language',
+//             data: [
+//                 {
+//                     type: 'language',
+//                     code: 'en',
+//                     title: 'English',
+//                 },
+//                 {
+//                     type: 'language',
+//                     code: 'vi',
+//                     title: 'Tiếng Việt',
+//                 },
+//             ],
+//         },
+//     },
+// ];
 
 function Header() {
+    const { i18n } = useTranslation();
+    function clickLanguage(lang) {
+        i18n.changeLanguage(lang);
+    }
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector((state) => state.auth.login?.currentUser);
@@ -48,6 +53,32 @@ function Header() {
     const handleTest = () => {
         alert('hello world');
     };
+    const handleLanguage = (value) => {
+        clickLanguage(value);
+    };
+    const MENU_ITEMS = [
+        {
+            icon: <FontAwesomeIcon icon={faEarthAsia} />,
+            title: 'English',
+            children: {
+                title: 'Language',
+                data: [
+                    {
+                        type: 'language',
+                        code: 'en',
+                        title: 'English',
+                        handleOnclick: handleLanguage,
+                    },
+                    {
+                        type: 'language',
+                        code: 'vi',
+                        title: 'Tiếng Việt',
+                        handleOnclick: handleLanguage,
+                    },
+                ],
+            },
+        },
+    ];
     const userMenu = [
         {
             icon: <FontAwesomeIcon icon={faUser} />,
@@ -68,6 +99,7 @@ function Header() {
             handleOnclick: handleTest,
         },
         ...MENU_ITEMS,
+
         {
             icon: <FontAwesomeIcon icon={faSignOut} />,
             title: 'Log out',

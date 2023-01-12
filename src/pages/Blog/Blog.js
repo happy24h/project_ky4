@@ -1,28 +1,32 @@
 import './Blog.scss';
 import classNames from 'classnames/bind';
 import styles from './Blog.module.scss';
+import { useSelector } from 'react-redux';
+import { getBlog } from '~/redux/blog/apiBlog';
+import { useEffect } from 'react';
+import { useState } from 'react';
 const cx = classNames.bind(styles);
 
-const dataBlog = [
-    {
-        image: 'https://blog.30shine.com/wp-content/uploads/2021/05/94441749_264609604926201_5080382077019357184_o-300x210.jpg',
-        title: '7 LÝ DO AN TÂM KHI ĐẾN 30SHINE',
-        content:
-            'Luôn mong muốn mang đến những trải nghiệm trọn vẹn và an tâm nhất cho khách hàng,30Shine cam kết đồng hành cùng quý khách hàng, chung tay góp sức đẩy lùi dịch bệnh,bảo vệ sức khoẻ cộng đồng. Tất cả các salon của 30Shine đã & đang thực hiện đồng loạt các biện pháp.',
-    },
-    {
-        image: 'https://blog.30shine.com/wp-content/uploads/2021/05/94441749_264609604926201_5080382077019357184_o-300x210.jpg',
-        title: '7 LÝ DO AN TÂM KHI ĐẾN 30SHINE',
-        content:
-            'Luôn mong muốn mang đến những trải nghiệm trọn vẹn và an tâm nhất cho khách hàng,30Shine cam kết đồng hành cùng quý khách hàng, chung tay góp sức đẩy lùi dịch bệnh,bảo vệ sức khoẻ cộng đồng. Tất cả các salon của 30Shine đã & đang thực hiện đồng loạt các biện pháp.',
-    },
-    {
-        image: 'https://blog.30shine.com/wp-content/uploads/2021/05/94441749_264609604926201_5080382077019357184_o-300x210.jpg',
-        title: '7 LÝ DO AN TÂM KHI ĐẾN 30SHINE',
-        content:
-            'Luôn mong muốn mang đến những trải nghiệm trọn vẹn và an tâm nhất cho khách hàng,30Shine cam kết đồng hành cùng quý khách hàng, chung tay góp sức đẩy lùi dịch bệnh,bảo vệ sức khoẻ cộng đồng. Tất cả các salon của 30Shine đã & đang thực hiện đồng loạt các biện pháp.',
-    },
-];
+// const dataBlog = [
+//     {
+//         image: 'https://blog.30shine.com/wp-content/uploads/2021/05/94441749_264609604926201_5080382077019357184_o-300x210.jpg',
+//         title: '7 LÝ DO AN TÂM KHI ĐẾN 30SHINE',
+//         content:
+//             'Luôn mong muốn mang đến những trải nghiệm trọn vẹn và an tâm nhất cho khách hàng,30Shine cam kết đồng hành cùng quý khách hàng, chung tay góp sức đẩy lùi dịch bệnh,bảo vệ sức khoẻ cộng đồng. Tất cả các salon của 30Shine đã & đang thực hiện đồng loạt các biện pháp.',
+//     },
+//     {
+//         image: 'https://blog.30shine.com/wp-content/uploads/2021/05/94441749_264609604926201_5080382077019357184_o-300x210.jpg',
+//         title: '7 LÝ DO AN TÂM KHI ĐẾN 30SHINE',
+//         content:
+//             'Luôn mong muốn mang đến những trải nghiệm trọn vẹn và an tâm nhất cho khách hàng,30Shine cam kết đồng hành cùng quý khách hàng, chung tay góp sức đẩy lùi dịch bệnh,bảo vệ sức khoẻ cộng đồng. Tất cả các salon của 30Shine đã & đang thực hiện đồng loạt các biện pháp.',
+//     },
+//     {
+//         image: 'https://blog.30shine.com/wp-content/uploads/2021/05/94441749_264609604926201_5080382077019357184_o-300x210.jpg',
+//         title: '7 LÝ DO AN TÂM KHI ĐẾN 30SHINE',
+//         content:
+//             'Luôn mong muốn mang đến những trải nghiệm trọn vẹn và an tâm nhất cho khách hàng,30Shine cam kết đồng hành cùng quý khách hàng, chung tay góp sức đẩy lùi dịch bệnh,bảo vệ sức khoẻ cộng đồng. Tất cả các salon của 30Shine đã & đang thực hiện đồng loạt các biện pháp.',
+//     },
+// ];
 
 const dataBlogRight = [
     {
@@ -51,24 +55,35 @@ const dataBlogRight = [
         content: 'Anh em được hỗ trợ bởi quy trình, công nghệ để tăng năng suất tối đa',
     },
 ];
+
 const Blog = () => {
+    const [dataBlog, setDataBlog] = useState([]);
+    const listBlog = useSelector((state) => state.blog.blog?.listData?.content);
+    console.log('check list', listBlog);
+    useEffect(() => {
+        getBlog();
+
+        setDataBlog(listBlog);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('content')}>
                 <div className="blog-content-left">
                     <div className="header-content-blog">Blog</div>
                     {dataBlog &&
-                        dataBlog.map((item) => {
+                        listBlog.map((item) => {
                             return (
                                 <div>
                                     <div className="row-content-blog">
                                         <div
                                             className="img-content-blog"
-                                            style={{ backgroundImage: `url(${item.image})` }}
+                                            style={{ backgroundImage: `url(${item?.thumbnail})` }}
                                         ></div>
                                         <div className="content-blog-text">
-                                            <h4>{item.title}</h4>
-                                            <span>{item.content}</span>
+                                            <h4>{item?.title}</h4>
+                                            <span>{item?.content}</span>
                                         </div>
                                     </div>
                                 </div>
