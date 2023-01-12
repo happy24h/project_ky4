@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Row, Tag, Checkbox, Button } from 'antd';
 import NumberFormat from 'react-number-format';
 
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faSpinner, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Modal.scss';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -10,6 +10,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createOder, createOderDetail } from '~/redux/order/apiOrder';
 import { getAllService } from '~/redux/service/apiService';
+import classNames from 'classnames/bind';
+import styles from './OrderModal.module.scss';
+
+const cx = classNames.bind(styles);
 // import moment from 'moment';
 
 function OrderModal() {
@@ -22,6 +26,7 @@ function OrderModal() {
         isShowLoading: false,
     });
     const [dataPrice, setDataPrice] = useState([]);
+    const [modalItem, setModalItem] = useState(false);
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -31,13 +36,16 @@ function OrderModal() {
 
     useEffect(() => {
         getAllService();
+
+        createOder();
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [dataCreateOrder.id]);
 
     //B3: Lấy danh sách
 
     const values = {
-        booking_id: 'HN21',
+        booking_id: id,
         customer_id: '1',
         email: state?.email,
         phone: state?.phone,
@@ -72,6 +80,14 @@ function OrderModal() {
     };
     const handleClose = () => {
         navigate('/');
+    };
+
+    const handleDelete = (index) => {
+        setDataPrice((state) => {
+            const data = [...state];
+            data.splice(index, 1);
+            return data;
+        });
     };
 
     return (
@@ -137,9 +153,50 @@ function OrderModal() {
                         </div>
                     </form>
                     {/* <div> */}
-                    <strong style={{ fontWeight: 'bold', fontSize: 14, marginBottom: 5 }}>Chọn dịch vụ</strong>
+                    <div className={cx('select-service')}>
+                        <strong style={{ fontWeight: 'bold', fontSize: 14, marginBottom: 5 }}>Chọn dịch vụ</strong>
+                        <div className={cx('wrapper-cart')}>
+                            <FontAwesomeIcon
+                                className={cx('cart-icon')}
+                                icon={faCartShopping}
+                                onClick={() => setModalItem(!modalItem)}
+                            />
+                            <span className={cx('notify-number')}>{dataPrice.length}</span>
+                            {modalItem && (
+                                <div className={cx('nav-list-item')}>
+                                    <h4 className={cx('title-cart')}>Dịch vụ đã thêm</h4>
+
+                                    {dataPrice.length === 0 && (
+                                        <div
+                                            style={{
+                                                width: '300px',
+                                                height: '150px',
+                                                textAlign: 'center',
+                                                marginTop: 50,
+                                            }}
+                                        >
+                                            Chưa chọn sản phẩm
+                                        </div>
+                                    )}
+                                    {dataPrice &&
+                                        dataPrice?.map((item, index) => {
+                                            return (
+                                                <div key={index} className={cx('cart-item')}>
+                                                    <span>Mã sản phẩm: {item.service_id}</span>
+                                                    <span>Giá: {item.unit_price} VND</span>
+                                                    <div onClick={handleDelete}>
+                                                        {' '}
+                                                        <FontAwesomeIcon style={{ color: 'red' }} icon={faTrash} />
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                </div>
+                            )}
+                        </div>
+                    </div>
                     {/* </div> */}
-                    {listService?.content.map((item, index) => {
+                    {/* {listService?.content.map((item, index) => {
                         return (
                             <Row key={index} className="row-todo" justify="space-between">
                                 <Checkbox className="checkbox-row" onChange={() => handleCheckbox(item)}>
@@ -158,7 +215,57 @@ function OrderModal() {
                                 </Checkbox>
                             </Row>
                         );
-                    })}
+                    })} */}
+
+                    <div>
+                        <div className="grid wide">
+                            <div className="row">
+                                {listService?.content.map((item, index) => {
+                                    return (
+                                        <div className="col l-3 m-4 c-6" key={index}>
+                                            <div className={cx('item')}>
+                                                <div
+                                                    className={cx('item-image')}
+                                                    style={{
+                                                        backgroundImage: `url(${item.thumbnail})`,
+                                                    }}
+                                                >
+                                                    {' '}
+                                                </div>
+                                                <span>{item.service_name}</span>
+                                                <div>
+                                                    <NumberFormat
+                                                        value={item.price}
+                                                        displayType={'text'}
+                                                        thousandSeparator={true}
+                                                        suffix={' VND'}
+                                                    />{' '}
+                                                </div>
+                                                <div className={cx('wrapper-btn')}>
+                                                    <button
+                                                        className={cx('btn-buy')}
+                                                        onClick={() => handleCheckbox(item)}
+                                                    >
+                                                        Chọn
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* {dataPrice?.map((item, index) => {
+                        return (
+                            <div key={index} className={cx('cart-item')}>
+                                <span>Mã sản phẩm: {item.service_id}</span>--------
+                                <span>Giá {item.unit_price} VND</span>
+                                <button onClick={handleDelete}>delete</button>
+                            </div>
+                        );
+                    })} */}
                 </div>
                 <div className="modal__footer">
                     <button onClick={() => handleConfirmBooking()}>Xác nhận</button>
