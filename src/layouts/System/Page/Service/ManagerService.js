@@ -5,7 +5,6 @@ import { deleteService, getAllService } from '~/redux/service/apiService';
 import { Space, Table, Button, Form, Tag, Card } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
-
 function ManagerService() {
     const [page, setPage] = useState(1);
     const [loadApi, setloadApi] = useState(false);
@@ -20,15 +19,15 @@ function ManagerService() {
 
     //B2: gọi api
     let data = {
-        name:"",
-        type_service_id:"",
-        status:"",
-        start:"",
-        end:"",
-        limit:4,
-        page:page,
-        sort:"asc"
-    }
+        name: '',
+        type_service_id: '',
+        status: '',
+        start: '',
+        end: '',
+        limit: 5,
+        page: page,
+        sort: 'asc',
+    };
 
     useEffect(() => {
         getAllService(data, dispatch, user?.accessToken);
@@ -49,7 +48,7 @@ function ManagerService() {
             title: 'Ảnh',
             dataIndex: 'thumbnail',
             key: 'thumbnail',
-            render: (text) => <img src={text} width="35%" />
+            render: (text) => <img src={text} width="35%" />,
         },
         {
             title: 'Tiêu đề',
@@ -64,11 +63,17 @@ function ManagerService() {
             render: (text) => <span style={{ color: '#1677ff' }}>{text.name}</span>,
         },
         {
+            title: 'Price',
+            dataIndex: 'price',
+            key: 'price',
+            // render: (text) => <span style={{ color: '#1677ff' }}>{text.price}</span>,
+        },
+        {
             title: 'Trạng thái',
             dataIndex: 'status',
             key: 'status',
             render: (text) => {
-                switch (text){
+                switch (text) {
                     case 1:
                         return <Tag color="success">Hoạt động</Tag>;
                     case -1:
@@ -83,16 +88,17 @@ function ManagerService() {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <Button
-                        type="primary" ghost onClick={() => handleEditService(record)}>
+                    <Button type="primary" ghost onClick={() => handleEditService(record)}>
                         <EditOutlined />
                         Chi tiết
                     </Button>
                     <Button
-                        style={{display: user.roles.map(item => (
-                                item === "ADMIN" ? "block" : "none"
-                        ))}}
-                        type="primary" danger ghost onClick={() => handleDeleteService(record)}>
+                        style={{ display: user.roles.map((item) => (item === 'ADMIN' ? 'block' : 'none')) }}
+                        type="primary"
+                        danger
+                        ghost
+                        onClick={() => handleDeleteService(record)}
+                    >
                         <DeleteOutlined />
                         Delete
                     </Button>
@@ -106,7 +112,7 @@ function ManagerService() {
     };
 
     const handleDeleteService = (service) => {
-        deleteService(service?.service_id,dispatch,user?.accessToken);
+        deleteService(service?.service_id, dispatch, user?.accessToken);
         setloadApi(!loadApi);
     };
 
@@ -145,7 +151,7 @@ function ManagerService() {
                     // { listAccount && listAccount.length > 0 ? dataSource={listAccount} : null}
                     dataSource={listService?.content}
                     pagination={{
-                        pageSize: 4,
+                        pageSize: 5,
                         total: listService?.totalItems,
                         onChange: (page) => {
                             setPage(page);
