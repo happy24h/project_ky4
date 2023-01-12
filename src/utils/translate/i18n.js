@@ -40,6 +40,25 @@ const resources = {
                         title2: 'List service',
                     },
                 },
+                dashboard: {
+                    title: 'DashBoard',
+                    data: {
+                        title_booking: 'Booking chart',
+                        title_order: 'Order chart',
+                        title_service: 'Service chart',
+                        title_guest: 'Guest chart',
+                        title_branch: 'Branch chart',
+                    },
+                },
+                table: {
+                    title: 'Table',
+                    data: {
+                        title_employee: 'Timesheets',
+                        title_branch: 'Branch revenue table',
+                        title_booking: 'Appointment table',
+                        title_order: 'Order table',
+                    },
+                },
             },
         },
     },
@@ -104,6 +123,25 @@ const resources = {
                     data: {
                         list: 'Danh sách',
                         create: 'Tạo',
+                    },
+                },
+                dashboard: {
+                    title: 'Biểu đồ',
+                    data: {
+                        title_booking: 'Biểu đồ lịch hẹn',
+                        title_order: 'Biểu đồ đơn hàng',
+                        title_service: 'Biểu đồ dịch vụ',
+                        title_guest: 'Biểu đồ khách hàng',
+                        title_branch: 'Biểu đồ chi nhánh',
+                    },
+                },
+                table: {
+                    title: 'Bảng',
+                    data: {
+                        title_employee: 'Bảng chấm công',
+                        title_branch: 'Bảng doanh thu chi nhánh',
+                        title_booking: 'Bảng lịch hẹn',
+                        title_order: 'Bảng đơn hàng',
                     },
                 },
             },
