@@ -69,32 +69,60 @@ const resources = {
                 title: 'chào mừng đến hà nội',
             },
             systemSidebar: {
-                users: {
-                    title: 'Người dùng',
+                accounts: {
+                    title: 'Tài khoản',
                     data: {
-                        title1: 'Danh sách người dùng',
-                        title2: 'Bài viết',
+                        list: 'Danh sách',
+                        create: 'Tạo',
                     },
                 },
-                employees: {
-                    title: 'Nhân viên',
+                blog: {
+                    title: 'Bài viết',
                     data: {
-                        title1: 'Thêm lịch hẹn',
-                        title2: 'Cơ sở làm tóc',
+                        list: 'Danh sách',
+                        create: 'Tạo',
                     },
                 },
-                information: {
-                    title: 'Thông tin',
+                booking: {
+                    title: 'Lịch làm việc',
                     data: {
-                        title1: 'Đặt lịch',
-                        title2: 'Dịch vụ',
+                        list: 'Danh sách',
+                        create: 'Tạo',
+                    },
+                },
+                branch: {
+                    title: 'Chi nhánh',
+                    data: {
+                        list: 'Danh sách',
+                        create: 'Tạo',
+                    },
+                },
+                service: {
+                    title: 'Dịch vụ',
+                    data: {
+                        list: 'Danh sách dịch vụ',
+                        create: 'Tạo dịch vụ',
+                    },
+                },
+                type_service: {
+                    title: 'Loại dịch vụ',
+                    data: {
+                        list: 'Danh sách loại dịch vụ',
+                        create: 'Tạo loại dịch vụ',
+                    },
+                },
+                voucher: {
+                    title: 'Mã giảm giá',
+                    data: {
+                        list: 'Danh sách',
+                        create: 'Tạo',
                     },
                 },
                 feedback: {
                     title: 'Phản hồi',
                     data: {
-                        title1: 'Danh sách phản hồi',
-                        title2: 'Danh sách dịch vụ',
+                        list: 'Danh sách',
+                        create: 'Tạo',
                     },
                 },
                 dashboard: {

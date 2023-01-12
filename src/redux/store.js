@@ -21,6 +21,7 @@ import cloudReducer from './cloudImage/cloudSlice';
 import typeServiceReducer from './type_service/typeServiceSilce';
 import orderReducer from './order/orderSilce';
 import orderDetailReducer from './order/orderDetailSilce';
+import voucherReducer from './voucher/VoucherSilce';
 
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -45,6 +46,7 @@ const rootReducer = combineReducers({
     typeService: typeServiceReducer,
     order: orderReducer,
     orderDetail: orderDetailReducer,
+    voucher: voucherReducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

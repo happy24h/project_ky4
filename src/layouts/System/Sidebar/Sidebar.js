@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo, faDashboard, faTable, faUser, faUserGraduate } from '@fortawesome/free-solid-svg-icons';
 // import { faBlogger } from '@fortawesome/free-brands-svg-icons';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 const cx = classNames.bind(styles);
 function Sidebar() {
     const { t } = useTranslation();
@@ -29,75 +30,167 @@ function Sidebar() {
         },
         {
             icon: <FontAwesomeIcon icon={faUser} />,
-            title: t('systemSidebar.users.title'),
+            title: t('systemSidebar.accounts.title'),
             data: [
                 {
-                    title: t('systemSidebar.users.data.title1'),
+                    title: t('systemSidebar.accounts.data.list'),
                     to: '/system/manage-user',
+                    permission: ['ADMIN', 'RECEPTIONISTS'],
                 },
                 {
-                    title: t('systemSidebar.users.data.title2'),
+                    title: t('systemSidebar.accounts.data.create'),
+                    to: '/system/manage-user/add',
+                    permission: ['ADMIN'],
+                },
+            ],
+        },
+        {
+            icon: <FontAwesomeIcon icon={faNewspaper} />,
+            title: t('systemSidebar.blog.title'),
+            data: [
+                {
+                    title: t('systemSidebar.blog.data.list'),
+                    to: '/system/manage-blog/add',
+                    permission: ['ADMIN', 'CUSTOMER_CARE'],
+                },
+                {
+                    title: t('systemSidebar.blog.data.create'),
                     to: '/system/manage-blog',
+                    permission: ['ADMIN', 'CUSTOMER_CARE'],
                 },
             ],
         },
         {
-            icon: <FontAwesomeIcon icon={faUserGraduate} />,
-            title: t('systemSidebar.employees.title'),
+            icon: <FontAwesomeIcon icon={faCalendarDay} />,
+            title: t('systemSidebar.booking.title'),
             data: [
                 {
-                    title: t('systemSidebar.employees.data.title1'),
+                    title: t('systemSidebar.booking.data.list'),
                     to: '/system/manage-booking',
+                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
                 },
                 {
-                    title: t('systemSidebar.employees.data.title2'),
+                    title: t('systemSidebar.booking.data.create'),
+                    to: '/system/manage-booking/add',
+                    permission: ['ADMIN'],
+                },
+            ],
+        },
+        {
+            icon: <FontAwesomeIcon icon={faNetworkWired} />,
+            title: t('systemSidebar.branch.title'),
+            data: [
+                {
+                    title: t('systemSidebar.branch.data.list'),
                     to: '/system/manage-branch',
+                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
+                },
+                {
+                    title: t('systemSidebar.branch.data.create'),
+                    to: '/system/manage-branch/add',
+                    permission: ['ADMIN'],
                 },
             ],
         },
         {
-            icon: <FontAwesomeIcon icon={faCircleInfo} />,
-            title: t('systemSidebar.information.title'),
+            icon: <FontAwesomeIcon icon={faHandScissors} />,
+            title: t('systemSidebar.service.title'),
             data: [
                 {
-                    title: t('systemSidebar.information.data.title1'),
-                    to: '/system/manage-booking',
+                    title: t('systemSidebar.service.data.list'),
+                    to: '/system/manage-service',
+                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
                 },
                 {
-                    title: t('systemSidebar.information.data.title2'),
-                    to: '/system/manage-user',
+                    title: t('systemSidebar.service.data.create'),
+                    to: '/system/manage-service/add',
+                    permission: ['ADMIN'],
+                },
+                {
+                    title: t('systemSidebar.type_service.data.list'),
+                    to: '/system/manage-type-service',
+                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
+                },
+                {
+                    title: t('systemSidebar.type_service.data.create'),
+                    to: '/system/manage-type-service/add',
+                    permission: ['ADMIN'],
                 },
             ],
         },
         {
-            icon: <FontAwesomeIcon icon={faUser} />,
+            icon: <FontAwesomeIcon icon={faComment} />,
             title: t('systemSidebar.feedback.title'),
             data: [
                 {
-                    title: t('systemSidebar.feedback.data.title1'),
+                    title: t('systemSidebar.feedback.data.list'),
                     to: '/system/manage-feedback',
+                    permission: ['ADMIN', 'CUSTOMER_CARE'],
                 },
                 {
-                    title: t('systemSidebar.feedback.data.title2'),
-                    to: '/system/manage-service',
-                },
-                {
-                    title: 'Danh sách loại dịch vụ',
-                    to: '/system/manage-type-service',
+                    title: t('systemSidebar.feedback.data.create'),
+                    to: '/system/manage-feedback/add',
+                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
                 },
             ],
         },
         {
-            icon: <FontAwesomeIcon icon={faUser} />,
+            icon: <FontAwesomeIcon icon={faTicket} />,
+            title: t('systemSidebar.voucher.title'),
+            data: [
+                {
+                    title: t('systemSidebar.voucher.data.list'),
+                    to: '/system/manage-voucher',
+                    permission: ['ADMIN'],
+                },
+                {
+                    title: t('systemSidebar.voucher.data.create'),
+                    to: '/system/manage-voucher/add',
+                    permission: ['ADMIN'],
+                },
+            ],
+        },
+        {
+            icon: <FontAwesomeIcon icon={faComment} />,
+            title: t('systemSidebar.feedback.title'),
+            data: [
+                {
+                    title: t('systemSidebar.feedback.data.list'),
+                    to: '/system/manage-feedback',
+                    permission: ['ADMIN', 'CUSTOMER_CARE'],
+                },
+                {
+                    title: t('systemSidebar.feedback.data.create'),
+                    to: '/system/manage-feedback/add',
+                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
+                },
+            ],
+        },
+        {
+            icon: <FontAwesomeIcon icon={faCartShopping} />,
             title: 'Hóa đơn',
             data: [
                 {
                     title: 'Danh sách hóa đơn',
                     to: '/system/manage-order',
+                    permission: ['ADMIN'],
                 },
             ],
         },
     ];
+
+    const user = useSelector((state) => state.auth.login?.currentUser);
+
+    // const checkPermission  = () => {
+    //     let checkRole = true;
+    //     item.data.permission.map(permission => (
+    //         user.roles.map(item => (
+    //             item === permission ? "block" : "none"
+    //         ))
+    //     ));
+    //     return checkRole;
+    // };
+
     return (
         <nav className={cx('sidebar')}>
             <div className={cx('logo')}>

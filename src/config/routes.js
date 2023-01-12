@@ -65,12 +65,18 @@ const routes = {
     detailOrder: '/system/manage-order/detail/:id',
 
 
+
     //Dashboard
 
     manageDashBoardSerivce:"system/manage-dash-board-service",
     manageDashBoardBooking:"system/manage-dash-board-booking",
     manageDashBoardOrder:"system/manage-dash-board-order",
     manageTable:'system/manage-table-system',
+
+
+    //Type Service
+    manageVoucher: 'system/manage-voucher',
+    addVoucher: 'system/manage-voucher/add',
 
 };
 

@@ -58,6 +58,11 @@ import ManageDashBoardBooking from '~/layouts/System/Page/DasBoard/DashboardBook
 import ManageDashBoardOrder from '~/layouts/System/Page/DasBoard/DashboardOrder';
 import ManageDashBoardService from '~/layouts/System/Page/DasBoard/DashboardService';
 
+import ManagerVoucher from '~/layouts/System/Page/Voucher/ManagerVoucher';
+import AddVoucher from '~/layouts/System/Page/Voucher/component/Add/AddVoucher';
+
+
+
 const publicRouters = [
     { path: config.routes.home, component: Home },
     { path: config.routes.service, component: Service },
@@ -119,10 +124,18 @@ const privateRoutes = [
     { path: config.routes.manageBooking, component: ManageBooking },
     { path: config.routes.addBooking, component: AddBooking },
     { path: config.routes.editBooking, component: EditBooking },
+
     //dash board
     { path: config.routes.manageDashBoardBooking, component: ManageDashBoardBooking },
     { path: config.routes.manageDashBoardOrder, component: ManageDashBoardOrder },
     { path: config.routes.manageDashBoardSerivce, component: ManageDashBoardService },
+
+
+    // voucher
+    { path: config.routes.manageVoucher, component: ManagerVoucher },
+    { path: config.routes.addVoucher, component: AddVoucher },
+
+
 ];
 
 export { publicRouters, privateRoutes };
