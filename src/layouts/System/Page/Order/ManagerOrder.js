@@ -35,20 +35,27 @@ function ManagerOrder() {
     //B2: gọi api
     let data = {
         booking_id: state?.booking_id,
-        customer_id:"",
+        customer_id: '',
         // voucher_id: state?.voucher_id,
         time_booking: state?.time_booking,
-        rangeTotalPriceStart:state?.rangeTotalPriceStart,
-        rangeTotalPriceEnd:state?.rangeTotalPriceEnd,
-        status:"",
-        start:state?.start,
-        end:state?.end,
-        limit:lineNumber,
-        page:page,
-        sort: state?.sort
+        rangeTotalPriceStart: state?.rangeTotalPriceStart,
+        rangeTotalPriceEnd: state?.rangeTotalPriceEnd,
+        status: '',
+        start: state?.start,
+        end: state?.end,
+        limit: lineNumber,
+        page: page,
+        sort: state?.sort,
     };
 
-    let totalState = state?.booking_id + state?.sort + state?.time_booking + state?.rangeTotalPriceStart + state?.rangeTotalPriceEnd + state?.start+ state?.end ;
+    let totalState =
+        state?.booking_id +
+        state?.sort +
+        state?.time_booking +
+        state?.rangeTotalPriceStart +
+        state?.rangeTotalPriceEnd +
+        state?.start +
+        state?.end;
 
     useEffect(() => {
         getAllOrder(data, dispatch, user?.accessToken);
@@ -58,7 +65,7 @@ function ManagerOrder() {
     useEffect(() => {
         getAllOrder(data, dispatch, user?.accessToken);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [totalState,lineNumber]);
+    }, [totalState, lineNumber]);
 
     //B3: Lấy danh sách
     const listOrder = useSelector((state) => state.order.order?.orderCurrent);
@@ -112,13 +119,13 @@ function ManagerOrder() {
             dataIndex: 'created_at',
             key: 'created_at',
             render: (text) => {
-                const getDate = text.split(" ");
-                const convertDate = new Date(getDate[0]);
-                var dd = String(convertDate.getDate()).padStart(2, '0');
-                var mm = String(convertDate.getMonth() + 1).padStart(2, '0'); //January is 0!
-                var yyyy = convertDate.getFullYear();
+                // const getDate = text.split(' ');
+                // const convertDate = new Date(getDate[0]);
+                // var dd = String(convertDate.getDate()).padStart(2, '0');
+                // var mm = String(convertDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+                // var yyyy = convertDate.getFullYear();
 
-                return <span style={{ color: '#1677ff' }}>{dd+"-"+mm+"-"+yyyy}</span>;
+                return <span style={{ color: '#1677ff' }}>{text}</span>;
             },
         },
         {
@@ -126,7 +133,7 @@ function ManagerOrder() {
             dataIndex: 'status',
             key: 'status',
             render: (text) => {
-                switch (text){
+                switch (text) {
                     case 2:
                         return <Tag color="blue">Đã đến</Tag>;
                     case 1:
@@ -151,7 +158,7 @@ function ManagerOrder() {
             dataIndex: 'booking.user_id',
             key: 'booking.user_id',
             render: (text) => {
-                switch (text){
+                switch (text) {
                     case 1:
                         return <Tag color="blue">Khách vãng lai</Tag>;
                     case 0:
@@ -167,10 +174,11 @@ function ManagerOrder() {
             render: (_, record) => (
                 <Space size="middle">
                     <Button
-                        style={{display: user.roles.map(item => (
-                                item === "ADMIN" ? "block" : "none"
-                            ))}}
-                        type="primary" ghost onClick={() => handleEditUser(record)}>
+                        style={{ display: user.roles.map((item) => (item === 'ADMIN' ? 'block' : 'none')) }}
+                        type="primary"
+                        ghost
+                        onClick={() => handleEditUser(record)}
+                    >
                         <EditOutlined />
                         Edit
                     </Button>
@@ -178,7 +186,6 @@ function ManagerOrder() {
             ),
         },
     ];
-
 
     const handleEditUser = (order) => {
         navigate(`/system/manage-order/detail/${order.id}`);
@@ -215,7 +222,7 @@ function ManagerOrder() {
     const numberFormat = (value) =>
         new Intl.NumberFormat('vi-VN', {
             style: 'currency',
-            currency: 'VND'
+            currency: 'VND',
         }).format(value);
 
     const onChange = (value) => {
@@ -256,9 +263,10 @@ function ManagerOrder() {
                         style={{ width: '25%', height: 32 }}
                         placeholder="Khung giờ"
                         name="time_booking"
-                        onChange={(value)=>{
+                        onChange={(value) => {
                             setState({ ...state, time_booking: value });
-                        }}>
+                        }}
+                    >
                         <Option value="">--Chọn--</Option>
                         <Option value="8">8</Option>
                         <Option value="9">9</Option>
@@ -274,33 +282,39 @@ function ManagerOrder() {
                         style={{ width: '25%', height: 32 }}
                         placeholder="Theo id tăng dần"
                         name="sort"
-                        onChange={handleSelectSort}>
+                        onChange={handleSelectSort}
+                    >
                         <Option value="asc">Theo id tăng dần</Option>
                         <Option value="desc">Theo id giảm dần</Option>
                     </Select>
                     <DatePicker
-                    format="DD-MM-YYYY"
-                    onChange={
-                        (value)=>{
-                            setState({ ...state, start: value.format("YYYY-MM-DD") });
-                        }
-                    } placeholder="ngày bắt đầu" />
+                        format="DD-MM-YYYY"
+                        onChange={(value) => {
+                            setState({ ...state, start: value.format('YYYY-MM-DD') });
+                        }}
+                        placeholder="ngày bắt đầu"
+                    />
                     <DatePicker
                         format="DD-MM-YYYY"
-                        onChange={
-                            (value)=>{
-                                setState({ ...state, end: value.format("YYYY-MM-DD") });
-                            }
-                        } placeholder="ngày kết thúc" />
+                        onChange={(value) => {
+                            setState({ ...state, end: value.format('YYYY-MM-DD') });
+                        }}
+                        placeholder="ngày kết thúc"
+                    />
                     <Select
                         className={cx('input-select')}
                         style={{ width: '25%', height: 32 }}
                         placeholder="Chọn khoảng giá"
                         name="sort"
-                        onChange={(value) =>{
-                            const rangePrice = value.split("-");
-                            setState({ ...state, rangeTotalPriceStart: rangePrice[0], rangeTotalPriceEnd: rangePrice[1] });
-                        }}>
+                        onChange={(value) => {
+                            const rangePrice = value.split('-');
+                            setState({
+                                ...state,
+                                rangeTotalPriceStart: rangePrice[0],
+                                rangeTotalPriceEnd: rangePrice[1],
+                            });
+                        }}
+                    >
                         <Option value="">Chọn khoảng giá</Option>
                         <Option value="1000-3000">1000-3000</Option>
                         <Option value="4000-5000">4000-5000</Option>

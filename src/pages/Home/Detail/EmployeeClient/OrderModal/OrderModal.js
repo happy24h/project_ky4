@@ -36,8 +36,11 @@ function OrderModal() {
 
     useEffect(() => {
         getAllService();
+
+        createOder();
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [dataCreateOrder.id]);
 
     //B3: Lấy danh sách
 
