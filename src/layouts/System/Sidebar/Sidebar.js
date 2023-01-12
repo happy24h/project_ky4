@@ -2,14 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './Sidebar.module.scss';
 import MenuItem from './Menu/MenuItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faCalendarDay, faCartShopping,
-    faCircleInfo, faComment,
-    faHandScissors, faNetworkWired,
-    faNewspaper, faTicket,
-    faUser,
-    faUserGraduate,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCircleInfo, faDashboard, faTable, faUser, faUserGraduate } from '@fortawesome/free-solid-svg-icons';
 // import { faBlogger } from '@fortawesome/free-brands-svg-icons';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -18,18 +11,36 @@ function Sidebar() {
     const { t } = useTranslation();
     const MENU_ITEMS = [
         {
+            icon: <FontAwesomeIcon icon={faDashboard} />,
+            title: t('systemSidebar.dashboard.title'),
+            data: [
+                {
+                    title: t('systemSidebar.dashboard.data.title_booking'),
+                    to: '/system/manage-dash-board-booking',
+                },
+                {
+                    title: t('systemSidebar.dashboard.data.title_service'),
+                    to: '/system/manage-dash-board-service',
+                },
+                {
+                    title: t('systemSidebar.dashboard.data.title_order'),
+                    to: '/system/manage-dash-board-order',
+                },
+            ],
+        },
+        {
             icon: <FontAwesomeIcon icon={faUser} />,
             title: t('systemSidebar.accounts.title'),
             data: [
                 {
                     title: t('systemSidebar.accounts.data.list'),
                     to: '/system/manage-user',
-                    permission: ["ADMIN","RECEPTIONISTS"],
+                    permission: ['ADMIN', 'RECEPTIONISTS'],
                 },
                 {
                     title: t('systemSidebar.accounts.data.create'),
                     to: '/system/manage-user/add',
-                    permission: ["ADMIN"],
+                    permission: ['ADMIN'],
                 },
             ],
         },
@@ -40,12 +51,12 @@ function Sidebar() {
                 {
                     title: t('systemSidebar.blog.data.list'),
                     to: '/system/manage-blog/add',
-                    permission: ["ADMIN","CUSTOMER_CARE"],
+                    permission: ['ADMIN', 'CUSTOMER_CARE'],
                 },
                 {
                     title: t('systemSidebar.blog.data.create'),
                     to: '/system/manage-blog',
-                    permission: ["ADMIN","CUSTOMER_CARE"],
+                    permission: ['ADMIN', 'CUSTOMER_CARE'],
                 },
             ],
         },
@@ -56,12 +67,12 @@ function Sidebar() {
                 {
                     title: t('systemSidebar.booking.data.list'),
                     to: '/system/manage-booking',
-                    permission: ["ADMIN","RECEPTIONISTS","STAFF","CUSTOMER_CARE"],
+                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
                 },
                 {
                     title: t('systemSidebar.booking.data.create'),
                     to: '/system/manage-booking/add',
-                    permission: ["ADMIN"],
+                    permission: ['ADMIN'],
                 },
             ],
         },
@@ -72,12 +83,12 @@ function Sidebar() {
                 {
                     title: t('systemSidebar.branch.data.list'),
                     to: '/system/manage-branch',
-                    permission: ["ADMIN","RECEPTIONISTS","STAFF","CUSTOMER_CARE"],
+                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
                 },
                 {
                     title: t('systemSidebar.branch.data.create'),
                     to: '/system/manage-branch/add',
-                    permission: ["ADMIN"],
+                    permission: ['ADMIN'],
                 },
             ],
         },
@@ -87,23 +98,23 @@ function Sidebar() {
             data: [
                 {
                     title: t('systemSidebar.service.data.list'),
-                    to: '/system/manage-booking',
-                    permission: ["ADMIN","RECEPTIONISTS","STAFF","CUSTOMER_CARE"],
+                    to: '/system/manage-service',
+                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
                 },
                 {
                     title: t('systemSidebar.service.data.create'),
-                    to: '/system/manage-booking/add',
-                    permission: ["ADMIN"],
+                    to: '/system/manage-service/add',
+                    permission: ['ADMIN'],
                 },
                 {
                     title: t('systemSidebar.type_service.data.list'),
                     to: '/system/manage-type-service',
-                    permission: ["ADMIN","RECEPTIONISTS","STAFF","CUSTOMER_CARE"],
+                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
                 },
                 {
                     title: t('systemSidebar.type_service.data.create'),
                     to: '/system/manage-type-service/add',
-                    permission: ["ADMIN"],
+                    permission: ['ADMIN'],
                 },
             ],
         },
@@ -114,12 +125,12 @@ function Sidebar() {
                 {
                     title: t('systemSidebar.feedback.data.list'),
                     to: '/system/manage-feedback',
-                    permission: ["ADMIN","CUSTOMER_CARE"],
+                    permission: ['ADMIN', 'CUSTOMER_CARE'],
                 },
                 {
                     title: t('systemSidebar.feedback.data.create'),
                     to: '/system/manage-feedback/add',
-                    permission: ["ADMIN","RECEPTIONISTS","STAFF","CUSTOMER_CARE"],
+                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
                 },
             ],
         },
@@ -130,12 +141,12 @@ function Sidebar() {
                 {
                     title: t('systemSidebar.voucher.data.list'),
                     to: '/system/manage-voucher',
-                    permission: ["ADMIN"],
+                    permission: ['ADMIN'],
                 },
                 {
                     title: t('systemSidebar.voucher.data.create'),
                     to: '/system/manage-voucher/add',
-                    permission: ["ADMIN"],
+                    permission: ['ADMIN'],
                 },
             ],
         },
@@ -146,7 +157,12 @@ function Sidebar() {
                 {
                     title: t('systemSidebar.feedback.data.list'),
                     to: '/system/manage-feedback',
-                    permission: ["ADMIN","CUSTOMER_CARE"],
+                    permission: ['ADMIN', 'CUSTOMER_CARE'],
+                },
+                {
+                    title: t('systemSidebar.feedback.data.create'),
+                    to: '/system/manage-feedback/add',
+                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
                 },
             ],
         },
@@ -157,7 +173,7 @@ function Sidebar() {
                 {
                     title: 'Danh sách hóa đơn',
                     to: '/system/manage-order',
-                    permission: ["ADMIN"],
+                    permission: ['ADMIN'],
                 },
             ],
         },

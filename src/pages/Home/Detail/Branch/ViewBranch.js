@@ -10,7 +10,7 @@ import { getBooking } from '~/redux/booking/apiBooking';
 
 const cx = classNames.bind(styles);
 
-function DetailWebsite() {
+function ViewBranch() {
     const [state, setState] = useState();
     const dispatch = useDispatch();
     const { id } = useParams();
@@ -129,4 +129,4 @@ function DetailWebsite() {
     );
 }
 
-export default DetailWebsite;
+export default ViewBranch;
