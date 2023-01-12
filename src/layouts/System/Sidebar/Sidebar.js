@@ -5,14 +5,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faCalendarDay,
     faCartShopping,
-    faCircleInfo,
     faComment,
     faHandScissors,
     faNetworkWired,
     faNewspaper,
     faTicket,
     faUser,
-    faUserGraduate,
 } from '@fortawesome/free-solid-svg-icons';
 // import { faBlogger } from '@fortawesome/free-brands-svg-icons';
 import { useTranslation } from 'react-i18next';
@@ -43,12 +41,12 @@ function Sidebar() {
             data: [
                 {
                     title: t('systemSidebar.blog.data.list'),
-                    to: '/system/manage-blog/add',
+                    to: '/system/manage-blog',
                     permission: ['ADMIN', 'CUSTOMER_CARE'],
                 },
                 {
                     title: t('systemSidebar.blog.data.create'),
-                    to: '/system/manage-blog',
+                    to: '/system/manage-blog/add',
                     permission: ['ADMIN', 'CUSTOMER_CARE'],
                 },
             ],
