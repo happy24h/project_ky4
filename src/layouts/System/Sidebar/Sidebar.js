@@ -150,11 +150,6 @@ function Sidebar() {
                     to: '/system/manage-feedback',
                     permission: ['ADMIN', 'CUSTOMER_CARE'],
                 },
-                {
-                    title: t('systemSidebar.feedback.data.create'),
-                    to: '/system/manage-feedback/add',
-                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
-                },
             ],
         },
         {
