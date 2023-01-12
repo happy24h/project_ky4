@@ -2,7 +2,16 @@ import classNames from 'classnames/bind';
 import styles from './Sidebar.module.scss';
 import MenuItem from './Menu/MenuItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleInfo, faDashboard, faTable, faUser, faUserGraduate } from '@fortawesome/free-solid-svg-icons';
+import {
+    faCalendarDay,
+    faCartShopping,
+    faComment,
+    faHandScissors,
+    faNetworkWired,
+    faNewspaper,
+    faTicket,
+    faUser,
+} from '@fortawesome/free-solid-svg-icons';
 // import { faBlogger } from '@fortawesome/free-brands-svg-icons';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -50,12 +59,12 @@ function Sidebar() {
             data: [
                 {
                     title: t('systemSidebar.blog.data.list'),
-                    to: '/system/manage-blog/add',
+                    to: '/system/manage-blog',
                     permission: ['ADMIN', 'CUSTOMER_CARE'],
                 },
                 {
                     title: t('systemSidebar.blog.data.create'),
-                    to: '/system/manage-blog',
+                    to: '/system/manage-blog/add',
                     permission: ['ADMIN', 'CUSTOMER_CARE'],
                 },
             ],
@@ -158,11 +167,6 @@ function Sidebar() {
                     title: t('systemSidebar.feedback.data.list'),
                     to: '/system/manage-feedback',
                     permission: ['ADMIN', 'CUSTOMER_CARE'],
-                },
-                {
-                    title: t('systemSidebar.feedback.data.create'),
-                    to: '/system/manage-feedback/add',
-                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
                 },
             ],
         },
