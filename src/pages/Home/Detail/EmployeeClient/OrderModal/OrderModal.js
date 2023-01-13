@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Row, Tag, Checkbox, Button } from 'antd';
+// import { Row, Tag, Checkbox, Button } from 'antd';
 import NumberFormat from 'react-number-format';
 import axios from 'axios';
 
@@ -22,7 +22,6 @@ function OrderModal() {
         name_booking: '',
         phone: '',
         email: '',
-
         service: '',
         isShowLoading: false,
     });
@@ -39,7 +38,7 @@ function OrderModal() {
         getAllService();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dataCreateOrder.id]);
+    }, []);
 
     //B3: Lấy danh sách
 
@@ -60,8 +59,7 @@ function OrderModal() {
     };
     console.log('check state modal', state);
 
-    const handleCheckbox = (item) => {
-        // alert('service_id = ' + item.service_id + ' and price = ' + item.price);
+    const handleSelectService = (item) => {
         setDataPrice((prev) => {
             return [...prev, { service_id: item.service_id, unit_price: item.price }];
         });
@@ -82,6 +80,7 @@ function OrderModal() {
             orderDetails: [...dataPrice],
         };
         await createOderDetail(dataService, dispatch, user?.accessToken);
+        setDataPrice([]);
     };
     const handleClose = () => {
         navigate('/');
@@ -157,7 +156,7 @@ function OrderModal() {
                             </select>
                         </div>
                     </form>
-                    {/* <div> */}
+
                     <div className={cx('select-service')}>
                         <strong style={{ fontWeight: 'bold', fontSize: 14, marginBottom: 5 }}>Chọn dịch vụ</strong>
                         <div className={cx('wrapper-cart')}>
@@ -188,7 +187,14 @@ function OrderModal() {
                                             return (
                                                 <div key={index} className={cx('cart-item')}>
                                                     <span>Mã sản phẩm: {item.service_id}</span>
-                                                    <span>Giá: {item.unit_price} VND</span>
+                                                    <span>
+                                                        <NumberFormat
+                                                            value={item.unit_price}
+                                                            displayType={'text'}
+                                                            thousandSeparator={true}
+                                                            suffix={' VND'}
+                                                        />{' '}
+                                                    </span>
                                                     <div onClick={handleDelete}>
                                                         {' '}
                                                         <FontAwesomeIcon style={{ color: 'red' }} icon={faTrash} />
@@ -200,27 +206,6 @@ function OrderModal() {
                             )}
                         </div>
                     </div>
-                    {/* </div> */}
-                    {/* {listService?.content.map((item, index) => {
-                        return (
-                            <Row key={index} className="row-todo" justify="space-between">
-                                <Checkbox className="checkbox-row" onChange={() => handleCheckbox(item)}>
-                                    <div className="checkbox-todo">
-                                        <span>{item.service_name}</span>
-                                        <span className="checkbox-todo-price">
-                                            {' '}
-                                            <NumberFormat
-                                                value={item.price}
-                                                displayType={'text'}
-                                                thousandSeparator={true}
-                                                suffix={' VND'}
-                                            />{' '}
-                                        </span>
-                                    </div>
-                                </Checkbox>
-                            </Row>
-                        );
-                    })} */}
 
                     <div>
                         <div className="grid wide">
@@ -249,7 +234,7 @@ function OrderModal() {
                                                 <div className={cx('wrapper-btn')}>
                                                     <button
                                                         className={cx('btn-buy')}
-                                                        onClick={() => handleCheckbox(item)}
+                                                        onClick={() => handleSelectService(item)}
                                                     >
                                                         Chọn
                                                     </button>
@@ -261,16 +246,6 @@ function OrderModal() {
                             </div>
                         </div>
                     </div>
-
-                    {/* {dataPrice?.map((item, index) => {
-                        return (
-                            <div key={index} className={cx('cart-item')}>
-                                <span>Mã sản phẩm: {item.service_id}</span>--------
-                                <span>Giá {item.unit_price} VND</span>
-                                <button onClick={handleDelete}>delete</button>
-                            </div>
-                        );
-                    })} */}
                 </div>
                 <div className="modal__footer">
                     <button onClick={() => handleConfirmBooking()}>Xác nhận</button>
