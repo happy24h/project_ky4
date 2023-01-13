@@ -26,7 +26,7 @@ function ManagerTypeService() {
         end:"",
         limit:4,
         page:page,
-        sort:"asc"
+        sort:"desc"
     }
 
     useEffect(() => {

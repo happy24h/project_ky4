@@ -25,7 +25,7 @@ function ManageBranch() {
         end: '',
         page: 1,
         limit: 6,
-        sort: 'asc',
+        sort: 'desc',
         status: '',
     };
 

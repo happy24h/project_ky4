@@ -108,7 +108,7 @@ function ManageUser() {
         end: '',
         page: page,
         limit: lineNumber,
-        sort: 'asc',
+        sort: 'desc',
         role_id: '',
         member_ship_class_id: '',
         status: '',
