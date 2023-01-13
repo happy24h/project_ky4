@@ -64,7 +64,7 @@ export const getDetailOrder = async (id, dispatch, accessToken) => {
         });
         dispatch(orderDetailSuccess(res.data));
     } catch (err) {
-        dispatch(orderDetailFailed(err.response.data));
+        dispatch(orderDetailFailed());
         toast.error(err.response.data);
     }
 };

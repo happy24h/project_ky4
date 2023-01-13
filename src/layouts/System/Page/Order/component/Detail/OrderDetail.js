@@ -19,9 +19,10 @@ function OrderDetail() {
     const [statusOrderDetailChange, setStatusOrderDetailChange] = useState(false);
 
     useEffect(() => {
+        getDetailBooking(orderDetail[0]?.order?.booking_id, dispatch);
         getDetailOrder(id, dispatch, user?.accessToken);
-        getDetailBooking(orderDetail[0]?.order.booking_id, dispatch);
-    }, [statusOrderDetailChange]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id || statusOrderDetailChange]);
 
     const handleChangeStatus = (e) => {
         if (e.target.value !== '') {
