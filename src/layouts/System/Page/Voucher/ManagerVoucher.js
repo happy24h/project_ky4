@@ -37,7 +37,7 @@ function ManagerVoucher() {
         status:"",
         limit:lineNumber,
         page:page,
-        sort:""
+        sort:"desc"
     };
 
     let totalState = state?.name + state?.voucher_code + state?.is_used;

@@ -26,7 +26,7 @@ function ManagerService() {
         end: '',
         limit: 5,
         page: page,
-        sort: 'asc',
+        sort: 'desc',
     };
 
     useEffect(() => {

@@ -28,7 +28,7 @@ function Employee({ settings }) {
         page: 1,
         limit: 6,
         sort: 'asc',
-        role_id: '1' || '3',
+        role_id:'3',
         member_ship_class_id: '',
         status: '',
     };
