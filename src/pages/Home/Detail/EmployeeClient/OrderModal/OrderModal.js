@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Row, Tag, Checkbox, Button } from 'antd';
 import NumberFormat from 'react-number-format';
+import axios from 'axios';
 
 import { faCartShopping, faSpinner, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -31,13 +32,11 @@ function OrderModal() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.login?.currentUser);
-    const dataCreateOrder = useSelector((state) => state.order.order?.createData);
+    var dataCreateOrder = useSelector((state) => state.order.order?.createData);
     const listService = useSelector((state) => state.service.service?.serviceCurrent);
 
     useEffect(() => {
         getAllService();
-
-        createOder();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dataCreateOrder.id]);
@@ -68,12 +67,18 @@ function OrderModal() {
         });
     };
     console.log('check box', dataPrice);
+    console.log('test create 2', dataCreateOrder.id);
 
     const handleConfirmBooking = async () => {
-        await createOder(values, dispatch, user?.accessToken);
-        console.log('test create', dataCreateOrder.id);
+        // await createOder(values, dispatch, user?.accessToken);
+        // console.log('test create', dataCreateOrder.id);
+
+        const res = await axios.post('http://localhost:8078/api/v1/order/create', values, {
+            headers: { Authorization: `Bearer ${user?.accessToken}` },
+        });
+        console.log('res check,', res.data);
         const dataService = {
-            order_id: +dataCreateOrder.id,
+            order_id: res.data.id,
             orderDetails: [...dataPrice],
         };
         await createOderDetail(dataService, dispatch, user?.accessToken);
