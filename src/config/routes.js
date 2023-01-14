@@ -9,7 +9,7 @@ const routes = {
     contact: '/contact',
     hairStyle: '/hairStyle',
     viewBranch: '/detail-learn-branch/:id',
-    detailCourse: '/detail-course/:id',
+    detailServiceHome: '/detail-service/:id',
     detailEmployee: '/detail-employee/:id',
     orderModal: '/order-modal/:id',
 
@@ -53,7 +53,6 @@ const routes = {
     detailService: 'system/manage-service/detail/:id',
     editService: 'system/manage-service/edit/:id',
 
-
     //Type Service
     manageTypeService: 'system/manage-type-service',
     addTypeService: 'system/manage-type-service/add',
@@ -64,20 +63,16 @@ const routes = {
     manageOrder: '/system/manage-order',
     detailOrder: '/system/manage-order/detail/:id',
 
-
-
     //Dashboard
 
-    manageDashBoardSerivce:"system/manage-dash-board-service",
-    manageDashBoardBooking:"system/manage-dash-board-booking",
-    manageDashBoardOrder:"system/manage-dash-board-order",
-    manageTable:'system/manage-table-system',
-
+    manageDashBoardSerivce: 'system/manage-dash-board-service',
+    manageDashBoardBooking: 'system/manage-dash-board-booking',
+    manageDashBoardOrder: 'system/manage-dash-board-order',
+    manageTable: 'system/manage-table-system',
 
     //Type Service
     manageVoucher: 'system/manage-voucher',
     addVoucher: 'system/manage-voucher/add',
-
 };
 
 export default routes;

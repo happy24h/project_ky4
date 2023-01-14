@@ -11,7 +11,7 @@ import Contact from '~/pages/Contact';
 import HairStyle from '~/pages/HairStyle';
 import Blog from '~/pages/Blog';
 import ViewBranch from '~/pages/Home/Detail/Branch';
-import DetailCourse from '~/pages/Home/Detail/Course';
+import DetailServiceHome from '~/pages/Home/Detail/Course';
 import DetailEmployee from '~/pages/Home/Detail/EmployeeClient/DetailEmployee';
 import OrderModal from '~/pages/Home/Detail/EmployeeClient/OrderModal';
 
@@ -61,8 +61,6 @@ import ManageDashBoardService from '~/layouts/System/Page/DasBoard/DashboardServ
 import ManagerVoucher from '~/layouts/System/Page/Voucher/ManagerVoucher';
 import AddVoucher from '~/layouts/System/Page/Voucher/component/Add/AddVoucher';
 
-
-
 const publicRouters = [
     { path: config.routes.home, component: Home },
     { path: config.routes.service, component: Service },
@@ -72,7 +70,7 @@ const publicRouters = [
     { path: config.routes.hairStyle, component: HairStyle },
     { path: config.routes.learn, component: Learn, changeLayout: HeaderOnly },
     { path: config.routes.viewBranch, component: ViewBranch, changeLayout: HeaderOnly },
-    { path: config.routes.detailCourse, component: DetailCourse, changeLayout: HeaderOnly },
+    { path: config.routes.detailServiceHome, component: DetailServiceHome, changeLayout: HeaderOnly },
     { path: config.routes.detailEmployee, component: DetailEmployee, changeLayout: HeaderOnly },
     { path: config.routes.orderModal, component: OrderModal, changeLayout: HeaderOnly },
     { path: config.routes.login, component: Login, changeLayout: null },
@@ -130,12 +128,9 @@ const privateRoutes = [
     { path: config.routes.manageDashBoardOrder, component: ManageDashBoardOrder },
     { path: config.routes.manageDashBoardSerivce, component: ManageDashBoardService },
 
-
     // voucher
     { path: config.routes.manageVoucher, component: ManagerVoucher },
     { path: config.routes.addVoucher, component: AddVoucher },
-
-
 ];
 
 export { publicRouters, privateRoutes };

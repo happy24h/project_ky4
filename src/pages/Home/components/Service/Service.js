@@ -1,39 +1,34 @@
 import { useState, useEffect } from 'react';
 import Slider from 'react-slick';
-// import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { useNavigate } from 'react-router-dom';
-import * as userService from '~/services/userService';
+// import * as userService from '~/services/userService';
 import classNames from 'classnames/bind';
 import styles from '../ContentSlider/ContentSlider.module.scss';
-import { dataCoursesFake } from '../../../../assets/dataFake/dataService';
+// import { dataCoursesFake } from '../../../../assets/dataFake/dataService';
+import { getAllService } from '~/redux/service/apiService';
+import { useSelector } from 'react-redux';
 const cx = classNames.bind(styles);
 
-function Courses({ settings }) {
+function Service({ settings }) {
     const navigate = useNavigate();
-    const [dataCourses, setDataCourses] = useState([]);
+
     // eslint-disable-next-line no-unused-vars
     const [loadData, setLoadData] = useState(false);
 
     useEffect(() => {
-        const fetchApi = async () => {
-            setLoadData(true);
-            const result = await userService.courses();
-            setDataCourses(result);
-            if (result && result.length > 0) {
-                console.log('check load data:');
-                setLoadData(false);
-            }
-        };
-        fetchApi();
+        getAllService();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleViewDetailCourses = (item) => {
-        navigate(`detail-course/${item.id}`);
-    };
-    let newDataCourse = dataCourses && dataCourses.length > 0 ? dataCourses : dataCoursesFake;
+    //B3: Lấy danh sách
+    const listService = useSelector((state) => state.service.service?.serviceCurrent?.content);
 
-    // console.log('data courses', dataCourses);
+    const handleViewDetailCourses = (item) => {
+        navigate(`detail-service/${item.service_id}`);
+    };
+    // let newDataCourse = dataCourses && dataCourses.length > 0 ? dataCourses : dataCoursesFake;
+
     return (
         <div className="section-share section-specialty">
             <div className="section-container">
@@ -44,9 +39,9 @@ function Courses({ settings }) {
 
                 <div className={cx('slider')}>
                     <Slider className={cx('container')} {...settings}>
-                        {newDataCourse &&
-                            newDataCourse.length > 0 &&
-                            newDataCourse.map((item, index) => (
+                        {listService &&
+                            listService.length > 0 &&
+                            listService.map((item, index) => (
                                 <div
                                     key={index}
                                     className="section-customize"
@@ -54,9 +49,9 @@ function Courses({ settings }) {
                                 >
                                     <div
                                         className="bg-image section-specialty"
-                                        style={{ backgroundImage: `url(${item.image})` }}
+                                        style={{ backgroundImage: `url(${item.thumbnail})` }}
                                     ></div>
-                                    <div className="name-specialty">{item.name}</div>
+                                    <div className="name-specialty">{item.service_name}</div>
                                 </div>
                             ))}
                     </Slider>
@@ -72,4 +67,4 @@ function Courses({ settings }) {
     );
 }
 
-export default Courses;
+export default Service;
