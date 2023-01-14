@@ -35,6 +35,7 @@ function DetailService() {
                     style={{
                         width: 240,
                     }}
+                    title="Avatar"
                     // cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
                 >
                     <div
@@ -49,11 +50,12 @@ function DetailService() {
                     extra={
                         <Link to={`/system/manage-service/edit/${id}`}>
                             <Button
-                                type="primary" style={{ background: '#fcaf17',
-                                display: user.roles.map(item => (
-                                    item === "ADMIN" ? "block" : "none"
-                                ))
-                            }}>
+                                type="primary"
+                                style={{
+                                    background: '#fcaf17',
+                                    display: user.roles.map((item) => (item === 'ADMIN' ? 'block' : 'none')),
+                                }}
+                            >
                                 {' '}
                                 <EditOutlined />
                                 Sửa dịch vụ
@@ -73,13 +75,16 @@ function DetailService() {
                         <strong>Giá:</strong> <span className={cx('text-detail')}>{detailService?.price}</span>
                     </List>
                     <List className={cx('list-detail')}>
-                        <strong>Loại dịch vụ:</strong> <span className={cx('text-detail')}>{detailService?.typeService.name}</span>
+                        <strong>Loại dịch vụ:</strong>{' '}
+                        <span className={cx('text-detail')}>{detailService?.typeService.name}</span>
                     </List>
                     <List className={cx('list-detail')}>
-                        <strong>Ngày tạo:</strong> <span className={cx('text-detail')}>{detailService?.created_at}</span>
+                        <strong>Ngày tạo:</strong>{' '}
+                        <span className={cx('text-detail')}>{detailService?.created_at}</span>
                     </List>
                     <List className={cx('list-detail')}>
-                        <strong>Ngày cập nhật:</strong> <span className={cx('text-detail')}>{detailService?.updated_at}</span>
+                        <strong>Ngày cập nhật:</strong>{' '}
+                        <span className={cx('text-detail')}>{detailService?.updated_at}</span>
                     </List>
                 </Card>
             </div>
@@ -87,4 +92,4 @@ function DetailService() {
     );
 }
 
-export default DetailService
+export default DetailService;

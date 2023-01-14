@@ -13,6 +13,7 @@ import { createOder, createOderDetail } from '~/redux/order/apiOrder';
 import { getAllService } from '~/redux/service/apiService';
 import classNames from 'classnames/bind';
 import styles from './OrderModal.module.scss';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 // import moment from 'moment';
@@ -63,6 +64,7 @@ function OrderModal() {
         setDataPrice((prev) => {
             return [...prev, { service_id: item.service_id, unit_price: item.price }];
         });
+        toast.success('Thêm dịch vụ thành công !');
     };
     console.log('check box', dataPrice);
     console.log('test create 2', dataCreateOrder.id);
@@ -92,6 +94,8 @@ function OrderModal() {
             data.splice(index, 1);
             return data;
         });
+
+        toast.success('Delete success');
     };
 
     return (
@@ -182,26 +186,28 @@ function OrderModal() {
                                             Chưa chọn sản phẩm
                                         </div>
                                     )}
-                                    {dataPrice &&
-                                        dataPrice?.map((item, index) => {
-                                            return (
-                                                <div key={index} className={cx('cart-item')}>
-                                                    <span>Mã sản phẩm: {item.service_id}</span>
-                                                    <span>
-                                                        <NumberFormat
-                                                            value={item.unit_price}
-                                                            displayType={'text'}
-                                                            thousandSeparator={true}
-                                                            suffix={' VND'}
-                                                        />{' '}
-                                                    </span>
-                                                    <div onClick={handleDelete}>
-                                                        {' '}
-                                                        <FontAwesomeIcon style={{ color: 'red' }} icon={faTrash} />
+                                    <div className={cx('wrapper-cart-item')}>
+                                        {dataPrice &&
+                                            dataPrice?.map((item, index) => {
+                                                return (
+                                                    <div key={index} className={cx('cart-item')}>
+                                                        <span>Mã sản phẩm: {item.service_id}</span>
+                                                        <span>
+                                                            <NumberFormat
+                                                                value={item.unit_price}
+                                                                displayType={'text'}
+                                                                thousandSeparator={true}
+                                                                suffix={' VND'}
+                                                            />{' '}
+                                                        </span>
+                                                        <div onClick={handleDelete}>
+                                                            {' '}
+                                                            <FontAwesomeIcon style={{ color: 'red' }} icon={faTrash} />
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            );
-                                        })}
+                                                );
+                                            })}
+                                    </div>
                                 </div>
                             )}
                         </div>

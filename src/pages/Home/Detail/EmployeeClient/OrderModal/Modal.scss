@@ -60,6 +60,7 @@
 
 .modal__inner {
     width: 900px;
+    min-height: 580px;
     position: relative;
     top: 30px;
     margin: auto;
@@ -75,6 +76,7 @@
     padding: 15px;
     background: var(--primary);
     color: white;
+    // min-height: 600px;
 }
 
 .modal__header span {

@@ -4,6 +4,10 @@ import { useEffect, useState } from 'react';
 import { deleteService, getAllService } from '~/redux/service/apiService';
 import { Space, Table, Button, Form, Tag, Card } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import classNames from 'classnames/bind';
+import styles from './ManageService.module.scss';
+
+const cx = classNames.bind(styles);
 
 function ManagerService() {
     const [page, setPage] = useState(1);
@@ -44,12 +48,7 @@ function ManagerService() {
             dataIndex: 'service_id',
             key: 'service_id',
         },
-        {
-            title: 'Ảnh',
-            dataIndex: 'thumbnail',
-            key: 'thumbnail',
-            render: (text) => <img src={text} width="35%" />,
-        },
+
         {
             title: 'Tiêu đề',
             dataIndex: 'service_name',
@@ -80,6 +79,18 @@ function ManagerService() {
                         return <Tag color="red">Đã xóa</Tag>;
                     default:
                         return <Tag color="success">Hoạt động</Tag>;
+                }
+            },
+        },
+        {
+            title: 'Thumbnail',
+            dataIndex: 'thumbnail',
+            key: 'thumbnail',
+            render: (text) => {
+                if (text?.length > 9) {
+                    return <div className={cx('thumbnail-account')} style={{ backgroundImage: `url(${text})` }}></div>;
+                } else {
+                    return <div className={cx('thumbnail-account')}></div>;
                 }
             },
         },

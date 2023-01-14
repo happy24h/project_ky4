@@ -104,6 +104,11 @@
 //     display: block;
 // }
 
+.wrapper-cart-item {
+    overflow-y: scroll;
+    height: 208px;
+}
+
 .cart-item {
     display: flex;
     justify-content: space-between;
