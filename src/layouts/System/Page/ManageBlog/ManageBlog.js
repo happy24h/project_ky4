@@ -70,7 +70,7 @@ function ManageBlog() {
             title: 'Account',
             dataIndex: 'account',
             key: 'account',
-            render: (text) => <span>{text.name}</span>,
+            render: (text) => <span>{text?.name}</span>,
         },
         {
             title: 'Content',
@@ -119,7 +119,7 @@ function ManageBlog() {
                 <Input.Group className={cx('input-group')} compact>
                     <Input
                         style={{ width: '30%', height: 32 }}
-                        placeholder="Search title"
+                        placeholder="Tìm theo tiêu đề"
                         name="title"
                         value={state?.title}
                         onChange={handleOnchangeInput}
@@ -127,7 +127,7 @@ function ManageBlog() {
 
                     <Input
                         style={{ width: '30%', height: 32 }}
-                        placeholder="Search auth name"
+                        placeholder="Tìm theo tên tác giả"
                         name="account"
                         value={state?.account}
                         onChange={handleOnchangeInput}

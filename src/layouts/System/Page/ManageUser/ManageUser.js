@@ -153,7 +153,7 @@ function ManageUser() {
                 <Input.Group className={cx('input-group')} compact>
                     <Input
                         style={{ width: '30%', height: 32 }}
-                        placeholder="Search name"
+                        placeholder="Tìm theo tên"
                         name="name"
                         value={state?.name}
                         onChange={handleOnchangeInput}
@@ -161,14 +161,14 @@ function ManageUser() {
 
                     <Input
                         style={{ width: '30%', height: 32 }}
-                        placeholder="Search email"
+                        placeholder="Tìm theo email"
                         name="email"
                         value={state?.email}
                         onChange={handleOnchangeInput}
                     />
                     <Input
                         style={{ width: '20%', height: 32 }}
-                        placeholder="Search phone"
+                        placeholder="Tìm theo điện thoại"
                         name="phone"
                         value={state?.phone}
                         onChange={handleOnchangeInput}
@@ -176,7 +176,7 @@ function ManageUser() {
                     <Select
                         className={cx('input-select')}
                         style={{ width: '20%', height: 32 }}
-                        placeholder="Gender"
+                        placeholder="Giới tính"
                         name="gender"
                         // defaultValue="Gender"
                         onChange={handleSelectChange}
@@ -262,7 +262,7 @@ function ManageUser() {
             <div className="container" style={{ width: '1200px', margin: '0 auto' }}>
                 <Card
                     size="small"
-                    title="Total Accounts"
+                    title="Tổng tài khoản"
                     // extra={<a href="#">More</a>}
                     style={{
                         width: 160,
@@ -271,7 +271,7 @@ function ManageUser() {
                     }}
                 >
                     <h3 style={{ fontSize: '28px' }}>{listAccount?.totalItems}</h3>
-                    <p>Accounts</p>
+                    <p>Tài khoản</p>
                 </Card>
 
                 <Table

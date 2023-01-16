@@ -3,13 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { deleteService, getAllService } from '~/redux/service/apiService';
 import { deleteForTypeService, searchTypeService } from '~/redux/type_service/apiTypeService';
-import { Button, Card, Form, Space, Table, Tag } from 'antd';
+import { Button, Card, Form, Input, Space, Table, Tag } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import classNames from 'classnames/bind';
+import styles from './ManageTypeService.module.scss';
 
+const cx = classNames.bind(styles);
 function ManagerTypeService() {
     const [page, setPage] = useState(1);
     const [loadApi, setloadApi] = useState(false);
-
+    const [state, setState] = useState({
+        name: '',
+    });
     //B1: Gọi dispatch để gửi trạng thái reducer
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -20,7 +25,7 @@ function ManagerTypeService() {
 
     //B2: gọi api
     let data = {
-        name:"",
+        name:state?.name,
         status:"",
         start:"",
         end:"",
@@ -28,11 +33,11 @@ function ManagerTypeService() {
         page:page,
         sort:"desc"
     }
-
+    let totalState = state?.name;
     useEffect(() => {
         searchTypeService(data, dispatch);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [loadApi || page]);
+    }, [loadApi || page,totalState]);
 
     //B3: Lấy danh sách
     const typeServices = useSelector((state) => state.typeService.typeService?.typeServiceCurrent);
@@ -96,7 +101,11 @@ function ManagerTypeService() {
         deleteForTypeService(type_service?.id,dispatch,user?.accessToken);
         setloadApi(!loadApi);
     };
+    const handleOnchangeInput = (e) => {
+        let { name, value } = e.target;
 
+        setState({ ...state, [name]: value });
+    };
     return (
         <div style={{ marginTop: '120px' }}>
             <div className="container" style={{ width: '1200px', margin: '0 auto' }}>
@@ -122,6 +131,19 @@ function ManagerTypeService() {
                 <Table
                     columns={columns}
                     // { listAccount && listAccount.length > 0 ? dataSource={listAccount} : null}
+                    title={ () =>
+                        <div className={cx('wrapper-input-group')}>
+                            <Input.Group className={cx('input-group')} compact>
+                                <Input
+                                    style={{ width: '30%', height: 32 }}
+                                    placeholder="Tìm theo tên"
+                                    name="name"
+                                    value={state?.name}
+                                    onChange={handleOnchangeInput}
+                                />
+                            </Input.Group>
+                        </div>
+                    }
                     dataSource={typeServices?.content}
                     pagination={{
                         pageSize: 4,
