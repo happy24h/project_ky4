@@ -14,6 +14,7 @@ import ViewBranch from '~/pages/Home/Detail/Branch';
 import DetailServiceHome from '~/pages/Home/Detail/Course';
 import DetailEmployee from '~/pages/Home/Detail/EmployeeClient/DetailEmployee';
 import OrderModal from '~/pages/Home/Detail/EmployeeClient/OrderModal';
+import ServiceClient from '~/pages/Home/Detail/ServiceClient';
 
 // System
 import ManageUser from '~/layouts/System/Page/ManageUser';
@@ -73,6 +74,7 @@ const publicRouters = [
     { path: config.routes.detailServiceHome, component: DetailServiceHome, changeLayout: HeaderOnly },
     { path: config.routes.detailEmployee, component: DetailEmployee, changeLayout: HeaderOnly },
     { path: config.routes.orderModal, component: OrderModal, changeLayout: HeaderOnly },
+    { path: config.routes.serviceClient, component: ServiceClient, changeLayout: HeaderOnly },
     { path: config.routes.login, component: Login, changeLayout: null },
     { path: config.routes.register, component: Register, changeLayout: null },
 ];

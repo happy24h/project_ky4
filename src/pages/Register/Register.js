@@ -18,6 +18,10 @@ function Register() {
             email: '',
             password: '',
             phone: '',
+            description: '',
+            thumbnail: '',
+            address: '',
+
             gender: '',
         },
         validationSchema: Yup.object({
@@ -41,6 +45,7 @@ function Register() {
             console.log(values);
             const dataRegister = {
                 ...values,
+
                 roles: [
                     {
                         name: 'ADMIN',

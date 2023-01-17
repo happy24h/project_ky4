@@ -9,7 +9,8 @@ const routes = {
     contact: '/contact',
     hairStyle: '/hairStyle',
     viewBranch: '/detail-learn-branch/:id',
-    detailServiceHome: '/detail-service/:id',
+    // detailServiceHome: '/detail-service/:id',
+    serviceClient: '/detail-service/:id',
     detailEmployee: '/detail-employee/:id',
     orderModal: '/order-modal/:id',
 

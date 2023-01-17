@@ -57,6 +57,7 @@ function AddAccount() {
             gender: '',
             thumbnail: '',
             address: '',
+            description: '',
         },
         validationSchema: Yup.object({
             name: Yup.string().required('Vui lòng nhập tên người dùng.').min(4, 'Tên phải lớn hơn 4 ký tự.'),
@@ -260,6 +261,23 @@ function AddAccount() {
                     </div>
                     <div className={cx('message')}>
                         {formik.errors.thumbnail && <p className="error">{formik.errors.thumbnail}</p>}
+                    </div>
+                </div>
+                <div className={cx('field')}>
+                    <div className={cx('customInput')}>
+                        <FontAwesomeIcon className={cx('inputicon')} icon={faImage} />
+                        <input
+                            className={cx('inputfield')}
+                            type="text"
+                            placeholder="description..."
+                            autoComplete="description"
+                            name="description"
+                            value={formik.values.description}
+                            onChange={formik.handleChange}
+                        />
+                    </div>
+                    <div className={cx('message')}>
+                        {formik.errors.description && <p className="error">{formik.errors.description}</p>}
                     </div>
                 </div>
 

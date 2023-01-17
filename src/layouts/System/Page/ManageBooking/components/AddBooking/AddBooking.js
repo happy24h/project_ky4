@@ -59,7 +59,7 @@ function AddBooking() {
         page: 1,
         limit: 15,
         sort: 'asc',
-        role_id: '1',
+        role_id: '3',
         member_ship_class_id: '',
         status: '',
     };

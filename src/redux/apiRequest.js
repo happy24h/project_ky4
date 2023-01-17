@@ -56,7 +56,7 @@ export const loginUser = async (user, dispatch, navigate) => {
 export const registerUser = async (user, dispatch, navigate) => {
     dispatch(registerStart());
     try {
-        await axios.post('http://localhost:8078/api/v1/register', user);
+        await axios.post('http://localhost:8078/api/v1/registerCustomer', user);
         dispatch(registerSuccess());
         navigate('/login');
         toast.success('Đăng ký thành công');

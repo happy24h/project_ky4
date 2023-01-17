@@ -3,7 +3,15 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAddressBook, faEnvelope, faPhone, faUser, faKey, faImage } from '@fortawesome/free-solid-svg-icons';
+import {
+    faAddressBook,
+    faEnvelope,
+    faPhone,
+    faUser,
+    faKey,
+    faImage,
+    faShieldCat,
+} from '@fortawesome/free-solid-svg-icons';
 import { editDetailAccount, getDetailAccount } from '~/redux/apiRequest';
 import { Button } from 'antd';
 import classNames from 'classnames/bind';
@@ -19,6 +27,8 @@ function ModalEdit() {
     const user = useSelector((state) => state.auth.login?.currentUser);
 
     const detailAccount = useSelector((state) => state.account.account?.detailAccount);
+    const listRoles = useSelector((state) => state.role.role?.roleCurrent);
+    const [state, setState] = useState(detailAccount?.roles[0].name);
 
     useEffect(() => {
         getDetailAccount(id, dispatch, user?.accessToken);
@@ -35,7 +45,7 @@ function ModalEdit() {
         initialValues: {
             name: detailAccount?.name,
             email: detailAccount?.email,
-            password: detailAccount?.password,
+            password: 'a123456@',
             phone: detailAccount?.phone,
             gender: detailAccount?.gender,
             address: detailAccount?.address,
@@ -140,7 +150,7 @@ function ModalEdit() {
                         <FontAwesomeIcon className={cx('inputicon')} icon={faKey} />
                         <input
                             className={cx('inputfield')}
-                            type="password"
+                            type="text"
                             placeholder="Password.."
                             autoComplete="new-password"
                             name="password"
@@ -151,6 +161,33 @@ function ModalEdit() {
                     <div className={cx('message')}>
                         {formik.errors.password && <p className={cx('error')}>{formik.errors.password}</p>}
                     </div>
+                </div>
+                <div class="field">
+                    <div className={cx('customInput')}>
+                        <FontAwesomeIcon className={cx('inputicon')} icon={faShieldCat} />
+
+                        <select
+                            className={cx('inputfield')}
+                            name="roles"
+                            onChange={(e) => setState(e.target.value)}
+                            value={state}
+                        >
+                            <option value="">-- Choose --</option>
+
+                            {listRoles &&
+                                listRoles.length > 0 &&
+                                listRoles.map((item, index) => {
+                                    return (
+                                        <option key={index} value={item.name}>
+                                            {item.name}
+                                        </option>
+                                    );
+                                })}
+                        </select>
+                    </div>
+                    {/* <div className={cx('message')}>
+                        {!state && <p className={cx('error')}>Vui lòng nhập thông tin</p>}
+                    </div> */}
                 </div>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
@@ -188,7 +225,7 @@ function ModalEdit() {
                     </div>
                 </div>
 
-                <div className={cx('field submitfield')} style={{ width: '700px' }}>
+                <div className={cx('field submitfield')} style={{ width: '900px' }}>
                     <input className={cx('submit')} type="submit" value="Update User" />
                 </div>
             </form>
