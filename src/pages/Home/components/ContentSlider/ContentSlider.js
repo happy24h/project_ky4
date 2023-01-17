@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Courses from '../Courses';
+import Courses from '../Service';
 import Branch from '../Branch';
 import Teacher from '../Employee';
 import classNames from 'classnames/bind';

@@ -6,7 +6,8 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEgg, faImage, faShieldCat, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCircleDollarToSlot, faImage, faPenToSquare, faShieldCat, faTable } from '@fortawesome/free-solid-svg-icons';
+
 import classNames from 'classnames/bind';
 import styles from './EditService.module.scss';
 import { getUploadImage, uploadImage } from '~/redux/cloudImage/apiCloud';
@@ -85,7 +86,7 @@ function EditService() {
             <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '1000px' }}>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faUser} />
+                        <FontAwesomeIcon className={cx('inputicon')} icon={faTable} />
                         <input
                             className={cx('inputfield')}
                             type="text"
@@ -102,7 +103,7 @@ function EditService() {
                 </div>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faUser} />
+                        <FontAwesomeIcon className={cx('inputicon')} icon={faPenToSquare} />
                         <input
                             className={cx('inputfield')}
                             type="text"
@@ -117,46 +118,34 @@ function EditService() {
                         {formik.errors.description && <p className="error">{formik.errors.description}</p>}
                     </div>
                 </div>
-                <div className={cx('customInput')}>
-                    <FontAwesomeIcon className="inputicon" icon={faEgg} />
-                    <input
-                        className={cx('inputfield')}
-                        type="text"
-                        placeholder="Giá..."
-                        autoComplete="price"
-                        name="price"
-                        value={formik.values.price}
-                        onChange={formik.handleChange}
-                    />
+                <div className={cx('field')}>
+                    <div className={cx('customInput')}>
+                        <FontAwesomeIcon className="inputicon" icon={faCircleDollarToSlot} />
+                        <input
+                            className={cx('inputfield')}
+                            type="number"
+                            placeholder="Giá..."
+                            autoComplete="price"
+                            name="price"
+                            value={formik.values.price}
+                            onChange={formik.handleChange}
+                        />
+                    </div>
                     <div className={cx('message')}>
                         {formik.errors.price && <p className="error">{formik.errors.price}</p>}
                     </div>
                 </div>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <div>
-                            <tr>
-                                <td>File to upload:</td>
-                                <td>
-                                    <input type="file" onChange={handleFileChange} />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>
-                                    <button type="button" onClick={handleUploadClick}>
-                                        Upload
-                                    </button>
-                                </td>
-                            </tr>
-                        </div>
                         <FontAwesomeIcon className={cx('inputicon')} icon={faImage} />
                         <input
                             className={cx('inputfield')}
                             type="text"
-                            placeholder="ảnh dịch vụ..."
+                            placeholder="avatar..."
+                            autoComplete="thumbnail"
                             name="thumbnail"
                             value={formik.values.thumbnail}
+                            onChange={formik.handleChange}
                         />
                     </div>
                     <div className={cx('message')}>
@@ -193,7 +182,7 @@ function EditService() {
                 </div>
 
                 <div className={cx('field submitfield')} style={{ width: '850px', display: displayONOFF }}>
-                    <input className={cx('submit')} type="submit" value="Sửa" />
+                    <input className={cx('submit')} type="submit" value="Tạo" />
                 </div>
             </form>
         </div>

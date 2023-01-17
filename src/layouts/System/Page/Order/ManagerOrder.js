@@ -20,8 +20,7 @@ function ManagerOrder() {
         booking_id: '',
         voucher_id: '',
         status: '',
-
-        sort: '',
+        sort: 'desc',
         // voucher_id: '',
         time_booking: '',
         rangeTotalPriceStart: '',

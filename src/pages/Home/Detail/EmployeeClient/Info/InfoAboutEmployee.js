@@ -3,13 +3,20 @@ import NumberFormat from 'react-number-format';
 import './InfoAboutEmployee.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDetailBranch } from '~/redux/branch/apiBranch';
+// import NumericFormat from 'react-number-format';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faPhone } from '@fortawesome/free-solid-svg-icons';
+// import { PhoneFilled } from '@ant-design/icons';
 
 function InfoAboutEmployee({ EmployeeIdFromParent }) {
     const [showDetail, setShowDetail] = useState(false);
     const dispatch = useDispatch();
+
     const user = useSelector((state) => state.auth.login?.currentUser);
 
     const detailBranch = useSelector((state) => state.branch.branch?.detailData);
+    console.log('check detail branch', detailBranch);
+    console.log('check parent', EmployeeIdFromParent);
 
     useEffect(() => {
         getDetailBranch(EmployeeIdFromParent, dispatch, user?.accessToken);
@@ -35,10 +42,11 @@ function InfoAboutEmployee({ EmployeeIdFromParent }) {
                                 <span className="right">
                                     <NumberFormat
                                         className="currency"
-                                        value="0339007770"
+                                        value={detailBranch.hot_line}
                                         displayType={'text'}
-                                        // thousandSeparator={true}
+                                        thousandSeparator=" "
                                         suffix={''}
+                                        prefix="&#9742; "
                                     />
                                 </span>
                             </div>
