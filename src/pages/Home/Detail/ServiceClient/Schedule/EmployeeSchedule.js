@@ -68,11 +68,20 @@ function EmployeeSchedule() {
 
     return (
         <>
-            {' '}
-            <div className={cx('wrapper')}>
-                <div className="content-left">
-                    <div className="doctor-schedule-container">
-                        {/* <Card
+            <Card
+                size="small"
+                title="Đặt lịch"
+                extra={<DatePicker onChange={onChange} />}
+                style={{
+                    minHeight: 170,
+                    width: '100%',
+                    marginLeft: 20,
+                }}
+            >
+                <div className={cx('wrapper')}>
+                    <div className="content-left">
+                        <div className="doctor-schedule-container" style={{ paddingLeft: '0px ' }}>
+                            {/* <Card
                             title={<DatePicker onChange={onChange} />}
                             style={{
                                 width: 600,
@@ -80,46 +89,46 @@ function EmployeeSchedule() {
                                 backgroundColor: '#e5e5e5',
                             }}
                         > */}
-                        <DatePicker onChange={onChange} />
-                        <div className="grid wide">
-                            <div className="row">
-                                {listBooking?.content.map((item, index) => {
-                                    return (
-                                        <div key={index} className="col l-12 m-12 c-12">
-                                            <h3 style={{ fontSize: '20px' }}>Lịch khám</h3>
-                                            {/* <p>
+                            {/* <DatePicker onChange={onChange} /> */}
+                            <div className="grid wide">
+                                <div className="row">
+                                    {listBooking?.content.map((item, index) => {
+                                        return (
+                                            <div key={index} className="col l-12 m-12 c-12">
+                                                <h3 style={{ fontSize: '20px' }}>Lịch khám</h3>
+                                                {/* <p>
                                                 Ngày:{' '}
                                                 <span>{item.employee.bookingByTime_bookings[0].date_booking}</span>
                                             </p> */}
-                                            <div className={cx('wrapper-btn')}>
-                                                {item.employee.bookingByTime_bookings.map((item, index) => {
-                                                    return (
-                                                        <div key={index} style={{ marginRight: '6px' }}>
-                                                            <Button
-                                                                type="primary"
-                                                                className={cx('btn-booking')}
-                                                                onClick={() => handleTimeBooking(item.id)}
-                                                            >
-                                                                {item.time_booking}:00 - {item.time_booking}:30
-                                                            </Button>
-                                                        </div>
-                                                    );
-                                                })}
+                                                <div className={cx('wrapper-btn')}>
+                                                    {item.employee.bookingByTime_bookings.map((item, index) => {
+                                                        return (
+                                                            <div key={index} style={{ marginRight: '6px' }}>
+                                                                <Button
+                                                                    type="primary"
+                                                                    className={cx('btn-booking')}
+                                                                    onClick={() => handleTimeBooking(item.id)}
+                                                                >
+                                                                    {item.time_booking}:00 - {item.time_booking}:30
+                                                                </Button>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                                {/* </Card> */}
                                             </div>
-                                            {/* </Card> */}
-                                        </div>
-                                    );
-                                })}
-                                {listBooking?.content.length < 1 && (
-                                    <div className="col l-12 m-12 c-12">
-                                        <Card
+                                        );
+                                    })}
+                                    {listBooking?.content.length < 1 && (
+                                        <div className="col l-12 m-12 c-12">
+                                            {/* <Card
                                             size="small"
                                             title="Đặt lịch"
                                             // extra={<a href="#">More</a>}
                                             style={{
                                                 minHeight: 170,
                                             }}
-                                        >
+                                        > */}
                                             <h3 style={{ fontSize: '20px' }}>Chưa có lịch hẹn</h3>
                                             <p>
                                                 Ngày: <span>{today}</span>
@@ -129,22 +138,24 @@ function EmployeeSchedule() {
                                                     Vui lòng chọn ngày khác
                                                 </span>
                                             </div>
-                                        </Card>
-                                    </div>
-                                )}
+                                            {/* </Card> */}
+                                        </div>
+                                    )}
+                                </div>
                             </div>
-                        </div>
 
-                        {}
+                            {}
+                        </div>
+                    </div>
+                    <div className="content-right">
+                        <InfoAboutEmployee
+                            EmployeeIdFromParent={
+                                listBooking?.content[0]?.employee?.bookingByTime_bookings[0].branch_id
+                            }
+                        />
                     </div>
                 </div>
-                <div className="content-right">
-                    <InfoAboutEmployee
-                        EmployeeIdFromParent={listBooking?.content[0]?.employee?.bookingByTime_bookings[0].branch_id}
-                    />
-                </div>
-            </div>
-            {/* {modal && <Modal setModal={setModal} dataTime={dataTime} />} */}
+            </Card>
         </>
     );
 }
