@@ -15,7 +15,7 @@ function DetailEmployee() {
 
     useEffect(() => {
         getDetailAccount(id, dispatch, user?.accessToken);
-    }, []);
+    }, [id]);
 
     return (
         <div className="doctor-detail-container">
@@ -23,7 +23,7 @@ function DetailEmployee() {
                 <div
                     className="content-left"
                     style={
-                        detailAccount?.thumbnail && {
+                        {
                             backgroundImage: `url(${detailAccount.thumbnail})`,
                         }
                     }
