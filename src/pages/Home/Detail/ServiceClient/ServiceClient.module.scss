@@ -1,3 +1,36 @@
+.wrapper-content {
+    border: 1px solid #ccc;
+    min-height: 300px;
+    display: flex;
+    justify-items: center;
+    width: 1200px;
+    margin: 20px auto;
+}
+
+.content-employee {
+    display: flex;
+    width: 50%;
+}
+
+.content-left {
+    // width: 60px;
+    // height: 60px;
+    background-image: url('../../../../assets/images/no-image.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    // width: 20%;
+    // background: center center no-repeat;
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    margin: 10px 20px;
+}
+
+.content-right {
+    width: 400px;
+}
 .doctor-detail-container {
     height: 500px;
 

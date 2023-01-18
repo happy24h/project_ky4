@@ -33,7 +33,7 @@ function ModalEdit() {
     useEffect(() => {
         getDetailAccount(id, dispatch, user?.accessToken);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [loadApi]);
+    }, [id || loadApi]);
 
     const handleUpdateApi = () => {
         setLoadApi(!loadApi);
@@ -50,14 +50,7 @@ function ModalEdit() {
             gender: detailAccount?.gender,
             address: detailAccount?.address,
             thumbnail: detailAccount?.thumbnail,
-            roles: [
-                {
-                    name: 'ADMIN',
-                },
-                {
-                    name: 'STAFF',
-                },
-            ],
+            description: detailAccount?.description,
         },
         validationSchema: Yup.object({
             name: Yup.string().required('Vui lòng nhập tên người dùng.').min(4, 'Tên phải lớn hơn 4 ký tự.'),
@@ -77,9 +70,16 @@ function ModalEdit() {
             // ),
         }),
         onSubmit: (values) => {
-            console.log(values);
+            const submitValue = {
+                ...values,
+                roles: [
+                    {
+                        name: state,
+                    },
+                ],
+            };
 
-            editDetailAccount(id, values, dispatch, user?.accessToken, handleUpdateApi);
+            editDetailAccount(id, submitValue, dispatch, user?.accessToken, handleUpdateApi);
             // actions.resetForm();
         },
     });
@@ -222,6 +222,23 @@ function ModalEdit() {
                     </div>
                     <div className={cx('message')}>
                         {formik.errors.thumbnail && <p className="error">{formik.errors.thumbnail}</p>}
+                    </div>
+                </div>
+                <div className={cx('field')}>
+                    <div className={cx('customInput')}>
+                        <FontAwesomeIcon className={cx('inputicon')} icon={faImage} />
+                        <input
+                            className={cx('inputfield')}
+                            type="text"
+                            placeholder="description..."
+                            autoComplete="description"
+                            name="description"
+                            value={formik.values.description}
+                            onChange={formik.handleChange}
+                        />
+                    </div>
+                    <div className={cx('message')}>
+                        {formik.errors.description && <p className="error">{formik.errors.description}</p>}
                     </div>
                 </div>
 
