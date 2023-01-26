@@ -8,14 +8,11 @@ import styles from './InfoAboutEmployee.module.scss';
 const cx = classNames.bind(styles);
 
 function InfoAboutEmployee({ EmployeeIdFromParent }) {
-    const [showDetail, setShowDetail] = useState(false);
     const dispatch = useDispatch();
 
     const user = useSelector((state) => state.auth.login?.currentUser);
 
     const detailBranch = useSelector((state) => state.branch.branch?.detailData);
-    console.log('check detail branch', detailBranch);
-    console.log('check parent', EmployeeIdFromParent);
 
     useEffect(() => {
         getDetailBranch(EmployeeIdFromParent, dispatch, user?.accessToken);
@@ -53,9 +50,6 @@ function InfoAboutEmployee({ EmployeeIdFromParent }) {
                     </div>
 
                     <div className={cx('payment')}>Khác hàng có thể thanh toán chi phí bằng hình thức: Tiền mặt</div>
-                    {/* <div className="hide-price">
-                        <span onClick={() => setShowDetail(!showDetail)}>Ẩn bảng giá</span>
-                    </div> */}
                 </>
             </div>
         </div>

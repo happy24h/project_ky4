@@ -13,6 +13,9 @@ import {
     detailBookingStart,
     detailBookingSuccess,
     detailBookingFailed,
+    detailBookingDateStart,
+    detailBookingDateSuccess,
+    detailBookingDateFailed,
     editBookingStart,
     editBookingSuccess,
     editBookingFailed,
@@ -57,6 +60,20 @@ export const getDetailBooking = async (id, dispatch, accessToken, getBooking) =>
         // toast.success('Detail success');
     } catch (err) {
         dispatch(detailBookingFailed());
+        toast.error('Có thứ gì đó không ổn ?');
+    }
+};
+
+export const getDetailBookingDate = async (id, date, dispatch) => {
+    dispatch(detailBookingDateStart());
+    try {
+        const res = await axios.get(
+            `http://localhost:8078/api/v1/booking/findAllByEmployee_idAndDate_booking?employee_id=${id}&date_booking=${date}`,
+        );
+        dispatch(detailBookingDateSuccess(res.data));
+        // toast.success('Detail success');
+    } catch (err) {
+        dispatch(detailBookingDateFailed());
         toast.error('Có thứ gì đó không ổn ?');
     }
 };

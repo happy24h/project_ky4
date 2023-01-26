@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import EmployeeSchedule from './Schedule/EmployeeSchedule';
 // import './ServiceClient.scss';
-import { getAllAccount, getDetailAccount } from '~/redux/apiRequest';
+import { getAllAccount } from '~/redux/apiRequest';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames/bind';
 import styles from './ServiceClient.module.scss';
@@ -14,8 +14,23 @@ function ServiceClient() {
     const listAccount = useSelector((state) => state.account.account?.accountCurrent.content);
     // const navigate = useNavigate();
 
+    let dataAccount = {
+        name: '',
+        email: '',
+        phone: '',
+        gender: '',
+        start: '',
+        end: '',
+        page: 1,
+        limit: 6,
+        sort: 'asc',
+        role_id: '3',
+        member_ship_class_id: '',
+        status: '',
+    };
+
     useEffect(() => {
-        getAllAccount();
+        getAllAccount(dataAccount, dispatch, user?.accessToken);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -41,7 +56,7 @@ function ServiceClient() {
                                     <div className="down">{item?.account_description}</div>
                                 </div>
                             </div>
-                            <EmployeeSchedule />
+                            <EmployeeSchedule employees_id={item?.accounts_id} />
                         </div>
                     );
                 })}

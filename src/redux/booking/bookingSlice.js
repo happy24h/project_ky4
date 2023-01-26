@@ -7,6 +7,7 @@ const bookingSlice = createSlice({
             isFetching: false,
             error: false,
             detailData: null,
+            detailDataDate: null,
         },
     },
     reducers: {
@@ -45,6 +46,18 @@ const bookingSlice = createSlice({
             state.booking.isFetching = false;
             state.booking.error = true;
         },
+        detailBookingDateStart: (state) => {
+            state.booking.isFetching = true;
+        },
+        detailBookingDateSuccess: (state, action) => {
+            state.booking.isFetching = false;
+            state.booking.error = false;
+            state.booking.detailDataDate = action.payload;
+        },
+        detailBookingDateFailed: (state) => {
+            state.booking.isFetching = false;
+            state.booking.error = true;
+        },
         editBookingStart: (state) => {
             state.booking.isFetching = true;
         },
@@ -70,6 +83,9 @@ export const {
     detailBookingStart,
     detailBookingSuccess,
     detailBookingFailed,
+    detailBookingDateStart,
+    detailBookingDateSuccess,
+    detailBookingDateFailed,
     editBookingStart,
     editBookingSuccess,
     editBookingFailed,

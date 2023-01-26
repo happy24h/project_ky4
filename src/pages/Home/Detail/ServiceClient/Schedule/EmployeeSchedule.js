@@ -1,29 +1,30 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { DatePicker } from 'antd';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import InfoAboutEmployee from '../Info/InfoAboutEmployee';
 
-import { Button, Form, Card } from 'antd';
+import { Button, Card } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './EmployeeSchedule.module.scss';
-import { getBooking } from '~/redux/booking/apiBooking';
+import { getBooking, getDetailBookingDate } from '~/redux/booking/apiBooking';
 // import { faCalendarAlt, faHandPointUp } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
-function EmployeeSchedule() {
-    const [state, setState] = useState();
+function EmployeeSchedule({ employees_id }) {
+    const [state, setState] = useState(employees_id);
     const dispatch = useDispatch();
-    const { id } = useParams();
+    // const { id } = useParams();
 
     const navigate = useNavigate();
     const user = useSelector((state) => state.auth.login?.currentUser);
     const listBooking = useSelector((state) => state.booking.booking?.listData);
+    const detailBookingDate = useSelector((state) => state.booking.booking?.listData);
     // console.log('list booking', listBooking);
 
     const onChange = (date, dateString) => {
-        console.log('test', date, 'aaaa', dateString);
+        // console.log('test', date, 'aaaa', dateString);
         setState(dateString);
     };
 
@@ -37,10 +38,10 @@ function EmployeeSchedule() {
     var yyyy = today.getFullYear();
 
     today = dd + '-' + mm + '-' + yyyy;
-    console.log('today', today);
+    // console.log('today', today);
     let dataBooking = {
         branch_id: '',
-        employee_id: id,
+        employee_id: employees_id,
         role: '',
         date_booking: today,
         time_booking: '',
@@ -53,18 +54,16 @@ function EmployeeSchedule() {
 
     useEffect(() => {
         getBooking(dataBooking, dispatch, user?.accessToken);
+        getDetailBookingDate(employees_id, today, dispatch);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [id]);
-    useEffect(() => {
-        getBooking(dataBooking, dispatch, user?.accessToken);
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [today]);
+    }, [state]);
 
     const handleTimeBooking = (id) => {
         navigate(`/order-modal/${id}`);
     };
+
+    console.log('check employee id -->', employees_id);
 
     return (
         <>
@@ -78,6 +77,8 @@ function EmployeeSchedule() {
                     marginLeft: 20,
                 }}
             >
+                <input value={employees_id} onChange={(e) => setState(e.target.value)} />
+
                 <div className={cx('wrapper')}>
                     <div className="content-left">
                         <div className="doctor-schedule-container" style={{ paddingLeft: '0px ' }}>
@@ -150,7 +151,7 @@ function EmployeeSchedule() {
                     <div className="content-right">
                         <InfoAboutEmployee
                             EmployeeIdFromParent={
-                                listBooking?.content[0]?.employee?.bookingByTime_bookings[0].branch_id
+                                listBooking?.content[0]?.employee?.bookingByTime_bookings[0]?.branch_id
                             }
                         />
                     </div>
