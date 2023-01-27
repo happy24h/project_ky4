@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { DatePicker } from 'antd';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
@@ -18,7 +18,7 @@ function EmployeeSchedule({ employees_id }) {
 
     const [dataApi, setDataApi] = useState([]);
     const dispatch = useDispatch();
-    // const { id } = useParams();
+    const { id } = useParams();
 
     const navigate = useNavigate();
     const user = useSelector((state) => state.auth.login?.currentUser);
@@ -42,18 +42,7 @@ function EmployeeSchedule({ employees_id }) {
 
     today = dd + '-' + mm + '-' + yyyy;
     // console.log('today', today);
-    let dataBooking = {
-        branch_id: '',
-        employee_id: employees_id,
-        role: '',
-        date_booking: today,
-        time_booking: '',
-        start: '',
-        end: '',
-        limit: 4,
-        page: 1,
-        sort: 'asc',
-    };
+
     let valueId = employees_id;
     let todayDetail = today;
 
@@ -125,7 +114,7 @@ function EmployeeSchedule({ employees_id }) {
                                                         <Button
                                                             type="primary"
                                                             className={cx('btn-booking')}
-                                                            // onClick={() => handleTimeBooking(item.id)}
+                                                            onClick={() => handleTimeBooking(item.id)}
                                                         >
                                                             {item?.time_booking}:00 - {item?.time_booking}:30
                                                         </Button>
