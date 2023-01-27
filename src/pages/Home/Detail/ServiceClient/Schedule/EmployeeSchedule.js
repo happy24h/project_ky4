@@ -56,10 +56,6 @@ function EmployeeSchedule({ employees_id }) {
     };
     let valueId = employees_id;
     let todayDetail = today;
-    let hello = 5;
-    if (!valueId || !todayDetail) {
-        ++hello;
-    }
 
     console.log(detailBookingDate, 'hello toi la nguyen viet anh');
     console.log('data api ', dataApi);
@@ -79,7 +75,7 @@ function EmployeeSchedule({ employees_id }) {
             // setDataApi(res.data);
             if (res.data.length > 0) {
                 setDataApi((prev) => {
-                    return [...prev, ...res?.data];
+                    return [...res?.data];
                 });
             }
         };
