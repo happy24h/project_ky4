@@ -110,7 +110,10 @@ function EmployeeSchedule({ employees_id }) {
                                         <div className={cx('wrapper-btn')}>
                                             {dataApi?.map((item, index) => {
                                                 return (
-                                                    <div key={index} style={{ marginRight: '6px' }}>
+                                                    <div
+                                                        key={index}
+                                                        style={{ marginRight: '12px', marginBottom: '6px' }}
+                                                    >
                                                         <Button
                                                             type="primary"
                                                             className={cx('btn-booking')}
