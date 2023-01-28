@@ -28,6 +28,9 @@ function Branch({ settings }) {
         navigate(`detail-learn-branch/${branch.id}`);
     };
 
+    const handleSeeMore = () => {
+        navigate(`/see-more/branch`);
+    };
     // let newDataWebsite = dataWebsites && dataWebsites.length > 0 ? dataWebsites : dataWebsiteFake;
 
     return (
@@ -35,7 +38,9 @@ function Branch({ settings }) {
             <div className="section-container">
                 <div className="section-header">
                     <span className="title-section">Tổng hợp cơ sở làm tóc</span>
-                    <button className="btn-section">Xem thêm</button>
+                    <button className="btn-section" onClick={handleSeeMore}>
+                        Xem thêm
+                    </button>
                 </div>
 
                 <div className={cx('slider')}>

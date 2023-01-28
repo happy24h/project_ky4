@@ -28,7 +28,7 @@ function Employee({ settings }) {
         page: 1,
         limit: 6,
         sort: 'asc',
-        role_id:'3',
+        role_id: '3',
         member_ship_class_id: '',
         status: '',
     };
@@ -43,13 +43,19 @@ function Employee({ settings }) {
     };
     console.log('posts >>>', posts);
 
+    const handleSeeMore = () => {
+        navigate(`/see-more/employee`);
+    };
+
     // let newDataTeacher = posts && posts.length > 0 ? posts : dataTeacherFake;
     return (
         <div className="section-share section-specialty">
             <div className="section-container">
                 <div className="section-header">
                     <span className="title-section">Nhân viên nổi bật tuần qua</span>
-                    <button className="btn-section">Xem thêm</button>
+                    <button className="btn-section" onClick={handleSeeMore}>
+                        Xem thêm
+                    </button>
                 </div>
 
                 <div className={cx('slider')}>

@@ -27,6 +27,10 @@ function Service({ settings }) {
     const handleViewDetailCourses = (item) => {
         navigate(`detail-service/${item.service_id}`);
     };
+
+    const handleSeeMore = () => {
+        navigate(`/see-more/service`);
+    };
     // let newDataCourse = dataCourses && dataCourses.length > 0 ? dataCourses : dataCoursesFake;
 
     return (
@@ -34,7 +38,9 @@ function Service({ settings }) {
             <div className="section-container">
                 <div className="section-header">
                     <span className="title-section">Trải nghiệm dịch vụ</span>
-                    <button className="btn-section">Xem thêm</button>
+                    <button className="btn-section" onClick={handleSeeMore}>
+                        Xem thêm
+                    </button>
                 </div>
 
                 <div className={cx('slider')}>

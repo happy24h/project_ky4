@@ -13,6 +13,9 @@ const routes = {
     serviceClient: '/detail-service/:id',
     detailEmployee: '/detail-employee/:id',
     orderModal: '/order-modal/:id',
+    allService: '/see-more/service',
+    allBranch: '/see-more/branch',
+    allEmployee: '/see-more/employee',
 
     // System
     //schedule
