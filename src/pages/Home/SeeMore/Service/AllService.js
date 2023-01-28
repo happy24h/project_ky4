@@ -1,4 +1,9 @@
 import classNames from 'classnames/bind';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { getAllService } from '~/redux/service/apiService';
+
 import styles from './AllService.module.scss';
 
 const cx = classNames.bind(styles);
@@ -21,21 +26,44 @@ const dataHairStyle = [
     { image: 'https://30shine-store-images.s3.ap-southeast-1.amazonaws.com/uploads/small_Viet_Hung_c21e6ce922.png' },
 ];
 function AllService() {
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+
+    const user = useSelector((state) => state.auth.login?.currentUser);
+    const listService = useSelector((state) => state.service.service?.serviceCurrent?.content);
+
+    let data = {
+        name: '',
+        type_service_id: '',
+        status: '',
+        start: '',
+        end: '',
+        limit: 10,
+        page: 1,
+        sort: 'desc',
+    };
+
+    useEffect(() => {
+        getAllService(data, dispatch, user?.accessToken);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     return (
         <div className={cx('wrapper')}>
             <div className="grid wide">
                 <div className="row">
-                    {dataHairStyle &&
-                        dataHairStyle.map((item, index) => {
+                    {listService &&
+                        listService.map((item, index) => {
                             return (
                                 <div className="col l-2-4 m-4 c-6" key={index}>
                                     <div
                                         className={cx('item')}
                                         style={{
-                                            backgroundImage: `url(${item.image})`,
+                                            backgroundImage: `url(${item.thumbnail})`,
                                         }}
                                     >
-                                        <span>Kiểu tóc đẹp</span>
+                                        <span>{item.service_name}</span>
                                     </div>
                                 </div>
                             );

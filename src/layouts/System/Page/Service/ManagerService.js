@@ -162,10 +162,7 @@ function ManagerService() {
                         </Button>
                     </Link>
                 </Form.Item>
-                {/*<Form.Item label="">*/}
-                {/*    <AddService loadApi={handleLoadAPI} accessToken={user?.accessToken} />*/}
-                {/*</Form.Item>*/}
-                {/*<div style={{ display: 'flex', margin: '20px auto 0' }} />*/}
+
                 <Table
                     columns={columns}
                     // { listAccount && listAccount.length > 0 ? dataSource={listAccount} : null}

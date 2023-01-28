@@ -1,12 +1,8 @@
 import { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import { useNavigate } from 'react-router-dom';
-// import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { Buffer } from 'buffer';
 import classNames from 'classnames/bind';
 import styles from '../ContentSlider/ContentSlider.module.scss';
-import { dataTeacherFake } from '../../../../assets/dataFake/dataService';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllAccount } from '~/redux/apiRequest';
 const cx = classNames.bind(styles);
