@@ -5,6 +5,12 @@
     justify-items: center;
     width: 1200px;
     margin: 20px auto;
+
+    background-color: #fff;
+    box-shadow: 0 1px 6px rgb(32 33 36 / 28%);
+    border-radius: 8px;
+    border-bottom: none;
+    margin-bottom: 10px;
 }
 
 .content-employee {
@@ -145,4 +151,11 @@
     .doctor-detail-container .detail-infor-doctor {
         padding: 10px;
     }
+}
+
+.up {
+    margin: 10px 0 10px;
+    color: #45c3d2;
+    font-size: 16px;
+    font-weight: 600;
 }

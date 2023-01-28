@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import EmployeeSchedule from './Schedule/EmployeeSchedule';
 // import './ServiceClient.scss';
 import { getAllAccount } from '~/redux/apiRequest';
@@ -52,7 +52,7 @@ function ServiceClient() {
                                     }
                                 ></div>
                                 <div className={cx('content-right')}>
-                                    <div className="up">{item?.accounts_name}</div>
+                                    <div className={cx('up')}>{item?.accounts_name}</div>
                                     <div className="down">{item?.account_description}</div>
                                 </div>
                             </div>
