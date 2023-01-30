@@ -8,6 +8,7 @@ import classNames from 'classnames/bind';
 import styles from './ManageOrder.module.scss';
 import { Option } from 'antd/es/mentions';
 import { split } from 'lodash';
+import { cleanDashboardOder, getDashboardOderStart } from '~/redux/dashboard/order/dashboardOrderSlice';
 
 const cx = classNames.bind(styles);
 
@@ -20,6 +21,7 @@ function ManagerOrder() {
         booking_id: '',
         voucher_id: '',
         status: '',
+        idsOrder:"",
         sort: 'desc',
         // voucher_id: '',
         time_booking: '',
@@ -27,17 +29,15 @@ function ManagerOrder() {
         rangeTotalPriceEnd: '',
     });
 
+
     //B1: Gọi dispatch để gửi trạng thái reducer
     const dispatch = useDispatch();
     const navigate = useNavigate();
 const dataSelector = useSelector((state) =>  state.dashBoarOderSlices.dashboardOrder?.listData);
-    // console.log(12312314,dataSelector);
+
     //B2: Lấy token
     // useSelector để lấy dữ liệu
     const user = useSelector((state) => state.auth.login?.currentUser);
-    if(statusParam.get('status')!=null){
-        setState({ ...state, status: statusParam.get('status') })
-    }
     //B2: gọi api
     let data = {
         booking_id: state?.booking_id,
@@ -46,7 +46,8 @@ const dataSelector = useSelector((state) =>  state.dashBoarOderSlices.dashboardO
         time_booking: state?.time_booking,
         rangeTotalPriceStart: state?.rangeTotalPriceStart,
         rangeTotalPriceEnd: state?.rangeTotalPriceEnd,
-        status: '',
+        status: state?.status,
+        idsOrder:[],
         start: state?.start,
         end: state?.end,
         limit: lineNumber,
@@ -64,6 +65,24 @@ const dataSelector = useSelector((state) =>  state.dashBoarOderSlices.dashboardO
         state?.end;
 
     useEffect(() => {
+        if(statusParam.get('status')!=null){
+            data.status = statusParam.get('status');
+        }
+        if (dataSelector != null){
+            let idsOrder =   dataSelector.id ?? dataSelector.ids;
+            if(idsOrder!=null){
+                let arr = [];
+                if(!Array.isArray(idsOrder)){
+                    arr.push(idsOrder);
+                }else{
+                    arr = [...idsOrder];
+                }
+                data.idsOrder = arr;
+
+            }
+
+        }
+
         getAllOrder(data, dispatch, user?.accessToken);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loadApiOrder || page]);

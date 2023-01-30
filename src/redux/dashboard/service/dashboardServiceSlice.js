@@ -1,35 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit';
-const dashBoarBookingSlices = createSlice({
-    name: 'dashBoarBookingSlice',
+const dashBoarServiceSlices = createSlice({
+    name: 'dashBoarServiceSlice',
     initialState: {
-        dashboardBooking: {
+        dashboardService: {
             listData: null,
             isFetching: false,
             error: false,
         },
     },
     reducers: {
-        getDashboardBookingStart: (state) => {
-            state.dashboardBooking.isFetching = true;
+        getDashboardServiceStart: (state) => {
+            state.dashboardService.isFetching = true;
         },
-        getDashboardBooking: (state, action) => {
-            state.dashboardBooking.isFetching = false;
-            state.dashboardBooking.error = false;
-            state.dashboardBooking.listData = action.payload;
+        getDashboardService: (state, action) => {
+            state.dashboardService.isFetching = false;
+            state.dashboardService.error = false;
+            state.dashboardService.listData = action.payload;
         },
-        cleanDashboardBooking: (state, action) => {
-            state.dashboardBooking.isFetching = false;
-            state.dashboardBooking.error = false;
-            state.dashboardBooking.listData = null;
+        cleanDashboardService: (state, action) => {
+            state.dashboardService.isFetching = false;
+            state.dashboardService.error = false;
+            state.dashboardService.listData = null;
         },
 
     },
 });
 
 export const {
-    getDashboardBooking,
-    getDashboardBookingStart,
-    cleanDashboardBooking,
-} = dashBoarBookingSlices.actions;
+    getDashboardService,
+    getDashboardServiceStart,
+    cleanDashboardService,
+} = dashBoarServiceSlices.actions;
 
-export default dashBoarBookingSlices.reducer;
+export default dashBoarServiceSlices.reducer;

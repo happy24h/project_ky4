@@ -1,35 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit';
-const dashBoarOderSlices = createSlice({
-    name: 'dashBoarOderSlice',
+const dashBoarBookingSlices = createSlice({
+    name: 'dashBoarBookingSlice',
     initialState: {
-        dashboardOrder: {
+        dashboardBooking: {
             listData: null,
             isFetching: false,
             error: false,
         },
     },
     reducers: {
-        getDashboardOderStart: (state) => {
-            state.dashboardOrder.isFetching = true;
+        getDashboardBookingStart: (state) => {
+            state.dashboardBooking.isFetching = true;
         },
-        getDashboardOder: (state, action) => {
-            state.dashboardOrder.isFetching = false;
-            state.dashboardOrder.error = false;
-            state.dashboardOrder.listData = action.payload;
+        getDashboardBooking: (state, action) => {
+            state.dashboardBooking.isFetching = false;
+            state.dashboardBooking.error = false;
+            state.dashboardBooking.listData = action.payload;
         },
-        cleanDashboardOder: (state, action) => {
-            state.dashboardOrder.isFetching = false;
-            state.dashboardOrder.error = false;
-            state.dashboardOrder.listData = null;
+        cleanDashboardBooking: (state, action) => {
+            state.dashboardBooking.isFetching = false;
+            state.dashboardBooking.error = false;
+            state.dashboardBooking.listData = null;
         },
 
     },
 });
 
 export const {
-    getDashboardOder,
-    getDashboardOderStart,
-    cleanDashboardOder,
-} = dashBoarOderSlices.actions;
+    getDashboardBooking,
+    getDashboardBookingStart,
+    cleanDashboardBooking,
+} = dashBoarBookingSlices.actions;
 
-export default dashBoarOderSlices.reducer;
+export default dashBoarBookingSlices.reducer;

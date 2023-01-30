@@ -16,7 +16,11 @@ const dashBoarOderSlices = createSlice({
             state.dashboardOrder.isFetching = false;
             state.dashboardOrder.error = false;
             state.dashboardOrder.listData = action.payload;
-
+        },
+        cleanDashboardOder: (state, action) => {
+            state.dashboardOrder.isFetching = false;
+            state.dashboardOrder.error = false;
+            state.dashboardOrder.listData = null;
         },
 
     },
@@ -25,6 +29,7 @@ const dashBoarOderSlices = createSlice({
 export const {
     getDashboardOder,
     getDashboardOderStart,
+    cleanDashboardOder,
 } = dashBoarOderSlices.actions;
 
 export default dashBoarOderSlices.reducer;
