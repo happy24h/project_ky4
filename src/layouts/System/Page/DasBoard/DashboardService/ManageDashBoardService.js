@@ -4,49 +4,74 @@ import { Button, Card, Col, DatePicker, Popover, Row, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Bar } from '@ant-design/plots';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowsDownToPeople, faCut, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
+import { faArrowsDownToPeople, faCut, faMoneyBill, faRefresh } from '@fortawesome/free-solid-svg-icons';
+import moment from 'moment/moment';
+import { getDashBoardColumn } from '~/redux/dashboard/order/apiOrderDashBoard';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDashBoardBar, getDashBoardCountServicesAndStaff } from '~/redux/dashboard/service/apiServiceDashBoard';
+import { getDashboardOder, getDashboardOderStart } from '~/redux/dashboard/order/dashboardOrderSlice';
 const cx = classNames.bind(styles);
 const titlePage = 'Dịch vụ';
+const keyStorageBar ='dashboard_service_dataBar';
 const { RangePicker } = DatePicker;
 function ManageDashBoardService() {
     const [dataBar, setDataBar] = useState([]);
+    const [timeDate, setTimeDate] = useState([]);
     const [showInfo, setShowInfo] = useState(false);
+    const [countServices, setCountServices] = useState();
+    const [countStaffs, setCountStaffs] = useState();
     const [open2, setOpen2] = useState(false);
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.auth.login?.currentUser);
     const showTimeLine = () => {
         setShowInfo(!showInfo);
     };
     const handleOpenChange2 = (newOpen) => {
         setOpen2(newOpen);
     };
+    const handerSubmitTime = () => {
+        if (timeDate.length != 0) {
+            let datalineStorage = localStorage.getItem(keyStorageBar);
+            let dataTranform = Array.from(JSON.parse(datalineStorage));
+            var data = dataTranform.filter((value) => {
+                let startDate = timeDate[0];
+                let endDate = timeDate[1];
+                console.log( moment(startDate).isBefore(moment(value.created_at)), moment(endDate).isAfter(moment(value.created_at)),value);
+                return moment(startDate).isBefore(moment(value.created_at)) && moment(endDate).isAfter(moment(value.created_at));
+            });
+            setDataBar(
+                data,
+            );
+        }
+    };
+    const refreshDataLine = () => {
+        localStorage.removeItem(keyStorageBar);
+        asyncFetchBar();
+    };
 
-    useEffect(() => {
+    useEffect( () => {
+        asyncFetchCount();
         asyncFetchBar();
     }, []);
-    const asyncFetchBar = () => {
-        setDataBar([
-            {
-                year: '1951 年',
-                value: 38,
-            },
-            {
-                year: '1952 年',
-                value: 52,
-            },
-            {
-                year: '1956 年',
-                value: 61,
-            },
-            {
-                year: '1957 年',
-                value: 145,
-            },
-            {
-                year: '1958 年',
-                value: 48,
-            },
-        ]);
+
+    const asyncFetchCount = async () => {
+        let dataServicesAndStaff;
+        dataServicesAndStaff = await getDashBoardCountServicesAndStaff({}, user?.accessToken);
+        setCountStaffs(dataServicesAndStaff.count_staffs ?? 0);
+        setCountServices(dataServicesAndStaff.count_services ?? 0);
     };
-    const configBarChart = getConfigBarChart(dataBar);
+    const asyncFetchBar = async () => {
+        let dataBar;
+        let dataBarStorage = localStorage.getItem(keyStorageBar);
+        if (dataBarStorage == undefined || dataBarStorage == "undefined") {
+            dataBar = await getDashBoardBar({}, user?.accessToken);
+            localStorage.setItem(keyStorageBar, JSON.stringify(dataBar));
+            setDataBar(dataBar);
+        } else {
+            setDataBar(Array.from(JSON.parse(dataBarStorage)));
+        }
+    };
+    const configBarChart = getConfigBarChart(dataBar,dispatch);
     return (
         <div style={{ marginTop: '120px' }}>
             <Row className={styles['flex-just-space-left']} style={{
@@ -66,7 +91,7 @@ function ManageDashBoardService() {
                                 <div className={styles['flex-just-space-center']} style={{
                                     paddingBottom:"15px",
                                 }}>
-                                    <h1><FontAwesomeIcon icon={faCut}/> 30</h1>
+                                    <h1><FontAwesomeIcon icon={faCut}/> {countServices}</h1>
                                 </div>
                             </Card></Col>
                         <Col style={{ padding: '5px' }} span={12}>
@@ -76,7 +101,7 @@ function ManageDashBoardService() {
                                 <div className={styles['flex-just-space-center']} style={{
                                     paddingBottom:"15px",
                                 }}>
-                                    <h1><FontAwesomeIcon icon={faArrowsDownToPeople}/> 60</h1>
+                                    <h1><FontAwesomeIcon icon={faArrowsDownToPeople}/> {countStaffs}</h1>
                                 </div>
                             </Card></Col>
                     </Row>
@@ -105,6 +130,8 @@ function ManageDashBoardService() {
                                       onOpenChange={handleOpenChange2}
                                   >
                                       <Button  type='primary'>Tùy chỉnh</Button>
+                                      <Button type='primary' onClick={refreshDataLine}><FontAwesomeIcon
+                                          icon={faRefresh} /></Button>
                                   </Popover>
                               }
                         >
@@ -118,8 +145,18 @@ function ManageDashBoardService() {
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
-                                        }} />
-                                        <Button type='primary'>Gửi</Button>
+                                        }}
+                                                     valueDefault
+                                                     onChange={(values) => {
+                                                         if (values != null) {
+                                                             setTimeDate(values.map(item => {
+                                                                 return item.format('YYYY-MM-DD');
+                                                             }));
+                                                         }
+                                                     }
+                                                     }
+                                        />
+                                        <Button  onClick={handerSubmitTime} type='primary'>Gửi</Button>
                                     </div>
 
 
@@ -136,7 +173,7 @@ function ManageDashBoardService() {
 
     );
 }
-function getConfigBarChart(data) {
+function getConfigBarChart(data,dispatch) {
     return {
         data,
         xField: 'value',
@@ -144,6 +181,16 @@ function getConfigBarChart(data) {
         seriesField: 'year',
         legend: {
             position: 'top-left',
+        },
+        onReady: (plot) => {
+            plot.chart.on('plot:click', (evt) => {
+                const { x, y } = evt;
+                var item = plot.chart.getTooltipItems({ x, y })[0];
+
+                dispatch(getDashboardOderStart());
+                dispatch(getDashboardOder(item.data));
+                window.location.replace("/system/manage-order");
+            });
         },
     };
 }

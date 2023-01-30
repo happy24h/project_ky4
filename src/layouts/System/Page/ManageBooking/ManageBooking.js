@@ -7,6 +7,8 @@ import { Button, Form, Card } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './ManageBooking.module.scss';
 import { getBooking } from '~/redux/booking/apiBooking';
+import { cleanDashboardOder } from '~/redux/dashboard/order/dashboardOrderSlice';
+import { cleanDashboardBooking } from '~/redux/dashboard/booking/dashboardBookingSlice';
 
 const cx = classNames.bind(styles);
 
@@ -20,6 +22,7 @@ function ManageBooking() {
     const user = useSelector((state) => state.auth.login?.currentUser);
     const listBooking = useSelector((state) => state.booking.booking?.listData);
     // console.log('list booking', listBooking);
+    const dataSelector = useSelector((state) =>  state.dashBoarBookingSlices.dashboardBooking?.listData);
 
     const onChange = (date, dateString) => {
         // console.log('test', date, 'aaaa', dateString);
@@ -52,6 +55,7 @@ function ManageBooking() {
         time_booking: '',
         start: '',
         end: '',
+        idsBooking:[],
         limit: 4,
         page: 1,
         sort: 'asc',
@@ -59,6 +63,20 @@ function ManageBooking() {
     let totalDataInput = dataInput?.employee_name;
 
     useEffect(() => {
+        if (dataSelector != null){
+            let idsOrder =   dataSelector.id ?? dataSelector.ids;
+            if(idsOrder!=null){
+                let arr = [];
+                if(!Array.isArray(idsOrder)){
+                    arr.push(idsOrder);
+                }else{
+                    arr = [...idsOrder];
+                }
+                dataBooking.idsBooking = arr;
+
+            }
+
+        }
         getBooking(dataBooking, dispatch, user?.accessToken);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps

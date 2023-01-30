@@ -24,6 +24,8 @@ import orderDetailReducer from './order/orderDetailSilce';
 import voucherReducer from './voucher/VoucherSilce';
 
 import dashBoarOderReducer from './dashboard/order/dashboardOrderSlice';
+import dashBoarBookingReducer from './dashboard/booking/dashboardBookingSlice';
+import dashBoarServiceReducer from './dashboard/service/dashboardServiceSlice';
 
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -53,6 +55,13 @@ const rootReducer = combineReducers({
 
 
     dashBoarOderSlices:dashBoarOderReducer,
+
+    dashBoarBookingSlices:dashBoarBookingReducer,
+
+
+    dashBoarServiceSlices:dashBoarServiceReducer,
+
+
 
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);

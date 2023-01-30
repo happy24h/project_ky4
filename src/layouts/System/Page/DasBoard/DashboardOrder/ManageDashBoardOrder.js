@@ -37,8 +37,8 @@ function ManageDashBoardOrder() {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.login?.currentUser);
     let config = getConfigLineChart(data, dispatch);
-    let configPie = getConfigPieChart(dataPie);
-    let configBar = getConfigBarChart(dataBar);
+    let configPie = getConfigPieChart(dataPie,dispatch);
+    let configBar = getConfigBarChart(dataBar,dispatch);
     const [stateStatus, setStateStatus] = useState();
     const objectNull = {
         price: 0,
@@ -446,7 +446,7 @@ function ManageDashBoardOrder() {
     );
 }
 
-function getConfigPieChart(data) {
+function getConfigPieChart(data,dispatch) {
     return {
         appendPadding: 10,
         data,
@@ -457,7 +457,7 @@ function getConfigPieChart(data) {
         innerRadius: 0.64,
         meta: {
             value: {
-                formatter: (v) => `¥ ${v}`,
+                formatter: (v) => `VNĐ ${v}`,
             },
         },
         label: {
@@ -487,10 +487,20 @@ function getConfigPieChart(data) {
         pieStyle: {
             lineWidth: 0,
         },
+        onReady: (plot) => {
+            plot.chart.on('plot:click', (evt) => {
+
+                const { x, y } = evt;
+                var item = plot.chart.getTooltipItems({ x, y })[0];
+                dispatch(getDashboardOderStart());
+                dispatch(getDashboardOder(item.data));
+                window.location.replace("/system/manage-order");
+            });
+        },
     };
 }
 
-function getConfigBarChart(data) {
+function getConfigBarChart(data,dispatch) {
     return {
         data,
         xField: 'sales',
@@ -505,6 +515,16 @@ function getConfigBarChart(data) {
         },
         minBarWidth: 20,
         maxBarWidth: 20,
+        onReady: (plot) => {
+            plot.chart.on('plot:click', (evt) => {
+
+                const { x, y } = evt;
+                var item = plot.chart.getTooltipItems({ x, y })[0];
+                dispatch(getDashboardOderStart());
+                dispatch(getDashboardOder(item.data));
+                window.location.replace("/system/manage-order");
+            });
+        },
     };
 }
 
@@ -526,7 +546,7 @@ function getConfigLineChart(data, dispatch) {
             {
                 type: 'text',
                 position: ['min', 'median'],
-                content: '中位数',
+                content: 'Trung bình',
                 offsetY: -4,
                 style: {
                     textBaseline: 'bottom',
@@ -549,6 +569,7 @@ function getConfigLineChart(data, dispatch) {
 
                 dispatch(getDashboardOderStart());
                 dispatch(getDashboardOder(item.data));
+                window.location.replace("/system/manage-order");
             });
         },
 
