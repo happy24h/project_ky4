@@ -1,0 +1,24 @@
+.wrapper {
+    // margin: 0 100px;
+    // /* display: flex; */
+    min-height: 200px;
+    padding: 10px 0;
+}
+.wrapper-btn {
+    // style={{ display: 'flex', marginTop: 8 }}
+    display: flex;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+.btn-booking {
+    font-weight: 600;
+    font-size: 10px;
+    background-color: #fcaf17;
+    margin-bottom: 6px;
+    border: 3px solid #fcaf17;
+    &:hover {
+        border: 3px solid #80bdff;
+        background-color: #fcaf17 !important;
+        border: 3px solid #fcaf17;
+    }
+}

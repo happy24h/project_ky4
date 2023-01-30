@@ -1,12 +1,8 @@
 import { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import { useNavigate } from 'react-router-dom';
-// import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { Buffer } from 'buffer';
 import classNames from 'classnames/bind';
 import styles from '../ContentSlider/ContentSlider.module.scss';
-import { dataTeacherFake } from '../../../../assets/dataFake/dataService';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllAccount } from '~/redux/apiRequest';
 const cx = classNames.bind(styles);
@@ -28,7 +24,7 @@ function Employee({ settings }) {
         page: 1,
         limit: 6,
         sort: 'asc',
-        role_id:'3',
+        role_id: '3',
         member_ship_class_id: '',
         status: '',
     };
@@ -43,13 +39,19 @@ function Employee({ settings }) {
     };
     console.log('posts >>>', posts);
 
+    const handleSeeMore = () => {
+        navigate(`/see-more/employee`);
+    };
+
     // let newDataTeacher = posts && posts.length > 0 ? posts : dataTeacherFake;
     return (
         <div className="section-share section-specialty">
             <div className="section-container">
                 <div className="section-header">
                     <span className="title-section">Nhân viên nổi bật tuần qua</span>
-                    <button className="btn-section">Xem thêm</button>
+                    <button className="btn-section" onClick={handleSeeMore}>
+                        Xem thêm
+                    </button>
                 </div>
 
                 <div className={cx('slider')}>

@@ -39,9 +39,9 @@ function ManagerService() {
     let totalState = state?.name + state?.type_service_id;
     useEffect(() => {
         getAllService(data, dispatch, user?.accessToken);
-        searchTypeService({limit: 100,page: 1,sort: 'desc'}, dispatch);
+        searchTypeService({ limit: 100, page: 1, sort: 'desc' }, dispatch);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [loadApi || page,totalState]);
+    }, [loadApi || page || totalState]);
 
     //B3: Lấy danh sách
     const listService = useSelector((state) => state.service.service?.serviceCurrent);
@@ -162,14 +162,11 @@ function ManagerService() {
                         </Button>
                     </Link>
                 </Form.Item>
-                {/*<Form.Item label="">*/}
-                {/*    <AddService loadApi={handleLoadAPI} accessToken={user?.accessToken} />*/}
-                {/*</Form.Item>*/}
-                {/*<div style={{ display: 'flex', margin: '20px auto 0' }} />*/}
+
                 <Table
                     columns={columns}
                     // { listAccount && listAccount.length > 0 ? dataSource={listAccount} : null}
-                    title={ () =>
+                    title={() => (
                         <div className={cx('wrapper-input-group')}>
                             <Input.Group className={cx('input-group')} compact>
                                 <Input
@@ -190,19 +187,19 @@ function ManagerService() {
                                     }}
                                 >
                                     <Option value="">--Loại dịch vụ--</Option>
-                                    {
-                                        typeServices &&
-                                        typeServices?.content.length > 0 &&
-                                        typeServices?.content.map((item, index)=>{
+                                    {typeServices &&
+                                        typeServices?.content?.length > 0 &&
+                                        typeServices?.content.map((item, index) => {
                                             return (
-                                                <Option value={item.id}>{item.name}</Option>
-                                                );
-                                        })
-                                    }
+                                                <Option key={index} value={item.id}>
+                                                    {item.name}
+                                                </Option>
+                                            );
+                                        })}
                                 </Select>
                             </Input.Group>
                         </div>
-                    }
+                    )}
                     dataSource={listService?.content}
                     pagination={{
                         pageSize: 5,
