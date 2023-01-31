@@ -32,7 +32,7 @@ export const getBooking = async (booking, dispatch, accessToken) => {
         // toast.success('Tạo tài khoản thành công');
     } catch (err) {
         dispatch(getBookingFailed());
-        toast.error('Có gì đó không ổn ?');
+        toast.error('Có gì đó không ổn.... ?');
     }
 };
 
@@ -60,7 +60,7 @@ export const getDetailBooking = async (id, dispatch, accessToken, getBooking) =>
         // toast.success('Detail success');
     } catch (err) {
         dispatch(detailBookingFailed());
-        toast.error('Có thứ gì đó không ổn ?');
+        toast.error('Có thứ gì đó không ổn.... ?');
     }
 };
 

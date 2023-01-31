@@ -73,7 +73,7 @@ export const getDetailBranch = async (id, dispatch, accessToken) => {
         // toast.success('Detail success');
     } catch (err) {
         dispatch(detailBranchFailed());
-        toast.error('Có thứ gì đó không ổn ?');
+        // toast.error('branch undefined ?');
     }
 };
 
