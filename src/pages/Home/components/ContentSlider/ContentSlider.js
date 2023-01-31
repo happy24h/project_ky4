@@ -3,6 +3,7 @@ import Courses from '../Service';
 import Branch from '../Branch';
 import Teacher from '../Employee';
 import Blog from '../Blog';
+import About from '../About';
 import classNames from 'classnames/bind';
 import styles from './ContentSlider.module.scss';
 
@@ -102,6 +103,7 @@ export default function ContentSlider() {
             <Branch settings={settings} />
             <Teacher settings={settings} />
             <Blog settings={settings2} />
+            <About />
         </div>
     );
 }
