@@ -35,24 +35,24 @@ const dataBlogRight = [
         content: 'Anh em được hỗ trợ bởi quy trình, công nghệ để tăng năng suất tối đa',
     },
     {
-        image: 'https://s3-ap-southeast-1.amazonaws.com/tuyendung.30shine.org/data/images/TuyenDung/Icon1.png',
-        title: 'DỄ DÀNG ĐẠT THU NHẬP 10-24 TRIỆU',
-        content: 'Anh em được hỗ trợ bởi quy trình, công nghệ để tăng năng suất tối đa',
+        image: 'https://s3-ap-southeast-1.amazonaws.com/tuyendung.30shine.org/data/images/TuyenDung/icon2.png',
+        title: 'LÀM VIỆC LINH HOẠT',
+        content: 'Anh em có thời gian bên gia đình mà vẫn đảm bảo thu nhập rất tốt',
     },
     {
-        image: 'https://s3-ap-southeast-1.amazonaws.com/tuyendung.30shine.org/data/images/TuyenDung/Icon1.png',
-        title: 'DỄ DÀNG ĐẠT THU NHẬP 10-24 TRIỆU',
-        content: 'Anh em được hỗ trợ bởi quy trình, công nghệ để tăng năng suất tối đa',
+        image: 'https://s3-ap-southeast-1.amazonaws.com/tuyendung.30shine.org/data/images/TuyenDung/icon3.png',
+        title: 'CƠ HỘI THĂNG TIẾN HẤP DẪN',
+        content: 'Mọi vị trí công việc tại 30Shine luôn có lộ trình thăng tiến (Lên Quản Lý), lên bậc (Tăng lương)',
     },
     {
-        image: 'https://s3-ap-southeast-1.amazonaws.com/tuyendung.30shine.org/data/images/TuyenDung/Icon1.png',
-        title: 'DỄ DÀNG ĐẠT THU NHẬP 10-24 TRIỆU',
-        content: 'Anh em được hỗ trợ bởi quy trình, công nghệ để tăng năng suất tối đa',
+        image: 'https://s3-ap-southeast-1.amazonaws.com/tuyendung.30shine.org/data/images/TuyenDung/icon4.png',
+        title: 'TAY NGHỀ GIỎI NHANH',
+        content: 'Liên tục được đào tạo nâng cao tay nghề',
     },
     {
-        image: 'https://s3-ap-southeast-1.amazonaws.com/tuyendung.30shine.org/data/images/TuyenDung/Icon1.png',
-        title: 'DỄ DÀNG ĐẠT THU NHẬP 10-24 TRIỆU',
-        content: 'Anh em được hỗ trợ bởi quy trình, công nghệ để tăng năng suất tối đa',
+        image: 'https://s3-ap-southeast-1.amazonaws.com/tuyendung.30shine.org/data/images/TuyenDung/icon5.png',
+        title: 'CHẾ ĐỘ NHƯ CÔNG TY NƯỚC NGOÀI',
+        content: 'Bảo hiểm XH và Y Tế, chế độ thai sản (Nghỉ vẫn nhận lương), Phúc lợi các dịp hiếu, hỉ, ốm đau...',
     },
 ];
 

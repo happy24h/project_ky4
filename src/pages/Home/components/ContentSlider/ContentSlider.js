@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Courses from '../Service';
 import Branch from '../Branch';
 import Teacher from '../Employee';
+import Blog from '../Blog';
 import classNames from 'classnames/bind';
 import styles from './ContentSlider.module.scss';
 
@@ -73,11 +74,34 @@ export default function ContentSlider() {
         nextArrow: <SampleNextArrow />,
         prevArrow: <SamplePrevArrow />,
     };
+
+    const handleShow2 = () => {
+        if (windowSize.innerWidth >= 980) {
+            return 2;
+        } else if (windowSize.innerWidth >= 520) {
+            return 2;
+        } else if (windowSize.innerWidth >= 345) {
+            return 1;
+        } else {
+            return 1;
+        }
+    };
+
+    var settings2 = {
+        dots: false,
+        infinite: handleInnerWidth(),
+        speed: 500,
+        slidesToShow: handleShow2(),
+        slidesToScroll: 1,
+        nextArrow: <SampleNextArrow />,
+        prevArrow: <SamplePrevArrow />,
+    };
     return (
         <div className={cx('wrapper-slider')}>
             <Courses settings={settings} />
             <Branch settings={settings} />
             <Teacher settings={settings} />
+            <Blog settings={settings2} />
         </div>
     );
 }

@@ -38,7 +38,7 @@ function InfoAboutEmployee({ EmployeeIdFromParent }) {
                                 <span className={cx('right')}>
                                     <NumberFormat
                                         className={cx('currency')}
-                                        value={detailBranch.hot_line}
+                                        value={detailBranch?.hot_line}
                                         displayType={'text'}
                                         thousandSeparator=" "
                                         suffix={''}

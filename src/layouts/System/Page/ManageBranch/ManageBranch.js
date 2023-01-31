@@ -29,7 +29,8 @@ function ManageBranch() {
         end: '',
         page: 1,
         limit: 6,
-        sort: 'desc',
+        // sort: 'desc',
+        sort: 'asc',
         status: '',
     };
     let totalState = state?.name + state?.hot_line;
@@ -37,7 +38,7 @@ function ManageBranch() {
         getBranch(dataBranch, dispatch, user?.accessToken);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [totalState,loading]);
+    }, [totalState, loading]);
     useEffect(() => {
         getBranch(dataBranch, dispatch, user?.accessToken);
 
@@ -138,8 +139,7 @@ function ManageBranch() {
                 <Table
                     columns={columns}
                     dataSource={listBranch?.content}
-
-                    title={ () =>
+                    title={() => (
                         <div className={cx('wrapper-input-group')}>
                             <Input.Group className={cx('input-group')} compact>
                                 <Input
@@ -159,8 +159,7 @@ function ManageBranch() {
                                 />
                             </Input.Group>
                         </div>
-                    }
-
+                    )}
                     pagination={{
                         pageSize: 6,
                         total: listBranch?.totalItems,

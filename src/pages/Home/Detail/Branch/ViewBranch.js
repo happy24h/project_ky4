@@ -60,7 +60,7 @@ function ViewBranch() {
     }, [today]);
 
     return (
-        <div style={{ marginTop: '106px' }}>
+        <div style={{ margin: '45px 0 ' }}>
             <div className="container" style={{ width: '1200px', margin: '0 auto' }}>
                 <Card
                     title={<DatePicker onChange={onChange} />}
