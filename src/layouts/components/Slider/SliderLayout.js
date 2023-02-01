@@ -8,6 +8,7 @@ import {
     faCircleQuestion,
     faClock,
     faHandshake,
+    faHome,
     faHospital,
     faPenAlt,
     faUserNinja,
@@ -27,15 +28,15 @@ function SliderLayout() {
             <div className="content-down">
                 <div className="options">
                     <div className="option-child">
-                        <Link to={'/'}>
+                        <Link to={config.routes.home}>
                             <div className="icon-child">
-                                <FontAwesomeIcon icon={faHospital} />
+                                <FontAwesomeIcon icon={faHome} />
                             </div>
-                            <div className="text-child">Cơ sở</div>
+                            <div className="text-child">Trang chủ</div>
                         </Link>
                     </div>
                     <div className="option-child">
-                        <Link to={config.routes.service}>
+                        <Link to={config.routes.allService}>
                             <div className="icon-child">
                                 <FontAwesomeIcon icon={faHandshake} />
                             </div>
@@ -43,21 +44,22 @@ function SliderLayout() {
                         </Link>
                     </div>
                     <div className="option-child">
-                        <Link to={'/hairStyle'}>
+                        <Link to={config.routes.allBranch}>
                             <div className="icon-child">
-                                <FontAwesomeIcon icon={faUserNinja} />
+                                <FontAwesomeIcon icon={faHospital} />
                             </div>
-                            <div className="text-child">Kiểu tóc</div>
+                            <div className="text-child">Cơ sở</div>
                         </Link>
                     </div>
                     <div className="option-child">
-                        <Link to={config.routes.service}>
+                        <Link to={config.routes.allEmployee}>
                             <div className="icon-child">
-                                <FontAwesomeIcon icon={faClock} />
+                                <FontAwesomeIcon icon={faUserNinja} />
                             </div>
-                            <div className="text-child">Đặt lịch</div>
+                            <div className="text-child">Nhân viên</div>
                         </Link>
                     </div>
+
                     <div className="option-child">
                         <Link to={'/blog'}>
                             <div className="icon-child">

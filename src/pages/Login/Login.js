@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import validation from './validation';
+
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,14 +8,15 @@ import { faFacebookF, faGoogle, faLinkedinIn } from '@fortawesome/free-brands-sv
 import '../Register/Register.scss';
 import { loginUser } from '../../redux/apiRequest';
 import { faEnvelope, faEye, faKey } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch } from 'react-redux';
-// import * as axios from '~/services/adminService';
-// import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import Loading from '~/layouts/components/Loading';
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const loginStart = useSelector((state) => state.auth.login?.isFetching);
+    console.log('check login start', loginStart);
     const formik = useFormik({
         initialValues: {
             // username: '',
@@ -120,6 +121,7 @@ const Login = () => {
                         <Link to="/register">New User? Sign up here</Link>
                     </span>
                 </div>
+                {loginStart && <Loading />}
             </form>
         </div>
     );

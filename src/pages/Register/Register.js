@@ -7,11 +7,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faGoogle, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faKey, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
 import { registerUser } from '../../redux/apiRequest';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import Loading from '~/layouts/components/Loading';
 
 function Register() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const registerStart = useSelector((state) => state.auth.register?.isFetching);
+    console.log('check register start', registerStart);
     const formik = useFormik({
         initialValues: {
             name: '',
@@ -203,6 +206,7 @@ function Register() {
                         <Link to="/login">Already signed up? Login here</Link>
                     </span>
                 </div>
+                {registerStart && <Loading />}
             </form>
         </div>
     );

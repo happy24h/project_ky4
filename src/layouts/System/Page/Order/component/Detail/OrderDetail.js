@@ -22,7 +22,7 @@ function OrderDetail() {
         getDetailBooking(orderDetail[0]?.order?.booking_id, dispatch);
         getDetailOrder(id, dispatch, user?.accessToken);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [id || statusOrderDetailChange]);
+    }, [id || statusOrderDetailChange || orderDetail[0]?.order?.booking_id]);
 
     const handleChangeStatus = (e) => {
         if (e.target.value !== '') {

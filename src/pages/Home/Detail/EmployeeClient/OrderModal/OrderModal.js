@@ -14,6 +14,7 @@ import { getAllService } from '~/redux/service/apiService';
 import classNames from 'classnames/bind';
 import styles from './OrderModal.module.scss';
 import { toast } from 'react-toastify';
+import Loading from '../../../../../layouts/components/Loading';
 
 const cx = classNames.bind(styles);
 // import moment from 'moment';
@@ -32,8 +33,13 @@ function OrderModal() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.login?.currentUser);
-    var dataCreateOrder = useSelector((state) => state.order.order?.createData);
+    // var dataCreateOrder = useSelector((state) => state.order.order?.createData);
     const listService = useSelector((state) => state.service.service?.serviceCurrent);
+    const dataCreateOrderDetail = useSelector((state) => state.orderDetail.orderDetail?.isFetching);
+    const dataCreateOrder = useSelector((state) => state.order.order?.isFetching);
+
+    console.log(' check boolean', dataCreateOrderDetail);
+    console.log(' check order', dataCreateOrder);
 
     useEffect(() => {
         getAllService();
@@ -83,6 +89,7 @@ function OrderModal() {
         };
         await createOderDetail(dataService, dispatch, user?.accessToken);
         setDataPrice([]);
+        navigate('/');
     };
     const handleClose = () => {
         navigate('/');
@@ -260,6 +267,7 @@ function OrderModal() {
                     </button>
                 </div>
             </div>
+            {dataCreateOrder && <Loading />}
         </div>
     );
 }
