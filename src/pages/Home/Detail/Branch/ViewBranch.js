@@ -38,7 +38,7 @@ function ViewBranch() {
     let dataBooking = {
         branch_id: id,
         employee_id: '',
-        role: '',
+        role: '3',
         date_booking: today,
         time_booking: '',
         start: '',

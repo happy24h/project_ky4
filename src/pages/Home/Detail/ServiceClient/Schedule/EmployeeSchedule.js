@@ -89,7 +89,7 @@ function EmployeeSchedule({ employees_id }) {
         <>
             <Card
                 size="small"
-                title="Đặt lịch"
+                title="Chọn ngày đặt lịch"
                 extra={<DatePicker onChange={onChange} />}
                 style={{
                     minHeight: 170,
@@ -105,8 +105,22 @@ function EmployeeSchedule({ employees_id }) {
                             <div className="grid wide">
                                 <div className="row">
                                     <div className="col l-12 m-12 c-12">
-                                        <h3 style={{ fontSize: '20px' }}>Lịch khám</h3>
-
+                                        <div
+                                            style={
+                                                {
+                                                    // width: '210px',
+                                                    // display: 'flex',
+                                                    // alignItems: 'center',
+                                                    // justifyContent: 'space-between',
+                                                    // marginBottom: 5,
+                                                }
+                                            }
+                                        >
+                                            <h3 style={{ fontSize: '20px' }}>Đặt lịch </h3>
+                                            <div>
+                                                Ngày: <span>{today}</span>
+                                            </div>
+                                        </div>
                                         <div className={cx('wrapper-btn')}>
                                             {dataApi?.map((item, index) => {
                                                 return (
@@ -127,21 +141,6 @@ function EmployeeSchedule({ employees_id }) {
                                         </div>
                                         {/* </Card> */}
                                     </div>
-
-                                    {listBooking?.content.length < 1 && (
-                                        <div className="col l-12 m-12 c-12">
-                                            <h3 style={{ fontSize: '20px' }}>Chưa có lịch hẹn</h3>
-                                            <p>
-                                                Ngày: <span>{today}</span>
-                                            </p>
-                                            <div style={{ display: 'flex', marginTop: 8 }}>
-                                                <span style={{ fontSize: '12px', fontWeight: 'bold' }}>
-                                                    Vui lòng chọn ngày khác
-                                                </span>
-                                            </div>
-                                            {/* </Card> */}
-                                        </div>
-                                    )}
                                 </div>
                             </div>
 

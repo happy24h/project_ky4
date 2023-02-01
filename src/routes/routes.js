@@ -18,6 +18,7 @@ import ServiceClient from '~/pages/Home/Detail/ServiceClient';
 import AllService from '~/pages/Home/SeeMore/Service/AllService';
 import AllBranch from '~/pages/Home/SeeMore/Branch/AllBranch';
 import AllEmployee from '~/pages/Home/SeeMore/Employee/AllEmployee';
+import AccountConfirm from '~/layouts/components/AccountConfirm';
 
 // System
 import ManageUser from '~/layouts/System/Page/ManageUser';
@@ -83,6 +84,7 @@ const publicRouters = [
     { path: config.routes.allEmployee, component: AllEmployee },
     { path: config.routes.login, component: Login, changeLayout: null },
     { path: config.routes.register, component: Register, changeLayout: null },
+    { path: config.routes.accountConfirm, component: AccountConfirm, changeLayout: null },
 ];
 
 const privateRoutes = [
