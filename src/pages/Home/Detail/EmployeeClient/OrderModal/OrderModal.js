@@ -43,20 +43,23 @@ function OrderModal() {
 
     useEffect(() => {
         getAllService();
+        setState({ ...user });
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [user?.id]);
+    console.log('check state modal', state);
 
     //B3: Lấy danh sách
 
     const values = {
         booking_id: id,
-        customer_id: '1',
+        customer_id: state?.id,
+        name_booking: state?.username,
         email: state?.email,
         phone: state?.phone,
-        name_booking: state?.name_booking,
         voucher_id: '',
     };
+    console.log('check value ...', values);
 
     console.log('hello viet anh state la : ', state);
 
@@ -78,6 +81,8 @@ function OrderModal() {
     const handleConfirmBooking = async () => {
         // await createOder(values, dispatch, user?.accessToken);
         // console.log('test create', dataCreateOrder.id);
+
+        console.log('check value 2...', values);
 
         const res = await axios.post('http://localhost:8078/api/v1/order/create', values, {
             headers: { Authorization: `Bearer ${user?.accessToken}` },
@@ -131,7 +136,7 @@ function OrderModal() {
                             <input
                                 type="text"
                                 name="name_booking"
-                                value={state.name_booking}
+                                value={state.username}
                                 className="form-control"
                                 onChange={handleOnchangeInput}
                             />
