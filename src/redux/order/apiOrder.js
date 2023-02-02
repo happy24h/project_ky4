@@ -49,7 +49,7 @@ export const createOderDetail = async (oder, dispatch, accessToken) => {
         });
         dispatch(createOderDetailSuccess());
 
-        toast.success('create order detail');
+        toast.success('Quý khách đã đặt lịch thành công');
     } catch (err) {
         dispatch(createOderDetailFailed());
         toast.error('Có thứ gì đó không ổn... ?');
