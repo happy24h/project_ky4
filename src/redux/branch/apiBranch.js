@@ -22,9 +22,7 @@ import {
 export const getBranch = async (dataValues, dispatch, accessToken) => {
     dispatch(getBranchStart());
     try {
-        const res = await axios.post('http://localhost:8078/api/v1/branch/search', dataValues, {
-            headers: { Authorization: `Bearer ${accessToken}` },
-        });
+        const res = await axios.post('http://localhost:8078/api/v1/branch/search', dataValues);
         dispatch(getBranchSuccess(res.data));
     } catch (err) {
         dispatch(getBranchFailed());
@@ -65,9 +63,7 @@ export const deleteBranch = async (id, accessToken, dispatch, handleLoading) => 
 export const getDetailBranch = async (id, dispatch, accessToken) => {
     dispatch(detailBranchStart());
     try {
-        const res = await axios.get(`http://localhost:8078/api/v1/branch/${id}`, {
-            headers: { Authorization: `Bearer ${accessToken}` },
-        });
+        const res = await axios.get(`http://localhost:8078/api/v1/branch/${id}`);
         dispatch(detailBranchSuccess(res.data));
 
         // toast.success('Detail success');

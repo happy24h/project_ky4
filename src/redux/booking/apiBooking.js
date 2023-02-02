@@ -23,9 +23,7 @@ import {
 export const getBooking = async (booking, dispatch, accessToken) => {
     dispatch(getBookingStart());
     try {
-        const res = await axios.post('http://localhost:8078/api/v1/booking/search', booking, {
-            headers: { Authorization: `Bearer ${accessToken}` },
-        });
+        const res = await axios.post('http://localhost:8078/api/v1/booking/search', booking);
         dispatch(getBookingSuccess(res.data));
         // loadApi();
         // navigate('/system/manage-user');

@@ -80,9 +80,7 @@ export const logOut = async (dispatch, navigate) => {
 export const getAllAccount = async (account, dispatch, token) => {
     dispatch(accountStart());
     try {
-        const res = await axios.post('http://localhost:8078/api/v1/account/search', account, {
-            headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await axios.post('http://localhost:8078/api/v1/account/search', account);
         console.log('check ', res);
         dispatch(accountSuccess(res.data));
     } catch (err) {
@@ -152,9 +150,7 @@ export const createAccountCustomer = async (account, dispatch, accessToken) => {
 export const getDetailAccount = async (id, dispatch, accessToken) => {
     dispatch(detailAccountStart());
     try {
-        const res = await axios.get(`http://localhost:8078/api/v1/account/${id}`, {
-            headers: { Authorization: `Bearer ${accessToken}` },
-        });
+        const res = await axios.get(`http://localhost:8078/api/v1/account/${id}`);
         dispatch(detailAccountSuccess(res.data));
         // toast.success('Detail success');
     } catch (err) {

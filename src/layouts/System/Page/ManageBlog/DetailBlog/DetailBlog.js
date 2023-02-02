@@ -64,7 +64,7 @@ function DetailBlog() {
                         <strong>Title:</strong> <span className={cx('text-detail')}>{detailBlog?.title}</span>
                     </List>
                     <List className={cx('list-detail')}>
-                        <strong>Description:</strong>{' '}
+                        <strong>Description:</strong>
                         <span className={cx('text-detail')}>{detailBlog?.description}</span>
                     </List>
                     <List className={cx('list-detail')}>

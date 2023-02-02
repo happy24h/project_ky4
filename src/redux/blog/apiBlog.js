@@ -20,9 +20,7 @@ import {
 export const getBlog = async (account, dispatch, accessToken) => {
     dispatch(getBlogStart());
     try {
-        const res = await axios.post('http://localhost:8078/api/v1/blog/search', account, {
-            headers: { Authorization: `Bearer ${accessToken}` },
-        });
+        const res = await axios.post('http://localhost:8078/api/v1/blog/search', account);
         dispatch(getBlogSuccess(res.data));
         // loadApi();
         // navigate('/system/manage-user');
@@ -52,9 +50,7 @@ export const createBlog = async (account, dispatch, accessToken, loadApi, naviga
 export const getDetailBlog = async (id, dispatch, accessToken, getBlog) => {
     dispatch(detailBlogStart());
     try {
-        const res = await axios.get(`http://localhost:8078/api/v1/blog/${id}`, {
-            headers: { Authorization: `Bearer ${accessToken}` },
-        });
+        const res = await axios.get(`http://localhost:8078/api/v1/blog/${id}`);
         dispatch(detailBlogSuccess(res.data));
 
         // toast.success('Detail success');

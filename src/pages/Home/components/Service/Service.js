@@ -7,17 +7,29 @@ import classNames from 'classnames/bind';
 import styles from '../ContentSlider/ContentSlider.module.scss';
 // import { dataCoursesFake } from '../../../../assets/dataFake/dataService';
 import { getAllService } from '~/redux/service/apiService';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 const cx = classNames.bind(styles);
 
 function Service({ settings }) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.auth.login?.currentUser);
 
     // eslint-disable-next-line no-unused-vars
-    const [loadData, setLoadData] = useState(false);
+    // const [loadData, setLoadData] = useState(false);
+    let data = {
+        name: '',
+        type_service_id: '',
+        status: '',
+        start: '',
+        end: '',
+        limit: 10,
+        page: 1,
+        sort: 'desc',
+    };
 
     useEffect(() => {
-        getAllService();
+        getAllService(data, dispatch, user?.accessToken);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

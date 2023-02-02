@@ -16,10 +16,23 @@ function Branch({ settings }) {
 
     const navigate = useNavigate();
     // const user = useSelector((state) => state.auth.login?.currentUser);
+    const user = useSelector((state) => state.auth.login?.currentUser);
     const listBranch = useSelector((state) => state.branch.branch?.listData?.content);
+    let dataBranch = {
+        name: '',
+        address: '',
+        hot_line: '',
+        start: '',
+        end: '',
+        page: 1,
+        limit: 10,
+        // sort: 'desc',
+        sort: 'asc',
+        status: '',
+    };
     console.log('check list branch', listBranch);
     useEffect(() => {
-        getBranch();
+        getBranch(dataBranch, dispatch, user?.accessToken);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
