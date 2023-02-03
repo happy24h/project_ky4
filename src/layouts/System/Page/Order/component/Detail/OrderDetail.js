@@ -23,6 +23,7 @@ function OrderDetail() {
     console.log(' check order.....', orderDetail);
     console.log(' check booking Detail.....', bookingDetail);
     console.log(' check booking status.....', orderDetail[0]?.order.status);
+    const dataStatus = orderDetail.length > 0 && orderDetail[0]?.order.status ? orderDetail[0]?.order.status : 1;
 
     useEffect(() => {
         setStatusOrderDetailChange(orderDetail[0]?.order.status);
@@ -37,7 +38,7 @@ function OrderDetail() {
         fetchApi();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [id || statusOrderDetailChange || orderDetail[0]?.order?.booking_id]);
+    }, [id || statusOrderDetailChange || dataStatus]);
 
     const handleChangeStatus = (e) => {
         if (e.target.value !== '') {
@@ -59,7 +60,7 @@ function OrderDetail() {
             case -1:
                 return <Tag color="red">Đã hủy</Tag>;
             default:
-                return <Tag color="blue">{orderDetail[0]?.order.status}</Tag>;
+                return <Tag color="blue">{dataStatus}</Tag>;
         }
     };
 
