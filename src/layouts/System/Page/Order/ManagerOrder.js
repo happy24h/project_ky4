@@ -21,7 +21,7 @@ function ManagerOrder() {
         booking_id: '',
         voucher_id: '',
         status: '',
-        idsOrder:"",
+        idsOrder: '',
         sort: 'desc',
         // voucher_id: '',
         time_booking: '',
@@ -29,11 +29,10 @@ function ManagerOrder() {
         rangeTotalPriceEnd: '',
     });
 
-
     //B1: Gọi dispatch để gửi trạng thái reducer
     const dispatch = useDispatch();
     const navigate = useNavigate();
-const dataSelector = useSelector((state) =>  state.dashBoarOderSlices.dashboardOrder?.listData);
+    const dataSelector = useSelector((state) => state.dashBoarOderSlices.dashboardOrder?.listData);
 
     //B2: Lấy token
     // useSelector để lấy dữ liệu
@@ -47,7 +46,7 @@ const dataSelector = useSelector((state) =>  state.dashBoarOderSlices.dashboardO
         rangeTotalPriceStart: state?.rangeTotalPriceStart,
         rangeTotalPriceEnd: state?.rangeTotalPriceEnd,
         status: state?.status,
-        idsOrder:[],
+        idsOrder: [],
         start: state?.start,
         end: state?.end,
         limit: lineNumber,
@@ -65,22 +64,20 @@ const dataSelector = useSelector((state) =>  state.dashBoarOderSlices.dashboardO
         state?.end;
 
     useEffect(() => {
-        if(statusParam.get('status')!=null){
+        if (statusParam.get('status') != null) {
             data.status = statusParam.get('status');
         }
-        if (dataSelector != null){
-            let idsOrder =   dataSelector.id ?? dataSelector.ids;
-            if(idsOrder!=null){
+        if (dataSelector != null) {
+            let idsOrder = dataSelector.id ?? dataSelector.ids;
+            if (idsOrder != null) {
                 let arr = [];
-                if(!Array.isArray(idsOrder)){
+                if (!Array.isArray(idsOrder)) {
                     arr.push(idsOrder);
-                }else{
+                } else {
                     arr = [...idsOrder];
                 }
                 data.idsOrder = arr;
-
             }
-
         }
 
         getAllOrder(data, dispatch, user?.accessToken);
@@ -160,7 +157,7 @@ const dataSelector = useSelector((state) =>  state.dashBoarOderSlices.dashboardO
             render: (text) => {
                 switch (text) {
                     case 2:
-                        return <Tag color="blue">Đã đến</Tag>;
+                        return <Tag color="blue">Đã thanh toán</Tag>;
                     case 1:
                         return <Tag color="success">Đã đặt</Tag>;
                     case 0:
@@ -185,11 +182,11 @@ const dataSelector = useSelector((state) =>  state.dashBoarOderSlices.dashboardO
             render: (text) => {
                 switch (text) {
                     case 1:
-                        return <Tag color='blue'>Khách vãng lai</Tag>;
+                        return <Tag color="blue">Khách vãng lai</Tag>;
                     case 0:
-                        return <Tag color='blue'>Khách vãng lai</Tag>;
+                        return <Tag color="blue">Khách vãng lai</Tag>;
                     default:
-                        return <Tag color='success'>Khách đã đăng ký</Tag>;
+                        return <Tag color="success">Khách đã đăng ký</Tag>;
                 }
             },
         },
@@ -197,7 +194,7 @@ const dataSelector = useSelector((state) =>  state.dashBoarOderSlices.dashboardO
             title: 'Hành động',
             key: 'action',
             render: (_, record) => (
-                <Space size='middle'>
+                <Space size="middle">
                     <Button
                         style={{ display: user.roles.map((item) => (item === 'ADMIN' ? 'block' : 'none')) }}
                         type="primary"
@@ -271,8 +268,8 @@ const dataSelector = useSelector((state) =>  state.dashBoarOderSlices.dashboardO
                 <Input.Group className={cx('input-group')} compact>
                     <Input
                         style={{ width: '30%', height: 32 }}
-                        placeholder='Tìm mã đặt lịch'
-                        name='booking_id'
+                        placeholder="Tìm mã đặt lịch"
+                        name="booking_id"
                         value={state?.booking_id}
                         onChange={handleOnchangeInput}
                     />
@@ -385,10 +382,10 @@ const dataSelector = useSelector((state) =>  state.dashBoarOderSlices.dashboardO
 
     return (
         <div style={{ marginTop: '120px' }}>
-            <div className='container' style={{ width: '1200px', margin: '0 auto' }}>
+            <div className="container" style={{ width: '1200px', margin: '0 auto' }}>
                 <Card
-                    size='small'
-                    title='Total Accounts'
+                    size="small"
+                    title="Total Accounts"
                     // extra={<a href="#">More</a>}
                     style={{
                         width: 180,

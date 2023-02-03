@@ -22,11 +22,9 @@ function DetailEmployee() {
             <div className="intro-doctor">
                 <div
                     className="content-left"
-                    style={
-                        {
-                            backgroundImage: `url(${detailAccount.thumbnail})`,
-                        }
-                    }
+                    style={{
+                        backgroundImage: `url(${detailAccount?.thumbnail})`,
+                    }}
                 ></div>
                 <div className="content-right">
                     <div className="up">{detailAccount?.name}</div>

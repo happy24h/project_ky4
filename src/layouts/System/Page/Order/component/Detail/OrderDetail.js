@@ -6,6 +6,7 @@ import { getDetailOrder, updateStatusOrder } from '~/redux/order/apiOrder';
 import classNames from 'classnames/bind';
 import styles from './DetailOrder.module.scss';
 import { getDetailBooking } from '~/redux/booking/apiBooking';
+import axios from 'axios';
 const cx = classNames.bind(styles);
 const { Meta } = Card;
 
@@ -16,28 +17,41 @@ function OrderDetail() {
 
     const orderDetail = useSelector((state) => state.orderDetail.orderDetail?.orderDetailCurrent);
     const bookingDetail = useSelector((state) => state.booking.booking?.detailData);
-    const [statusOrderDetailChange, setStatusOrderDetailChange] = useState(false);
+    const [statusOrderDetailChange, setStatusOrderDetailChange] = useState();
+    console.log('check status', statusOrderDetailChange);
+
+    console.log(' check order.....', orderDetail);
+    console.log(' check booking Detail.....', bookingDetail);
+    console.log(' check booking status.....', orderDetail[0]?.order.status);
 
     useEffect(() => {
-        getDetailBooking(orderDetail[0]?.order?.booking_id, dispatch);
-        getDetailOrder(id, dispatch, user?.accessToken);
+        setStatusOrderDetailChange(orderDetail[0]?.order.status);
+        const fetchApi = async () => {
+            // await getDetailOrder(id, dispatch, user?.accessToken);
+
+            const res = await axios.get('http://localhost:8078/api/v1/order/' + id);
+            console.log('check res', res);
+
+            await getDetailBooking(res.data[0]?.booking_id, dispatch);
+        };
+        fetchApi();
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id || statusOrderDetailChange || orderDetail[0]?.order?.booking_id]);
 
     const handleChangeStatus = (e) => {
         if (e.target.value !== '') {
             if (window.confirm('Bạn có chắc muốn thay đổi trạng thái?')) {
-                // changeStatusDetailFeedback(id,e.target.value, dispatch, user?.accessToken);
                 updateStatusOrder(id, e.target.value, dispatch, user?.accessToken);
-                setStatusOrderDetailChange(!statusOrderDetailChange);
+                setStatusOrderDetailChange(e.target.value);
             }
         }
     };
 
     const checkOrderStatus = () => {
-        switch (orderDetail[0]?.order.status) {
+        switch (statusOrderDetailChange) {
             case 2:
-                return <Tag color="blue">Đã đến</Tag>;
+                return <Tag color="blue">Đã thanh toán</Tag>;
             case 1:
                 return <Tag color="success">Đã đặt</Tag>;
             case 0:
@@ -107,7 +121,8 @@ function OrderDetail() {
                         <span className={cx('text-detail')}>{bookingDetail?.time_booking}</span>
                     </List>
                     <List className={cx('list-detail')}>
-                        <strong>Trạng thái:</strong> <span className={cx('text-detail')}>{checkOrderStatus()}</span>
+                        <strong>Trạng thái:</strong>{' '}
+                        {/* <span className={cx('text-detail')}>{statusOrderDetailChange} ...</span> */}
                         <span>
                             <select
                                 style={{
@@ -115,15 +130,14 @@ function OrderDetail() {
                                         item === 'ADMIN' || 'CUSTOMER_CARE' ? '' : 'none',
                                     ),
                                 }}
-                                value={orderDetail[0]?.order.status}
+                                value={statusOrderDetailChange}
                                 onChange={handleChangeStatus}
                             >
-                                <option value="2">Đã đến</option>
-                                {orderDetail[0]?.order.status === 2 || orderDetail[0]?.order.status === -1 ? (
-                                    ''
-                                ) : (
-                                    <option value="1">Đã đặt</option>
-                                )}
+                                {/* <option value={statusOrderDetailChange}>{checkOrderStatus()}</option> */}
+
+                                <option value="2">Đã thanh toán</option>
+                                <option value="1">Đã đặt</option>
+
                                 <option value="-1">Hủy</option>
                             </select>
                         </span>

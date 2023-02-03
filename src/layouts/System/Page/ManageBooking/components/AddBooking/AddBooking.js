@@ -64,13 +64,26 @@ function AddBooking() {
         status: '',
     };
 
+    let dataBranch = {
+        name: state?.name,
+        address: '',
+        hot_line: state?.hot_line,
+        start: '',
+        end: '',
+        page: 1,
+        limit: 6,
+        // sort: 'desc',
+        sort: 'asc',
+        status: '',
+    };
+
     useEffect(() => {
         getAllAccount(dataAccount, dispatch, user?.accessToken);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     useEffect(() => {
-        getBranch();
+        getBranch(dataBranch, dispatch, user?.accessToken);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -186,7 +199,7 @@ function AddBooking() {
                             name="accountId"
                             placeholder="Select address"
                             onChange={handleOnchangeBranch}
-                            options={listBranch.map((item) => ({
+                            options={listBranch?.map((item) => ({
                                 label: item.name,
                                 value: item.id,
                                 name: 'accountId',
