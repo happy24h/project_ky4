@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './SliderLayout.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import config from '~/config';
+import Search from '../Search';
+import { Select } from 'antd';
 import {
     faBriefcase,
     faCircleQuestion,
@@ -11,18 +13,96 @@ import {
     faHome,
     faHospital,
     faPenAlt,
+    faSearch,
     faUserNinja,
 } from '@fortawesome/free-solid-svg-icons';
+import { getBranch } from '~/redux/branch/apiBranch';
+import { useDispatch, useSelector } from 'react-redux';
 
 function SliderLayout() {
+    // const [state, setState] = useState({
+    //     currentDate: '',
+    //     timeBooking: '',
+    //     accountId: '',
+    //     branchId: '',
+    // });
+
+    // console.log('check branch', state.branchId);
+    const navigate = useNavigate();
+
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.auth.login?.currentUser);
+
+    const listBranch = useSelector((state) => state.branch.branch?.listData?.content);
+    const handleOnchangeBranch = (value, name) => {
+        // console.log('----', name);
+
+        // setState((prev) => ({
+        //     ...prev,
+        //     branchId: value,
+        // }));
+        navigate(`detail-learn-branch/${value}`);
+    };
+
+    let dataBranch = {
+        name: '',
+        address: '',
+        hot_line: '',
+        start: '',
+        end: '',
+        page: 1,
+        limit: 6,
+        // sort: 'desc',
+        sort: 'asc',
+        status: '',
+    };
+
+    useEffect(() => {
+        getBranch(dataBranch, dispatch, user?.accessToken);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     return (
         <div className="home-header-banner">
             <div className="content-up">
                 <div className="title1">CƠ SỞ LÀM TÓC UY TÍN</div>
                 <div className="title2">NƠI CHĂM SÓC VÀ YÊU THƯƠNG MÁI TÓC</div>
-                <div className="search">
+                {/* <div className="search">
                     <i className="fas fa-search"></i>
                     <input type="text" placeholder="Tìm kiếm kiểu tóc của bạn tại đây..." />
+                </div> */}
+                <div className="form-input-booking">
+                    <div className="form-input-slogan">
+                        <div className="form-text-slogan">Đặt lịch giử chỗ chỉ 30 giây</div>
+                        <div className="form-text-slogan-down">Cắt xong trả tiền, hủy lịch không sao</div>
+                    </div>
+                    <div className="form-input-booking-select">
+                        {/* <div className="form-input-slider">
+                            {' '}
+                            <input type="text" placeholder="Nhập SDT để đặt lịch..." />
+                        </div>
+                        <button className="form-button-slider">Đặt lịch ngay</button> */}
+                        <Select
+                            className="input-search-slider"
+                            style={{
+                                width: '420px',
+                                margin: '8px 0 15px',
+                            }}
+                            name="accountId"
+                            placeholder="Chọn địa chỉ đặt lịch..."
+                            onChange={handleOnchangeBranch}
+                            options={listBranch?.map((item) => ({
+                                label: item.name,
+                                value: item.id,
+                                name: 'accountId',
+                            }))}
+                        />
+                        {/* <div className="search-booking">
+                            <input className="input-search-slider" type="text" placeholder="Chọn địa chỉ đặt lịch..." />
+                            <FontAwesomeIcon icon={faSearch} />
+                            <button className="form-button-slider">Đặt lịch ngay</button>
+                        </div> */}
+                    </div>
                 </div>
             </div>
             <div className="content-down">

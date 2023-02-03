@@ -41,10 +41,10 @@ function AddBooking() {
     console.log('check---state', state);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const user = useSelector((state) => state.auth.login?.currentUser);
     const listAccount = useSelector((state) => state.account.account?.accountCurrent?.content);
     const listBranch = useSelector((state) => state.branch.branch?.listData?.content);
-    const navigate = useNavigate();
 
     console.log('check list >>>', listAccount);
     console.log('check branch >>>', listBranch);

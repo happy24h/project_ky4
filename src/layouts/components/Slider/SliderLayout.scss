@@ -59,6 +59,7 @@
         background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0.1));
         padding-top: 15px;
         height: 65%;
+        margin-bottom: 0;
 
         .title1 {
             text-align: center;
@@ -84,7 +85,7 @@
             align-items: center;
             margin: 0 auto;
             padding: 10px;
-            border-radius: 25px;
+            border-radius: 5px;
             background: #ddd;
             opacity: 0.8;
 
@@ -102,8 +103,66 @@
         }
     }
 
+    .form-input-booking {
+        font-family: be vietnam pro, sans-serif;
+        font-weight: 300;
+        background: linear-gradient(180deg, #81274d, #c71155);
+        max-width: 545px;
+        border-radius: 8px;
+        padding: 10px 15px;
+        // position: relative;
+        z-index: 3;
+        bottom: 0;
+        margin: 10px auto 0;
+        color: #fff;
+        box-shadow: 0 1px 6px rgba(31, 31, 30, 0.832);
+    }
+
+    .form-text-slogan {
+        font-size: 24px;
+        text-transform: uppercase;
+        font-family: Oswald;
+    }
+
+    .form-text-slogan-down {
+        font-size: 18px;
+
+        font-family: Oswald;
+    }
+
+    .input-search-slider {
+        font-family: be vietnam pro, sans-serif;
+        font-weight: 600;
+        font-size: 20px !important;
+    }
+
+    .search-booking {
+        position: relative;
+        width: fit-content;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 12px auto 10px;
+        padding: 10px;
+        border-radius: 5px;
+        background: #fff;
+        // opacity: 0.8;
+
+        i {
+            margin: 0 5px;
+        }
+
+        input {
+            height: 30px;
+            width: 360px;
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+    }
+
     .content-down {
-        border-bottom: 3px solid #efeef5;
+        // border-bottom: 3px solid #efeef5;
         height: 35%;
         padding-bottom: 10px;
         display: flex;
