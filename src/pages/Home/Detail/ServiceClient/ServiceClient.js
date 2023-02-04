@@ -34,6 +34,8 @@ function ServiceClient() {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    console.log('check list account', listAccount);
     return (
         <div>
             {listAccount &&

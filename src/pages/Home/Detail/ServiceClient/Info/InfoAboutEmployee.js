@@ -8,12 +8,14 @@ import styles from './InfoAboutEmployee.module.scss';
 const cx = classNames.bind(styles);
 
 function InfoAboutEmployee({ EmployeeIdFromParent }) {
+    // console.log('check employeeId ----', EmployeeIdFromParent);
     const dispatch = useDispatch();
 
     const user = useSelector((state) => state.auth.login?.currentUser);
 
     const detailBranch = useSelector((state) => state.branch.branch?.detailData);
 
+    // console.log('detaiBranch', detailBranch);
     useEffect(() => {
         getDetailBranch(EmployeeIdFromParent, dispatch, user?.accessToken);
         // eslint-disable-next-line react-hooks/exhaustive-deps
