@@ -132,7 +132,15 @@ function Header() {
                     </> */}
 
                     <Menu items={userMenu}>
-                        <img className={cx('user-avatar')} src={`${user?.thumbnail}`} alt="" />
+                        <img
+                            className={cx('user-avatar')}
+                            src={
+                                user?.thumbnail.length > 6 && user?.thumbnail
+                                    ? `${user?.thumbnail}`
+                                    : `${images.noAvatar}`
+                            }
+                            alt=""
+                        />
                     </Menu>
                 </div>
             </div>

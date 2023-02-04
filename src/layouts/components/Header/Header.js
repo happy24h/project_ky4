@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import config from '~/config';
@@ -166,7 +167,15 @@ function Header({ homePage }) {
 
                     {!!loginData?.id && (
                         <Menu items={userMenu}>
-                            <img className={cx('user-avatar')} src={`${loginData?.thumbnail}`} alt="" />
+                            <img
+                                className={cx('user-avatar')}
+                                src={
+                                    loginData?.thumbnail.length > 10 && loginData?.thumbnail
+                                        ? `${loginData?.thumbnail}`
+                                        : `${images.noAvatar}`
+                                }
+                                alt=""
+                            />
                         </Menu>
                     )}
                 </div>
