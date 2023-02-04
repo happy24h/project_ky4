@@ -132,11 +132,7 @@ function Header() {
                     </> */}
 
                     <Menu items={userMenu}>
-                        <img
-                            className={cx('user-avatar')}
-                            src="https://i.pinimg.com/564x/e2/4e/ff/e24effa123797fd2099fbcf3060585bf.jpg"
-                            alt="Nguyen Van A"
-                        />
+                        <img className={cx('user-avatar')} src={`${user?.thumbnail}`} alt="" />
                     </Menu>
                 </div>
             </div>

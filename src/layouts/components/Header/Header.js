@@ -166,11 +166,7 @@ function Header({ homePage }) {
 
                     {!!loginData?.id && (
                         <Menu items={userMenu}>
-                            <img
-                                className={cx('user-avatar')}
-                                src="https://files.fullstack.edu.vn/f8-prod/user_avatars/1/623d4b2d95cec.png"
-                                alt="Nguyen Van A"
-                            />
+                            <img className={cx('user-avatar')} src={`${loginData?.thumbnail}`} alt="" />
                         </Menu>
                     )}
                 </div>
