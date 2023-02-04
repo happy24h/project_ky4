@@ -16,7 +16,16 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const loginStart = useSelector((state) => state.auth.login?.isFetching);
+    const loginData = useSelector((state) => state.auth.login?.currentUser);
     console.log('check login start', loginStart);
+    console.log('check login data', loginData?.isAdmin);
+    // const handleLogin = () => {
+    //     if (loginData?.isAdmin) {
+    //         navigate('/system/manage-user');
+    //     } else {
+    //         navigate('/');
+    //     }
+    // };
     const formik = useFormik({
         initialValues: {
             // username: '',
@@ -30,10 +39,11 @@ const Login = () => {
                 .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Vui lòng nhập địa chỉ email hợp lệ.'),
             password: Yup.string().required('Vui lòng nhập mật khẩu.').min(3, 'Mật khẩu phải lớn hơn 4 ký tự.'),
         }),
-        onSubmit: (values) => {
+        onSubmit: async (values) => {
             // window.alert('Form submitted');
             console.log(values);
-            loginUser(values, dispatch, navigate);
+            await loginUser(values, dispatch, navigate);
+            // handleLogin();
         },
     });
 
@@ -57,23 +67,7 @@ const Login = () => {
                     </button>
                 </div>
                 <span className="standardText">Or use your email instead</span>
-                {/* <div className="field">
-                    <div className="customInput">
-                        <FontAwesomeIcon className="inputicon" icon={faUser} />
-                        <input
-                            className="inputfield"
-                            type="text"
-                            placeholder="Name"
-                            autoComplete="username"
-                            name="username"
-                            value={formik.values.username}
-                            onChange={formik.handleChange}
-                        />
-                    </div>
-                    <div className="message">
-                        {formik.errors.username && <p className="error">{formik.errors.username}</p>}
-                    </div>
-                </div> */}
+
                 <div className="field">
                     <div className="customInput">
                         <FontAwesomeIcon className="inputicon" icon={faEnvelope} />

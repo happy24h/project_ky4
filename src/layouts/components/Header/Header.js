@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import config from '~/config';
@@ -22,6 +22,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import 'tippy.js/dist/tippy.css';
 import Menu from '~/components/Popper/Menu';
+import { useDispatch, useSelector } from 'react-redux';
+import { logOut } from '~/redux/apiRequest';
 const cx = classNames.bind(styles);
 
 const MENU_ITEMS = [
@@ -49,7 +51,12 @@ const MENU_ITEMS = [
 function Header({ homePage }) {
     const [modelSidebar, setModelSidebar] = useState(false);
     const [showGoToTop, setShowGoToTop] = useState(false);
-    const currentUser = false;
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const loginData = useSelector((state) => state.auth.login?.currentUser);
+    const handleLogout = () => {
+        logOut(dispatch, navigate);
+    };
     const userMenu = [
         {
             icon: <FontAwesomeIcon icon={faUser} />,
@@ -72,6 +79,7 @@ function Header({ homePage }) {
             title: 'Log out',
             to: '/logout',
             separate: true,
+            handleOnclick: handleLogout,
         },
     ];
 
@@ -134,9 +142,9 @@ function Header({ homePage }) {
                 </div>
                 {showGoToTop && <Search />}
                 <div className={cx('actions')}>
-                    {currentUser ? (
+                    {!!loginData?.id ? (
                         <>
-                            <div className={cx('my-course')}>Khóa học</div>
+                            <div className={cx('my-course')}>Hỗ trợ</div>
                             <Tippy delay={[0, 50]} content="Thông báo" placement="bottom">
                                 <button className={cx('action-btn')}>
                                     <BellIcon />
@@ -156,7 +164,7 @@ function Header({ homePage }) {
                         </>
                     )}
 
-                    {currentUser && (
+                    {!!loginData?.id && (
                         <Menu items={userMenu}>
                             <img
                                 className={cx('user-avatar')}

@@ -44,7 +44,12 @@ export const loginUser = async (user, dispatch, navigate) => {
         // dispatch login success
         const res = await axios.post('http://localhost:8078/api/v1/login', user);
         dispatch(loginSuccess(res.data));
-        navigate('/system/manage-user');
+        if (res.data.isAdmin) {
+            navigate('/system/manage-user');
+        } else {
+            navigate('/');
+        }
+        console.log('check res login ', res.data.isAdmin);
         toast.success('Đăng nhập thành công');
     } catch (err) {
         // dispatch login failed
