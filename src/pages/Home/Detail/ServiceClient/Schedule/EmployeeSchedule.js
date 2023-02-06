@@ -123,6 +123,7 @@ function EmployeeSchedule({ employees_id }) {
                                         </div>
                                         <div className={cx('wrapper-btn')}>
                                             {dataApi?.map((item, index) => {
+                                                let isStatus = item?.status === 1 ? true : false;
                                                 return (
                                                     <div
                                                         key={index}
@@ -132,6 +133,10 @@ function EmployeeSchedule({ employees_id }) {
                                                             type="primary"
                                                             className={cx('btn-booking')}
                                                             onClick={() => handleTimeBooking(item.id)}
+                                                            disabled={isStatus}
+                                                            style={
+                                                                item?.status === 1 ? { backgroundColor: '#8ccdf2' } : {}
+                                                            }
                                                         >
                                                             {item?.time_booking}:00 - {item?.time_booking}:30
                                                         </Button>

@@ -162,33 +162,36 @@ function ModalEdit() {
                         {formik.errors.password && <p className={cx('error')}>{formik.errors.password}</p>}
                     </div>
                 </div>
-                <div class="field">
-                    <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faShieldCat} />
+                {user.isAdmin && (
+                    <div class="field">
+                        <div className={cx('customInput')}>
+                            <FontAwesomeIcon className={cx('inputicon')} icon={faShieldCat} />
 
-                        <select
-                            className={cx('inputfield')}
-                            name="roles"
-                            onChange={(e) => setState(e.target.value)}
-                            value={state}
-                        >
-                            <option value="">-- Choose --</option>
+                            <select
+                                className={cx('inputfield')}
+                                name="roles"
+                                onChange={(e) => setState(e.target.value)}
+                                value={state}
+                            >
+                                <option value="">-- Choose --</option>
 
-                            {listRoles &&
-                                listRoles.length > 0 &&
-                                listRoles.map((item, index) => {
-                                    return (
-                                        <option key={index} value={item.name}>
-                                            {item.name}
-                                        </option>
-                                    );
-                                })}
-                        </select>
-                    </div>
-                    {/* <div className={cx('message')}>
+                                {listRoles &&
+                                    listRoles.length > 0 &&
+                                    listRoles.map((item, index) => {
+                                        return (
+                                            <option key={index} value={item.name}>
+                                                {item.name}
+                                            </option>
+                                        );
+                                    })}
+                            </select>
+                        </div>
+                        {/* <div className={cx('message')}>
                         {!state && <p className={cx('error')}>Vui lòng nhập thông tin</p>}
                     </div> */}
-                </div>
+                    </div>
+                )}
+
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
                         <FontAwesomeIcon className={cx('inputicon')} icon={faAddressBook} />

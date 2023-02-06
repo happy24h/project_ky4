@@ -112,12 +112,19 @@ function EmployeeSchedule() {
                                                     </p>
                                                     <div className={cx('wrapper-btn')}>
                                                         {item.employee.bookingByTime_bookings.map((item, index) => {
+                                                            let isStatus = item?.status === 1 ? true : false;
                                                             return (
                                                                 <div key={index} style={{ marginRight: '6px' }}>
                                                                     <Button
                                                                         type="primary"
                                                                         className={cx('btn-booking')}
                                                                         onClick={() => handleTimeBooking(item.id)}
+                                                                        disabled={isStatus}
+                                                                        style={
+                                                                            item?.status === 1
+                                                                                ? { backgroundColor: '#8ccdf2' }
+                                                                                : {}
+                                                                        }
                                                                     >
                                                                         {item.time_booking}:00 - {item.time_booking}:30
                                                                     </Button>
