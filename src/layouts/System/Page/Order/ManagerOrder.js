@@ -267,22 +267,16 @@ function ManagerOrder() {
             <div className={cx('wrapper-input-group')}>
                 <Input.Group className={cx('input-group')} compact>
                     <Input
-                        style={{ width: '30%', height: 32 }}
+                        style={{ width: 150, height: 32 }}
                         placeholder="Tìm mã đặt lịch"
                         name="booking_id"
                         value={state?.booking_id}
                         onChange={handleOnchangeInput}
                     />
-                    {/*<Input*/}
-                    {/*    style={{ width: '30%', height: 32 }}*/}
-                    {/*    placeholder="Tìm mã giảm giá"*/}
-                    {/*    name="voucher_id"*/}
-                    {/*    value={state?.voucher_id}*/}
-                    {/*    onChange={handleOnchangeInput}*/}
-                    {/*/>*/}
+
                     <Select
                         className={cx('input-select')}
-                        style={{ width: '25%', height: 32 }}
+                        style={{ width: 150, height: 32 }}
                         placeholder="Khung giờ"
                         name="time_booking"
                         onChange={(value) => {
@@ -301,7 +295,7 @@ function ManagerOrder() {
                     </Select>
                     <Select
                         className={cx('input-select')}
-                        style={{ width: '25%', height: 32 }}
+                        style={{ width: 150, height: 32 }}
                         placeholder="Theo id tăng dần"
                         name="sort"
                         onChange={handleSelectSort}
@@ -325,7 +319,7 @@ function ManagerOrder() {
                     />
                     <Select
                         className={cx('input-select')}
-                        style={{ width: '25%', height: 32 }}
+                        style={{ width: 150, height: 32 }}
                         placeholder="Chọn khoảng giá"
                         name="sort"
                         onChange={(value) => {

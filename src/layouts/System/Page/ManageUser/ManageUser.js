@@ -24,6 +24,7 @@ function ManageUser() {
         phone: '',
         gender: '',
         number: '',
+        roles: '',
     });
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.login?.currentUser);
@@ -96,7 +97,7 @@ function ManageUser() {
         },
     ];
 
-    let totalState = state?.name + state?.email + state?.phone + state?.gender;
+    let totalState = state?.name + state?.email + state?.phone + state?.gender + state?.roles;
     // console.log('check total state', totalState);
 
     let dataAccount = {
@@ -109,7 +110,7 @@ function ManageUser() {
         page: page,
         limit: lineNumber,
         sort: 'asc',
-        role_id: '',
+        role_id: state?.roles,
         member_ship_class_id: '',
         status: '',
     };
@@ -121,6 +122,9 @@ function ManageUser() {
 
     const handleSelectChange = (value) => {
         setState({ ...state, gender: value });
+    };
+    const handleSelectChangeRoles = (value) => {
+        setState({ ...state, roles: value });
     };
 
     useEffect(() => {
@@ -152,7 +156,7 @@ function ManageUser() {
             <div className={cx('wrapper-input-group')}>
                 <Input.Group className={cx('input-group')} compact>
                     <Input
-                        style={{ width: '30%', height: 32 }}
+                        style={{ width: 200, height: 32 }}
                         placeholder="Tìm theo tên"
                         name="name"
                         value={state?.name}
@@ -160,14 +164,14 @@ function ManageUser() {
                     />
 
                     <Input
-                        style={{ width: '30%', height: 32 }}
+                        style={{ width: 200, height: 32 }}
                         placeholder="Tìm theo email"
                         name="email"
                         value={state?.email}
                         onChange={handleOnchangeInput}
                     />
                     <Input
-                        style={{ width: '20%', height: 32 }}
+                        style={{ width: 150, height: 32 }}
                         placeholder="Tìm theo điện thoại"
                         name="phone"
                         value={state?.phone}
@@ -175,7 +179,7 @@ function ManageUser() {
                     />
                     <Select
                         className={cx('input-select')}
-                        style={{ width: '20%', height: 32 }}
+                        style={{ width: 150, height: 32 }}
                         placeholder="Giới tính"
                         name="gender"
                         // defaultValue="Gender"
@@ -184,6 +188,20 @@ function ManageUser() {
                         <Option value="">Tất cả</Option>
                         <Option value="MALE">Nam</Option>
                         <Option value="FEMALE">Nữ</Option>
+                    </Select>
+                    <Select
+                        className={cx('input-select')}
+                        style={{ width: 150, height: 32 }}
+                        placeholder="Roles"
+                        name="roles"
+                        onChange={handleSelectChangeRoles}
+                    >
+                        <Option value="">Tất cả</Option>
+                        <Option value="1">Admin</Option>
+                        <Option value="2">RECEPTIONISTS</Option>
+                        <Option value="3">STAFF</Option>
+                        <Option value="4">CUSTOMER_CARE</Option>
+                        <Option value="5">CUSTOMER</Option>
                     </Select>
                 </Input.Group>
                 {/* <Form.Item label=""> */}
