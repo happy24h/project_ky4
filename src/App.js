@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { privateRoutes, publicRouters } from './routes';
+import { privateRoutes, publicRouters, privateClient } from './routes';
 import DefaultLayout from './layouts/DefaultLayout';
 import SystemLayout from './layouts/System/SystemLayout';
 import { ToastContainer } from 'react-toastify';
@@ -9,7 +9,7 @@ import './assets/styles/grid.scss';
 import { useSelector } from 'react-redux';
 
 function App() {
-    const user = useSelector((state) => state.auth.login.currentUser?.username);
+    const user = useSelector((state) => state.auth.login.currentUser?.isAdmin);
     console.log('user', user);
     return (
         <Router>
@@ -39,6 +39,22 @@ function App() {
 
                     {user &&
                         privateRoutes.map((route, index) => {
+                            const Page = route.component;
+                            let Layout = SystemLayout;
+                            return (
+                                <Route
+                                    key={index}
+                                    path={route.path}
+                                    element={
+                                        <Layout>
+                                            <Page />
+                                        </Layout>
+                                    }
+                                />
+                            );
+                        })}
+                    {!user &&
+                        privateClient.map((route, index) => {
                             const Page = route.component;
                             let Layout = SystemLayout;
                             return (

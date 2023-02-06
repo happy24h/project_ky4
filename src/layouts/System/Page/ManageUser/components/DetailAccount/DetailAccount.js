@@ -2,6 +2,8 @@ import { Card, List, Button } from 'antd';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import images from '~/assets/images';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { getDetailAccount } from '~/redux/apiRequest';
@@ -30,12 +32,21 @@ function DetailAccount() {
 
     return (
         <>
-            <Link to={'/system/manage-user'}>
-                <Button type="primary" ghost style={{ backgroundColor: '#fff' }}>
-                    {/* <EditOutlined /> */}
-                    Back
-                </Button>
-            </Link>
+            {user.isAdmin ? (
+                <Link to={'/system/manage-user'}>
+                    <Button type="primary" ghost style={{ backgroundColor: '#fff' }}>
+                        {/* <EditOutlined /> */}
+                        Back
+                    </Button>
+                </Link>
+            ) : (
+                <Link to={'/'}>
+                    <Button type="primary" ghost style={{ backgroundColor: '#fff' }}>
+                        {/* <EditOutlined /> */}
+                        Back
+                    </Button>
+                </Link>
+            )}
 
             <div className={cx('wrapper')}>
                 {' '}
@@ -49,7 +60,11 @@ function DetailAccount() {
                 >
                     <div
                         className={cx('detail-image')}
-                        style={{ backgroundImage: `url(${detailAccount?.thumbnail})` }}
+                        style={
+                            detailAccount?.thumbnail && detailAccount?.thumbnail.length > 6
+                                ? { backgroundImage: `url(${detailAccount?.thumbnail})` }
+                                : { backgroundImage: `url(${images.noAvatar})` }
+                        }
                     ></div>
                     <Meta title="Sắp đến tết" description="www.instagram.com" />
                 </Card>

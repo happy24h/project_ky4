@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faCalendarDay,
     faCartShopping,
-    faComment, faDashboard,
+    faComment,
+    faDashboard,
     faHandScissors,
     faNetworkWired,
     faNewspaper,
@@ -27,17 +28,14 @@ function Sidebar() {
                 {
                     title: t('systemSidebar.dashboard.data.title_booking'),
                     to: '/system/manage-dash-board-booking',
-                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
                 },
                 {
                     title: t('systemSidebar.dashboard.data.title_service'),
                     to: '/system/manage-dash-board-service',
-                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
                 },
                 {
                     title: t('systemSidebar.dashboard.data.title_order'),
                     to: '/system/manage-dash-board-order',
-                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
                 },
             ],
         },
@@ -48,12 +46,10 @@ function Sidebar() {
                 {
                     title: t('systemSidebar.accounts.data.list'),
                     to: '/system/manage-user',
-                    permission: ['ADMIN', 'RECEPTIONISTS'],
                 },
                 {
                     title: t('systemSidebar.accounts.data.create'),
                     to: '/system/manage-user/add',
-                    permission: ['ADMIN'],
                 },
             ],
         },
@@ -64,12 +60,10 @@ function Sidebar() {
                 {
                     title: t('systemSidebar.blog.data.list'),
                     to: '/system/manage-blog',
-                    permission: ['ADMIN', 'CUSTOMER_CARE'],
                 },
                 {
                     title: t('systemSidebar.blog.data.create'),
                     to: '/system/manage-blog/add',
-                    permission: ['ADMIN', 'CUSTOMER_CARE'],
                 },
             ],
         },
@@ -80,12 +74,10 @@ function Sidebar() {
                 {
                     title: t('systemSidebar.booking.data.list'),
                     to: '/system/manage-booking',
-                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
                 },
                 {
                     title: t('systemSidebar.booking.data.create'),
                     to: '/system/manage-booking/add',
-                    permission: ['ADMIN'],
                 },
             ],
         },
@@ -96,12 +88,10 @@ function Sidebar() {
                 {
                     title: t('systemSidebar.branch.data.list'),
                     to: '/system/manage-branch',
-                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
                 },
                 {
                     title: t('systemSidebar.branch.data.create'),
                     to: '/system/manage-branch/add',
-                    permission: ['ADMIN'],
                 },
             ],
         },
@@ -117,17 +107,14 @@ function Sidebar() {
                 {
                     title: t('systemSidebar.service.data.create'),
                     to: '/system/manage-service/add',
-                    permission: ['ADMIN'],
                 },
                 {
                     title: t('systemSidebar.type_service.data.list'),
                     to: '/system/manage-type-service',
-                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
                 },
                 {
                     title: t('systemSidebar.type_service.data.create'),
                     to: '/system/manage-type-service/add',
-                    permission: ['ADMIN'],
                 },
             ],
         },
@@ -138,12 +125,10 @@ function Sidebar() {
                 {
                     title: t('systemSidebar.feedback.data.list'),
                     to: '/system/manage-feedback',
-                    permission: ['ADMIN', 'CUSTOMER_CARE'],
                 },
                 {
                     title: t('systemSidebar.feedback.data.create'),
                     to: '/system/manage-feedback/add',
-                    permission: ['ADMIN', 'RECEPTIONISTS', 'STAFF', 'CUSTOMER_CARE'],
                 },
             ],
         },
@@ -154,12 +139,10 @@ function Sidebar() {
                 {
                     title: t('systemSidebar.voucher.data.list'),
                     to: '/system/manage-voucher',
-                    permission: ['ADMIN'],
                 },
                 {
                     title: t('systemSidebar.voucher.data.create'),
                     to: '/system/manage-voucher/add',
-                    permission: ['ADMIN'],
                 },
             ],
         },
@@ -170,7 +153,6 @@ function Sidebar() {
                 {
                     title: t('systemSidebar.feedback.data.list'),
                     to: '/system/manage-feedback',
-                    permission: ['ADMIN', 'CUSTOMER_CARE'],
                 },
             ],
         },
@@ -181,7 +163,6 @@ function Sidebar() {
                 {
                     title: 'Danh sách hóa đơn',
                     to: '/system/manage-order',
-                    permission: ['ADMIN'],
                 },
             ],
         },
@@ -199,16 +180,51 @@ function Sidebar() {
     //     return checkRole;
     // };
 
+    const MenuCustom = [
+        {
+            icon: <FontAwesomeIcon icon={faUser} />,
+            title: t('systemSidebar.accounts.title'),
+            data: [
+                {
+                    title: 'Thông tin',
+                    to: `/system/manage-user/detail/${user.id}`,
+                },
+                {
+                    title: 'Cập nhật thông tin',
+                    to: `/system/manage-user/modal-edit/${user.id}`,
+                },
+            ],
+        },
+        {
+            icon: <FontAwesomeIcon icon={faNewspaper} />,
+            title: 'Hóa đơn',
+            data: [
+                {
+                    title: 'Danh sách hóa đơn',
+                    to: '/system/manage-order',
+                },
+            ],
+        },
+    ];
+
     return (
         <nav className={cx('sidebar')}>
             <div className={cx('logo')}>
                 <span>Happy24h</span>
             </div>
-            <div className={cx('sidebar-menu')}>
-                {MENU_ITEMS.map((item, index) => (
-                    <MenuItem key={index} title={item.title} icon={item.icon} data={item.data} />
-                ))}
-            </div>
+            {user?.isAdmin ? (
+                <div className={cx('sidebar-menu')}>
+                    {MENU_ITEMS.map((item, index) => (
+                        <MenuItem key={index} title={item.title} icon={item.icon} data={item.data} />
+                    ))}
+                </div>
+            ) : (
+                <div className={cx('sidebar-menu')}>
+                    {MenuCustom.map((item, index) => (
+                        <MenuItem key={index} title={item.title} icon={item.icon} data={item.data} />
+                    ))}
+                </div>
+            )}
         </nav>
     );
 }

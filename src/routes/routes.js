@@ -144,4 +144,15 @@ const privateRoutes = [
     { path: config.routes.addVoucher, component: AddVoucher },
 ];
 
-export { publicRouters, privateRoutes };
+const privateClient = [
+    //Account
+    { path: config.routes.editAccount, component: EditAccount },
+    { path: config.routes.modalEdit, component: ModalEdit },
+    { path: config.routes.detailAccount, component: DetailAccount },
+
+    //Order
+    { path: config.routes.manageOrder, component: ManagerOrder },
+    { path: config.routes.detailOrder, component: OrderDetail },
+];
+
+export { publicRouters, privateRoutes, privateClient };

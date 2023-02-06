@@ -55,6 +55,9 @@ function Header({ homePage }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const loginData = useSelector((state) => state.auth.login?.currentUser);
+    const handleProfile = () => {
+        navigate(`/system/manage-user/detail/${loginData.id}`);
+    };
     const handleLogout = () => {
         logOut(dispatch, navigate);
     };
@@ -63,6 +66,7 @@ function Header({ homePage }) {
             icon: <FontAwesomeIcon icon={faUser} />,
             title: 'View profile',
             to: '/@hoaa',
+            handleOnclick: handleProfile,
         },
         {
             icon: <FontAwesomeIcon icon={faCoins} />,
@@ -170,7 +174,7 @@ function Header({ homePage }) {
                             <img
                                 className={cx('user-avatar')}
                                 src={
-                                    loginData?.thumbnail.length > 10 && loginData?.thumbnail
+                                    loginData?.thumbnail.length > 6 && loginData?.thumbnail
                                         ? `${loginData?.thumbnail}`
                                         : `${images.noAvatar}`
                                 }
