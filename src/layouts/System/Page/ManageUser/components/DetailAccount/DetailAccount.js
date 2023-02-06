@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import images from '~/assets/images';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getDetailAccount } from '~/redux/apiRequest';
 import { EditOutlined } from '@ant-design/icons';
 
@@ -18,6 +18,7 @@ const { Meta } = Card;
 function DetailAccount() {
     const [loadApi, setLoadApi] = useState(false);
     let { id } = useParams();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.login?.currentUser);
 
@@ -27,7 +28,7 @@ function DetailAccount() {
 
     useEffect(() => {
         getDetailAccount(id, dispatch, user?.accessToken);
-    }, []);
+    }, [id]);
     let dataBooking = {
         branch_id: '',
         employee_id: id,
@@ -43,6 +44,9 @@ function DetailAccount() {
 
     useEffect(() => {
         getBooking(dataBooking, dispatch, user?.accessToken);
+        if (!user.isAdmin) {
+            navigate(`/system/manage-user/detail/${user.id}`);
+        }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
