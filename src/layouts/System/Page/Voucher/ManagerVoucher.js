@@ -72,7 +72,7 @@ function ManagerVoucher() {
             title: 'Giảm giá',
             dataIndex: 'discount',
             key: 'discount',
-            render: (text) => <span style={{ color: '#1677ff' }}>{text} %</span>,
+            render: (text) => <span style={{ color: '#1677ff' }}>{text * 100}%</span>,
         },
         {
             title: 'Ngày hết hạn',
