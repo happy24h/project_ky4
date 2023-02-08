@@ -89,8 +89,8 @@ function ModalEdit() {
     return (
         <>
             {' '}
-            {user?.isAdmin ||
-                (user.id === +id && (
+            {user.id === +id ||
+                (user?.isAdmin && (
                     <div style={{ marginTop: 23 }}>
                         <Link to={`/system/manage-user/detail/${id}`}>
                             {/* <EditOutlined /> */}

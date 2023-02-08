@@ -11,10 +11,11 @@ const cx = classNames.bind(styles);
 const { Meta } = Card;
 
 function OrderDetail() {
-    const [stateApi, setStateApi] = useState();
+    const [stateApi, setStateApi] = useState([]);
     let { id } = useParams();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.login?.currentUser);
+    console.log('check ---', user.roles[0]);
 
     const orderDetail = useSelector((state) => state.orderDetail.orderDetail?.orderDetailCurrent);
     const bookingDetail = useSelector((state) => state.booking.booking?.detailData);
@@ -22,9 +23,6 @@ function OrderDetail() {
     console.log('check status', statusOrderDetailChange);
     console.log('check state api ---', stateApi);
 
-    // console.log(' check order.....', orderDetail);
-    // console.log(' check booking Detail.....', bookingDetail);
-    // console.log(' check booking status.....', orderDetail[0]?.order.status);
     const dataStatus = orderDetail?.length > 0 ? orderDetail[0]?.order.status : 1;
 
     useEffect(() => {
@@ -32,9 +30,11 @@ function OrderDetail() {
         const fetchApi = async () => {
             // await getDetailOrder(id, dispatch, user?.accessToken);
 
-            const res = await axios.get(`http://localhost:8078/api/v1/order/${id}`);
+            const res = await axios.get(`http://localhost:8078/api/v1/order/${id} `, {
+                headers: { Authorization: `Bearer ${user?.accessToken}` },
+            });
             console.log('check res', res);
-            setStateApi(res);
+            setStateApi(res.data);
 
             await getDetailBooking(res.data[0]?.order.booking_id, dispatch);
         };
@@ -84,13 +84,13 @@ function OrderDetail() {
                     <List className={cx('list-detail')}>
                         <strong>Khách hàng:</strong>{' '}
                         <span className={cx('text-detail')}>
-                            {orderDetail?.length > 0 && orderDetail[0]?.order?.customer?.name}
+                            {stateApi?.length > 0 && stateApi[0]?.order?.customer?.name}
                         </span>
                     </List>
                     <List className={cx('list-detail')}>
                         <strong>Mã đặt lịch:</strong>{' '}
                         <span className={cx('text-detail')}>
-                            {orderDetail?.length > 0 && orderDetail[0]?.order.booking_id}
+                            {stateApi?.length > 0 && stateApi[0]?.order.booking_id}
                         </span>
                     </List>
                     <List className={cx('list-detail')}>
@@ -104,34 +104,57 @@ function OrderDetail() {
                     <List className={cx('list-detail')}>
                         <strong>Trạng thái:</strong>{' '}
                         {/* <span className={cx('text-detail')}>{statusOrderDetailChange} ...</span> */}
-                        <span>
-                            <select
-                                style={{
-                                    display: user.roles.map((item) =>
-                                        item === 'ADMIN' || 'CUSTOMER_CARE' ? '' : 'none',
-                                    ),
-                                }}
-                                value={statusOrderDetailChange}
-                                onChange={handleChangeStatus}
-                            >
-                                <option value="2">Đã thanh toán</option>
-                                <option value="1">Đã đặt</option>
+                        {user.roles[0] === 'CUSTOMER' ? (
+                            <span className={cx('text-detail')}>Đã đặt</span>
+                        ) : (
+                            <span className={cx('text-detail')}>
+                                <select value={statusOrderDetailChange} onChange={handleChangeStatus}>
+                                    <option value="2">Đã thanh toán</option>
+                                    <option value="1">Đã đặt</option>
 
-                                <option value="-1">Hủy</option>
-                            </select>
-                        </span>
+                                    <option value="-1">Hủy</option>
+                                </select>
+                            </span>
+                        )}
                     </List>
-                    <table>
+                    {/* <table>
                         <tr>
                             <th>Id</th>
                             <th>Tên sản phẩm</th>
                             <th>Giá</th>
                         </tr>
-                        {orderDetail &&
-                            orderDetail.map((item, index) => {
+                        {stateApi &&
+                            stateApi.map((item, index) => {
                                 return (
                                     <tr key={index}>
                                         <td>{item.serviceModel.id}</td>
+                                        <td>{item.serviceModel.name}</td>
+                                        <td>{item.serviceModel.price}</td>
+                                    </tr>
+                                );
+                            })}
+                    </table> */}
+
+                    <table className={cx('customers')}>
+                        <tr>
+                            <th>ID</th>
+                            <th>Image</th>
+                            <th>Service</th>
+                            <th>Price</th>
+                        </tr>
+                        {stateApi &&
+                            stateApi.map((item, index) => {
+                                return (
+                                    <tr key={index}>
+                                        <td>{item.serviceModel.id}</td>
+                                        <td
+                                            className={cx('image-service')}
+                                            style={{
+                                                backgroundImage: `url(${item.serviceModel.thumbnail})`,
+                                                width: 50,
+                                                height: 50,
+                                            }}
+                                        ></td>
                                         <td>{item.serviceModel.name}</td>
                                         <td>{item.serviceModel.price}</td>
                                     </tr>

@@ -124,29 +124,12 @@ function ManagerOrder() {
             key: 'booking',
             render: (text) => <span style={{ color: '#1677ff' }}>{text.date_booking}</span>,
         },
-        // {
-        //     title: 'Mã giảm giá',
-        //     dataIndex: 'voucher',
-        //     key: 'voucher',
-        //     render: (text) => <span style={{ color: '#1677ff' }}>{text}</span>,
-        // },
-        {
-            title: 'Tổng tiền',
-            dataIndex: 'total_price',
-            key: 'total_price',
-            render: (text) => <span style={{ color: '#1677ff' }}>{text}</span>,
-        },
+
         {
             title: 'Ngày tạo',
             dataIndex: 'created_at',
             key: 'created_at',
             render: (text) => {
-                // const getDate = text.split(' ');
-                // const convertDate = new Date(getDate[0]);
-                // var dd = String(convertDate.getDate()).padStart(2, '0');
-                // var mm = String(convertDate.getMonth() + 1).padStart(2, '0'); //January is 0!
-                // var yyyy = convertDate.getFullYear();
-
                 return <span style={{ color: '#1677ff' }}>{text}</span>;
             },
         },
@@ -195,14 +178,9 @@ function ManagerOrder() {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <Button
-                        style={{ display: user.roles.map((item) => (item === 'ADMIN' ? 'block' : 'none')) }}
-                        type="primary"
-                        ghost
-                        onClick={() => handleEditUser(record)}
-                    >
+                    <Button type="primary" ghost onClick={() => handleEditUser(record)}>
                         <EditOutlined />
-                        Edit
+                        Detail
                     </Button>
                 </Space>
             ),
@@ -336,14 +314,6 @@ function ManagerOrder() {
                         <Option value="4000-5000">4000-5000</Option>
                     </Select>
                 </Input.Group>
-                {/* <Form.Item label=""> */}
-                {/*<Link to={'/system/manage-user/add'}>*/}
-                {/*    <Button type="primary" style={{ fontWeight: 600, fontSize: 10, backgroundColor: '#fcaf17' }}>*/}
-                {/*        <PlusCircleOutlined />*/}
-                {/*        Add User*/}
-                {/*    </Button>*/}
-                {/*</Link>*/}
-                {/* </Form.Item> */}
             </div>
         );
     };
@@ -389,13 +359,7 @@ function ManagerOrder() {
                     <h3 style={{ fontSize: '28px' }}>{listOrder?.totalItems}</h3>
                     <p>Đơn hàng</p>
                 </Card>
-                {/*<Form.Item label="">*/}
-                {/*    <Link to={'/add-feedback'}>*/}
-                {/*        <Button style={{ display: 'flex', margin: '20px auto 0' }} type="primary" htmlType="submit">*/}
-                {/*            Add Feedback*/}
-                {/*        </Button>*/}
-                {/*    </Link>*/}
-                {/*</Form.Item>*/}
+
                 <div style={{ display: 'flex', margin: '20px auto 0' }} />
                 <Table
                     columns={columns}
@@ -404,13 +368,7 @@ function ManagerOrder() {
                     // rowKey={(orders) => orders.id}
                     title={() => layoutInput()}
                     footer={() => tableFooter()}
-                    // pagination={{
-                    //     pageSize: data.limit,
-                    //     total: listOrder?.totalItems,
-                    //     onChange: (page) => {
-                    //         setPage(page);
-                    //     },
-                    // }}
+                    pagination={false}
                 />
             </div>
         </div>

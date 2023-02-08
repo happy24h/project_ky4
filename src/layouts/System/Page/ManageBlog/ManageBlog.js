@@ -241,14 +241,6 @@ function ManageBlog() {
                     //     },
                     // }}
                 />
-                {/* {listAccount?.totalItems / 5 > 1 && (
-            <Pagination
-                total={listAccount?.totalItems}
-                pageSize={4}
-                current={page}
-                onChange={(page) => setPage(page)}
-            />
-        )} */}
             </div>
         </div>
     );

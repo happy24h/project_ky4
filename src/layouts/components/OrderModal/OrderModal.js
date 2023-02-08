@@ -24,6 +24,7 @@ function OrderModal() {
         phone: '',
         email: '',
         service: '',
+        voucher: '',
         isShowLoading: false,
     });
     const [dataPrice, setDataPrice] = useState([]);
@@ -56,7 +57,7 @@ function OrderModal() {
         name_booking: state?.username,
         email: state?.email,
         phone: state?.phone,
-        voucher_id: '',
+        voucher_id: state?.voucher,
     };
     console.log('check value ...', values);
 
@@ -87,6 +88,10 @@ function OrderModal() {
             headers: { Authorization: `Bearer ${user?.accessToken}` },
         });
         console.log('res check,', res.data);
+        if (!res.data.id) {
+            alert('check mã giảm giá không đúng');
+        }
+
         const dataService = {
             order_id: res.data.id,
             orderDetails: [...dataPrice],
@@ -162,13 +167,14 @@ function OrderModal() {
                         </div>
 
                         <div className="col l-6 c-6 form-group">
-                            <label>Dịch vụ</label>
-
-                            <select className="form-control" name="service" onChange={handleOnchangeInput}>
-                                <option value="">Choose...</option>
-
-                                <option value="">hello</option>
-                            </select>
+                            <label>Mã giảm giá</label>
+                            <input
+                                type="text"
+                                name="voucher"
+                                className="form-control"
+                                value={state?.voucher}
+                                onChange={handleOnchangeInput}
+                            />
                         </div>
                     </form>
 
