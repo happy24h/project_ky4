@@ -38,7 +38,7 @@ export const createOder = async (oder, dispatch, accessToken) => {
         toast.success('create success');
     } catch (err) {
         dispatch(createOderFailed());
-        toast.error('Có thứ gì đó không ổn... ?');
+        toast.error('vui lòng nhập đúng thông tin');
     }
 };
 export const createOderDetail = async (oder, dispatch, accessToken) => {

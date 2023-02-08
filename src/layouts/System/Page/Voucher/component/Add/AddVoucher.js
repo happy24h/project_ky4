@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { createTypeService } from '~/redux/type_service/apiTypeService';
 import { Button, DatePicker } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShieldCat, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faGift, faPenToSquare, faShieldCat, faUser } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
 import styles from './AddVoucher.module.scss';
 import { useState } from 'react';
@@ -22,9 +22,9 @@ function AddVoucher() {
 
     const formik = useFormik({
         initialValues: {
-            name:'',
-            discount:'',
-            expired_date:'',
+            name: '',
+            discount: '',
+            expired_date: '',
         },
         validationSchema: Yup.object({
             name: Yup.string().required('Vui lòng nhập tên'),
@@ -33,7 +33,7 @@ function AddVoucher() {
         }),
         onSubmit: (values) => {
             values.discount = values.discount / 100;
-            createVoucher(values,dispatch,user?.accessToken,navigate);
+            createVoucher(values, dispatch, user?.accessToken, navigate);
         },
     });
 
@@ -47,7 +47,7 @@ function AddVoucher() {
             <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '1000px' }}>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faUser} />
+                        <FontAwesomeIcon className={cx('inputicon')} icon={faPenToSquare} />
                         <input
                             className={cx('inputfield')}
                             type="text"
@@ -64,7 +64,7 @@ function AddVoucher() {
                 </div>
                 <div className="field">
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faUser} />
+                        <FontAwesomeIcon className={cx('inputicon')} icon={faGift} />
                         <input
                             className={cx('inputfield')}
                             type="number"
@@ -79,28 +79,28 @@ function AddVoucher() {
                         {formik.errors.discount && <p className="error">{formik.errors.discount}</p>}
                     </div>
                 </div>
+
                 <div className="field">
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faUser} />
-                        <div className="col l-6 form-group">
+                        {/* <FontAwesomeIcon className={cx('inputicon')} icon={faUser} /> */}
+                        <div>
                             {' '}
                             {/* <label>Chọn ngày </label> */}
                             <DatePicker
+                                placeholder="Chọn ngày hết hạn"
                                 onChange={(e) => {
                                     let thisDate = new Date(e);
                                     let dd = String(thisDate.getDate()).padStart(2, '0');
                                     let mm = String(thisDate.getMonth() + 1).padStart(2, '0');
                                     let yyyy = thisDate.getFullYear();
                                     let dateConvert = yyyy + '-' + mm + '-' + dd;
-                                    formik.setFieldValue('expired_date', dateConvert)
-                                    }
-                                }
-
+                                    formik.setFieldValue('expired_date', dateConvert);
+                                }}
                                 name="expired_date"
                                 style={{
-                                    width: '100%',
-                                    height: 32,
-                                    margin: '0 0 20px',
+                                    backgroundColor: '#dedede',
+                                    width: 280,
+                                    height: 37,
                                 }}
                             />
                         </div>

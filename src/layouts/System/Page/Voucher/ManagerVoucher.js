@@ -34,10 +34,10 @@ function ManagerVoucher() {
         name: state?.name,
         voucher_code: state?.voucher_code,
         is_used: state?.is_used,
-        status:"",
-        limit:lineNumber,
-        page:page,
-        sort:"desc"
+        status: '',
+        limit: lineNumber,
+        page: page,
+        sort: 'desc',
     };
 
     let totalState = state?.name + state?.voucher_code + state?.is_used;
@@ -50,7 +50,7 @@ function ManagerVoucher() {
     useEffect(() => {
         getAllVoucher(data, dispatch, user?.accessToken);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [totalState,lineNumber]);
+    }, [totalState, lineNumber]);
 
     //B3: Lấy danh sách
     const listVoucher = useSelector((state) => state.voucher.voucher?.voucherCurrent);
@@ -72,7 +72,7 @@ function ManagerVoucher() {
             title: 'Giảm giá',
             dataIndex: 'discount',
             key: 'discount',
-            render: (text) => <span style={{ color: '#1677ff' }}>{text}</span>,
+            render: (text) => <span style={{ color: '#1677ff' }}>{text} %</span>,
         },
         {
             title: 'Ngày hết hạn',
@@ -91,7 +91,7 @@ function ManagerVoucher() {
             dataIndex: 'is_used',
             key: 'is_used',
             render: (text) => {
-                switch (text){
+                switch (text) {
                     case 1:
                         return <Tag color="success">Đã dùng</Tag>;
                     case 0:
@@ -107,10 +107,12 @@ function ManagerVoucher() {
             render: (_, record) => (
                 <Space size="middle">
                     <Button
-                        style={{display: user.roles.map(item => (
-                                item === "ADMIN" ? "block" : "none"
-                            ))}}
-                        type="primary" danger ghost onClick={() => handleDeleteVoucher(record)}>
+                        style={{ display: user.roles.map((item) => (item === 'ADMIN' ? 'block' : 'none')) }}
+                        type="primary"
+                        danger
+                        ghost
+                        onClick={() => handleDeleteVoucher(record)}
+                    >
                         <DeleteOutlined />
                         Delete
                     </Button>
@@ -196,28 +198,7 @@ function ManagerVoucher() {
                         <Option value="0">Chưa dùng</Option>
                         <Option value="1">Đã dùng</Option>
                     </Select>
-
-                    {/*<Select*/}
-                    {/*    className={cx('input-select')}*/}
-                    {/*    style={{ width: '20%', height: 32 }}*/}
-                    {/*    placeholder="Gender"*/}
-                    {/*    name="gender"*/}
-                    {/*    // defaultValue="Gender"*/}
-                    {/*    onChange={handleSelectChange}*/}
-                    {/*>*/}
-                    {/*    <Option value="">Tất cả</Option>*/}
-                    {/*    <Option value="MALE">Nam</Option>*/}
-                    {/*    <Option value="FEMALE">Nữ</Option>*/}
-                    {/*</Select>*/}
                 </Input.Group>
-                {/* <Form.Item label=""> */}
-                {/*<Link to={'/system/manage-user/add'}>*/}
-                {/*    <Button type="primary" style={{ fontWeight: 600, fontSize: 10, backgroundColor: '#fcaf17' }}>*/}
-                {/*        <PlusCircleOutlined />*/}
-                {/*        Add User*/}
-                {/*    </Button>*/}
-                {/*</Link>*/}
-                {/* </Form.Item> */}
             </div>
         );
     };
@@ -263,13 +244,7 @@ function ManagerVoucher() {
                     <h3 style={{ fontSize: '28px' }}>{listVoucher?.totalItems}</h3>
                     <p>Mã giảm giá </p>
                 </Card>
-                {/*<Form.Item label="">*/}
-                {/*    <Link to={'/add-feedback'}>*/}
-                {/*        <Button style={{ display: 'flex', margin: '20px auto 0' }} type="primary" htmlType="submit">*/}
-                {/*            Add Feedback*/}
-                {/*        </Button>*/}
-                {/*    </Link>*/}
-                {/*</Form.Item>*/}
+
                 <div style={{ display: 'flex', margin: '20px auto 0' }} />
                 <Table
                     columns={columns}
@@ -278,13 +253,7 @@ function ManagerVoucher() {
                     // rowKey={(orders) => orders.id}
                     title={() => layoutInput()}
                     footer={() => tableFooter()}
-                    // pagination={{
-                    //     pageSize: data.limit,
-                    //     total: listOrder?.totalItems,
-                    //     onChange: (page) => {
-                    //         setPage(page);
-                    //     },
-                    // }}
+                    pagination={false}
                 />
             </div>
         </div>
