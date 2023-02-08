@@ -40,6 +40,10 @@ function OrderModal() {
 
     console.log(' check boolean', dataCreateOrderDetail);
     console.log(' check order', dataCreateOrder);
+    let subTotal = 0;
+    dataPrice.forEach((item) => (subTotal += item.unit_price));
+
+    console.log('---+++', subTotal);
 
     useEffect(() => {
         getAllService();
@@ -53,11 +57,11 @@ function OrderModal() {
 
     const values = {
         booking_id: id,
-        customer_id: state?.id,
+        customer_id: user?.id ? state?.id : '1',
         name_booking: state?.username,
         email: state?.email,
         phone: state?.phone,
-        voucher_id: state?.voucher,
+        voucher_id: state?.voucher ? state?.voucher : '',
     };
     console.log('check value ...', values);
 
@@ -84,21 +88,28 @@ function OrderModal() {
 
         console.log('check value 2...', values);
 
-        const res = await axios.post('http://localhost:8078/api/v1/order/create', values, {
-            headers: { Authorization: `Bearer ${user?.accessToken}` },
-        });
-        console.log('res check,', res.data);
-        if (!res.data.id) {
-            alert('check mã giảm giá không đúng');
-        }
-
+        const res = await axios
+            .post('http://localhost:8078/api/v1/order/create', values)
+            .then(function (response) {
+                return response.data;
+            })
+            .catch(function (error) {
+                console.log('----->', error.response.status);
+                return error.response.status;
+            });
         const dataService = {
-            order_id: res.data.id,
+            order_id: res?.id,
             orderDetails: [...dataPrice],
         };
-        await createOderDetail(dataService, dispatch, user?.accessToken);
-        setDataPrice([]);
-        navigate('/');
+        console.log('res check,', res);
+        // alert(res);
+        if (res === 400 || res === 404) {
+            toast.error('Vui lòng nhập đúng thông tin');
+        } else {
+            await createOderDetail(dataService, dispatch, user?.accessToken);
+            setDataPrice([]);
+            navigate('/');
+        }
     };
     const handleClose = () => {
         navigate('/');
@@ -224,6 +235,8 @@ function OrderModal() {
                                                     </div>
                                                 );
                                             })}
+
+                                        <div>Tổng: {subTotal}</div>
                                     </div>
                                 </div>
                             )}
