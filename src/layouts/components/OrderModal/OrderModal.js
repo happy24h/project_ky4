@@ -88,28 +88,46 @@ function OrderModal() {
 
         // console.log('check value 2...', values);
 
-        const res = await axios
-            .post('http://localhost:8078/api/v1/order/create', values)
-            .then(function (response) {
-                return response.data;
-            })
-            .catch(function (error) {
-                console.log('----->', error.response.status);
-                return error.response.status;
-            });
-        const dataService = {
-            order_id: res?.id,
-            orderDetails: [...dataPrice],
-        };
-        console.log('res check,', res);
-        // alert(res);
-        if (res === 400 || res === 404) {
-            toast.error('Vui lòng nhập đúng thông tin');
-        } else {
-            await createOderDetail(dataService, dispatch, user?.accessToken);
-            setDataPrice([]);
-            navigate('/');
+        // const res = await axios
+        //     .post('http://localhost:8078/api/v1/order/create', values)
+        //     .then(function (response) {
+        //         return response.data;
+        //     })
+        //     .catch(function (error) {
+        //         console.log('----->', error.response.status);
+        //         return error.response.status;
+        //     });
+
+        try {
+            const res = await axios.post('http://localhost:8078/api/v1/order/create', values);
+            try {
+                const dataService = {
+                    order_id: res?.id,
+                    orderDetails: [...dataPrice],
+                };
+                await createOderDetail(dataService, dispatch, user?.accessToken);
+                setDataPrice([]);
+                navigate('/');
+            } catch (error){
+                toast.error(error.response.data.message);
+            }
+        } catch (error){
+            toast.error(error.response.data.message);
         }
+
+        // const dataService = {
+        //     order_id: res?.id,
+        //     orderDetails: [...dataPrice],
+        // };
+        // console.log('res check,', res);
+        // alert(res);
+        // if (res === 400 || res === 404) {
+        //     toast.error('Vui lòng nhập đúng thông tin');
+        // } else {
+        //     await createOderDetail(dataService, dispatch, user?.accessToken);
+        //     setDataPrice([]);
+        //     navigate('/');
+        // }
     };
     const handleClose = () => {
         navigate('/');

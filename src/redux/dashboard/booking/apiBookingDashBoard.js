@@ -9,7 +9,7 @@ export const getDashBoardHeat = async (dataValues, accessToken) => {
         });
         return res.data;
     } catch (err) {
-        toast.error('Có gì đó không ổn ?');
+        toast.error(err.response.data.message);
     }
 };
 export const getDashBoardRange = async (dataValues, accessToken) => {
@@ -19,7 +19,7 @@ export const getDashBoardRange = async (dataValues, accessToken) => {
         });
         return res.data;
     } catch (err) {
-        toast.error('Có gì đó không ổn ?');
+        toast.error(err.response.data.message);
     }
 };
 export const getDashBoardPei = async (dataValues, accessToken) => {
@@ -29,7 +29,7 @@ export const getDashBoardPei = async (dataValues, accessToken) => {
         });
         return res.data;
     } catch (err) {
-        toast.error('Có gì đó không ổn ?');
+        toast.error(err.response.data.message);
     }
 };
 export const getDashBoardColumn = async (dataValues, accessToken) => {
@@ -39,7 +39,7 @@ export const getDashBoardColumn = async (dataValues, accessToken) => {
         });
         return res.data;
     } catch (err) {
-        toast.error('Có gì đó không ổn ?');
+        toast.error(err.response.data.message);
     }
 };
 

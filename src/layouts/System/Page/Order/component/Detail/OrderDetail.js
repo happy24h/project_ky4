@@ -7,6 +7,7 @@ import classNames from 'classnames/bind';
 import styles from './DetailOrder.module.scss';
 import { getDetailBooking } from '~/redux/booking/apiBooking';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 const cx = classNames.bind(styles);
 const { Meta } = Card;
 
@@ -29,14 +30,16 @@ function OrderDetail() {
         setStatusOrderDetailChange(dataStatus);
         const fetchApi = async () => {
             // await getDetailOrder(id, dispatch, user?.accessToken);
-
-            const res = await axios.get(`http://localhost:8078/api/v1/order/${id} `, {
-                headers: { Authorization: `Bearer ${user?.accessToken}` },
-            });
-            console.log('check res', res);
-            setStateApi(res.data);
-
-            await getDetailBooking(res.data[0]?.order.booking_id, dispatch);
+            try {
+                const res = await axios.get(`http://localhost:8078/api/v1/order/${id} `, {
+                    headers: { Authorization: `Bearer ${user?.accessToken}` },
+                });
+                console.log('check res', res);
+                setStateApi(res.data);
+                await getDetailBooking(res.data[0]?.order.booking_id, dispatch);
+            } catch (error){
+                toast.error(error.response.data.message);
+            }
         };
         fetchApi();
 

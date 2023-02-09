@@ -22,7 +22,7 @@ export const getAllFeedback = async (feedback, dispatch, token) => {
         dispatch(feedbackSuccess(res.data));
     } catch (err) {
         dispatch(feedbackFailed());
-        toast.error('Có thứ gì đó không đúng');
+        toast.error(err.response.data.message);
     }
 }
 

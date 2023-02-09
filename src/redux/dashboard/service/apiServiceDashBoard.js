@@ -9,7 +9,7 @@ export const getDashBoardBar = async (dataValues, accessToken) => {
         });
         return res.data;
     } catch (err) {
-        toast.error('Có gì đó không ổn ?');
+        toast.error(err.response.data.message);
     }
 };
 
@@ -21,6 +21,6 @@ export const getDashBoardCountServicesAndStaff = async (dataValues, accessToken)
         });
         return res.data;
     } catch (err) {
-        toast.error('Có gì đó không ổn ?');
+        toast.error(err.response.data.message);
     }
 };

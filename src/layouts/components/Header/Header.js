@@ -174,7 +174,7 @@ function Header({ homePage }) {
                             <img
                                 className={cx('user-avatar')}
                                 src={
-                                    loginData?.thumbnail.length > 6 && loginData?.thumbnail
+                                     loginData?.thumbnail?.length > 6 && loginData?.thumbnail
                                         ? `${loginData?.thumbnail}`
                                         : `${images.noAvatar}`
                                 }

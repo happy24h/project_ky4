@@ -27,7 +27,7 @@ export const getBlog = async (account, dispatch, accessToken) => {
         // toast.success('Tạo tài khoản thành công');
     } catch (err) {
         dispatch(getBlogFailed());
-        toast.error('Có gì đó không ổn ?');
+        toast.error(err.response.data.message);
     }
 };
 
@@ -43,7 +43,7 @@ export const createBlog = async (account, dispatch, accessToken, loadApi, naviga
         toast.success('Tạo tài khoản thành công');
     } catch (err) {
         dispatch(createBlogFailed());
-        toast.error('Có thứ gì đó không ổn ?');
+        toast.error(err.response.data.message);
     }
 };
 
@@ -56,7 +56,7 @@ export const getDetailBlog = async (id, dispatch, accessToken, getBlog) => {
         // toast.success('Detail success');
     } catch (err) {
         dispatch(detailBlogFailed());
-        toast.error('Có thứ gì đó không ổn ?');
+        toast.error(err.response.data.message);
     }
 };
 
@@ -72,6 +72,6 @@ export const editBlog = async (id, account, dispatch, accessToken, handleUpdateA
         handleUpdateApi();
     } catch (err) {
         dispatch(editBlogFailed());
-        toast.error('Có thứ gì đó không đúng');
+        toast.error(err.response.data.message);
     }
 };

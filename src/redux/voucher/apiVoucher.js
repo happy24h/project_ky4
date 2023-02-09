@@ -21,8 +21,8 @@ export const createVoucher = async (voucher,dispatch,accessToken,navigate) => {
         toast.success("tạo voucher thành công");
         navigate('/system/manage-voucher');
     } catch (err) {
-        dispatch(voucherFailed(err.response.data));
-        toast.error(err.response.data);
+        dispatch(voucherFailed(err.response.data.message));
+        toast.error(err.response.data.message);
     }
 }
 
@@ -34,8 +34,8 @@ export const getDetailVoucher = async (id,dispatch,accessToken) => {
         });
         dispatch(detailVoucherSuccess(res.data));
     } catch (err) {
-        dispatch(detailVoucherFailed(err.response.data));
-        toast.error(err.response.data);
+        dispatch(detailVoucherFailed(err.response.data.message));
+        toast.error(err.response.data.message);
     }
 }
 
@@ -47,8 +47,8 @@ export const getAllVoucher = async (data,dispatch,accessToken) => {
         });
         dispatch(voucherSuccess(res.data));
     } catch (err) {
-        dispatch(voucherFailed(err.response.data));
-        toast.error(err.response.data);
+        dispatch(voucherFailed(err.response.data.message));
+        toast.error(err.response.data.message);
     }
 }
 
@@ -60,7 +60,7 @@ export const deleteVoucherByVoucherCode = async (voucherCode,dispatch,accessToke
         });
         dispatch(deleteVoucherSuccess());
     } catch (err) {
-        dispatch(deleteVoucherFailed(err.response.data));
-        toast.error(err.response.data);
+        dispatch(deleteVoucherFailed(err.response.data.message));
+        toast.error(err.response.data.message);
     }
 }

@@ -22,8 +22,8 @@ export const getAllOrder = async (orderSearch, dispatch, accessToken) => {
         });
         dispatch(orderSuccess(res.data));
     } catch (err) {
-        dispatch(orderFailed(err.response.data));
-        toast.error(err.response.data);
+        dispatch(orderFailed(err.response.data.message));
+        toast.error(err.response.data.message);
     }
 };
 
@@ -38,7 +38,7 @@ export const createOder = async (oder, dispatch, accessToken) => {
         toast.success('create success');
     } catch (err) {
         dispatch(createOderFailed());
-        toast.error('vui lòng nhập đúng thông tin');
+        toast.error(err.response.data.message);
     }
 };
 export const createOderDetail = async (oder, dispatch, accessToken) => {
@@ -52,7 +52,7 @@ export const createOderDetail = async (oder, dispatch, accessToken) => {
         toast.success('Quý khách đã đặt lịch thành công');
     } catch (err) {
         dispatch(createOderDetailFailed());
-        toast.error('Có thứ gì đó không ổn... ?');
+        toast.error(err.response.data.message);
     }
 };
 
@@ -65,7 +65,7 @@ export const getDetailOrder = async (id, dispatch, accessToken) => {
         dispatch(orderDetailSuccess(res.data));
     } catch (err) {
         dispatch(orderDetailFailed());
-        toast.error(err.response.data);
+        toast.error(err.response.data.message);
     }
 };
 
@@ -76,6 +76,6 @@ export const updateStatusOrder = async (id, status, dispatch, accessToken) => {
         });
         toast.success('Đổi trạng thái đơn hàng thành công');
     } catch (err) {
-        toast.error(err.response.data);
+        toast.error(err.response.data.message);
     }
 };
