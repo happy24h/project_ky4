@@ -20,7 +20,7 @@ const cx = classNames.bind(styles);
 
 function OrderModal() {
     const [state, setState] = useState({
-        name_booking: '',
+        username: '',
         phone: '',
         email: '',
         service: '',
@@ -44,6 +44,7 @@ function OrderModal() {
     dataPrice.forEach((item) => (subTotal += item.unit_price));
 
     // console.log('---+++', subTotal);
+    // let listState = state?.username + state?.email + state?.phone;
 
     useEffect(() => {
         getAllService();
@@ -55,6 +56,12 @@ function OrderModal() {
 
     //B3: Lấy danh sách
 
+    // console.log('hello viet anh state la : ', state);
+
+    const handleOnchangeInput = (e) => {
+        let { name, value } = e.target;
+        setState({ ...state, [name]: value });
+    };
     const values = {
         booking_id: id,
         customer_id: user?.id ? state?.id : '1',
@@ -63,14 +70,7 @@ function OrderModal() {
         phone: state?.phone,
         voucher_id: state?.voucher ? state?.voucher : '',
     };
-    // console.log('check value ...', values);
-
-    // console.log('hello viet anh state la : ', state);
-
-    const handleOnchangeInput = (e) => {
-        let { name, value } = e.target;
-        setState({ ...state, [name]: value });
-    };
+    console.log('check value ...', values);
     console.log('check state modal', state);
 
     const handleSelectService = (item) => {
@@ -161,7 +161,7 @@ function OrderModal() {
                             <label>Họ và tên</label>
                             <input
                                 type="text"
-                                name="name_booking"
+                                name="username"
                                 value={state.username}
                                 className="form-control"
                                 onChange={handleOnchangeInput}
