@@ -119,12 +119,20 @@ function OrderModal() {
                 };
                 await createOderDetail(dataService, dispatch, user?.accessToken);
                 setDataPrice([]);
-                navigate('/');
+                // navigate('/');
             } catch (error){
-                toast.error(error.response.data.message);
+                if (error.response.data.errors.defaultMessage !== null){
+                    toast.error(error.response.data.errors.defaultMessage);
+                } else {
+                    toast.error(error.response.data.message);
+                }
             }
         } catch (error){
-            toast.error(error.response.data.message);
+            if (error.response.data.errors[0].defaultMessage !== null){
+                toast.error(error.response.data.errors[0].defaultMessage);
+            } else {
+                toast.error(error.response.data.message);
+            }
         }
 
         // const dataService = {
