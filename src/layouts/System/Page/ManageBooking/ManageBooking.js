@@ -22,7 +22,7 @@ function ManageBooking() {
     const user = useSelector((state) => state.auth.login?.currentUser);
     const listBooking = useSelector((state) => state.booking.booking?.listData);
     // console.log('list booking', listBooking);
-    const dataSelector = useSelector((state) =>  state.dashBoarBookingSlices.dashboardBooking?.listData);
+    const dataSelector = useSelector((state) => state.dashBoarBookingSlices.dashboardBooking?.listData);
 
     const onChange = (date, dateString) => {
         // console.log('test', date, 'aaaa', dateString);
@@ -31,7 +31,7 @@ function ManageBooking() {
         // let mm = String(date.getMonth + 1).padStart(2, '0'); //January is 0!
         // let yyyy = date.getFullYear;
 
-        setState(date.format("YYYY-MM-DD"));
+        setState(date.format('YYYY-MM-DD'));
     };
 
     let today = new Date();
@@ -55,7 +55,7 @@ function ManageBooking() {
         time_booking: '',
         start: '',
         end: '',
-        idsBooking:[],
+        idsBooking: [],
         limit: 4,
         page: 1,
         sort: 'asc',
@@ -63,19 +63,17 @@ function ManageBooking() {
     let totalDataInput = dataInput?.employee_name;
 
     useEffect(() => {
-        if (dataSelector != null){
-            let idsOrder =   dataSelector.id ?? dataSelector.ids;
-            if(idsOrder!=null){
+        if (dataSelector != null) {
+            let idsOrder = dataSelector.id ?? dataSelector.ids;
+            if (idsOrder != null) {
                 let arr = [];
-                if(!Array.isArray(idsOrder)){
+                if (!Array.isArray(idsOrder)) {
                     arr.push(idsOrder);
-                }else{
+                } else {
                     arr = [...idsOrder];
                 }
                 dataBooking.idsBooking = arr;
-
             }
-
         }
         getBooking(dataBooking, dispatch, user?.accessToken);
 
@@ -85,7 +83,7 @@ function ManageBooking() {
         getBooking(dataBooking, dispatch, user?.accessToken);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [today,totalDataInput]);
+    }, [today, totalDataInput]);
 
     const handleOnchangeInput = (e) => {
         let { name, value } = e.target;
@@ -122,18 +120,16 @@ function ManageBooking() {
                 <Card
                     title={
                         <Input.Group className={cx('input-group')} compact>
-                        <Input
-                        style={{ width: '30%', height: 32 }}
-                        placeholder="Tìm tên nhân viên"
-                        name="employee_name"
-                        value={dataInput?.employee_name}
-                        onChange={handleOnchangeInput}
-                        />
-                            <DatePicker
-                                format="DD-MM-YYYY"
-                                onChange={onChange} placeholder={today} />
+                            <Input
+                                style={{ width: '30%', height: 32 }}
+                                placeholder="Tìm tên nhân viên"
+                                name="employee_name"
+                                value={dataInput?.employee_name}
+                                onChange={handleOnchangeInput}
+                            />
+                            <DatePicker format="DD-MM-YYYY" onChange={onChange} placeholder={today} />
                         </Input.Group>
-                }
+                    }
                     extra={
                         <Form.Item label="">
                             <Link to={'/system/manage-booking/add'}>
@@ -153,29 +149,51 @@ function ManageBooking() {
                         <div className="row">
                             {listBooking?.content.map((item, index) => {
                                 return (
-                                    <div className="col l-3 m-4 c-6">
+                                    <div className="col l-6 m-6 c-12">
                                         <Card
                                             size="small"
                                             title="Đặt lịch"
                                             // extra={<a href="#">More</a>}
                                             style={{
                                                 // width: 260,
-                                                minHeight: 160,
+                                                minHeight: 235,
                                                 marginBottom: 15,
                                             }}
                                             key={index}
                                         >
-                                            <h3 style={{ fontSize: '20px' }}>{item.employee.employee_name}</h3>
-                                            <p>
-                                                Ngày:{' '}
-                                                <span>{item.employee.bookingByTime_bookings[0].date_booking}</span>
-                                            </p>
+                                            <div className={cx('info-employee')}>
+                                                <div
+                                                    className={cx('image-booking')}
+                                                    style={{
+                                                        backgroundImage: `url(${item.employee.employee_thumbnail})`,
+                                                    }}
+                                                ></div>
+                                                <div>
+                                                    <h3 style={{ fontSize: '20px' }}>{item.employee.employee_name}</h3>
+                                                    <p>
+                                                        Ngày:{' '}
+                                                        <span>
+                                                            {item.employee.bookingByTime_bookings[0].date_booking}
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
                                             <div className={cx('wrapper-btn')}>
                                                 {item.employee.bookingByTime_bookings.map((item, index) => {
+                                                    let isStatus = item?.status === 1 ? true : false;
                                                     return (
                                                         <div key={index} style={{ marginRight: '5px' }}>
-                                                            <Button type="primary" className={cx('btn-booking')}>
-                                                                {item.time_booking}h
+                                                            <Button
+                                                                type="primary"
+                                                                className={cx('btn-booking')}
+                                                                disabled={isStatus}
+                                                                style={
+                                                                    item?.status === 1
+                                                                        ? { backgroundColor: '#8ccdf2' }
+                                                                        : {}
+                                                                }
+                                                            >
+                                                                {item.time_booking}:00 - {item.time_booking}:30
                                                             </Button>
                                                         </div>
                                                     );
