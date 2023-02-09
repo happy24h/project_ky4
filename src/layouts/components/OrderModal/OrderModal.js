@@ -74,8 +74,8 @@ function OrderModal() {
     console.log('check state modal', state);
 
     const handleSelectService = (item) => {
-        if (dataPrice.length !== 0){
-            if (dataPrice.find(checkItem=>checkItem.service_id === item.service_id)){
+        if (dataPrice.length !== 0) {
+            if (dataPrice.find((checkItem) => checkItem.service_id === item.service_id)) {
                 toast.error('Bạn đã chọn dịch vụ này !');
             } else {
                 setDataPrice((prev) => {
@@ -95,59 +95,33 @@ function OrderModal() {
     // console.log('test create 2', dataCreateOrder.id);
 
     const handleConfirmBooking = async () => {
-        // await createOder(values, dispatch, user?.accessToken);
-        // console.log('test create', dataCreateOrder.id);
-
-        // console.log('check value 2...', values);
-
-        // const res = await axios
-        //     .post('http://localhost:8078/api/v1/order/create', values)
-        //     .then(function (response) {
-        //         return response.data;
-        //     })
-        //     .catch(function (error) {
-        //         console.log('----->', error.response.status);
-        //         return error.response.status;
-        //     });
-
-        try {
-            const res = await axios.post('http://localhost:8078/api/v1/order/create', values);
-            try {
-                const dataService = {
-                    order_id: res?.id,
-                    orderDetails: [...dataPrice],
-                };
-                await createOderDetail(dataService, dispatch, user?.accessToken);
-                setDataPrice([]);
-                // navigate('/');
-            } catch (error){
-                if (error.response.data.errors.defaultMessage !== null){
-                    toast.error(error.response.data.errors.defaultMessage);
-                } else {
-                    toast.error(error.response.data.message);
-                }
-            }
-        } catch (error){
-            if (error.response.data.errors[0].defaultMessage !== null){
-                toast.error(error.response.data.errors[0].defaultMessage);
-            } else {
-                toast.error(error.response.data.message);
-            }
+        if (subTotal === 0) {
+            toast.error('Vui lòng chọn dịch vụ');
+        } else {
+            var res = await axios
+                .post('http://localhost:8078/api/v1/order/create', values)
+                .then(function (response) {
+                    return response.data;
+                })
+                .catch(function (error) {
+                    return error.response;
+                });
         }
 
-        // const dataService = {
-        //     order_id: res?.id,
-        //     orderDetails: [...dataPrice],
-        // };
-        // console.log('res check,', res);
-        // alert(res);
-        // if (res === 400 || res === 404) {
-        //     toast.error('Vui lòng nhập đúng thông tin');
-        // } else {
-        //     await createOderDetail(dataService, dispatch, user?.accessToken);
-        //     setDataPrice([]);
-        //     navigate('/');
-        // }
+        const dataService = {
+            order_id: res?.id,
+            orderDetails: [...dataPrice],
+        };
+        console.log('res check,', res);
+
+        if (res.status === 400 || res.status === 404) {
+            // alert(`${res.data.path}`);
+            toast.error('Lỗi nhâp voucher');
+        } else {
+            await createOderDetail(dataService, dispatch, user?.accessToken);
+            setDataPrice([]);
+            navigate('/');
+        }
     };
     const handleClose = () => {
         navigate('/');
