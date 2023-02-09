@@ -74,11 +74,23 @@ function OrderModal() {
     console.log('check state modal', state);
 
     const handleSelectService = (item) => {
-        setDataPrice((prev) => {
-            return [...prev, { service_id: item.service_id, unit_price: item.price }];
-        });
-        toast.success('Thêm dịch vụ thành công !');
+        if (dataPrice.length !== 0){
+            if (dataPrice.find(checkItem=>checkItem.service_id === item.service_id)){
+                toast.error('Bạn đã chọn dịch vụ này !');
+            } else {
+                setDataPrice((prev) => {
+                    return [...prev, { service_id: item.service_id, unit_price: item.price }];
+                });
+                toast.success('Thêm dịch vụ thành công !');
+            }
+        } else {
+            setDataPrice((prev) => {
+                return [...prev, { service_id: item.service_id, unit_price: item.price }];
+            });
+            toast.success('Thêm dịch vụ thành công !');
+        }
     };
+
     // console.log('check box', dataPrice);
     // console.log('test create 2', dataCreateOrder.id);
 
