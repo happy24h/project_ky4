@@ -21,6 +21,7 @@ let dataBtnTime = [
 ];
 function AddBooking() {
     const [dataTime, setDataTime] = useState([...dataBtnTime]);
+    const [dataBooking, setDataBooking] = useState([]);
     // const [secondCity, setSecondCity] = useState();
     const { t } = useTranslation();
     const [state, setState] = useState({
@@ -39,6 +40,7 @@ function AddBooking() {
     };
 
     console.log('check---state', state);
+    console.log('check---booking', ...dataBooking);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -103,6 +105,7 @@ function AddBooking() {
             // return data;
         });
         setDataTime(dataTime2);
+        setDataBooking((prev) => [...prev, item]);
     };
 
     let today = new Date();
