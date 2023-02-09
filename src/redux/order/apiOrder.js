@@ -44,9 +44,7 @@ export const createOder = async (oder, dispatch, accessToken) => {
 export const createOderDetail = async (oder, dispatch, accessToken) => {
     dispatch(createOderDetailStart());
     try {
-        await axios.post('http://localhost:8078/api/v1/order/createOrderDetail', oder, {
-            headers: { Authorization: `Bearer ${accessToken}` },
-        });
+        await axios.post('http://localhost:8078/api/v1/order/createOrderDetail', oder);
         dispatch(createOderDetailSuccess());
 
         toast.success('Quý khách đã đặt lịch thành công');
