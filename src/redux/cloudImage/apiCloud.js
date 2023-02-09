@@ -13,7 +13,7 @@ export const uploadImage = async (fileImage,dispatch) => {
         dispatch(cloudImageSuccess(res.data));
         toast.success("Gửi ảnh thành công");
     } catch (err) {
-        dispatch(cloudImageFailed(err.response.data));
-        toast.error(err.response.data);
+        dispatch(cloudImageFailed(err.response.data.message));
+        toast.error(err.response.data.message);
     }
 }

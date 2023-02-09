@@ -26,7 +26,7 @@ export const getBranch = async (dataValues, dispatch, accessToken) => {
         dispatch(getBranchSuccess(res.data));
     } catch (err) {
         dispatch(getBranchFailed());
-        toast.error('Có gì đó không ổn ?');
+        toast.error(err.response.data.message);
     }
 };
 
@@ -42,7 +42,7 @@ export const createBranch = async (dataValues, dispatch, accessToken, loadApi, n
         toast.success('create branch success');
     } catch (err) {
         dispatch(createBranchFailed());
-        toast.error('Có thứ gì đó không ổn ?');
+        toast.error(err.response.data.message);
     }
 };
 
@@ -56,7 +56,7 @@ export const deleteBranch = async (id, accessToken, dispatch, handleLoading) => 
         handleLoading();
     } catch (err) {
         dispatch(deleteBranchFailed());
-        toast.error('Có thứ gì đó không ổn ?');
+        toast.error(err.response.data.message);
     }
 };
 
@@ -69,7 +69,7 @@ export const getDetailBranch = async (id, dispatch, accessToken) => {
         // toast.success('Detail success');
     } catch (err) {
         dispatch(detailBranchFailed());
-        // toast.error('branch undefined ?');
+        toast.error(err.response.data.message);
     }
 };
 
@@ -85,6 +85,6 @@ export const editBranch = async (id, account, dispatch, accessToken, handleUpdat
         handleUpdateApi();
     } catch (err) {
         dispatch(editBranchFailed());
-        toast.error('Có thứ gì đó không đúng');
+        toast.error(err.response.data.message);
     }
 };

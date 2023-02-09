@@ -17,7 +17,7 @@ export const getAllService = async (serviceSearch, dispatch) => {
         dispatch(serviceSuccess(res.data));
     } catch (err) {
         dispatch(serviceFailed());
-        toast.error('Có thứ gì đó không đúng');
+        toast.error(err.response.data.message);
     }
 }
 
@@ -28,7 +28,7 @@ export const getAllTypeService = async (dispatch) => {
         dispatch(typeServiceSuccess(res.data));
     } catch (err) {
         dispatch(typeServiceFailed());
-        toast.error('Có thứ gì đó không đúng');
+        toast.error(err.response.data.message);
     }
 }
 
@@ -41,8 +41,8 @@ export const createService = async (service,dispatch,accessToken,navigate) => {
         toast.success("tạo dịch vụ thành công");
         navigate('/system/manage-service');
     } catch (err) {
-        dispatch(typeServiceFailed(err.response.data));
-        toast.error(err.response.data);
+        dispatch(typeServiceFailed(err.response.data.message));
+        toast.error(err.response.data.message);
     }
 }
 
@@ -56,8 +56,8 @@ export const updateService = async (id,service,dispatch,accessToken,loadAPI) => 
         dispatch(serviceSuccess());
         loadAPI();
     } catch (err) {
-        dispatch(typeServiceFailed(err.response.data));
-        toast.error(err.response.data);
+        dispatch(typeServiceFailed(err.response.data.message));
+        toast.error(err.response.data.message);
     }
 }
 
@@ -67,8 +67,8 @@ export const getDetailService = async (id,dispatch) => {
         const res = await axios.get('http://localhost:8078/api/v1/service/'+id,);
         dispatch(detailServiceSuccess(res.data));
     } catch (err) {
-        dispatch(detailServiceFailed(err.response.data));
-        toast.error(err.response.data);
+        dispatch(detailServiceFailed(err.response.data.message));
+        toast.error(err.response.data.message);
     }
 }
 
@@ -81,7 +81,7 @@ export const deleteService = async (id,dispatch,accessToken) => {
         dispatch(deleteServiceSuccess());
         toast.success("Xóa dịch vụ thành công");
     } catch (err) {
-        dispatch(deleteServiceFailed(err.response.data));
-        toast.error(err.response.data);
+        dispatch(deleteServiceFailed(err.response.data.message));
+        toast.error(err.response.data.message);
     }
 }

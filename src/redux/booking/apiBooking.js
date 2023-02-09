@@ -30,7 +30,7 @@ export const getBooking = async (booking, dispatch, accessToken) => {
         // toast.success('Tạo tài khoản thành công');
     } catch (err) {
         dispatch(getBookingFailed());
-        toast.error('Có gì đó không ổn.... ?');
+        toast.error(err.response.data.message);
     }
 };
 
@@ -46,7 +46,7 @@ export const createBooking = async (booking, dispatch, accessToken, navigate) =>
         toast.success('Tạo lịch hẹn thành công');
     } catch (err) {
         dispatch(createBookingFailed());
-        toast.error('Có thứ gì đó không ổn ?');
+        toast.error(err.response.data.message);
     }
 };
 
@@ -58,7 +58,7 @@ export const getDetailBooking = async (id, dispatch, accessToken, getBooking) =>
         // toast.success('Detail success');
     } catch (err) {
         dispatch(detailBookingFailed());
-        toast.error('Có thứ gì đó không ổn.... ?');
+        toast.error(err.response.data.message);
     }
 };
 
@@ -72,7 +72,7 @@ export const getDetailBookingDate = async (id, date, dispatch) => {
         // toast.success('Detail success');
     } catch (err) {
         dispatch(detailBookingDateFailed());
-        toast.error('Có thứ gì đó không ổn ?');
+        toast.error(err.response.data.message);
     }
 };
 
@@ -88,6 +88,6 @@ export const editBooking = async (id, account, dispatch, accessToken, handleUpda
         handleUpdateApi();
     } catch (err) {
         dispatch(editBookingFailed());
-        toast.error('Có thứ gì đó không đúng');
+        toast.error(err.response.data.message);
     }
 };

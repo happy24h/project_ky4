@@ -67,7 +67,7 @@ export const registerUser = async (user, dispatch, navigate) => {
         toast.success('Đăng ký thành công');
     } catch (err) {
         dispatch(registerFailed());
-        toast.error('Có thứ gì đó không đúng');
+        toast.error(err.response.data.message);
     }
 };
 
@@ -79,6 +79,7 @@ export const logOut = async (dispatch, navigate) => {
         toast.success('Logout success');
     } catch (err) {
         dispatch(logOutFailed());
+        toast.error(err.response.data.message);
     }
 };
 
@@ -90,7 +91,7 @@ export const getAllAccount = async (account, dispatch, token) => {
         dispatch(accountSuccess(res.data));
     } catch (err) {
         dispatch(accountFailed());
-        toast.error('Có thứ gì đó không đúng');
+        toast.error(err.response.data.message);
     }
 };
 
@@ -105,7 +106,7 @@ export const getAllRoles = async (dispatch, accessToken) => {
         // toast.success('Tạo tài khoản thành công');
     } catch (err) {
         dispatch(roleFailed());
-        toast.error('Có thứ gì đó không đúng khi lấy roles');
+        toast.error(err.response.data.message);
     }
 };
 
@@ -133,7 +134,7 @@ export const createAccount = async (account, dispatch, accessToken, loadApi, nav
         toast.success('Tạo tài khoản thành công');
     } catch (err) {
         dispatch(createAccountFailed());
-        toast.error('Có thứ gì đó không ổn');
+        toast.error(err.response.data.message);
     }
 };
 
@@ -148,7 +149,7 @@ export const createAccountCustomer = async (account, dispatch, accessToken) => {
         // handleCancel();
     } catch (err) {
         dispatch(createAccountFailed());
-        toast.error('có thứ gì đó không ổn');
+        toast.error(err.response.data.message);
     }
 };
 
@@ -160,7 +161,7 @@ export const getDetailAccount = async (id, dispatch, accessToken) => {
         // toast.success('Detail success');
     } catch (err) {
         dispatch(detailAccountFailed());
-        toast.error('có thứ gì đó không đúng');
+        toast.error(err.response.data.message);
     }
 };
 
@@ -175,6 +176,6 @@ export const editDetailAccount = async (id, account, dispatch, accessToken, hand
         handleUpdateApi();
     } catch (err) {
         dispatch(editAccountFailed());
-        toast.error('Có thứ gì đó không đúng');
+        toast.error(err.response.data.message);
     }
 };
