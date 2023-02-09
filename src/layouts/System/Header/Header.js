@@ -135,7 +135,7 @@ function Header() {
                         <img
                             className={cx('user-avatar')}
                             src={
-                                user?.thumbnail.length > 6 && user?.thumbnail
+                                user?.thumbnail?.length > 6 && user?.thumbnail
                                     ? `${user?.thumbnail}`
                                     : `${images.noAvatar}`
                             }

@@ -109,10 +109,10 @@ function OrderModal() {
                 setDataPrice([]);
                 navigate('/');
             } catch (error){
-                toast.error(error.response.data);
+                toast.error(error.response.data.message);
             }
         } catch (error){
-            toast.error(error.response.data);
+            toast.error(error.response.data.message);
         }
 
         // const dataService = {
