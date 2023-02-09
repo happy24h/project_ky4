@@ -38,12 +38,12 @@ function OrderModal() {
     const dataCreateOrderDetail = useSelector((state) => state.orderDetail.orderDetail?.isFetching);
     const dataCreateOrder = useSelector((state) => state.order.order?.isFetching);
 
-    console.log(' check boolean', dataCreateOrderDetail);
-    console.log(' check order', dataCreateOrder);
+    // console.log(' check boolean', dataCreateOrderDetail);
+    // console.log(' check order', dataCreateOrder);
     let subTotal = 0;
     dataPrice.forEach((item) => (subTotal += item.unit_price));
 
-    console.log('---+++', subTotal);
+    // console.log('---+++', subTotal);
 
     useEffect(() => {
         getAllService();
@@ -51,7 +51,7 @@ function OrderModal() {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user?.id]);
-    console.log('check state modal', state);
+    // console.log('check state modal', state);
 
     //B3: Lấy danh sách
 
@@ -63,9 +63,9 @@ function OrderModal() {
         phone: state?.phone,
         voucher_id: state?.voucher ? state?.voucher : '',
     };
-    console.log('check value ...', values);
+    // console.log('check value ...', values);
 
-    console.log('hello viet anh state la : ', state);
+    // console.log('hello viet anh state la : ', state);
 
     const handleOnchangeInput = (e) => {
         let { name, value } = e.target;
@@ -79,14 +79,14 @@ function OrderModal() {
         });
         toast.success('Thêm dịch vụ thành công !');
     };
-    console.log('check box', dataPrice);
-    console.log('test create 2', dataCreateOrder.id);
+    // console.log('check box', dataPrice);
+    // console.log('test create 2', dataCreateOrder.id);
 
     const handleConfirmBooking = async () => {
         // await createOder(values, dispatch, user?.accessToken);
         // console.log('test create', dataCreateOrder.id);
 
-        console.log('check value 2...', values);
+        // console.log('check value 2...', values);
 
         const res = await axios
             .post('http://localhost:8078/api/v1/order/create', values)
@@ -236,7 +236,19 @@ function OrderModal() {
                                                 );
                                             })}
 
-                                        <div>Tổng: {subTotal}</div>
+                                        <div className={cx('total-cart')}>
+                                            <div>Tổng:</div>{' '}
+                                            <span>
+                                                {
+                                                    <NumberFormat
+                                                        value={subTotal}
+                                                        displayType={'text'}
+                                                        thousandSeparator={true}
+                                                        suffix={' VND'}
+                                                    />
+                                                }{' '}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             )}
