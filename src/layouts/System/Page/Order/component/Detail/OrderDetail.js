@@ -13,6 +13,7 @@ const { Meta } = Card;
 
 function OrderDetail() {
     const [stateApi, setStateApi] = useState([]);
+    const [discount, setDiscount] = useState();
     let { id } = useParams();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.login?.currentUser);
@@ -37,10 +38,23 @@ function OrderDetail() {
                 console.log('check res', res);
                 setStateApi(res.data);
                 await getDetailBooking(res.data[0]?.order.booking_id, dispatch);
+
+                if (res.data[0].order?.voucher_id){
+                    try {
+                        const voucherCheck = await axios.get(`http://localhost:8078/api/v1/voucher/${res.data[0].order?.voucher_id}`, {
+                            headers: { Authorization: `Bearer ${user?.accessToken}` },
+                        });
+                        setDiscount(voucherCheck.data.discount);
+                    } catch (error){
+                        toast.error(error.response.data.message);
+                    }
+                }
+
             } catch (error){
                 toast.error(error.response.data.message);
             }
         };
+
         fetchApi();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -88,6 +102,24 @@ function OrderDetail() {
                         <strong>Khách hàng:</strong>{' '}
                         <span className={cx('text-detail')}>
                             {stateApi?.length > 0 && stateApi[0]?.order?.customer?.name}
+                        </span>
+                    </List>
+                    <List className={cx('list-detail')}>
+                        <strong>Tổng tiền:</strong>{' '}
+                        <span className={cx('text-detail')}>
+                            {stateApi?.length > 0 && stateApi[0]?.order?.total_price}
+                        </span>
+                    </List>
+                    <List className={cx('list-detail')}>
+                        <strong>Mã giảm giá:</strong>{' '}
+                        <span className={cx('text-detail')}>
+                            {stateApi?.length > 0 && stateApi[0]?.order?.voucher_id}
+                        </span>
+                    </List>
+                    <List className={cx('list-detail')}>
+                        <strong>Mức giảm giá:</strong>{' '}
+                        <span className={cx('text-detail')}>
+                            {discount ? (discount * 100) +'%' : '' }
                         </span>
                     </List>
                     <List className={cx('list-detail')}>

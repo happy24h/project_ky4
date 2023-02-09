@@ -90,6 +90,7 @@ function OrderModal() {
             toast.success('Thêm dịch vụ thành công !');
         }
     };
+
     // console.log('check box', dataPrice);
     // console.log('test create 2', dataCreateOrder.id);
 

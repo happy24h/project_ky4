@@ -21,7 +21,7 @@ let dataBtnTime = [
 ];
 function AddBooking() {
     const [dataTime, setDataTime] = useState([...dataBtnTime]);
-    const [dataBooking, setDataBooking] = useState([]);
+    const [dataBookingArr, setDataBooking] = useState([]);
     // const [secondCity, setSecondCity] = useState();
     const { t } = useTranslation();
     const [state, setState] = useState({
@@ -40,7 +40,7 @@ function AddBooking() {
     };
 
     console.log('check---state', state);
-    console.log('check---booking', ...dataBooking);
+    console.log('check---booking', dataBookingArr);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -120,16 +120,17 @@ function AddBooking() {
     today = dd + '-' + mm + '-' + yyyy;
     console.log('today', today);
 
-    const handleSaveSchedule = () => {
-        const dataBooking = {
-            date_booking: today,
-            time_booking: state?.timeBooking,
-            employee_id: +state?.accountId,
-            branch_id: +state?.branchId,
-        };
-
-        console.log('data booking', dataBooking);
-        createBooking(dataBooking, dispatch, user?.accessToken, navigate);
+    const handleSaveSchedule = async () => {
+        for (const item of dataBookingArr) {
+            let dataBooking = {
+                date_booking: today,
+                time_booking: item,
+                employee_id: state?.accountId,
+                branch_id: state?.branchId,
+            };
+            await createBooking(dataBooking, dispatch, user?.accessToken, navigate);
+        }
+        // createBooking(dataBooking, dispatch, user?.accessToken, navigate);
     };
 
     const handleOnchangeInput = (e) => {
