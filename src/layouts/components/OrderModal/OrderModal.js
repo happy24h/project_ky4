@@ -29,6 +29,8 @@ function OrderModal() {
     });
     const [dataPrice, setDataPrice] = useState([]);
     const [modalItem, setModalItem] = useState(false);
+    const [toggle, setToggle] = useState(true);
+    const [dataService, setDataService] = useState([]);
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -42,13 +44,21 @@ function OrderModal() {
     // console.log(' check order', dataCreateOrder);
     let subTotal = 0;
     dataPrice.forEach((item) => (subTotal += item.unit_price));
+    // let dataok = dataService;
+
+    // let dataok = dataService.map((item) => ({ ...item }));
+
+    // console.log('check test', dataok);
 
     // console.log('---+++', subTotal);
     // let listState = state?.username + state?.email + state?.phone;
+    console.log('dataService -----', dataService);
 
     useEffect(() => {
         getAllService();
         setState({ ...user });
+
+        setDataService(listService?.content.map((item) => ({ ...item, isActive: false })));
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user?.id]);
@@ -74,6 +84,13 @@ function OrderModal() {
     console.log('check state modal', state);
 
     const handleSelectService = (item) => {
+        const newDateService = dataService.map((data) => {
+            if (data.service_id === item.service_id) {
+                data.isActive = !data.isActive;
+            }
+            return data;
+        });
+        setDataService(newDateService);
         if (dataPrice.length !== 0) {
             if (dataPrice.find((checkItem) => checkItem.service_id === item.service_id)) {
                 toast.error('Bạn đã chọn dịch vụ này !');
@@ -270,7 +287,7 @@ function OrderModal() {
                     <div>
                         <div className="grid wide">
                             <div className="row">
-                                {listService?.content.map((item, index) => {
+                                {dataService?.map((item, index) => {
                                     return (
                                         <div className="col l-3 m-4 c-6" key={index}>
                                             <div className={cx('item')}>
@@ -294,6 +311,11 @@ function OrderModal() {
                                                 <div className={cx('wrapper-btn')}>
                                                     <button
                                                         className={cx('btn-buy')}
+                                                        style={
+                                                            item?.isActive
+                                                                ? { backgroundColor: '#fcaf17', color: '#ffffff' }
+                                                                : { backgroundColor: '#f0f0f0' }
+                                                        }
                                                         onClick={() => handleSelectService(item)}
                                                     >
                                                         Chọn
