@@ -21,8 +21,7 @@ let dataBtnTime = [
 ];
 function AddBooking() {
     const [dataTime, setDataTime] = useState([...dataBtnTime]);
-    const [dataBookingArr, setDataBooking] = useState([]);
-    // const [secondCity, setSecondCity] = useState();
+
     const { t } = useTranslation();
     const [state, setState] = useState({
         currentDate: '',
@@ -39,8 +38,9 @@ function AddBooking() {
         }));
     };
 
-    console.log('check---state', state);
-    console.log('check---booking', dataBookingArr);
+    console.log('timeArr---', dataTime);
+    let filterDataTime = dataTime.filter((item) => item.isActive === true);
+    console.log('filterDataTime---', filterDataTime);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -48,8 +48,8 @@ function AddBooking() {
     const listAccount = useSelector((state) => state.account.account?.accountCurrent?.content);
     const listBranch = useSelector((state) => state.branch.branch?.listData?.content);
 
-    console.log('check list >>>', listAccount);
-    console.log('check branch >>>', listBranch);
+    // console.log('check list >>>', listAccount);
+    // console.log('check branch >>>', listBranch);
 
     let dataAccount = {
         name: '',
@@ -91,21 +91,14 @@ function AddBooking() {
     }, []);
 
     const handleClickBtnTime = (item) => {
-        // setActive(!active);
-        // alert('time' + item);
-
         setState((prev) => ({ ...prev, timeBooking: item }));
         const dataTime2 = dataTime.map((data) => {
             if (data.time === item) {
                 data.isActive = !data.isActive;
-                // return data;
             }
             return data;
-            // return data;
-            // return data;
         });
         setDataTime(dataTime2);
-        setDataBooking((prev) => [...prev, item]);
     };
 
     let today = new Date();
@@ -121,10 +114,10 @@ function AddBooking() {
     console.log('today', today);
 
     const handleSaveSchedule = async () => {
-        for (const item of dataBookingArr) {
+        for (const item of filterDataTime) {
             let dataBooking = {
                 date_booking: today,
-                time_booking: item,
+                time_booking: item.time,
                 employee_id: state?.accountId,
                 branch_id: state?.branchId,
             };
