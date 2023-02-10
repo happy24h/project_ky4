@@ -29,7 +29,7 @@ function OrderModal() {
     });
     const [dataPrice, setDataPrice] = useState([]);
     const [modalItem, setModalItem] = useState(false);
-    const [toggle, setToggle] = useState(true);
+
     const [dataService, setDataService] = useState([]);
     const { id } = useParams();
     const navigate = useNavigate();
@@ -40,18 +40,9 @@ function OrderModal() {
     const dataCreateOrderDetail = useSelector((state) => state.orderDetail.orderDetail?.isFetching);
     const dataCreateOrder = useSelector((state) => state.order.order?.isFetching);
 
-    // console.log(' check boolean', dataCreateOrderDetail);
-    // console.log(' check order', dataCreateOrder);
     let subTotal = 0;
     dataPrice.forEach((item) => (subTotal += item.unit_price));
-    // let dataok = dataService;
 
-    // let dataok = dataService.map((item) => ({ ...item }));
-
-    // console.log('check test', dataok);
-
-    // console.log('---+++', subTotal);
-    // let listState = state?.username + state?.email + state?.phone;
     console.log('dataService -----', dataService);
 
     useEffect(() => {
@@ -91,25 +82,13 @@ function OrderModal() {
             return data;
         });
         setDataService(newDateService);
-        if (dataPrice.length !== 0) {
-            if (dataPrice.find((checkItem) => checkItem.service_id === item.service_id)) {
-                toast.error('Bạn đã chọn dịch vụ này !');
-            } else {
-                setDataPrice((prev) => {
-                    return [...prev, { service_id: item.service_id, unit_price: item.price }];
-                });
-                toast.success('Thêm dịch vụ thành công !');
-            }
-        } else {
-            setDataPrice((prev) => {
-                return [...prev, { service_id: item.service_id, unit_price: item.price }];
-            });
-            toast.success('Thêm dịch vụ thành công !');
-        }
-    };
 
-    // console.log('check box', dataPrice);
-    // console.log('test create 2', dataCreateOrder.id);
+        let filterDataService = dataService.filter((item) => item.isActive === true);
+        setDataPrice(() => {
+            return filterDataService.map((element) => ({ service_id: element.service_id, unit_price: element.price }));
+            // return [...prev, { service_id: item.service_id, unit_price: item.price }];
+        });
+    };
 
     const handleConfirmBooking = async () => {
         if (subTotal === 0) {
@@ -133,7 +112,7 @@ function OrderModal() {
 
         if (res.status === 400 || res.status === 404) {
             // alert(`${res.data.path}`);
-            toast.error('Lỗi nhâp voucher');
+            toast.error('Vui lòng điền đúng thông tin');
         } else {
             await createOderDetail(dataService, dispatch, user?.accessToken);
             setDataPrice([]);
