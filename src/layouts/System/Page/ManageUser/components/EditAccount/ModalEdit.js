@@ -34,6 +34,9 @@ function ModalEdit() {
 
     useEffect(() => {
         getDetailAccount(id, dispatch, user?.accessToken);
+        if (!user.isAdmin) {
+            navigate(`/system/manage-user/modal-edit/${user?.id}`);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id || loadApi]);
 
@@ -88,177 +91,175 @@ function ModalEdit() {
 
     return (
         <>
-            {' '}
-            {user.id === +id ||
-                (user?.isAdmin && (
-                    <div style={{ marginTop: 23 }}>
-                        <Link to={`/system/manage-user/detail/${id}`}>
-                            {/* <EditOutlined /> */}
-                            <Button type="primary" ghost style={{ backgroundColor: '#fff' }}>
-                                Back
-                            </Button>
-                        </Link>
+            {
+                <div style={{ marginTop: 23 }}>
+                    <Link to={`/system/manage-user/detail/${id}`}>
+                        {/* <EditOutlined /> */}
+                        <Button type="primary" ghost style={{ backgroundColor: '#fff' }}>
+                            Back
+                        </Button>
+                    </Link>
 
-                        <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '1000px' }}>
-                            <div className={cx('field')}>
+                    <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '1000px' }}>
+                        <div className={cx('field')}>
+                            <div className={cx('customInput')}>
+                                <FontAwesomeIcon className={cx('inputicon')} icon={faUser} />
+                                <input
+                                    className={cx('inputfield')}
+                                    type="text"
+                                    placeholder="Name..."
+                                    autoComplete="name"
+                                    name="name"
+                                    value={formik.values.name}
+                                    onChange={formik.handleChange}
+                                />
+                            </div>
+                            <div className={cx('message')}>
+                                {formik.errors.name && <p className="error">{formik.errors.name}</p>}
+                            </div>
+                        </div>
+                        <div className={cx('field')}>
+                            <div className={cx('customInput')}>
+                                <FontAwesomeIcon className="inputicon" icon={faEnvelope} />
+                                <input
+                                    className={cx('inputfield')}
+                                    type="email"
+                                    placeholder="Email.."
+                                    autoComplete="email"
+                                    name="email"
+                                    value={formik.values.email}
+                                    onChange={formik.handleChange}
+                                />
+                            </div>
+                            <div className={cx('message')}>
+                                {formik.errors.email && <p className={cx('error')}>{formik.errors.email}</p>}
+                            </div>
+                        </div>
+                        <div className={cx('field')}>
+                            <div className={cx('customInput')}>
+                                <FontAwesomeIcon className={cx('inputicon')} icon={faPhone} />
+                                <input
+                                    className={cx('inputfield')}
+                                    type="text"
+                                    placeholder="Phone..."
+                                    autoComplete="phone"
+                                    name="phone"
+                                    value={formik.values.phone}
+                                    onChange={formik.handleChange}
+                                />
+                            </div>
+                            <div className={cx('message')}>
+                                {formik.errors.phone && <p className="error">{formik.errors.phone}</p>}
+                            </div>
+                        </div>
+                        <div className={cx('field')}>
+                            <div className="customInput">
+                                <FontAwesomeIcon className={cx('inputicon')} icon={faKey} />
+                                <input
+                                    className={cx('inputfield')}
+                                    type="text"
+                                    placeholder="Password.."
+                                    autoComplete="new-password"
+                                    name="password"
+                                    value={formik.values.password}
+                                    onChange={formik.handleChange}
+                                />
+                            </div>
+                            <div className={cx('message')}>
+                                {formik.errors.password && <p className={cx('error')}>{formik.errors.password}</p>}
+                            </div>
+                        </div>
+                        {user.isAdmin && (
+                            <div class="field">
                                 <div className={cx('customInput')}>
-                                    <FontAwesomeIcon className={cx('inputicon')} icon={faUser} />
-                                    <input
-                                        className={cx('inputfield')}
-                                        type="text"
-                                        placeholder="Name..."
-                                        autoComplete="name"
-                                        name="name"
-                                        value={formik.values.name}
-                                        onChange={formik.handleChange}
-                                    />
-                                </div>
-                                <div className={cx('message')}>
-                                    {formik.errors.name && <p className="error">{formik.errors.name}</p>}
-                                </div>
-                            </div>
-                            <div className={cx('field')}>
-                                <div className={cx('customInput')}>
-                                    <FontAwesomeIcon className="inputicon" icon={faEnvelope} />
-                                    <input
-                                        className={cx('inputfield')}
-                                        type="email"
-                                        placeholder="Email.."
-                                        autoComplete="email"
-                                        name="email"
-                                        value={formik.values.email}
-                                        onChange={formik.handleChange}
-                                    />
-                                </div>
-                                <div className={cx('message')}>
-                                    {formik.errors.email && <p className={cx('error')}>{formik.errors.email}</p>}
-                                </div>
-                            </div>
-                            <div className={cx('field')}>
-                                <div className={cx('customInput')}>
-                                    <FontAwesomeIcon className={cx('inputicon')} icon={faPhone} />
-                                    <input
-                                        className={cx('inputfield')}
-                                        type="text"
-                                        placeholder="Phone..."
-                                        autoComplete="phone"
-                                        name="phone"
-                                        value={formik.values.phone}
-                                        onChange={formik.handleChange}
-                                    />
-                                </div>
-                                <div className={cx('message')}>
-                                    {formik.errors.phone && <p className="error">{formik.errors.phone}</p>}
-                                </div>
-                            </div>
-                            <div className={cx('field')}>
-                                <div className="customInput">
-                                    <FontAwesomeIcon className={cx('inputicon')} icon={faKey} />
-                                    <input
-                                        className={cx('inputfield')}
-                                        type="text"
-                                        placeholder="Password.."
-                                        autoComplete="new-password"
-                                        name="password"
-                                        value={formik.values.password}
-                                        onChange={formik.handleChange}
-                                    />
-                                </div>
-                                <div className={cx('message')}>
-                                    {formik.errors.password && <p className={cx('error')}>{formik.errors.password}</p>}
-                                </div>
-                            </div>
-                            {user.isAdmin && (
-                                <div class="field">
-                                    <div className={cx('customInput')}>
-                                        <FontAwesomeIcon className={cx('inputicon')} icon={faShieldCat} />
+                                    <FontAwesomeIcon className={cx('inputicon')} icon={faShieldCat} />
 
-                                        <select
-                                            className={cx('inputfield')}
-                                            name="roles"
-                                            onChange={(e) => setState(e.target.value)}
-                                            value={state}
-                                        >
-                                            <option value="">-- Choose --</option>
+                                    <select
+                                        className={cx('inputfield')}
+                                        name="roles"
+                                        onChange={(e) => setState(e.target.value)}
+                                        value={state}
+                                    >
+                                        <option value="">-- Choose --</option>
 
-                                            {listRoles &&
-                                                listRoles.length > 0 &&
-                                                listRoles.map((item, index) => {
-                                                    return (
-                                                        <option key={index} value={item.name}>
-                                                            {item.name}
-                                                        </option>
-                                                    );
-                                                })}
-                                        </select>
-                                    </div>
-                                    {/* <div className={cx('message')}>
+                                        {listRoles &&
+                                            listRoles.length > 0 &&
+                                            listRoles.map((item, index) => {
+                                                return (
+                                                    <option key={index} value={item.name}>
+                                                        {item.name}
+                                                    </option>
+                                                );
+                                            })}
+                                    </select>
+                                </div>
+                                {/* <div className={cx('message')}>
                         {!state && <p className={cx('error')}>Vui lòng nhập thông tin</p>}
                     </div> */}
-                                </div>
-                            )}
+                            </div>
+                        )}
 
-                            <div className={cx('field')}>
-                                <div className={cx('customInput')}>
-                                    <FontAwesomeIcon className={cx('inputicon')} icon={faAddressBook} />
-                                    <input
-                                        className={cx('inputfield')}
-                                        type="text"
-                                        placeholder="Address..."
-                                        autoComplete="username"
-                                        name="address"
-                                        value={formik.values.address}
-                                        onChange={formik.handleChange}
-                                    />
-                                </div>
-                                <div className={cx('message')}>
-                                    {formik.errors.address && <p className="error">{formik.errors.address}</p>}
-                                </div>
+                        <div className={cx('field')}>
+                            <div className={cx('customInput')}>
+                                <FontAwesomeIcon className={cx('inputicon')} icon={faAddressBook} />
+                                <input
+                                    className={cx('inputfield')}
+                                    type="text"
+                                    placeholder="Address..."
+                                    autoComplete="username"
+                                    name="address"
+                                    value={formik.values.address}
+                                    onChange={formik.handleChange}
+                                />
                             </div>
+                            <div className={cx('message')}>
+                                {formik.errors.address && <p className="error">{formik.errors.address}</p>}
+                            </div>
+                        </div>
 
-                            <div className={cx('field')}>
-                                <div className={cx('customInput')}>
-                                    <FontAwesomeIcon className={cx('inputicon')} icon={faImage} />
-                                    <input
-                                        className={cx('inputfield')}
-                                        type="text"
-                                        placeholder="avatar..."
-                                        autoComplete="thumbnail"
-                                        name="thumbnail"
-                                        value={formik.values.thumbnail}
-                                        onChange={formik.handleChange}
-                                    />
-                                </div>
-                                <div className={cx('message')}>
-                                    {formik.errors.thumbnail && <p className="error">{formik.errors.thumbnail}</p>}
-                                </div>
+                        <div className={cx('field')}>
+                            <div className={cx('customInput')}>
+                                <FontAwesomeIcon className={cx('inputicon')} icon={faImage} />
+                                <input
+                                    className={cx('inputfield')}
+                                    type="text"
+                                    placeholder="avatar..."
+                                    autoComplete="thumbnail"
+                                    name="thumbnail"
+                                    value={formik.values.thumbnail}
+                                    onChange={formik.handleChange}
+                                />
                             </div>
-                            <div className={cx('field')}>
-                                <div className={cx('customInput')}>
-                                    <FontAwesomeIcon className={cx('inputicon')} icon={faImage} />
-                                    <input
-                                        className={cx('inputfield')}
-                                        type="text"
-                                        placeholder="description..."
-                                        autoComplete="description"
-                                        name="description"
-                                        value={formik.values.description}
-                                        onChange={formik.handleChange}
-                                    />
-                                </div>
-                                <div className={cx('message')}>
-                                    {formik.errors.description && <p className="error">{formik.errors.description}</p>}
-                                </div>
+                            <div className={cx('message')}>
+                                {formik.errors.thumbnail && <p className="error">{formik.errors.thumbnail}</p>}
                             </div>
+                        </div>
+                        <div className={cx('field')}>
+                            <div className={cx('customInput')}>
+                                <FontAwesomeIcon className={cx('inputicon')} icon={faImage} />
+                                <input
+                                    className={cx('inputfield')}
+                                    type="text"
+                                    placeholder="description..."
+                                    autoComplete="description"
+                                    name="description"
+                                    value={formik.values.description}
+                                    onChange={formik.handleChange}
+                                />
+                            </div>
+                            <div className={cx('message')}>
+                                {formik.errors.description && <p className="error">{formik.errors.description}</p>}
+                            </div>
+                        </div>
 
-                            <div className={cx('field submitfield')} style={{ width: '900px' }}>
-                                <input className={cx('submit')} type="submit" value="Update User" />
-                            </div>
-                        </form>
-                        {/* </Card> */}
-                        {/* </Add> */}
-                    </div>
-                ))}
+                        <div className={cx('field submitfield')} style={{ width: '900px' }}>
+                            <input className={cx('submit')} type="submit" value="Update User" />
+                        </div>
+                    </form>
+                    {/* </Card> */}
+                    {/* </Add> */}
+                </div>
+            }
         </>
     );
 }

@@ -105,8 +105,8 @@
 // }
 
 .wrapper-cart-item {
-    overflow-y: scroll;
-    height: 208px;
+    // overflow-y: scroll;
+    min-height: 0px;
 }
 
 .cart-item {

@@ -40,7 +40,7 @@ function ManagerOrder() {
     //B2: gọi api
     let data = {
         booking_id: state?.booking_id,
-        customer_id: user.isAdmin ? '' : user.id,
+        customer_id: user?.roles[0] === 'CUSTOMER' ? user?.id : '',
         // voucher_id: state?.voucher_id,
         time_booking: state?.time_booking,
         rangeTotalPriceStart: state?.rangeTotalPriceStart,

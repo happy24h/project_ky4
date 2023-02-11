@@ -45,7 +45,7 @@ function DetailAccount() {
     useEffect(() => {
         getBooking(dataBooking, dispatch, user?.accessToken);
         if (!user.isAdmin) {
-            navigate(`/system/manage-user/detail/${user.id}`);
+            navigate(`/system/manage-user/detail/${user?.id}`);
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
