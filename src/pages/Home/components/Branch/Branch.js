@@ -38,7 +38,7 @@ function Branch({ settings }) {
     }, []);
 
     const handleViewDetailBranch = (branch) => {
-        navigate(`detail-learn-branch/${branch.id}`);
+        navigate(`/detail-learn-branch/${branch.id}`);
     };
 
     const handleSeeMore = () => {

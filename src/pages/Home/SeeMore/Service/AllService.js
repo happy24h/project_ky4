@@ -49,6 +49,10 @@ function AllService() {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const handleDetailService = (item) => {
+        navigate(`/detail-service/${item.service_id}`);
+    };
     return (
         <div className={cx('wrapper')}>
             <div className="grid wide">
@@ -62,6 +66,7 @@ function AllService() {
                                         style={{
                                             backgroundImage: `url(${item.thumbnail})`,
                                         }}
+                                        onClick={() => handleDetailService(item)}
                                     >
                                         <span>{item.service_name}</span>
                                     </div>

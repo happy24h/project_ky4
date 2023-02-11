@@ -35,7 +35,7 @@ function Employee({ settings }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     const handleViewDetailEmployee = (employee) => {
-        navigate(`detail-employee/${employee.accounts_id}`);
+        navigate(`/detail-employee/${employee.accounts_id}`);
     };
     console.log('posts >>>', posts);
 

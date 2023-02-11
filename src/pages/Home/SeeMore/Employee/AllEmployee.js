@@ -3,11 +3,13 @@ import styles from './AllEmployee.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllAccount } from '~/redux/apiRequest';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function AllEmployee() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const user = useSelector((state) => state.auth.login?.currentUser);
     const listAccount = useSelector((state) => state.account.account?.accountCurrent?.content);
@@ -30,6 +32,9 @@ function AllEmployee() {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+    const handleDetailAccount = (employee) => {
+        navigate(`/detail-employee/${employee.accounts_id}`);
+    };
     return (
         <div className={cx('wrapper')}>
             <div className="grid wide">
@@ -43,6 +48,7 @@ function AllEmployee() {
                                         style={{
                                             backgroundImage: `url(${item.thumbnail})`,
                                         }}
+                                        onClick={() => handleDetailAccount(item)}
                                     >
                                         <span>{item.accounts_name}</span>
                                     </div>
