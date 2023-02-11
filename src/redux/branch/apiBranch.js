@@ -56,7 +56,7 @@ export const deleteBranch = async (id, accessToken, dispatch, handleLoading) => 
         handleLoading();
     } catch (err) {
         dispatch(deleteBranchFailed());
-        toast.error(err.response.data.message);
+        // toast.error(err.response.data.message);
     }
 };
 
@@ -69,7 +69,7 @@ export const getDetailBranch = async (id, dispatch, accessToken) => {
         // toast.success('Detail success');
     } catch (err) {
         dispatch(detailBranchFailed());
-        toast.error(err.response.data.message);
+        // toast.error(err.response.data.message);
     }
 };
 

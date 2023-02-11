@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import TeacherSchedule from './Schedule/EmployeeSchedule';
+import EmployeeSchedule from './Schedule/EmployeeSchedule';
 import './DetailEmployee.scss';
 import { getDetailAccount } from '~/redux/apiRequest';
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,7 +36,7 @@ function DetailEmployee() {
                     </div>
                 </div>
             </div>
-            <TeacherSchedule />
+            <EmployeeSchedule />
 
             <div className="detail-infor-doctor">
                 {/* {detailTeacher && detailTeacher.Markdown && detailTeacher.Markdown.contentHTML && (
