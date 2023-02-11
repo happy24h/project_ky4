@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 // import { Row, Tag, Checkbox, Button } from 'antd';
 import NumberFormat from 'react-number-format';
 import axios from 'axios';
+import validation from './validation';
 
 import { faCartShopping, faSpinner, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Modal.scss';
+
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,6 +31,8 @@ function OrderModal() {
     });
     const [dataPrice, setDataPrice] = useState([]);
     const [modalItem, setModalItem] = useState(false);
+    const [errors, setErrors] = useState({});
+    const [messageError, setMessageError] = useState(false);
 
     const [dataService, setDataService] = useState([]);
     const { id } = useParams();
@@ -63,6 +67,10 @@ function OrderModal() {
         let { name, value } = e.target;
         setState({ ...state, [name]: value });
     };
+    let totalState = state?.email + state?.phone + state?.username;
+    useEffect(() => {
+        setErrors(validation(state));
+    }, [totalState]);
     const values = {
         booking_id: id,
         customer_id: user?.id ? state?.id : '1',
@@ -91,32 +99,41 @@ function OrderModal() {
     };
 
     const handleConfirmBooking = async () => {
-        if (subTotal === 0) {
-            toast.error('Vui lòng chọn dịch vụ');
+        if (Object.keys(errors).length === 0) {
+            // toast.error('Vui lòng điền đúng thông tin');
+            setMessageError(false);
+
+            if (subTotal === 0) {
+                toast.error('Vui lòng chọn dịch vụ');
+            } else {
+                var res = await axios
+                    .post('http://localhost:8078/api/v1/order/create', values)
+                    .then(function (response) {
+                        return response.data;
+                    })
+                    .catch(function (error) {
+                        return error.response;
+                    });
+            }
+
+            const dataService = {
+                order_id: res?.id,
+                orderDetails: [...dataPrice],
+            };
+            console.log('res check,', res);
+
+            if (res.status === 400 || res.status === 404) {
+                // alert(`${res.data.path}`);
+
+                toast.error('Vui lòng điền đúng mã giảm giá');
+            } else {
+                await createOderDetail(dataService, dispatch, user?.accessToken);
+                setDataPrice([]);
+                navigate('/');
+            }
         } else {
-            var res = await axios
-                .post('http://localhost:8078/api/v1/order/create', values)
-                .then(function (response) {
-                    return response.data;
-                })
-                .catch(function (error) {
-                    return error.response;
-                });
-        }
-
-        const dataService = {
-            order_id: res?.id,
-            orderDetails: [...dataPrice],
-        };
-        console.log('res check,', res);
-
-        if (res.status === 400 || res.status === 404) {
-            // alert(`${res.data.path}`);
             toast.error('Vui lòng điền đúng thông tin');
-        } else {
-            await createOderDetail(dataService, dispatch, user?.accessToken);
-            setDataPrice([]);
-            navigate('/');
+            setMessageError(true);
         }
     };
     const handleClose = () => {
@@ -163,6 +180,8 @@ function OrderModal() {
                                 className="form-control"
                                 onChange={handleOnchangeInput}
                             />
+
+                            {messageError || !errors.username ? <p className="error">{errors.username}</p> : ''}
                         </div>
                         <div className="col l-6 c-6 form-group">
                             <label>Số điện thoại</label>
@@ -173,6 +192,8 @@ function OrderModal() {
                                 value={state.phone}
                                 onChange={handleOnchangeInput}
                             />
+                            {/* <div className="message">{errors.phone && <p className="error">{errors.phone}</p>}</div> */}
+                            {messageError || !errors.phone ? <p className="error">{errors.phone}</p> : ''}
                         </div>
                         <div className="col l-6 c-6 form-group">
                             <label>Địa chỉ email</label>
@@ -183,6 +204,7 @@ function OrderModal() {
                                 value={state.email}
                                 onChange={handleOnchangeInput}
                             />
+                            {messageError || !errors.email ? <p className="error">{errors.email}</p> : ''}
                         </div>
 
                         <div className="col l-6 c-6 form-group">
