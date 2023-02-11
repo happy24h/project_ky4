@@ -30,7 +30,7 @@ export const getBooking = async (booking, dispatch, accessToken) => {
         // toast.success('Tạo tài khoản thành công');
     } catch (err) {
         dispatch(getBookingFailed());
-        toast.error(err.response.data.message);
+        // toast.error(err.response.data.message);
     }
 };
 
@@ -58,7 +58,7 @@ export const getDetailBooking = async (id, dispatch, accessToken, getBooking) =>
         // toast.success('Detail success');
     } catch (err) {
         dispatch(detailBookingFailed());
-        toast.error(err.response.data.message);
+        // toast.error(err.response.data.message);
     }
 };
 
@@ -72,7 +72,7 @@ export const getDetailBookingDate = async (id, date, dispatch) => {
         // toast.success('Detail success');
     } catch (err) {
         dispatch(detailBookingDateFailed());
-        toast.error(err.response.data.message);
+        // toast.error(err.response.data.message);
     }
 };
 
