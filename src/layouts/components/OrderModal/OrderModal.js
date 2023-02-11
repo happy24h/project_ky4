@@ -181,7 +181,7 @@ function OrderModal() {
                                 onChange={handleOnchangeInput}
                             />
 
-                            {messageError || !errors.username ? <p className="error">{errors.username}</p> : ''}
+                            {messageError || !errors.username ? <p className={cx('error')}>{errors.username}</p> : ''}
                         </div>
                         <div className="col l-6 c-6 form-group">
                             <label>Số điện thoại</label>
@@ -192,8 +192,8 @@ function OrderModal() {
                                 value={state.phone}
                                 onChange={handleOnchangeInput}
                             />
-                            {/* <div className="message">{errors.phone && <p className="error">{errors.phone}</p>}</div> */}
-                            {messageError || !errors.phone ? <p className="error">{errors.phone}</p> : ''}
+
+                            {messageError || !errors.phone ? <p className={cx('error')}>{errors.phone}</p> : ''}
                         </div>
                         <div className="col l-6 c-6 form-group">
                             <label>Địa chỉ email</label>
@@ -204,7 +204,7 @@ function OrderModal() {
                                 value={state.email}
                                 onChange={handleOnchangeInput}
                             />
-                            {messageError || !errors.email ? <p className="error">{errors.email}</p> : ''}
+                            {messageError || !errors.email ? <p className={cx('error')}>{errors.email}</p> : ''}
                         </div>
 
                         <div className="col l-6 c-6 form-group">
