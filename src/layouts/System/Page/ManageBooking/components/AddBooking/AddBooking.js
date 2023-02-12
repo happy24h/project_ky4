@@ -9,7 +9,6 @@ import { getAllAccount } from '~/redux/apiRequest';
 import { getBranch } from '~/redux/branch/apiBranch';
 import { createBooking } from '~/redux/booking/apiBooking';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 let dataBtnTime = [
     { name: '08:00', time: '8', isActive: false },
     { name: '09:00', time: '9', isActive: false },
@@ -31,8 +30,6 @@ function AddBooking() {
         branchId: '',
     });
 
-    const [showAccountId, setShowAccountId] = useState(false);
-
     const onChange = (date, dateString) => {
         console.log('test', date, 'aaaa', dateString);
         setState((prev) => ({
@@ -48,7 +45,7 @@ function AddBooking() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector((state) => state.auth.login?.currentUser);
-    const [listAccount, setListAccount] = useState([]);
+    const listAccount = useSelector((state) => state.account.account?.accountCurrent?.content);
     const listBranch = useSelector((state) => state.branch.branch?.listData?.content);
 
     // console.log('check list >>>', listAccount);
@@ -143,26 +140,13 @@ function AddBooking() {
             accountId: value,
         }));
     };
-    const handleOnchangeBranch = async (value, name) => {
+    const handleOnchangeBranch = (value, name) => {
         // console.log('----', name);
 
         setState((prev) => ({
             ...prev,
             branchId: value,
         }));
-
-        setShowAccountId(true);
-
-        setListAccount(await axios.post(`http://localhost:8078/api/v1/account/search/`, {
-            page: 1,
-            limit:100,
-            branch_id:value,
-            role_id:"3",
-            sort:"asc",
-        }, {
-            headers: { Authorization: `Bearer ${user?.accessToken}` },
-        })
-            .then(res => res.data.content));
     };
     return (
         <div className="manage-schedule-container">
@@ -188,17 +172,10 @@ function AddBooking() {
                         {' '}
                         {/* <label>Chọn chi nhánh </label> */}
                         <Select
-                            style={ showAccountId ? {
+                            style={{
                                 width: '100%',
                                 margin: '0 0 20px',
-                                display: 'block'
-                            }
-                            :{
-                                    width: '100%',
-                                    margin: '0 0 20px',
-                                    display: 'none'
-                                }
-                            }
+                            }}
                             name="accountId"
                             placeholder="Select address"
                             onChange={handleOnchangeBranch}
