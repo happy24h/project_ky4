@@ -17,28 +17,25 @@ function Contact() {
     const user = useSelector((state) => state.auth.login?.currentUser);
 
     const formik = useFormik({
-        initialValues:{
+        initialValues: {
             title: '',
             email: `${user ? user.email : ''}`,
-            phone: `${user? user.phone : ''}`,
+            phone: `${user ? user.phone : ''}`,
             description: '',
-            account_id: `${user? user.id : ''}`
+            account_id: `${user ? user.id : ''}`,
         },
-        validationSchema:Yup.object({
+        validationSchema: Yup.object({
             title: Yup.string().required('Vui lòng nhập tên tiêu đề.').min(4, 'Tên phải lớn hơn 4 ký tự.'),
             email: Yup.string()
                 .required('Vui lòng nhập email.')
-                .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Vui lòng nhập địa chỉ email hợp lệ.')
-            ,
-            phone: Yup.string()
-                .required('Vui lòng nhập số điện thoại.')
+                .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Vui lòng nhập địa chỉ email hợp lệ.'),
+            phone: Yup.string().required('Vui lòng nhập số điện thoại.'),
             // .matches(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/, 'Phải là số điện thoại hợp lệ')
-            ,
             description: Yup.string().required('Vui lòng nhập nội dung liên hệ.').min(3, 'Tên phải lớn hơn 3 ký tự.'),
         }),
-        onSubmit: async (values,actions) => {
-            console.log("feedback là: ", values)
-            await createFeedback(values,dispatch);
+        onSubmit: async (values, actions) => {
+            console.log('feedback là: ', values);
+            await createFeedback(values, dispatch);
             actions.resetForm();
         },
     });
@@ -89,40 +86,45 @@ function Contact() {
                         <form className="row contact-page" onSubmit={formik.handleSubmit}>
                             <div className="col c-12 l-12 form-group">
                                 <label>Tiêu đề *</label>
-                                <input type="text"
-                                       name="title"
-                                       value={formik.values.title}
-                                       onChange={formik.handleChange}
-                                       placeholder="Nhập tiêu đề"
-                                       className="form-control" />
+                                <input
+                                    type="text"
+                                    name="title"
+                                    value={formik.values.title}
+                                    onChange={formik.handleChange}
+                                    placeholder="Nhập tiêu đề"
+                                    className="form-control"
+                                />
                                 <div className={cx('message')}>
                                     {formik.errors.title && <p className={cx('error')}>{formik.errors.title}</p>}
                                 </div>
                             </div>
-
-                            <div style={{ display: (user ? 'none' : 'block') }} className="col l-6 c-6 form-group">
+                            <div style={{ display: user ? 'none' : 'block' }} className="col l-6 c-6 form-group">
                                 <label>Số điện thoại *</label>
-                                <input type="text"
-                                       name="phone"
-                                       value={formik.values.phone}
-                                       onChange={formik.handleChange}
-                                       placeholder="Nhập số điện thoại của bạn"
-                                       className="form-control" />
+                                <input
+                                    type="text"
+                                    name="phone"
+                                    value={formik.values.phone}
+                                    onChange={formik.handleChange}
+                                    placeholder="Nhập số điện thoại của bạn"
+                                    className="form-control"
+                                />
                                 <div className={cx('message')}>
                                     {formik.errors.phone && <p className={cx('error')}>{formik.errors.phone}</p>}
                                 </div>
                             </div>
-                            <div style={{ display: (user ? 'none' : 'block') }} className="col l-6 c-6 form-group">
+                            <div style={{ display: user ? 'none' : 'block' }} className="col l-6 c-6 form-group">
                                 <label>Email *</label>
-                                <input type="text"
-                                       name="email"
-                                       value={formik.values.email}
-                                       onChange={formik.handleChange}
-                                       placeholder="Nhập địa chỉ email của bạn"
-                                       className="form-control" />
-                            </div>
-                            <div className={cx('message')}>
-                                {formik.errors.email && <p className={cx('error')}>{formik.errors.email}</p>}
+                                <input
+                                    type="text"
+                                    name="email"
+                                    value={formik.values.email}
+                                    onChange={formik.handleChange}
+                                    placeholder="Nhập địa chỉ email của bạn"
+                                    className="form-control"
+                                />
+                                <div className={cx('message')}>
+                                    {formik.errors.email && <p className={cx('error')}>{formik.errors.email}</p>}
+                                </div>
                             </div>
                             <div className="col c-12 l-12 form-group">
                                 <label>Nội dung liên hệ *</label>
@@ -136,11 +138,17 @@ function Contact() {
                                 ></textarea>
                             </div>
                             <div className={cx('message')}>
-                                {formik.errors.description && <p className={cx('error')}>{formik.errors.description}</p>}
+                                {formik.errors.description && (
+                                    <p style={{ marginLeft: 12 }} className={cx('error')}>
+                                        {formik.errors.description}
+                                    </p>
+                                )}
                             </div>
-                            <Button type="submit" primary className={cx('btn-submit')}>
-                                GỬI THÔNG TIN
-                            </Button>{' '}
+                            <div className={cx('wrapper-btn')}>
+                                <Button type="submit" primary className={cx('btn-submit')}>
+                                    GỬI THÔNG TIN
+                                </Button>{' '}
+                            </div>
                         </form>
                     </div>
                 </div>

@@ -81,6 +81,9 @@
         height: 75px !important;
         padding-top: 1rem !important;
     }
+    .wrapper-btn {
+        width: 100%;
+    }
     .btn-submit {
         color: var(--text-color);
         margin: 0 auto;
@@ -89,6 +92,10 @@
         width: 230px;
         height: 45px;
         border-radius: 6px;
-        // align-items: center;
+        align-items: center;
     }
+}
+.message {
+    position: relative;
+    top: -9px;
 }
