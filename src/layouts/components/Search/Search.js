@@ -3,8 +3,9 @@ import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import HeadlessTippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
+import axios from 'axios';
 
-import * as searchServices from '~/services/searchService';
+// import * as searchServices from '~/services/searchService';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import { SearchIcon } from '~/components/Icons';
 import AccountItem from '~/components/AccountItem';
@@ -19,9 +20,21 @@ function Search() {
     const [loading, setLoading] = useState(false);
     const [showResult, setShowResult] = useState(false);
 
-    const debouncedValue = useDebounce(searchValue, 500);
+    const debouncedValue = useDebounce(searchValue, 400);
 
     const inputRef = useRef();
+    let data = {
+        name: debouncedValue,
+        type_service_id: '',
+        status: '',
+        start: '',
+        end: '',
+        limit: 30,
+        page: 1,
+        sort: 'desc',
+    };
+
+    console.log('show----data', searchResult);
 
     useEffect(() => {
         if (!debouncedValue.trim()) {
@@ -30,8 +43,9 @@ function Search() {
         }
         const fetchApi = async () => {
             setLoading(true);
-            const result = await searchServices.search(debouncedValue);
-            setSearchResult(result);
+            // const result = await searchServices.search(debouncedValue);
+            const res = await axios.post('http://localhost:8078/api/v1/service/search', data);
+            setSearchResult(res.data.content);
             setLoading(false);
         };
         fetchApi();
@@ -62,9 +76,9 @@ function Search() {
                 render={() => (
                     <div className={cx('search-result')} tabIndex="-1">
                         <PopperWrapper>
-                            <h4 className={cx('search-title')}>Accounts</h4>
+                            <h4 className={cx('search-title')}>Dịch vụ</h4>
                             {searchResult.map((result) => (
-                                <AccountItem key={result.id} data={result} />
+                                <AccountItem key={result.service_id} data={result} />
                             ))}
                         </PopperWrapper>
                     </div>
@@ -75,7 +89,7 @@ function Search() {
                     <input
                         value={searchValue}
                         ref={inputRef}
-                        placeholder="Tìm kiểu tóc của bạn tại đây..."
+                        placeholder="Tìm kiếm dịch vụ tại đây..."
                         onChange={handleChange}
                         onFocus={() => setShowResult(true)}
                     />

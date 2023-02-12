@@ -145,7 +145,8 @@ function Header({ homePage }) {
                         <div>Nỗ lực để tốt hơn 1% mỗi ngày</div>
                     )}
                 </div>
-                {showGoToTop && <Search />}
+                {/* {showGoToTop && <Search />} */}
+                <Search />
                 <div className={cx('actions')}>
                     {!!loginData?.id ? (
                         <>
@@ -174,7 +175,7 @@ function Header({ homePage }) {
                             <img
                                 className={cx('user-avatar')}
                                 src={
-                                     loginData?.thumbnail?.length > 6 && loginData?.thumbnail
+                                    loginData?.thumbnail?.length > 6 && loginData?.thumbnail
                                         ? `${loginData?.thumbnail}`
                                         : `${images.noAvatar}`
                                 }

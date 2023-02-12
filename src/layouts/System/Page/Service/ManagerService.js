@@ -37,15 +37,20 @@ function ManagerService() {
         sort: 'desc',
     };
     let totalState = state?.name + state?.type_service_id;
-    useEffect(() => {
-        getAllService(data, dispatch, user?.accessToken);
-        searchTypeService({ limit: 100, page: 1, sort: 'desc' }, dispatch);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [loadApi || page || totalState]);
 
     //B3: Lấy danh sách
     const listService = useSelector((state) => state.service.service?.serviceCurrent);
     const typeServices = useSelector((state) => state.typeService.typeService?.typeServiceCurrent);
+    useEffect(() => {
+        getAllService(data, dispatch, user?.accessToken);
+        searchTypeService({ limit: 100, page: 1, sort: 'desc' }, dispatch);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loadApi || page]);
+    useEffect(() => {
+        getAllService(data, dispatch, user?.accessToken);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [totalState]);
     //B4: Tạo cột
     const columns = [
         {
