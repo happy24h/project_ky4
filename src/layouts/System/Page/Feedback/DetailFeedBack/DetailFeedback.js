@@ -23,7 +23,7 @@ function DetailFeedback() {
 
     useEffect(() => {
         getDetailFeedback(id, dispatch, user?.accessToken);
-        if (detailFeedback.account_id != 0 || detailFeedback.account_id != 1){
+        if (detailFeedback.account_id != 0 || detailFeedback.account_id != 1) {
             getDetailAccount(detailFeedback.account_id, dispatch, user?.accessToken);
         }
     }, [statusFeedbackChange]);
@@ -31,7 +31,7 @@ function DetailFeedback() {
     // let { name, email, address, phone, gender } = detailAccount;
 
     const checkAccountFeedback = () => {
-        switch(detailFeedback?.account_id) {
+        switch (detailFeedback?.account_id) {
             case 1:
                 return <Tag color="blue">Khách vãng lai</Tag>;
             case 0:
@@ -39,10 +39,10 @@ function DetailFeedback() {
             default:
                 return <Tag color="success">Khách đã đăng ký</Tag>;
         }
-    }
+    };
 
-    const checkAccountStatus = () =>{
-        switch (detailFeedback?.status){
+    const checkAccountStatus = () => {
+        switch (detailFeedback?.status) {
             case 1:
                 return <Tag color="success">Đã đọc</Tag>;
             case 0:
@@ -52,14 +52,14 @@ function DetailFeedback() {
             default:
                 return <Tag color="blue">{detailFeedback?.account_id}</Tag>;
         }
-    }
+    };
 
     const handleChangeStatus = (e) => {
-        if(window.confirm('Bạn có chắc muốn thay đổi trạng thái?')){
-            changeStatusDetailFeedback(id,e.target.value, dispatch, user?.accessToken);
+        if (window.confirm('Bạn có chắc muốn thay đổi trạng thái?')) {
+            changeStatusDetailFeedback(id, e.target.value, dispatch, user?.accessToken);
             setStatusFeedbackChange(!statusFeedbackChange);
-        };
-    }
+        }
+    };
     return (
         <div className={cx('wrapper')}>
             {' '}
@@ -69,17 +69,20 @@ function DetailFeedback() {
                     width: 240,
                 }}
                 cover={
-                    detailAccount.thumbnail
-                ? <img alt="example" src={detailAccount.thumbnail} />
-                : <img alt="example" src="https://res.cloudinary.com/dark-faith/image/upload/v1672128258/270220617_653131342669938_7315258558351568369_n_xyae61.png" />
+                    detailAccount.thumbnail ? (
+                        <img alt="example" src={detailAccount.thumbnail} />
+                    ) : (
+                        <img
+                            alt="example"
+                            src="https://res.cloudinary.com/dark-faith/image/upload/v1672128258/270220617_653131342669938_7315258558351568369_n_xyae61.png"
+                        />
+                    )
                 }
-                >
-                    <Meta title={
-                        detailFeedback.account_id
-                        ? detailAccount.name
-                        : "The man from no where"
-                    }
-                    description="www.instagram.com" />
+            >
+                <Meta
+                    title={detailFeedback?.account_id ? detailAccount?.name : 'The man from no where'}
+                    description="www.instagram.com"
+                />
             </Card>
             <Card title="Chi tiết phản hồi" size="default" style={{ width: 800 }}>
                 {/* <Divider orientation="left">Default Size</Divider> */}
@@ -95,19 +98,20 @@ function DetailFeedback() {
                 <List className={cx('list-detail')}>
                     <strong>Trạng thái:</strong> <span className={cx('text-detail')}>{checkAccountStatus()}</span>
                     <span>
-                        <select value={detailFeedback.status} onChange={handleChangeStatus}>
-                        <option value="1">Đã đọc</option>
-                            {
-                                (detailFeedback.status === 1 || detailFeedback.status === -1)
-                                ? ''
-                                : <option value="0">Chưa đọc</option>
-                            }
-                        {/*<option value="-1">Thư rác</option>*/}
-                    </select>
+                        <select value={detailFeedback?.status} onChange={handleChangeStatus}>
+                            <option value="1">Đã đọc</option>
+                            {detailFeedback?.status === 1 || detailFeedback?.status === -1 ? (
+                                ''
+                            ) : (
+                                <option value="0">Chưa đọc</option>
+                            )}
+                            {/*<option value="-1">Thư rác</option>*/}
+                        </select>
                     </span>
                 </List>
                 <List className={cx('list-detail')}>
-                    <strong>Nội dung liên hệ:</strong> <span className={cx('text-detail')}>{detailFeedback?.description}</span>
+                    <strong>Nội dung liên hệ:</strong>{' '}
+                    <span className={cx('text-detail')}>{detailFeedback?.description}</span>
                 </List>
             </Card>
         </div>
