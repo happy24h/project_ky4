@@ -10,6 +10,7 @@ import classNames from 'classnames/bind';
 import styles from './AddVoucher.module.scss';
 import { useState } from 'react';
 import { createVoucher } from '~/redux/voucher/apiVoucher';
+import { toast } from 'react-toastify';
 const cx = classNames.bind(styles);
 
 function AddVoucher() {
@@ -72,7 +73,18 @@ function AddVoucher() {
                             autoComplete="discount"
                             name="discount"
                             value={formik.values.discount}
-                            onChange={formik.handleChange}
+                            onChange={(e) =>{
+                                formik.setFieldValue('discount',e.target.value)
+                                if (e.target.value <0){
+                                    formik.setFieldValue('discount',1)
+                                    toast.error("giảm giá không được nhỏ hơn 0");
+                                }
+                                if (e.target.value >100){
+                                    formik.setFieldValue('discount',100)
+                                    toast.error("giảm giá không được lớn hơn hơn 100");
+                                }
+                                // formik.setFieldValue('discount',e)
+                            }}
                         />
                     </div>
                     <div className={cx('message')}>
