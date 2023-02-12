@@ -58,7 +58,7 @@ function ServiceClient() {
                                     <div className="down">{item?.account_description}</div>
                                 </div>
                             </div>
-                            <EmployeeSchedule employees_id={item?.accounts_id} />
+                            <EmployeeSchedule employees_id={item?.accounts_id} branch_id={item?.accounts_branch_id} />
                         </div>
                     );
                 })}

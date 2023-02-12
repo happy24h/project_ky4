@@ -20,6 +20,7 @@ import { Button, Modal } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './CreateAccount.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
+import { getBranch } from '~/redux/branch/apiBranch';
 // import { registerUser } from '../../redux/apiRequest';
 const cx = classNames.bind(styles);
 
@@ -28,6 +29,7 @@ function AddAccount() {
 
     const [loadApi, setLoadApi] = useState(false);
     const [state, setState] = useState();
+    const [branchId, setBranchId] = useState();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.login?.currentUser);
     const handleApi = () => {
@@ -47,6 +49,7 @@ function AddAccount() {
     }, [handleApi]);
 
     const listRoles = useSelector((state) => state.role.role?.roleCurrent);
+    const listBranch = useSelector((state) => state.branch.branch?.listData?.content);
 
     const formik = useFormik({
         initialValues: {
@@ -80,6 +83,7 @@ function AddAccount() {
         onSubmit: (values) => {
             const submitValue = {
                 ...values,
+                branch_id: branchId,
                 roles: [
                     {
                         name: state,
@@ -93,6 +97,25 @@ function AddAccount() {
             }
         },
     });
+
+    let dataBranch = {
+        name: state?.name,
+        address: '',
+        hot_line: state?.hot_line,
+        start: '',
+        end: '',
+        page: 1,
+        limit: 6,
+        // sort: 'desc',
+        sort: 'asc',
+        status: '',
+    };
+
+    useEffect(() => {
+        getBranch(dataBranch, dispatch, user?.accessToken);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div style={{ marginTop: 23 }}>
@@ -208,10 +231,37 @@ function AddAccount() {
                         <select
                             className={cx('inputfield')}
                             name="roles"
+                            onChange={(e) => setBranchId(e.target.value)}
+                            value={branchId}
+                        >
+                            <option value="">-- Chi nhánh --</option>
+
+                            {listRoles &&
+                                listBranch?.length > 0 &&
+                                listBranch?.map((item, index) => {
+                                    return (
+                                        <option key={index} value={item.id}>
+                                            {item.name}
+                                        </option>
+                                    );
+                                })}
+                        </select>
+                    </div>
+                    {/* <div className={cx('message')}>
+                        {!state && <p className={cx('error')}>Vui lòng nhập thông tin</p>}
+                    </div> */}
+                </div>
+                <div class="field">
+                    <div className={cx('customInput')}>
+                        <FontAwesomeIcon className={cx('inputicon')} icon={faShieldCat} />
+
+                        <select
+                            className={cx('inputfield')}
+                            name="roles"
                             onChange={(e) => setState(e.target.value)}
                             value={state}
                         >
-                            <option value="">-- Choose --</option>
+                            <option value="">-- Chức vụ --</option>
 
                             {listRoles &&
                                 listRoles.length > 0 &&

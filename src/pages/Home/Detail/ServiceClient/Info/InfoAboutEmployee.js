@@ -1,31 +1,47 @@
 import { useEffect, useState } from 'react';
 import NumberFormat from 'react-number-format';
 import './InfoAboutEmployee.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { getDetailBranch } from '~/redux/branch/apiBranch';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { getDetailBranch } from '~/redux/branch/apiBranch';
+import axios from 'axios';
 import classNames from 'classnames/bind';
 import styles from './InfoAboutEmployee.module.scss';
 const cx = classNames.bind(styles);
 
 function InfoAboutEmployee({ EmployeeIdFromParent }) {
     // console.log('check employeeId ----', EmployeeIdFromParent);
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
+    const [dataApi, setDataApi] = useState([]);
 
-    const user = useSelector((state) => state.auth.login?.currentUser);
+    // const user = useSelector((state) => state.auth.login?.currentUser);
 
-    const detailBranch = useSelector((state) => state.branch.branch?.detailData);
+    // const detailBranch = useSelector((state) => state.branch.branch?.detailData);
 
-    // console.log('detaiBranch', detailBranch);
+    // console.log('detaiBranch-----', detailBranch);
+    // console.log('check----branch', dataApi);
+    // console.log('check----id', EmployeeIdFromParent);
+
     useEffect(() => {
-        getDetailBranch(EmployeeIdFromParent, dispatch, user?.accessToken);
+        // getDetailBranch(EmployeeIdFromParent, dispatch, user?.accessToken);
+        const fetchApi = async () => {
+            const res = await axios.get(`http://localhost:8078/api/v1/branch/${EmployeeIdFromParent}`);
+
+            if (res.data) {
+                setDataApi((prev) => {
+                    return { prev, ...res.data };
+                });
+            }
+        };
+        fetchApi();
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [EmployeeIdFromParent]);
+    }, [EmployeeIdFromParent || dataApi]);
     return (
         <div className="">
             <div className="content-up">
                 <div className={cx('text-address')}>Địa chỉ</div>
-                <div className={cx('name-clinic')}>{detailBranch?.name}</div>
-                <div className={cx('detail-address')}>{detailBranch?.address}</div>
+                <div className={cx('name-clinic')}>{dataApi?.name}</div>
+                <div className={cx('detail-address')}>{dataApi?.address}</div>
             </div>
             <div className={cx('content-down')}>
                 <>
@@ -40,7 +56,7 @@ function InfoAboutEmployee({ EmployeeIdFromParent }) {
                                 <span className={cx('right')}>
                                     <NumberFormat
                                         className={cx('currency')}
-                                        value={detailBranch?.hot_line}
+                                        value={dataApi?.hot_line}
                                         displayType={'text'}
                                         thousandSeparator=" "
                                         suffix={''}

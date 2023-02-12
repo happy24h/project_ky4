@@ -38,9 +38,9 @@ function AddBooking() {
         }));
     };
 
-    console.log('timeArr---', dataTime);
+    // console.log('timeArr---', dataTime);
     let filterDataTime = dataTime.filter((item) => item.isActive === true);
-    console.log('filterDataTime---', filterDataTime);
+    // console.log('filterDataTime---', filterDataTime);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -56,6 +56,7 @@ function AddBooking() {
         email: '',
         phone: '',
         gender: '',
+        branch_id: state?.branchId,
         start: '',
         end: '',
         page: 1,
@@ -83,7 +84,7 @@ function AddBooking() {
         getAllAccount(dataAccount, dispatch, user?.accessToken);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [state?.branchId]);
     useEffect(() => {
         getBranch(dataBranch, dispatch, user?.accessToken);
 
@@ -169,24 +170,6 @@ function AddBooking() {
                     </div>
                     <div className="col l-6 form-group">
                         {' '}
-                        {/* <label>Chọn nhân viên </label> */}
-                        <Select
-                            style={{
-                                width: '100%',
-                                margin: '0 0 20px',
-                            }}
-                            name="accountId"
-                            // value=""
-                            placeholder="Select account"
-                            onChange={handleOnchangeEmployee}
-                            options={listAccount.map((item) => ({
-                                label: item.accounts_name,
-                                value: item.accounts_id,
-                            }))}
-                        />
-                    </div>
-                    <div className="col l-6 form-group">
-                        {' '}
                         {/* <label>Chọn chi nhánh </label> */}
                         <Select
                             style={{
@@ -200,6 +183,24 @@ function AddBooking() {
                                 label: item.name,
                                 value: item.id,
                                 name: 'accountId',
+                            }))}
+                        />
+                    </div>
+                    <div className="col l-6 form-group">
+                        {' '}
+                        {/* <label>Chọn nhân viên </label> */}
+                        <Select
+                            style={{
+                                width: '100%',
+                                margin: '0 0 20px',
+                            }}
+                            name="accountId"
+                            disabled={state?.branchId ? false : true}
+                            placeholder="Select account"
+                            onChange={handleOnchangeEmployee}
+                            options={listAccount.map((item) => ({
+                                label: item.accounts_name,
+                                value: item.accounts_id,
                             }))}
                         />
                     </div>

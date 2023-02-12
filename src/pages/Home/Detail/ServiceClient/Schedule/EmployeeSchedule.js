@@ -13,7 +13,7 @@ import { getBooking, getDetailBookingDate } from '~/redux/booking/apiBooking';
 // import { faCalendarAlt, faHandPointUp } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
-function EmployeeSchedule({ employees_id }) {
+function EmployeeSchedule({ employees_id, branch_id }) {
     const [state, setState] = useState('');
 
     const [dataApi, setDataApi] = useState([]);
@@ -153,11 +153,7 @@ function EmployeeSchedule({ employees_id }) {
                         </div>
                     </div>
                     <div className="content-right">
-                        <InfoAboutEmployee
-                            EmployeeIdFromParent={
-                                listBooking?.content[0]?.employee?.bookingByTime_bookings[0]?.branch_id
-                            }
-                        />
+                        <InfoAboutEmployee EmployeeIdFromParent={branch_id} />
                     </div>
                 </div>
             </Card>
