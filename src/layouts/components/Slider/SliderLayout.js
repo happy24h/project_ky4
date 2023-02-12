@@ -41,7 +41,7 @@ function SliderLayout() {
         //     ...prev,
         //     branchId: value,
         // }));
-        navigate(`detail-learn-branch/${value}`);
+        navigate(`/detail-learn-branch/${value}`);
     };
 
     let dataBranch = {
