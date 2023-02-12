@@ -198,7 +198,7 @@ function AddAccount() {
                         <label for="password_confirmation" class={cx('form-label')}>
                             <strong>Giới tính: </strong>
                         </label>
-                        <div className={cx('radio-input-col')}>
+                        <div className="radio-input-col">
                             <input
                                 name="gender"
                                 type="radio"

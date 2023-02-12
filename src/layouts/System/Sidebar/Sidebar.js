@@ -118,20 +118,20 @@ function Sidebar() {
                 },
             ],
         },
-        {
-            icon: <FontAwesomeIcon icon={faComment} />,
-            title: t('systemSidebar.feedback.title'),
-            data: [
-                {
-                    title: t('systemSidebar.feedback.data.list'),
-                    to: '/system/manage-feedback',
-                },
-                {
-                    title: t('systemSidebar.feedback.data.create'),
-                    to: '/system/manage-feedback/add',
-                },
-            ],
-        },
+        // {
+        //     icon: <FontAwesomeIcon icon={faComment} />,
+        //     title: t('systemSidebar.feedback.title'),
+        //     data: [
+        //         {
+        //             title: t('systemSidebar.feedback.data.list'),
+        //             to: '/system/manage-feedback',
+        //         },
+        //         {
+        //             title: t('systemSidebar.feedback.data.create'),
+        //             to: '/system/manage-feedback/add',
+        //         },
+        //     ],
+        // },
         {
             icon: <FontAwesomeIcon icon={faTicket} />,
             title: t('systemSidebar.voucher.title'),

@@ -17,6 +17,7 @@ import { Button } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './EditAccount.module.scss';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import { getBranch } from '~/redux/branch/apiBranch';
 const cx = classNames.bind(styles);
 
 function ModalEdit() {
@@ -28,7 +29,9 @@ function ModalEdit() {
 
     const detailAccount = useSelector((state) => state.account.account?.detailAccount);
     const listRoles = useSelector((state) => state.role.role?.roleCurrent);
+    const listBranch = useSelector((state) => state.branch.branch?.listData?.content);
     const [state, setState] = useState(detailAccount?.roles[0].name);
+    const [branchId, setBranchId] = useState(detailAccount?.branch_id);
 
     console.log('check id', id, '----user id', user.id);
 
@@ -39,6 +42,24 @@ function ModalEdit() {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id || loadApi]);
+
+    let dataBranch = {
+        name: '',
+        address: '',
+        hot_line: '',
+        start: '',
+        end: '',
+        page: 1,
+        limit: 6,
+        // sort: 'desc',
+        sort: 'asc',
+        status: '',
+    };
+    useEffect(() => {
+        getBranch(dataBranch, dispatch, user?.accessToken);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleUpdateApi = () => {
         setLoadApi(!loadApi);
@@ -77,6 +98,7 @@ function ModalEdit() {
         onSubmit: (values) => {
             const submitValue = {
                 ...values,
+                branch_id: branchId,
                 roles: [
                     {
                         name: state,
@@ -169,6 +191,33 @@ function ModalEdit() {
                                 {formik.errors.password && <p className={cx('error')}>{formik.errors.password}</p>}
                             </div>
                         </div>
+                        <div class="field">
+                            <div className={cx('customInput')}>
+                                <FontAwesomeIcon className={cx('inputicon')} icon={faShieldCat} />
+
+                                <select
+                                    className={cx('inputfield')}
+                                    name="branch_id"
+                                    onChange={(e) => setBranchId(e.target.value)}
+                                    value={branchId}
+                                >
+                                    <option value="">-- Chi nhánh --</option>
+
+                                    {listRoles &&
+                                        listBranch?.length > 0 &&
+                                        listBranch?.map((item, index) => {
+                                            return (
+                                                <option key={index} value={item.id}>
+                                                    {item.name}
+                                                </option>
+                                            );
+                                        })}
+                                </select>
+                            </div>
+                            {/* <div className={cx('message')}>
+                        {!state && <p className={cx('error')}>Vui lòng nhập thông tin</p>}
+                    </div> */}
+                        </div>
                         {user.isAdmin && (
                             <div class="field">
                                 <div className={cx('customInput')}>
@@ -180,7 +229,7 @@ function ModalEdit() {
                                         onChange={(e) => setState(e.target.value)}
                                         value={state}
                                     >
-                                        <option value="">-- Choose --</option>
+                                        <option value="">-- Chức vụ --</option>
 
                                         {listRoles &&
                                             listRoles.length > 0 &&
