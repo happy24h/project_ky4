@@ -142,7 +142,7 @@ function Header({ homePage }) {
                             </div>
                         </Link>
                     ) : (
-                        <div>Nỗ lực để tốt hơn 1% mỗi ngày</div>
+                        <div className={cx('title-salon')}>Shine Salon</div>
                     )}
                 </div>
                 {/* {showGoToTop && <Search />} */}

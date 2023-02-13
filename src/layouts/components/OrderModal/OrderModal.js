@@ -140,15 +140,15 @@ function OrderModal() {
         navigate('/');
     };
 
-    const handleDelete = (index) => {
-        setDataPrice((state) => {
-            const data = [...state];
-            data.splice(index, 1);
-            return data;
-        });
+    // const handleDelete = (index) => {
+    //     setDataPrice((state) => {
+    //         const data = [...state];
+    //         data.splice(index, 1);
+    //         return data;
+    //     });
 
-        toast.success('Delete success');
-    };
+    //     toast.success('Delete success');
+    // };
 
     return (
         <div className="modal ">

@@ -61,13 +61,14 @@
 .modal__inner {
     width: 900px;
     min-height: 580px;
-    position: relative;
+    // position: relative;
     top: 30px;
     margin: auto;
     background: white;
     border-radius: 5px;
     overflow: hidden;
     animation: modalShow 0.3s linear;
+    // padding: 5px 0;
 }
 .modal__header {
     display: flex;
