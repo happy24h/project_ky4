@@ -7,6 +7,7 @@ import { Button, Form, Card } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './ViewBranch.module.scss';
 import { getBooking } from '~/redux/booking/apiBooking';
+import InfoBranch from './InfoBranch/InfoBranch';
 
 const cx = classNames.bind(styles);
 
@@ -68,7 +69,7 @@ function ViewBranch() {
         <div style={{ margin: '45px 0 ' }}>
             <div className="container" style={{ width: '1200px', margin: '0 auto' }}>
                 <Card
-                    title={<DatePicker onChange={onChange} />}
+                    title={<DatePicker onChange={onChange} placeholder="Chọn ngày" />}
                     style={{
                         width: 1200,
                         minHeight: 600,
@@ -174,11 +175,7 @@ function ViewBranch() {
                                             </div>
                                         </div>
                                         <div className="content-right">
-                                            {/* <InfoAboutEmployee
-                            EmployeeIdFromParent={
-                                listBooking?.content[0]?.employee?.bookingByTime_bookings[0]?.branch_id
-                            }
-                        /> */}
+                                            <InfoBranch EmployeeIdFromParent={id} />
                                         </div>
                                     </div>
                                 </Card>

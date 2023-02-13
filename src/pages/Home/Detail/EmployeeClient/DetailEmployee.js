@@ -36,7 +36,7 @@ function DetailEmployee() {
                     </div>
                 </div>
             </div>
-            <EmployeeSchedule />
+            <EmployeeSchedule branch_id={detailAccount?.branch_id} />
 
             <div className="detail-infor-doctor">
                 {/* {detailTeacher && detailTeacher.Markdown && detailTeacher.Markdown.contentHTML && (
