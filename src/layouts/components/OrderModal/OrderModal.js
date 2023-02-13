@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 // import { Row, Tag, Checkbox, Button } from 'antd';
 import NumberFormat from 'react-number-format';
 import axios from 'axios';
@@ -35,6 +35,7 @@ function OrderModal() {
     const [messageError, setMessageError] = useState(false);
 
     const [dataService, setDataService] = useState([]);
+    const listDataOrder = useRef();
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -47,7 +48,7 @@ function OrderModal() {
     let subTotal = 0;
     dataPrice.forEach((item) => (subTotal += item.unit_price));
 
-    console.log('dataService -----', dataService);
+    console.log('listDataOrder.current -----', listDataOrder.current);
 
     useEffect(() => {
         getAllService();
@@ -79,8 +80,8 @@ function OrderModal() {
         phone: state?.phone,
         voucher_id: state?.voucher ? state?.voucher : '',
     };
-    console.log('check value ...', values);
-    console.log('check state modal', state);
+    // console.log('check value ...', values);
+    // console.log('check state modal', state);
 
     const handleSelectService = (item) => {
         const newDateService = dataService.map((data) => {
@@ -92,6 +93,7 @@ function OrderModal() {
         setDataService(newDateService);
 
         let filterDataService = dataService.filter((item) => item.isActive === true);
+        listDataOrder.current = filterDataService;
         setDataPrice(() => {
             return filterDataService.map((element) => ({ service_id: element.service_id, unit_price: element.price }));
             // return [...prev, { service_id: item.service_id, unit_price: item.price }];
@@ -246,18 +248,27 @@ function OrderModal() {
                                     )}
                                     <div className={cx('wrapper-cart-item')}>
                                         {dataPrice &&
-                                            dataPrice?.map((item, index) => {
+                                            listDataOrder.current?.map((item, index) => {
                                                 return (
                                                     <div key={index} className={cx('cart-item')}>
-                                                        <span>Mã sản phẩm: {item.service_id}</span>
-                                                        <span>
-                                                            <NumberFormat
-                                                                value={item.unit_price}
-                                                                displayType={'text'}
-                                                                thousandSeparator={true}
-                                                                suffix={' VND'}
-                                                            />{' '}
-                                                        </span>
+                                                        <div style={{ display: 'flex' }}>
+                                                            <div
+                                                                className={cx('cart-image')}
+                                                                style={{ backgroundImage: `url(${item.thumbnail})` }}
+                                                            ></div>
+
+                                                            <div>
+                                                                <h4> {item.service_name}</h4>
+                                                                <span className={cx('cart-price')}>
+                                                                    <NumberFormat
+                                                                        value={item.price}
+                                                                        displayType={'text'}
+                                                                        thousandSeparator={true}
+                                                                        suffix={' VND'}
+                                                                    />{' '}
+                                                                </span>
+                                                            </div>
+                                                        </div>
                                                         <div onClick={() => handleSelectService(item)}>
                                                             {' '}
                                                             <FontAwesomeIcon style={{ color: 'red' }} icon={faTrash} />
