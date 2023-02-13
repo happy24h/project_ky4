@@ -258,7 +258,7 @@ function OrderModal() {
                                                                 suffix={' VND'}
                                                             />{' '}
                                                         </span>
-                                                        <div onClick={handleDelete}>
+                                                        <div onClick={() => handleSelectService(item)}>
                                                             {' '}
                                                             <FontAwesomeIcon style={{ color: 'red' }} icon={faTrash} />
                                                         </div>
