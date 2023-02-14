@@ -7,8 +7,9 @@ import { Button, Form, Card } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './ManageBooking.module.scss';
 import { getBooking } from '~/redux/booking/apiBooking';
-import { cleanDashboardOder } from '~/redux/dashboard/order/dashboardOrderSlice';
-import { cleanDashboardBooking } from '~/redux/dashboard/booking/dashboardBookingSlice';
+// import { cleanDashboardOder } from '~/redux/dashboard/order/dashboardOrderSlice';
+// import { cleanDashboardBooking } from '~/redux/dashboard/booking/dashboardBookingSlice';
+import InfoBranch from '~/layouts/components/InfoBranch';
 
 const cx = classNames.bind(styles);
 
@@ -63,27 +64,24 @@ function ManageBooking() {
     let totalDataInput = dataInput?.employee_name;
 
     useEffect(() => {
-        if (dataSelector != null) {
-            let idsOrder = dataSelector.id ?? dataSelector.ids;
-            if (idsOrder != null) {
-                let arr = [];
-                if (!Array.isArray(idsOrder)) {
-                    arr.push(idsOrder);
-                } else {
-                    arr = [...idsOrder];
-                }
-                dataBooking.idsBooking = arr;
-            }
-        }
-        getBooking(dataBooking, dispatch, user?.accessToken);
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-    useEffect(() => {
         getBooking(dataBooking, dispatch, user?.accessToken);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [today, totalDataInput]);
+    // useEffect(() => {
+    //     if (dataSelector != null) {
+    //         let idsOrder = dataSelector.id ?? dataSelector.ids;
+    //         if (idsOrder != null) {
+    //             let arr = [];
+    //             if (!Array.isArray(idsOrder)) {
+    //                 arr.push(idsOrder);
+    //             } else {
+    //                 arr = [...idsOrder];
+    //             }
+    //             dataBooking.idsBooking = arr;
+    //         }
+    //     }
+    // }, []);
 
     const handleOnchangeInput = (e) => {
         let { name, value } = e.target;
@@ -93,17 +91,6 @@ function ManageBooking() {
     return (
         <div style={{ marginTop: '106px' }}>
             <div className="container" style={{ width: '1200px', margin: '0 auto' }}>
-                {/* <div className=" l-6 form-group">
-                    <label>Chọn ngày</label>
-                    <input
-                        type="date"
-                        className="form-control"
-                        name="currentDate"
-                        dateformat="dd-mm-YY"
-                        required
-                        onChange={(e) => setState(e.target.value)}
-                    />
-                </div> */}
                 <Card
                     size="small"
                     title="Total Booking"
@@ -198,6 +185,13 @@ function ManageBooking() {
                                                         </div>
                                                     );
                                                 })}
+                                            </div>
+                                            <div className="content-right">
+                                                <InfoBranch
+                                                    EmployeeIdFromParent={
+                                                        item?.employee?.bookingByTime_bookings[0]?.branch_id
+                                                    }
+                                                />
                                             </div>
                                         </Card>
                                     </div>

@@ -3,11 +3,13 @@ import classNames from 'classnames/bind';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import images from '~/assets/images';
+// import DetailBranch from './DetailBranch';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getDetailAccount } from '~/redux/apiRequest';
 import { EditOutlined } from '@ant-design/icons';
+import InfoBranch from '~/layouts/components/InfoBranch';
 
 // import EditAccount from '../EditAccount';
 import styles from './DetailAccount.module.scss';
@@ -24,7 +26,16 @@ function DetailAccount() {
 
     const detailAccount = useSelector((state) => state.account.account?.detailAccount);
     const listBooking = useSelector((state) => state.booking.booking?.listData);
-    const today = '07-02-2023';
+    let today = new Date();
+    // if (state) {
+    //     today = new Date(state);
+    // } else {
+    // }
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = dd + '-' + mm + '-' + yyyy;
 
     useEffect(() => {
         getDetailAccount(id, dispatch, user?.accessToken);
@@ -217,11 +228,7 @@ function DetailAccount() {
                                     </div>
                                 </div>
                                 <div className="content-right">
-                                    {/* <InfoAboutEmployee
-                            EmployeeIdFromParent={
-                                listBooking?.content[0]?.employee?.bookingByTime_bookings[0]?.branch_id
-                            }
-                        /> */}
+                                    <InfoBranch EmployeeIdFromParent={detailAccount?.branch_id} />
                                 </div>
                             </div>
                         </Card>
