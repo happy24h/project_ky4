@@ -45,7 +45,7 @@ function ViewBranch() {
         time_booking: '',
         start: '',
         end: '',
-        limit: 4,
+        limit: 20,
         page: 1,
         sort: 'asc',
     };

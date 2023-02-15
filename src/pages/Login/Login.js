@@ -98,14 +98,16 @@ const Login = () => {
                             value={formik.values.password}
                             onChange={formik.handleChange}
                         />
-                        <FontAwesomeIcon onClick={handleShowPassword} className="inputicon" icon={faEye} />
                     </div>
+                    <FontAwesomeIcon onClick={handleShowPassword} className="children-icon-eye" icon={faEye} />
                     <div className="message">
                         {formik.errors.password && <p className="error">{formik.errors.password}</p>}
                     </div>
                 </div>
                 <div className="field">
-                    <span className="linkfield">Forgot Password?</span>
+                    <span className="linkfield">
+                        <Link to="/">Back to home page</Link>
+                    </span>
                 </div>
                 <div className="field submitfield">
                     <input className="submit" type="submit" value="SIGN IN" />

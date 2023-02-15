@@ -42,7 +42,7 @@ const dataBlogRight = [
     {
         image: 'https://s3-ap-southeast-1.amazonaws.com/tuyendung.30shine.org/data/images/TuyenDung/icon3.png',
         title: 'CƠ HỘI THĂNG TIẾN HẤP DẪN',
-        content: 'Mọi vị trí công việc tại 30Shine luôn có lộ trình thăng tiến (Lên Quản Lý), lên bậc (Tăng lương)',
+        content: 'Mọi vị trí công việc tại Shine Salon luôn có lộ trình thăng tiến (Lên Quản Lý), lên bậc (Tăng lương)',
     },
     {
         image: 'https://s3-ap-southeast-1.amazonaws.com/tuyendung.30shine.org/data/images/TuyenDung/icon4.png',
@@ -117,7 +117,7 @@ const Blog = () => {
                     </div> */}
                 </div>
                 <div className="blog-content-right">
-                    <div className="header-content-blog">VÌ SAO NÊN CHỌN 30SHINE</div>
+                    <div className="header-content-blog">VÌ SAO NÊN CHỌN SHINE SALON</div>
                     <div>
                         {dataBlogRight &&
                             dataBlogRight.map((item) => {

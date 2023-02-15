@@ -17,6 +17,7 @@
 
     width: 400px;
     background: rgb(232, 234, 236, 0.5);
+
     min-height: 570px;
     border-radius: 6px;
     margin: 0 auto;
@@ -87,6 +88,12 @@
 }
 
 .inputicon {
+    color: gray;
+}
+.children-icon-eye {
+    position: relative;
+    top: -28px;
+    left: 120px;
     color: gray;
 }
 

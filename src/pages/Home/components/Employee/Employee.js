@@ -22,7 +22,7 @@ function Employee({ settings }) {
         start: '',
         end: '',
         page: 1,
-        limit: 6,
+        limit: 20,
         sort: 'asc',
         role_id: '3',
         member_ship_class_id: '',
