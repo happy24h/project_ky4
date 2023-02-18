@@ -311,7 +311,7 @@ function OrderModal() {
                                                 >
                                                     {' '}
                                                 </div>
-                                                <span>{item.service_name}</span>
+                                                <span className={cx('text-name-service')}>{item.service_name}</span>
                                                 <div>
                                                     <NumberFormat
                                                         value={item.price}
