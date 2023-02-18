@@ -61,14 +61,23 @@ function DetailBlog() {
                 >
                     {/* <Divider orientation="left">Default Size</Divider> */}
                     <List className={cx('list-detail')}>
-                        <strong>Title:</strong> <span className={cx('text-detail')}>{detailBlog?.title}</span>
+                        <strong>Title:</strong>{' '}
+                        <span className={cx('text-detail')}>
+                            {' '}
+                            <span className={cx('text-hello')}>{detailBlog?.title}</span>
+                        </span>
                     </List>
                     <List className={cx('list-detail')}>
                         <strong>Description:</strong>
-                        <span className={cx('text-detail')}>{detailBlog?.description}</span>
+                        <span className={cx('text-detail')}>
+                            <span className={cx('text-hello')}>{detailBlog?.description}</span>
+                        </span>
                     </List>
                     <List className={cx('list-detail')}>
-                        <strong>Content:</strong> <span className={cx('text-detail')}>{detailBlog?.content}</span>
+                        <strong>Content:</strong>{' '}
+                        <span className={cx('text-detail')}>
+                            <span className={cx('text-hello')}>{detailBlog?.content}</span>
+                        </span>
                     </List>
                 </Card>
             </div>

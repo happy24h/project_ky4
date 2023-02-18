@@ -12,10 +12,26 @@
     border-bottom: 1px solid #ccc;
     height: 55px;
     line-height: 55px;
+    // display: flex;
 }
 .text-detail {
     position: absolute;
     left: 30%;
+    // overflow: hidden;
+    // -webkit-box-orient: vertical;
+    // display: -webkit-box;
+    // -webkit-line-clamp: 1;
+    // /* user-select: none; */
+    // -webkit-user-select: none;
+}
+
+.text-hello {
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    /* user-select: none; */
+    -webkit-user-select: none;
 }
 
 .detail-image {
