@@ -2,13 +2,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { createTypeService } from '~/redux/type_service/apiTypeService';
-import { Button, DatePicker } from 'antd';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGift, faPenToSquare, faShieldCat, faUser } from '@fortawesome/free-solid-svg-icons';
+// import { createTypeService } from '~/redux/type_service/apiTypeService';
+import { Button, DatePicker, Input } from 'antd';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faGift, faPenToSquare, faShieldCat, faUser } from '@fortawesome/free-solid-svg-icons';
+
 import classNames from 'classnames/bind';
 import styles from './AddVoucher.module.scss';
-import { useState } from 'react';
+// import { useState } from 'react';
 import { createVoucher } from '~/redux/voucher/apiVoucher';
 import { toast } from 'react-toastify';
 const cx = classNames.bind(styles);
@@ -16,7 +17,7 @@ const cx = classNames.bind(styles);
 function AddVoucher() {
     const dispatch = useDispatch();
 
-    const [state, setState] = useState();
+    // const [state, setState] = useState();
     const user = useSelector((state) => state.auth.login?.currentUser);
 
     let navigate = useNavigate();
@@ -45,14 +46,13 @@ function AddVoucher() {
                     Back
                 </Button>
             </Link>
-            <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '1000px' }}>
+            <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '1200px' }}>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faPenToSquare} />
-                        <input
-                            className={cx('inputfield')}
+                        <Input
+                            className={cx('form-input')}
                             type="text"
-                            placeholder="tên voucher..."
+                            placeholder="Tên voucher..."
                             autoComplete="name"
                             name="name"
                             value={formik.values.name}
@@ -65,25 +65,23 @@ function AddVoucher() {
                 </div>
                 <div className="field">
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faGift} />
-                        <input
-                            className={cx('inputfield')}
+                        <Input
+                            className={cx('form-input')}
                             type="number"
                             placeholder="giảm giá ..."
                             autoComplete="discount"
                             name="discount"
                             value={formik.values.discount}
-                            onChange={(e) =>{
-                                formik.setFieldValue('discount',e.target.value)
-                                if (e.target.value <0){
-                                    formik.setFieldValue('discount',1)
-                                    toast.error("giảm giá không được nhỏ hơn 0");
+                            onChange={(e) => {
+                                formik.setFieldValue('discount', e.target.value);
+                                if (e.target.value < 0) {
+                                    formik.setFieldValue('discount', 1);
+                                    toast.error('giảm giá không được nhỏ hơn 0');
                                 }
-                                if (e.target.value >100){
-                                    formik.setFieldValue('discount',100)
-                                    toast.error("giảm giá không được lớn hơn hơn 100");
+                                if (e.target.value > 100) {
+                                    formik.setFieldValue('discount', 100);
+                                    toast.error('giảm giá không được lớn hơn hơn 100');
                                 }
-                                // formik.setFieldValue('discount',e)
                             }}
                         />
                     </div>
@@ -94,11 +92,10 @@ function AddVoucher() {
 
                 <div className="field">
                     <div className={cx('customInput')}>
-                        {/* <FontAwesomeIcon className={cx('inputicon')} icon={faUser} /> */}
                         <div>
                             {' '}
-                            {/* <label>Chọn ngày </label> */}
                             <DatePicker
+                                className={cx('form-input')}
                                 placeholder="Chọn ngày hết hạn"
                                 onChange={(e) => {
                                     let thisDate = new Date(e);
@@ -110,8 +107,8 @@ function AddVoucher() {
                                 }}
                                 name="expired_date"
                                 style={{
-                                    backgroundColor: '#dedede',
-                                    width: 280,
+                                    // backgroundColor: '#dedede',
+                                    width: 350,
                                     height: 37,
                                 }}
                             />
@@ -122,7 +119,7 @@ function AddVoucher() {
                     </div>
                 </div>
 
-                <div className={cx('field submitfield')} style={{ width: '850px' }}>
+                <div className={cx('field submitfield')} style={{ width: '1200px' }}>
                     <input className={cx('submit')} type="submit" value="Tạo" />
                 </div>
             </form>

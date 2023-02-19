@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { Input } from 'antd';
 
 // import './CreateAccount.scss';
 import { useDispatch, useSelector } from 'react-redux';
@@ -66,12 +67,11 @@ function CreateBlog() {
                     Back
                 </Button>
             </Link>
-            <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '1000px' }}>
+            <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '1200px' }}>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faCircleInfo} />
-                        <input
-                            className={cx('inputfield')}
+                        <Input
+                            className={cx('form-input')}
                             type="text"
                             placeholder="Title..."
                             autoComplete="title"
@@ -86,9 +86,8 @@ function CreateBlog() {
                 </div>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className="inputicon" icon={faPenToSquare} />
-                        <input
-                            className={cx('inputfield')}
+                        <Input
+                            className={cx('form-input')}
                             type="text"
                             placeholder="Description..."
                             autoComplete="description"
@@ -103,9 +102,8 @@ function CreateBlog() {
                 </div>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faFilePen} />
-                        <input
-                            className={cx('inputfield')}
+                        <Input
+                            className={cx('form-input')}
                             type="text"
                             placeholder="Content..."
                             autoComplete="content"
@@ -121,9 +119,8 @@ function CreateBlog() {
 
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faImage} />
-                        <input
-                            className={cx('inputfield')}
+                        <Input
+                            className={cx('form-input')}
                             type="text"
                             placeholder="avatar..."
                             autoComplete="thumbnail"
@@ -137,7 +134,7 @@ function CreateBlog() {
                     </div>
                 </div>
 
-                <div className={cx('field submitfield')} style={{ width: '850px' }}>
+                <div className={cx('field submitfield')} style={{ width: '1200px' }}>
                     <input className={cx('submit')} type="submit" value="Add Blog" />
                 </div>
             </form>

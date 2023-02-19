@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage, faFilePen, faPenToSquare, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { createAccount, getAllAccount, getAllRoles } from '~/redux/apiRequest';
-import { Button, Modal } from 'antd';
+import { Button, Input } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './AddBranch.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
@@ -67,12 +67,11 @@ function AddBranch() {
                     Back
                 </Button>
             </Link>
-            <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '1000px' }}>
+            <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '1200px' }}>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faCircleInfo} />
-                        <input
-                            className={cx('inputfield')}
+                        <Input
+                            className={cx('form-input')}
                             type="text"
                             placeholder="Name..."
                             autoComplete="name"
@@ -87,9 +86,8 @@ function AddBranch() {
                 </div>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className="inputicon" icon={faPenToSquare} />
-                        <input
-                            className={cx('inputfield')}
+                        <Input
+                            className={cx('form-input')}
                             type="text"
                             placeholder="Address..."
                             autoComplete="address"
@@ -104,9 +102,8 @@ function AddBranch() {
                 </div>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faFilePen} />
-                        <input
-                            className={cx('inputfield')}
+                        <Input
+                            className={cx('form-input')}
                             type="text"
                             placeholder="Hot line..."
                             autoComplete="hot_line"
@@ -122,9 +119,8 @@ function AddBranch() {
 
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faImage} />
-                        <input
-                            className={cx('inputfield')}
+                        <Input
+                            className={cx('form-input')}
                             type="text"
                             placeholder="Avatar..."
                             autoComplete="thumbnail"
@@ -138,7 +134,7 @@ function AddBranch() {
                     </div>
                 </div>
 
-                <div className={cx('field submitfield')} style={{ width: '850px' }}>
+                <div className={cx('field submitfield')} style={{ width: '1200px' }}>
                     <input className={cx('submit')} type="submit" value="Add Branch" />
                 </div>
             </form>

@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createService, getAllService, getAllTypeService } from '~/redux/service/apiService';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Button } from 'antd';
+import { Button, Input, Select } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleDollarToSlot, faImage, faPenToSquare, faShieldCat, faTable } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
@@ -75,12 +75,11 @@ function AddService() {
                     Back
                 </Button>
             </Link>
-            <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '1000px' }}>
+            <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '1200px' }}>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faTable} />
-                        <input
-                            className={cx('inputfield')}
+                        <Input
+                            className={cx('form-input')}
                             type="text"
                             placeholder="tên dịch vụ..."
                             autoComplete="name"
@@ -95,9 +94,8 @@ function AddService() {
                 </div>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faPenToSquare} />
-                        <input
-                            className={cx('inputfield')}
+                        <Input
+                            className={cx('form-input')}
                             type="text"
                             placeholder="mô tả"
                             autoComplete="description"
@@ -112,9 +110,8 @@ function AddService() {
                 </div>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className="inputicon" icon={faCircleDollarToSlot} />
-                        <input
-                            className={cx('inputfield')}
+                        <Input
+                            className={cx('form-input')}
                             type="number"
                             placeholder="Giá..."
                             autoComplete="price"
@@ -129,9 +126,8 @@ function AddService() {
                 </div>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faImage} />
-                        <input
-                            className={cx('inputfield')}
+                        <Input
+                            className={cx('form-input')}
                             type="text"
                             placeholder="avatar..."
                             autoComplete="thumbnail"
@@ -147,33 +143,28 @@ function AddService() {
 
                 <div className="field">
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faShieldCat} />
-
-                        <select
-                            className={cx('inputfield')}
-                            name="typeServiceId"
-                            onChange={(e) => formik.setFieldValue('typeServiceId', e.target.value)}
-                            value={formik.values.typeServiceId}
-                        >
-                            <option value="">-- Choose --</option>
-
-                            {typeServices &&
-                                typeServices.length > 0 &&
-                                typeServices.map((item, index) => {
-                                    return (
-                                        <option key={index} value={item.id}>
-                                            {item.name}
-                                        </option>
-                                    );
-                                })}
-                        </select>
+                        <Select
+                            className={cx('form-input')}
+                            defaultValue="Dịch vụ"
+                            style={{
+                                width: 350,
+                            }}
+                            onChange={(data) => formik.setFieldValue('typeServiceId', data)}
+                            options={
+                                typeServices &&
+                                typeServices?.length > 0 &&
+                                typeServices.map((item) => {
+                                    return { value: item.id, label: item.name };
+                                })
+                            }
+                        />
                     </div>
                     <div className={cx('message')}>
                         {formik.errors.typeServiceId && <p className="error">{formik.errors.typeServiceId}</p>}
                     </div>
                 </div>
 
-                <div className={cx('field submitfield')} style={{ width: '850px', display: displayONOFF }}>
+                <div className={cx('field submitfield')} style={{ width: '1200px', display: displayONOFF }}>
                     <input className={cx('submit')} type="submit" value="Tạo" />
                 </div>
             </form>

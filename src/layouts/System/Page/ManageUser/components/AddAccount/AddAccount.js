@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Input } from 'antd';
-import { Select } from 'antd';
+// import { Input } from 'antd';
+// import { Select } from 'antd';
 
 import { useDispatch, useSelector } from 'react-redux';
 
 import { createAccount, getAllAccount, getAllRoles } from '~/redux/apiRequest';
-import { Button, Modal } from 'antd';
+import { Button, Select, Input } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './CreateAccount.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
@@ -126,10 +126,6 @@ function AddAccount() {
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
                         <Input
-                            // style={{
-                            //     height: 38,
-                            //     lineHeight: 38,
-                            // }}
                             className={cx('form-input')}
                             type="text"
                             placeholder="Name..."
@@ -208,7 +204,6 @@ function AddAccount() {
                         <Select
                             className={cx('form-input')}
                             defaultValue="Chinh nhánh"
-                            // value={formik.values.gender}
                             style={{
                                 width: 350,
                             }}
