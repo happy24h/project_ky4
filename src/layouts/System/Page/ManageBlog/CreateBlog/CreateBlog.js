@@ -6,8 +6,8 @@ import { Input } from 'antd';
 // import './CreateAccount.scss';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faImage, faFilePen, faPenToSquare, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faImage, faFilePen, faPenToSquare, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { createAccount, getAllAccount, getAllRoles } from '~/redux/apiRequest';
 import { Button, Modal } from 'antd';
 import classNames from 'classnames/bind';

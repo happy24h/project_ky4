@@ -5,8 +5,8 @@ import { createService, getAllService, getAllTypeService } from '~/redux/service
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button, Input, Select } from 'antd';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleDollarToSlot, faImage, faPenToSquare, faShieldCat, faTable } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faCircleDollarToSlot, faImage, faPenToSquare, faShieldCat, faTable } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
 import styles from './AddService.module.scss';
 import { getUploadImage, uploadImage } from '~/redux/cloudImage/apiCloud';
