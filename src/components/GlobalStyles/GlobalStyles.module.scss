@@ -129,6 +129,17 @@ ul {
     padding-left: 0;
 }
 
+// custom ant design
+
+::-webkit-input-placeholder {
+    color: #000 !important;
+    font-weight: 600 !important ;
+}
+.ant-input-group {
+    color: #000 !important;
+    font-weight: 600 !important ;
+}
+
 @media (max-width: 420px) {
     * {
         overflow: hidden;

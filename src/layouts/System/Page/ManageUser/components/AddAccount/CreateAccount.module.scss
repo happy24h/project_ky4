@@ -5,7 +5,7 @@
     flex-wrap: wrap;
 
     width: 700px;
-    background: #fff;
+    // background: #fff;
     min-height: 470px;
     border-radius: 6px;
     margin: 0 auto;
@@ -14,10 +14,19 @@
     margin: 1.3em auto;
 }
 
+.form-input {
+    width: 350px;
+    border-radius: 6px;
+    // border: 2px solid #1976d2;
+    // box-shadow: 10px 10px 5px 0px rgb(25, 118, 210, 0.7);
+    border: 2px solid #fcaf17;
+    box-shadow: 10px 10px 5px 0px rgb(252, 175, 23, 0.7);
+}
+
 .inputfield {
     padding: 10px;
     font-size: 100%;
-    background: #dedede;
+    // background: #dedede;
     outline: none;
     width: 230px;
     border: none;
@@ -42,10 +51,11 @@
 }
 
 .customInput {
-    background: #dedede;
-    width: 280px;
+    width: 350px;
+    border-radius: 5px;
+    border-radius: 9px;
     margin: 0 auto;
-    border-radius: var(--border-radius);
+    text-shadow: 1px 1px #ccc;
 }
 .radio-input {
     padding: 8px 0;
@@ -80,17 +90,18 @@
 
 .submit {
     font-size: 100%;
-    width: 280px;
-    background: var(--blue);
+    width: 350px;
+    background-color: #fcaf17;
     color: #fff;
     padding: 10px;
     cursor: pointer;
     border: none;
-    border-radius: var(--border-radius);
+
+    border-radius: 10px;
 }
 
 .submit:hover {
-    background: linear-gradient(45deg, #00dbde, #fc00ff);
+    background: linear-gradient(45deg, #fcaf17, #ffd800);
 }
 
 .submit:focus {

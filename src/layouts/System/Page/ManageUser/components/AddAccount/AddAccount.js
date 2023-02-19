@@ -1,35 +1,23 @@
 import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { Input } from 'antd';
+import { Select } from 'antd';
 
-// import './CreateAccount.scss';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faEnvelope,
-    faKey,
-    faPhone,
-    faUser,
-    faShieldCat,
-    faAddressBook,
-    faImage,
-} from '@fortawesome/free-solid-svg-icons';
 import { createAccount, getAllAccount, getAllRoles } from '~/redux/apiRequest';
 import { Button, Modal } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './CreateAccount.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { getBranch } from '~/redux/branch/apiBranch';
-// import { registerUser } from '../../redux/apiRequest';
 const cx = classNames.bind(styles);
 
 function AddAccount() {
-    // const [modal, setModal] = useState(false);
-
     const [loadApi, setLoadApi] = useState(false);
     const [state, setState] = useState();
-    const [branchId, setBranchId] = useState();
+
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.login?.currentUser);
     const handleApi = () => {
@@ -50,6 +38,11 @@ function AddAccount() {
 
     const listRoles = useSelector((state) => state.role.role?.roleCurrent);
     const listBranch = useSelector((state) => state.branch.branch?.listData?.content);
+    const handleChangeRoles = (value) => {
+        setState(value);
+        // alert(value);
+        // console.log(`selected ${value}`);
+    };
 
     const formik = useFormik({
         initialValues: {
@@ -58,6 +51,8 @@ function AddAccount() {
             password: '',
             phone: '',
             gender: '',
+            branch_id: '',
+            // roles: state,
             thumbnail: '',
             address: '',
             description: '',
@@ -77,13 +72,16 @@ function AddAccount() {
                 .required('Vui lòng nhập số điện thoại.')
                 .matches(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/, 'Phải là số điện thoại hợp lệ'),
             gender: Yup.string().required('Vui lòng xác nhận giới tính.').min(3, 'Tên phải lớn hơn 3 ký tự.'),
+            branch_id: Yup.string().required('Vui lòng xác nhận chi nhánh.'),
+            // roles: Yup.string().required('Vui lòng xác nhận chức vụ.'),
+            description: Yup.string().required('Vui lòng xác nhận miêu tả.'),
             thumbnail: Yup.string().required('Vui lòng nhập link ảnh.').min(4, 'Tên phải lớn hơn 4 ký tự.'),
             address: Yup.string().required('Vui lòng nhập địa chỉ.').min(4, 'Tên phải lớn hơn 4 ký tự.'),
         }),
         onSubmit: (values) => {
             const submitValue = {
                 ...values,
-                branch_id: branchId,
+
                 roles: [
                     {
                         name: state,
@@ -124,12 +122,15 @@ function AddAccount() {
                     Back
                 </Button>
             </Link>
-            <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '1000px' }}>
+            <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '1200px' }}>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faUser} />
-                        <input
-                            className={cx('inputfield')}
+                        <Input
+                            // style={{
+                            //     height: 38,
+                            //     lineHeight: 38,
+                            // }}
+                            className={cx('form-input')}
                             type="text"
                             placeholder="Name..."
                             autoComplete="name"
@@ -144,9 +145,8 @@ function AddAccount() {
                 </div>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className="inputicon" icon={faEnvelope} />
-                        <input
-                            className={cx('inputfield')}
+                        <Input
+                            className={cx('form-input')}
                             type="email"
                             placeholder="Email..."
                             autoComplete="email"
@@ -159,28 +159,11 @@ function AddAccount() {
                         {formik.errors.email && <p className={cx('error')}>{formik.errors.email}</p>}
                     </div>
                 </div>
+
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faPhone} />
-                        <input
-                            className={cx('inputfield')}
-                            type="text"
-                            placeholder="Phone..."
-                            autoComplete="phone"
-                            name="phone"
-                            value={formik.values.phone}
-                            onChange={formik.handleChange}
-                        />
-                    </div>
-                    <div className={cx('message')}>
-                        {formik.errors.phone && <p className="error">{formik.errors.phone}</p>}
-                    </div>
-                </div>
-                <div className={cx('field')}>
-                    <div className="customInput">
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faKey} />
-                        <input
-                            className={cx('inputfield')}
+                        <Input
+                            className={cx('form-input')}
                             type="password"
                             placeholder="Password..."
                             autoComplete="new-password"
@@ -194,30 +177,26 @@ function AddAccount() {
                     </div>
                 </div>
                 <div class="field">
-                    <div className={cx('customInput radio-input')}>
-                        <label for="password_confirmation" class={cx('form-label')}>
-                            <strong>Giới tính: </strong>
-                        </label>
-                        <div className="radio-input-col">
-                            <input
-                                name="gender"
-                                type="radio"
-                                value="MALE"
-                                className={cx('form-control')}
-                                onChange={formik.handleChange}
-                            />
-                            <span>Nam</span>
-                        </div>
-                        <div className="radio-input-col">
-                            <input
-                                name="gender"
-                                type="radio"
-                                value="FEMALE"
-                                className={cx('form-control')}
-                                onChange={formik.handleChange}
-                            />
-                            <span>Nữ</span>
-                        </div>
+                    <div className={cx('customInput')}>
+                        <Select
+                            defaultValue="Giới tính"
+                            // value={formik.values.gender}
+                            style={{
+                                width: 350,
+                            }}
+                            className={cx('form-input')}
+                            onChange={(data) => formik.setFieldValue('gender', data)}
+                            options={[
+                                {
+                                    value: 'MALE',
+                                    label: 'Nam',
+                                },
+                                {
+                                    value: 'FEMALE',
+                                    label: 'Nữ',
+                                },
+                            ]}
+                        />
                     </div>
                     <div className={cx('message')}>
                         {formik.errors.gender && <p className={cx('error')}>{formik.errors.gender}</p>}
@@ -226,64 +205,55 @@ function AddAccount() {
 
                 <div class="field">
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faShieldCat} />
-
-                        <select
-                            className={cx('inputfield')}
-                            name="roles"
-                            onChange={(e) => setBranchId(e.target.value)}
-                            value={branchId}
-                        >
-                            <option value="">-- Chi nhánh --</option>
-
-                            {listRoles &&
+                        <Select
+                            className={cx('form-input')}
+                            defaultValue="Chinh nhánh"
+                            // value={formik.values.gender}
+                            style={{
+                                width: 350,
+                            }}
+                            onChange={(data) => formik.setFieldValue('branch_id', data)}
+                            options={
+                                listBranch &&
                                 listBranch?.length > 0 &&
-                                listBranch?.map((item, index) => {
-                                    return (
-                                        <option key={index} value={item.id}>
-                                            {item.name}
-                                        </option>
-                                    );
-                                })}
-                        </select>
+                                listBranch.map((item) => {
+                                    return { value: item.id, label: item.name };
+                                })
+                            }
+                        />
                     </div>
-                    {/* <div className={cx('message')}>
-                        {!state && <p className={cx('error')}>Vui lòng nhập thông tin</p>}
-                    </div> */}
+
+                    <div className={cx('message')}>
+                        {formik.errors.branch && <p className={cx('error')}>{formik.errors.branch}</p>}
+                    </div>
                 </div>
                 <div class="field">
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faShieldCat} />
-
-                        <select
-                            className={cx('inputfield')}
-                            name="roles"
-                            onChange={(e) => setState(e.target.value)}
-                            value={state}
-                        >
-                            <option value="">-- Chức vụ --</option>
-
-                            {listRoles &&
-                                listRoles.length > 0 &&
-                                listRoles.map((item, index) => {
-                                    return (
-                                        <option key={index} value={item.name}>
-                                            {item.name}
-                                        </option>
-                                    );
-                                })}
-                        </select>
+                        <Select
+                            className={cx('form-input')}
+                            defaultValue="Chức vụ"
+                            style={{
+                                width: 350,
+                            }}
+                            onChange={handleChangeRoles}
+                            options={
+                                listRoles &&
+                                listRoles?.length > 0 &&
+                                listRoles.map((item) => {
+                                    return { value: item.name, label: item.name };
+                                })
+                            }
+                        />
                     </div>
-                    {/* <div className={cx('message')}>
-                        {!state && <p className={cx('error')}>Vui lòng nhập thông tin</p>}
-                    </div> */}
+                    <div className={cx('message')}>
+                        {formik.errors.roles && <p className={cx('error')}>{formik.errors.roles}</p>}
+                    </div>
                 </div>
 
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faAddressBook} />
-                        <input
-                            className={cx('inputfield')}
+                        <Input
+                            className={cx('form-input')}
                             type="text"
                             placeholder="Address..."
                             autoComplete="address"
@@ -298,11 +268,26 @@ function AddAccount() {
                 </div>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faImage} />
-                        <input
-                            className={cx('inputfield')}
+                        <Input
+                            className={cx('form-input')}
                             type="text"
-                            placeholder="avatar..."
+                            placeholder="Phone..."
+                            autoComplete="phone"
+                            name="phone"
+                            value={formik.values.phone}
+                            onChange={formik.handleChange}
+                        />
+                    </div>
+                    <div className={cx('message')}>
+                        {formik.errors.phone && <p className="error">{formik.errors.phone}</p>}
+                    </div>
+                </div>
+                <div className={cx('field')}>
+                    <div className={cx('customInput')}>
+                        <Input
+                            className={cx('form-input')}
+                            type="text"
+                            placeholder="Avatar..."
                             autoComplete="thumbnail"
                             name="thumbnail"
                             value={formik.values.thumbnail}
@@ -315,11 +300,10 @@ function AddAccount() {
                 </div>
                 <div className={cx('field')}>
                     <div className={cx('customInput')}>
-                        <FontAwesomeIcon className={cx('inputicon')} icon={faImage} />
-                        <input
-                            className={cx('inputfield')}
+                        <Input
+                            className={cx('form-input')}
                             type="text"
-                            placeholder="description..."
+                            placeholder="Description..."
                             autoComplete="description"
                             name="description"
                             value={formik.values.description}
@@ -331,7 +315,7 @@ function AddAccount() {
                     </div>
                 </div>
 
-                <div className={cx('field submitfield')} style={{ width: '850px' }}>
+                <div className={cx('field submitfield')} style={{ width: '1000px' }}>
                     <input className={cx('submit')} type="submit" value="ADD USER" />
                 </div>
             </form>
