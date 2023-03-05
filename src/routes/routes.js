@@ -20,7 +20,8 @@ import AllService from '~/pages/Home/SeeMore/Service/AllService';
 import AllBranch from '~/pages/Home/SeeMore/Branch/AllBranch';
 import AllEmployee from '~/pages/Home/SeeMore/Employee/AllEmployee';
 import AccountConfirm from '~/layouts/components/AccountConfirm';
-
+import SignIn from '~/pages/FormLogin/SignIn';
+import FormLogin from '~/pages/FormLogin/FormLogin';
 // System
 import ManageUser from '~/layouts/System/Page/ManageUser';
 import ManageFeedback from '~/layouts/System/Page/Feedback';
@@ -84,8 +85,10 @@ const publicRouters = [
     { path: config.routes.allBranch, component: AllBranch },
     { path: config.routes.allEmployee, component: AllEmployee },
     { path: config.routes.login, component: Login, changeLayout: null },
+    { path: config.routes.signIn, component: SignIn, changeLayout: null },
     { path: config.routes.register, component: Register, changeLayout: null },
     { path: config.routes.accountConfirm, component: AccountConfirm, changeLayout: null },
+    { path: config.routes.formLogin, component: FormLogin, changeLayout: null },
 ];
 
 const privateRoutes = [

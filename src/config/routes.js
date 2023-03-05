@@ -17,6 +17,8 @@ const routes = {
     allBranch: '/see-more/branch',
     allEmployee: '/see-more/employee',
     accountConfirm: '/account-confirm',
+    signIn: '/sign-in',
+    formLogin: '/form-login',
 
     // System
     //schedule

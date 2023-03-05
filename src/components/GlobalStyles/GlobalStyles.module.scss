@@ -78,7 +78,7 @@ select,
 textarea {
     margin: 0;
     font-family: inherit;
-    font-size: unset !important;
+    // font-size: unset !important;
     line-height: normal !important;
 }
 
@@ -132,12 +132,23 @@ ul {
 // custom ant design
 
 ::-webkit-input-placeholder {
-    color: #000 !important;
+    color: #333 !important;
     font-weight: 600 !important ;
 }
 .ant-input-group {
     color: #000 !important;
     font-weight: 600 !important ;
+}
+
+input:-internal-autofill-selected {
+    background: red !important;
+    appearance: menulist-button;
+    background-image: none !important;
+    background-color: green !important;
+    color: fieldtext !important;
+    // border-radius: 90px;
+    border-bottom-right-radius: 90px;
+    border-top-right-radius: 90px;
 }
 
 @media (max-width: 420px) {
