@@ -43,6 +43,9 @@
 }
 
 @media (max-width: 720px) {
+    .wrapper {
+        padding-bottom: 0px;
+    }
     .title-about {
         font-size: 18px;
         margin: 15px 0 20px;
@@ -64,7 +67,7 @@
         width: 100%;
         iframe {
             width: 100%;
-            height: 260px;
+            height: 270px;
         }
     }
 }

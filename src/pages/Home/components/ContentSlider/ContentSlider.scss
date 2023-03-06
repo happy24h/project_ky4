@@ -393,11 +393,18 @@
 
     .section-share .section-customize .bg-image {
         width: 175px;
-        height: 90px;
+        height: 98px;
     }
 
     .section-share .section-customize .name-specialty {
-        font-size: 9px;
+        font-size: 13px;
+        font-weight: bold;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        /* user-select: none; */
+        -webkit-user-select: none;
     }
 
     .section-share.section-specialty {
