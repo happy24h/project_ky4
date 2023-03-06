@@ -12,8 +12,6 @@ function About() {
                     <div className={cx('row-about')}>
                         <div className={cx('content-left')}>
                             <iframe
-                                width="100%"
-                                height="400"
                                 src="https://www.youtube.com/embed/RdezgkJJjak"
                                 title="YouTube video player"
                                 frameborder="0"

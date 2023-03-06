@@ -19,6 +19,7 @@ const routes = {
     accountConfirm: '/account-confirm',
     signIn: '/sign-in',
     formLogin: '/form-login',
+    formContact: 'form-contact',
 
     // System
     //schedule

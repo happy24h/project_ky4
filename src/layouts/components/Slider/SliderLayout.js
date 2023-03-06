@@ -77,17 +77,8 @@ function SliderLayout() {
                         <div className="form-text-slogan-down">Cắt xong trả tiền, hủy lịch không sao</div>
                     </div>
                     <div className="form-input-booking-select">
-                        {/* <div className="form-input-slider">
-                            {' '}
-                            <input type="text" placeholder="Nhập SDT để đặt lịch..." />
-                        </div>
-                        <button className="form-button-slider">Đặt lịch ngay</button> */}
                         <Select
                             className="input-search-slider"
-                            style={{
-                                width: '420px',
-                                margin: '8px 0 15px',
-                            }}
                             name="accountId"
                             placeholder="Chọn địa chỉ đặt lịch..."
                             onChange={handleOnchangeBranch}
@@ -97,11 +88,6 @@ function SliderLayout() {
                                 name: 'accountId',
                             }))}
                         />
-                        {/* <div className="search-booking">
-                            <input className="input-search-slider" type="text" placeholder="Chọn địa chỉ đặt lịch..." />
-                            <FontAwesomeIcon icon={faSearch} />
-                            <button className="form-button-slider">Đặt lịch ngay</button>
-                        </div> */}
                     </div>
                 </div>
             </div>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Courses from '../Service';
+import Service from '../Service';
 import Branch from '../Branch';
-import Teacher from '../Employee';
+import Employee from '../Employee';
 import Blog from '../Blog';
 import About from '../About';
+import FormContact from '~/pages/FormContact';
 import classNames from 'classnames/bind';
 import styles from './ContentSlider.module.scss';
 
@@ -99,11 +100,12 @@ export default function ContentSlider() {
     };
     return (
         <div className={cx('wrapper-slider')}>
-            <Courses settings={settings} />
+            <Service settings={settings} />
             <Branch settings={settings} />
-            <Teacher settings={settings} />
+            <Employee settings={settings} />
             <Blog settings={settings2} />
             <About />
+            <FormContact />
         </div>
     );
 }

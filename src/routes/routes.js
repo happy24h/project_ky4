@@ -22,6 +22,7 @@ import AllEmployee from '~/pages/Home/SeeMore/Employee/AllEmployee';
 import AccountConfirm from '~/layouts/components/AccountConfirm';
 import SignIn from '~/pages/FormLogin/SignIn';
 import FormLogin from '~/pages/FormLogin/FormLogin';
+import FormContact from '~/pages/FormContact';
 // System
 import ManageUser from '~/layouts/System/Page/ManageUser';
 import ManageFeedback from '~/layouts/System/Page/Feedback';
@@ -74,6 +75,7 @@ const publicRouters = [
     { path: config.routes.library, component: Library },
     { path: config.routes.contact, component: Contact },
     { path: config.routes.hairStyle, component: HairStyle },
+    { path: config.routes.formContact, component: FormContact },
     { path: config.routes.learn, component: Learn, changeLayout: HeaderOnly },
     { path: config.routes.blog, component: Blog },
     { path: config.routes.viewBranch, component: ViewBranch, changeLayout: HeaderOnly },

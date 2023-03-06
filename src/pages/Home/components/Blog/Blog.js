@@ -43,7 +43,6 @@ function Blog({ settings }) {
     const handleSeeMore = () => {
         navigate(`/blog`);
     };
-    // let newDataWebsite = dataWebsites && dataWebsites.length > 0 ? dataWebsites : dataWebsiteFake;
 
     return (
         <div className="section-share section-specialty">
@@ -70,19 +69,13 @@ function Blog({ settings }) {
                                         className="bg-image section-specialty"
                                         style={{ backgroundImage: `url(${item.thumbnail})` }}
                                     ></div>
-                                    <div style={{ width: '305px', padding: '0 15px', textAlign: 'start' }}>
+                                    <div className="text-content-blog-mobile">
                                         <div style={{ fontWeight: '600', fontSize: '16px' }}>{item?.title}</div>
                                         {/* <div className="name-specialty">{item?.content}</div> */}
                                     </div>
                                 </div>
                             ))}
                     </Slider>
-                    {/* {loadData && (
-                        <div className={cx('wrapper-loading')}>
-                            Loading...
-                            <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />
-                        </div>
-                    )} */}
                 </div>
             </div>
         </div>

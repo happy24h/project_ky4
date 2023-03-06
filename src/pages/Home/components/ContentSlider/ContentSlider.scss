@@ -353,6 +353,19 @@
         width: 70px;
         height: 70px;
     }
+
+    .section-share .section-customize2 .bg-image {
+        cursor: pointer;
+        width: 200px;
+        height: 130px;
+    }
+
+    // style={{ width: '305px', padding: '0 15px', textAlign: 'start' }}
+    .text-content-blog-mobile {
+        width: 200px;
+        padding: 0 15px;
+        text-align: start;
+    }
 }
 @media (max-width: 520px) {
     .slick-prev {
@@ -388,7 +401,7 @@
     }
 
     .section-share.section-specialty {
-        height: 200px;
+        height: 235px;
         overflow-y: hidden;
         background: var(--white);
     }
