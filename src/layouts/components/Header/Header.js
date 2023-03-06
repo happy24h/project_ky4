@@ -164,7 +164,7 @@ function Header({ homePage }) {
                                 <FontAwesomeIcon icon={faEarthAsia} />
                                 <span className={cx('action-btn-2')}> English</span>
                             </Button>
-                            <Link to={config.routes.login}>
+                            <Link to={config.routes.formLogin}>
                                 <Button primary>Log in</Button>
                             </Link>
                         </>

@@ -63,7 +63,7 @@ export const registerUser = async (user, dispatch, navigate) => {
     try {
         await axios.post('http://localhost:8078/api/v1/registerCustomer', user);
         dispatch(registerSuccess());
-        navigate('/login');
+        navigate('/form-login');
         toast.success('Đăng ký thành công');
     } catch (err) {
         dispatch(registerFailed());
@@ -75,7 +75,7 @@ export const logOut = async (dispatch, navigate) => {
     dispatch(logOutStart());
     try {
         dispatch(logOutSuccess());
-        navigate('/login');
+        navigate('/form-login');
         toast.success('Logout success');
     } catch (err) {
         dispatch(logOutFailed());

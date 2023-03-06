@@ -3,8 +3,11 @@ import './FormLogin.scss';
 import images from '~/assets/images';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import { useDispatch, useSelector } from 'react-redux';
+import Loading from '~/layouts/components/Loading';
 
 function FormLogin() {
+    const loginStart = useSelector((state) => state.auth.login?.isFetching);
     const [modeForm, setModeForm] = useState(true);
     console.log('check mode form >>', modeForm);
     return (
@@ -45,6 +48,7 @@ function FormLogin() {
                     </div>
                 </div>
             </div>
+            {loginStart && <Loading />}
         </div>
     );
 }

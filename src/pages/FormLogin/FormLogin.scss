@@ -272,6 +272,23 @@
         pointer-events: all;
     }
 
+    .form-login-message {
+        position: relative;
+        top: -7px;
+        padding-bottom: 10px;
+    }
+
+    .wrapper-btn-form-login {
+        button {
+            margin-top: 6px;
+            width: 75px;
+            height: 35px;
+            border: none;
+            border-radius: 20px;
+            margin: 6px 20px 10px 0;
+        }
+    }
+
     @media (max-width: 870px) {
         .container {
             min-height: 800px;
