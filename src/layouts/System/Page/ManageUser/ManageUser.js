@@ -206,7 +206,7 @@ function ManageUser() {
                 </Input.Group>
                 {/* <Form.Item label=""> */}
                 <Link to={'/system/manage-user/add'}>
-                    <Button type="primary" style={{ fontWeight: 600, fontSize: 10, backgroundColor: '#fcaf17' }}>
+                    <Button type="primary" style={{ fontWeight: 600, fontSize: 14, backgroundColor: '#fcaf17' }}>
                         <PlusCircleOutlined />
                         Add User
                     </Button>

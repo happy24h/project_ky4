@@ -135,7 +135,7 @@ function ManageBlog() {
                 </Input.Group>
                 {/* <Form.Item label=""> */}
                 <Link to={'/system/manage-blog/add'}>
-                    <Button type="primary" style={{ fontWeight: 600, fontSize: 10, backgroundColor: '#fcaf17' }}>
+                    <Button type="primary" style={{ fontWeight: 600, fontSize: 14, backgroundColor: '#fcaf17' }}>
                         <PlusCircleOutlined />
                         Add Blog
                     </Button>
@@ -219,13 +219,6 @@ function ManageBlog() {
                     <h3 style={{ fontSize: '28px' }}>{listBlog?.totalItems}</h3>
                     <p>Blogs</p>
                 </Card>
-                {/* <Form.Item label="">
-                    <Link to={'/system/manage-blog/add'}>
-                        <Button type="primary" style={{ marginTop: '23px' }}>
-                            Add Blog
-                        </Button>
-                    </Link>
-                </Form.Item> */}
                 <Table
                     columns={columns}
                     dataSource={listBlog?.content}
