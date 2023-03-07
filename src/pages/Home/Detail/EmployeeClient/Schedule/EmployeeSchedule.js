@@ -75,18 +75,14 @@ function EmployeeSchedule({ branch_id }) {
                         <Card
                             title={<DatePicker onChange={onChange} />}
                             className="info-detail-employee-client"
-                            // style={{
-                            //     width: 600,
-                            //     minHeight: 300,
-                            //     backgroundColor: '#e5e5e5',
-                            // }}
+                            extra={<h4>Đặt lịch</h4>}
                         >
                             <div className="grid wide">
                                 <div className="row">
                                     {listBooking?.content.map((item, index) => {
                                         return (
                                             <div key={index} className="col l-12 m-12 c-12">
-                                                <Card
+                                                {/* <Card
                                                     size="small"
                                                     title="Đặt lịch"
                                                     // extra={<a href="#">More</a>}
@@ -94,37 +90,35 @@ function EmployeeSchedule({ branch_id }) {
                                                         minHeight: 170,
                                                     }}
                                                     key={index}
-                                                >
-                                                    <h3 style={{ fontSize: '20px' }}>{item.employee.employee_name}</h3>
-                                                    <p>
-                                                        Ngày:{' '}
-                                                        <span>
-                                                            {item.employee.bookingByTime_bookings[0].date_booking}
-                                                        </span>
-                                                    </p>
-                                                    <div className={cx('wrapper-btn')}>
-                                                        {item.employee.bookingByTime_bookings.map((item, index) => {
-                                                            let isStatus = item?.status === 1 ? true : false;
-                                                            return (
-                                                                <div key={index} style={{ marginRight: '6px' }}>
-                                                                    <Button
-                                                                        type="primary"
-                                                                        className={cx('btn-booking')}
-                                                                        onClick={() => handleTimeBooking(item.id)}
-                                                                        disabled={isStatus}
-                                                                        style={
-                                                                            item?.status === 1
-                                                                                ? { backgroundColor: '#8ccdf2' }
-                                                                                : {}
-                                                                        }
-                                                                    >
-                                                                        {item.time_booking}:00 - {item.time_booking}:30
-                                                                    </Button>
-                                                                </div>
-                                                            );
-                                                        })}
-                                                    </div>
-                                                </Card>
+                                                > */}
+                                                <h3 style={{ fontSize: '20px' }}>{item.employee.employee_name}</h3>
+                                                <p>
+                                                    Ngày:
+                                                    <span>{item.employee.bookingByTime_bookings[0].date_booking}</span>
+                                                </p>
+                                                <div className={cx('wrapper-btn')}>
+                                                    {item.employee.bookingByTime_bookings.map((item, index) => {
+                                                        let isStatus = item?.status === 1 ? true : false;
+                                                        return (
+                                                            <div key={index} style={{ marginRight: '6px' }}>
+                                                                <Button
+                                                                    type="primary"
+                                                                    className={cx('btn-booking')}
+                                                                    onClick={() => handleTimeBooking(item.id)}
+                                                                    disabled={isStatus}
+                                                                    style={
+                                                                        item?.status === 1
+                                                                            ? { backgroundColor: '#8ccdf2' }
+                                                                            : {}
+                                                                    }
+                                                                >
+                                                                    {item.time_booking}:00 - {item.time_booking}:30
+                                                                </Button>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                                {/* </Card> */}
                                             </div>
                                         );
                                     })}

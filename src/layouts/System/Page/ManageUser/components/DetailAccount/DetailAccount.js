@@ -173,17 +173,7 @@ function DetailAccount() {
                                         <div className="grid wide">
                                             <div className="row">
                                                 <div className="col l-12 m-12 c-12">
-                                                    <div
-                                                        style={
-                                                            {
-                                                                // width: '210px',
-                                                                // display: 'flex',
-                                                                // alignItems: 'center',
-                                                                // justifyContent: 'space-between',
-                                                                // marginBottom: 5,
-                                                            }
-                                                        }
-                                                    >
+                                                    <div>
                                                         <h3 style={{ fontSize: '20px' }}>Đặt lịch </h3>
                                                         <div>
                                                             Ngày: <span>{today}</span>
