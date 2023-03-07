@@ -7,6 +7,18 @@
     justify-content: center;
     font-family: 'poppins', sans-serif;
 
+    .message-form-contact {
+        top: -10px;
+        position: relative;
+        width: 280px;
+        display: flex;
+        .error {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: red;
+        }
+    }
+
     .container {
         width: 1200px;
         background-color: #fff;
@@ -108,7 +120,7 @@
         margin-top: 12px;
     }
 
-    .right .button input[type='button'] {
+    .right .button input[type='submit'] {
         color: #fff;
         font-size: 18px;
         outline: none;
@@ -120,7 +132,7 @@
         transition: all 0.3s ease;
     }
 
-    .right .button input[type='button']:hover {
+    .right .button input[type='submit']:hover {
         background-color: #5029bc;
     }
 
