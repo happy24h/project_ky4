@@ -106,10 +106,14 @@
     }
 
     .doctor-detail-container {
-        height: 100vh;
+        height: max-content;
     }
 
     .doctor-detail-container .detail-infor-doctor {
         padding: 10px;
+    }
+
+    .doctor-detail-container .intro-doctor .content-right {
+        padding-right: 15px;
     }
 }

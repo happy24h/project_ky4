@@ -8,3 +8,8 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+@media (max-width: 720px) {
+    .wrapper {
+        height: 185px;
+    }
+}

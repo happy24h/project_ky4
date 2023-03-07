@@ -74,20 +74,12 @@ function EmployeeSchedule({ branch_id }) {
                     <div className="doctor-schedule-container">
                         <Card
                             title={<DatePicker onChange={onChange} />}
-                            // extra={
-                            //     <Form.Item label="">
-                            //         <Link to={'/system/manage-booking/add'}>
-                            //             <Button type="primary" style={{ marginTop: '23px', backgroundColor: '#fcaf17' }}>
-                            //                 Add booking
-                            //             </Button>
-                            //         </Link>
-                            //     </Form.Item>
-                            // }
-                            style={{
-                                width: 600,
-                                minHeight: 300,
-                                backgroundColor: '#e5e5e5',
-                            }}
+                            className="info-detail-employee-client"
+                            // style={{
+                            //     width: 600,
+                            //     minHeight: 300,
+                            //     backgroundColor: '#e5e5e5',
+                            // }}
                         >
                             <div className="grid wide">
                                 <div className="row">

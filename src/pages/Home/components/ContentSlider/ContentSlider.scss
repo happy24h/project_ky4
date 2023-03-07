@@ -292,6 +292,11 @@
         height: 270px;
     }
 }
+.text-content-blog-mobile {
+    width: 270px;
+    padding: 0 15px;
+    text-align: start;
+}
 
 @media (max-width: 740px) {
     .slick-prev {
