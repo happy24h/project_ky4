@@ -4,9 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createService, getAllService, getAllTypeService } from '~/redux/service/apiService';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Button, Input, Select } from 'antd';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faCircleDollarToSlot, faImage, faPenToSquare, faShieldCat, faTable } from '@fortawesome/free-solid-svg-icons';
+import { Button, Input, Select, Card } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './AddService.module.scss';
 import { getUploadImage, uploadImage } from '~/redux/cloudImage/apiCloud';
@@ -75,99 +73,105 @@ function AddService() {
                     Back
                 </Button>
             </Link>
-            <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '1200px' }}>
-                <div className={cx('field')}>
-                    <div className={cx('customInput')}>
-                        <Input
-                            className={cx('form-input')}
-                            type="text"
-                            placeholder="tên dịch vụ..."
-                            autoComplete="name"
-                            name="name"
-                            value={formik.values.name}
-                            onChange={formik.handleChange}
-                        />
+            <Card
+                title="Tạo dịch vụ"
+                // extra={<a href="#">More</a>}
+                style={{
+                    width: 1200,
+                    margin: '0 auto',
+                }}
+            >
+                <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '1150px' }}>
+                    <div className="col l-6">
+                        <div className={cx('customInput')}>
+                            <Input
+                                className={cx('form-input')}
+                                type="text"
+                                placeholder="tên dịch vụ..."
+                                autoComplete="name"
+                                name="name"
+                                value={formik.values.name}
+                                onChange={formik.handleChange}
+                            />
+                        </div>
+                        <div className={cx('message')}>
+                            {formik.errors.name && <p className="error">{formik.errors.name}</p>}
+                        </div>
                     </div>
-                    <div className={cx('message')}>
-                        {formik.errors.name && <p className="error">{formik.errors.name}</p>}
+                    <div className="col l-6">
+                        <div className={cx('customInput')}>
+                            <Input
+                                className={cx('form-input')}
+                                type="text"
+                                placeholder="mô tả"
+                                autoComplete="description"
+                                name="description"
+                                value={formik.values.description}
+                                onChange={formik.handleChange}
+                            />
+                        </div>
+                        <div className={cx('message')}>
+                            {formik.errors.description && <p className="error">{formik.errors.description}</p>}
+                        </div>
                     </div>
-                </div>
-                <div className={cx('field')}>
-                    <div className={cx('customInput')}>
-                        <Input
-                            className={cx('form-input')}
-                            type="text"
-                            placeholder="mô tả"
-                            autoComplete="description"
-                            name="description"
-                            value={formik.values.description}
-                            onChange={formik.handleChange}
-                        />
+                    <div className="col l-6">
+                        <div className={cx('customInput')}>
+                            <Input
+                                className={cx('form-input')}
+                                type="number"
+                                placeholder="Giá..."
+                                autoComplete="price"
+                                name="price"
+                                value={formik.values.price}
+                                onChange={formik.handleChange}
+                            />
+                        </div>
+                        <div className={cx('message')}>
+                            {formik.errors.price && <p className="error">{formik.errors.price}</p>}
+                        </div>
                     </div>
-                    <div className={cx('message')}>
-                        {formik.errors.description && <p className="error">{formik.errors.description}</p>}
+                    <div className="col l-6">
+                        <div className={cx('customInput')}>
+                            <Input
+                                className={cx('form-input')}
+                                type="text"
+                                placeholder="avatar..."
+                                autoComplete="thumbnail"
+                                name="thumbnail"
+                                value={formik.values.thumbnail}
+                                onChange={formik.handleChange}
+                            />
+                        </div>
+                        <div className={cx('message')}>
+                            {formik.errors.thumbnail && <p className="error">{formik.errors.thumbnail}</p>}
+                        </div>
                     </div>
-                </div>
-                <div className={cx('field')}>
-                    <div className={cx('customInput')}>
-                        <Input
-                            className={cx('form-input')}
-                            type="number"
-                            placeholder="Giá..."
-                            autoComplete="price"
-                            name="price"
-                            value={formik.values.price}
-                            onChange={formik.handleChange}
-                        />
-                    </div>
-                    <div className={cx('message')}>
-                        {formik.errors.price && <p className="error">{formik.errors.price}</p>}
-                    </div>
-                </div>
-                <div className={cx('field')}>
-                    <div className={cx('customInput')}>
-                        <Input
-                            className={cx('form-input')}
-                            type="text"
-                            placeholder="avatar..."
-                            autoComplete="thumbnail"
-                            name="thumbnail"
-                            value={formik.values.thumbnail}
-                            onChange={formik.handleChange}
-                        />
-                    </div>
-                    <div className={cx('message')}>
-                        {formik.errors.thumbnail && <p className="error">{formik.errors.thumbnail}</p>}
-                    </div>
-                </div>
 
-                <div className="field">
-                    <div className={cx('customInput')}>
-                        <Select
-                            className={cx('form-input')}
-                            defaultValue="Dịch vụ"
-                            style={{
-                                width: 350,
-                            }}
-                            onChange={(data) => formik.setFieldValue('typeServiceId', data)}
-                            options={
-                                typeServices &&
-                                typeServices?.length > 0 &&
-                                typeServices.map((item) => {
-                                    return { value: item.id, label: item.name };
-                                })
-                            }
-                        />
+                    <div className="col l-6">
+                        <div className={cx('customInput')}>
+                            <Select
+                                className={cx('form-input')}
+                                defaultValue="Dịch vụ"
+                                onChange={(data) => formik.setFieldValue('typeServiceId', data)}
+                                options={
+                                    typeServices &&
+                                    typeServices?.length > 0 &&
+                                    typeServices.map((item) => {
+                                        return { value: item.id, label: item.name };
+                                    })
+                                }
+                            />
+                        </div>
+                        <div className={cx('message')}>
+                            {formik.errors.typeServiceId && <p className="error">{formik.errors.typeServiceId}</p>}
+                        </div>
                     </div>
-                    <div className={cx('message')}>
-                        {formik.errors.typeServiceId && <p className="error">{formik.errors.typeServiceId}</p>}
-                    </div>
-                </div>
 
-                <div className={cx('field submitfield')} style={{ width: '1200px', display: displayONOFF }}>
-                    <input className={cx('submit')} type="submit" value="Tạo" />
-                </div>
-            </form>
+                    <div className={cx('field submitfield')} style={{ width: '1200px', display: displayONOFF }}>
+                        <input className={cx('submit')} type="submit" value="Tạo" />
+                    </div>
+                </form>
+            </Card>
         </div>
     );
 }

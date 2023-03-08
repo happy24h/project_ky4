@@ -3,29 +3,27 @@
     padding-top: 2em;
     display: flex;
     flex-wrap: wrap;
-
-    width: 700px;
-    // background: #fff;
-    min-height: 470px;
+    width: 1100px;
+    background: #f5f5f5;
+    min-height: 480px;
     border-radius: 6px;
     margin: 0 auto;
+    padding: 45px 20px 0px 20px;
 }
 .field {
     margin: 1.3em auto;
 }
 
 .form-input {
-    width: 350px;
+    width: 100%;
     border-radius: 6px;
-    border: 2px solid rgb(252, 175, 23, 0.7);
-    // box-shadow: 3px 3px 1px 0px rgb(252, 175, 23, 0.7);
-    // box-shadow: 2px 2px 1px 0px #ccc;
-    box-shadow: rgb(252 175 23 / 90%) 0px 1px 6px;
-    &:hover {
-        border: 2px solid rgb(252, 175, 23, 0.7);
-    }
+
+    box-shadow: rgb(128 128 128 / 90%) 0px 1px 6px;
+    // &:hover {
+    //     border: 2px solid rgb(252, 175, 23, 0.7);
+    // }
     &:focus {
-        border: 2px solid rgb(252, 175, 23, 0.7);
+        box-shadow: rgb(128 128 128 / 100%) 0px 1px 6px;
     }
 }
 
@@ -57,7 +55,7 @@
 }
 
 .customInput {
-    width: 350px;
+    width: 100%;
     border-radius: 5px;
     border-radius: 9px;
     margin: 0 auto;

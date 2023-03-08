@@ -3,9 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { createTypeService } from '~/redux/type_service/apiTypeService';
-import { Button, Input } from 'antd';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { Button, Input, Card } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './AddTypeService.module.scss';
 const cx = classNames.bind(styles);
@@ -36,27 +34,36 @@ function AddTypeService() {
                     Back
                 </Button>
             </Link>
-            <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '1200px' }}>
-                <div className={cx('field')}>
-                    <div className={cx('customInput')}>
-                        <Input
-                            className={cx('form-input')}
-                            type="text"
-                            placeholder="Tên loại dịch vụ..."
-                            autoComplete="name"
-                            name="name"
-                            value={formik.values.name}
-                            onChange={formik.handleChange}
-                        />
+            <Card
+                title="Tạo loại dịch vụ"
+                // extra={<a href="#">More</a>}
+                style={{
+                    width: 1200,
+                    margin: '0 auto',
+                }}
+            >
+                <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '750px' }}>
+                    <div className="col l-12">
+                        <div className={cx('customInput')}>
+                            <Input
+                                className={cx('form-input')}
+                                type="text"
+                                placeholder="Tên loại dịch vụ..."
+                                autoComplete="name"
+                                name="name"
+                                value={formik.values.name}
+                                onChange={formik.handleChange}
+                            />
+                        </div>
+                        <div className={cx('message')}>
+                            {formik.errors.name && <p className="error">{formik.errors.name}</p>}
+                        </div>
                     </div>
-                    <div className={cx('message')}>
-                        {formik.errors.name && <p className="error">{formik.errors.name}</p>}
+                    <div className={cx('field submitfield')} style={{ width: '1150px' }}>
+                        <input className={cx('submit')} type="submit" value="Tạo" />
                     </div>
-                </div>
-                <div className={cx('field submitfield')} style={{ width: '1200px' }}>
-                    <input className={cx('submit')} type="submit" value="Tạo" />
-                </div>
-            </form>
+                </form>
+            </Card>
         </div>
     );
 }
