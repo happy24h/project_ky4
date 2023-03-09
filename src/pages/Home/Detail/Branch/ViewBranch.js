@@ -16,10 +16,8 @@ function ViewBranch() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
-    // const navigate = useNavigate();
     const user = useSelector((state) => state.auth.login?.currentUser);
     const listBooking = useSelector((state) => state.booking.booking?.listData);
-    // console.log('list booking', listBooking);
 
     const onChange = (date, dateString) => {
         console.log('test', date, 'aaaa', dateString);
@@ -105,25 +103,13 @@ function ViewBranch() {
                                         marginLeft: 20,
                                     }}
                                 >
-                                    {/* <input value={employees_id} onChange={(e) => setState(e.target.value)} /> */}
-
                                     <div className={cx('')}>
                                         <div className="content-left">
                                             <div className="doctor-schedule-container" style={{ paddingLeft: '0px ' }}>
                                                 <div className="grid wide">
                                                     <div className="row">
                                                         <div className="col l-12 m-12 c-12">
-                                                            <div
-                                                                style={
-                                                                    {
-                                                                        // width: '210px',
-                                                                        // display: 'flex',
-                                                                        // alignItems: 'center',
-                                                                        // justifyContent: 'space-between',
-                                                                        // marginBottom: 5,
-                                                                    }
-                                                                }
-                                                            >
+                                                            <div>
                                                                 <h3 style={{ fontSize: '20px' }}>Đặt lịch </h3>
                                                                 <div>
                                                                     Ngày: <span>{today}</span>

@@ -70,7 +70,7 @@ function Blog({ settings }) {
                                         style={{ backgroundImage: `url(${item.thumbnail})` }}
                                     ></div>
                                     <div className="text-content-blog-mobile">
-                                        <div style={{ fontWeight: '600', fontSize: '16px' }}>{item?.title}</div>
+                                        <div className="child-text-content-blog">{item?.title}</div>
                                         {/* <div className="name-specialty">{item?.content}</div> */}
                                     </div>
                                 </div>

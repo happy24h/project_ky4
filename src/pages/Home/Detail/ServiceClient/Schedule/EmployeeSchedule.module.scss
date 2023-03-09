@@ -1,11 +1,13 @@
+.card-wrapper {
+    min-height: 170px;
+    width: 100%;
+    margin-left: 20px;
+}
 .wrapper {
-    // margin: 0 100px;
-    // /* display: flex; */
     min-height: 200px;
     padding: 0 0 10px;
 }
 .wrapper-btn {
-    // style={{ display: 'flex', marginTop: 8 }}
     display: flex;
     margin-top: 8px;
     flex-wrap: wrap;
@@ -25,6 +27,9 @@
 }
 
 @media (max-width: 720px) {
+    .card-wrapper {
+        margin-left: 0;
+    }
     .btn-booking {
         height: max-content;
         width: 99px;

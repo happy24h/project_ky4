@@ -56,10 +56,10 @@ function FormContact() {
                         </div>
                     </div>
                     <div className="right">
-                        <div className="topic-text">Send us a message</div>
+                        <div className="topic-text">Gửi tin nhắn cho chúng tôi</div>
                         <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere, error! Cumque placeat nulla
-                            eligendi corrupti.
+                            Nếu bạn có thắc mắc gì, có thể gửi yêu cầu cho chúng tôi, và chúng tôi sẽ liên lạc lại với
+                            bạn sớm nhất có thể
                         </p>
                         <form onSubmit={formik.handleSubmit}>
                             <div className="input-box">
@@ -110,7 +110,7 @@ function FormContact() {
                                 {formik.errors.description && <p className="error">{formik.errors.description}</p>}
                             </div>
                             <div className="button">
-                                <input type="submit" value="Send Message" />
+                                <input type="submit" value="Gửi thông tin" />
                             </div>
                         </form>
                     </div>

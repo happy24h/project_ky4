@@ -10,7 +10,6 @@ import { Button, Card } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './EmployeeSchedule.module.scss';
 import { getBooking, getDetailBookingDate } from '~/redux/booking/apiBooking';
-// import { faCalendarAlt, faHandPointUp } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 function EmployeeSchedule({ employees_id, branch_id }) {
@@ -56,12 +55,6 @@ function EmployeeSchedule({ employees_id, branch_id }) {
             const res = await axios.get(
                 `http://localhost:8078/api/v1/booking/findAllByEmployee_idAndDate_booking?employee_id=${valueId}&date_booking=${todayDetail}`,
             );
-            // setDataApi(res.data);
-            // if(res.data) {
-
-            // }
-
-            // setDataApi(res.data);
             if (res.data.length > 0) {
                 setDataApi((prev) => {
                     return [...res?.data];
@@ -72,12 +65,6 @@ function EmployeeSchedule({ employees_id, branch_id }) {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [today]);
-
-    // useEffect(() => {
-    //     getDetailBookingDate(employees_id, today, dispatch);
-
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [state]);
 
     const handleTimeBooking = (id) => {
         navigate(`/order-modal/${id}`);
@@ -91,31 +78,15 @@ function EmployeeSchedule({ employees_id, branch_id }) {
                 size="small"
                 title="Chọn ngày đặt lịch"
                 extra={<DatePicker onChange={onChange} />}
-                style={{
-                    minHeight: 170,
-                    width: '100%',
-                    marginLeft: 20,
-                }}
+                className={cx('card-wrapper')}
             >
-                {/* <input value={employees_id} onChange={(e) => setState(e.target.value)} /> */}
-
                 <div className={cx('wrapper')}>
                     <div className="content-left">
                         <div className="doctor-schedule-container" style={{ paddingLeft: '0px ' }}>
                             <div className="grid wide">
                                 <div className="row">
                                     <div className="col l-12 m-12 c-12">
-                                        <div
-                                            style={
-                                                {
-                                                    // width: '210px',
-                                                    // display: 'flex',
-                                                    // alignItems: 'center',
-                                                    // justifyContent: 'space-between',
-                                                    // marginBottom: 5,
-                                                }
-                                            }
-                                        >
+                                        <div>
                                             <h3 style={{ fontSize: '20px' }}>Đặt lịch </h3>
                                             <div>
                                                 Ngày: <span>{today}</span>

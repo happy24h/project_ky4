@@ -176,3 +176,12 @@
         }
     }
 }
+
+@media (max-width: 740px) {
+    .wrapper-form-contact .right .message-box {
+        height: max-content !important;
+        textarea {
+            height: 100px !important;
+        }
+    }
+}
