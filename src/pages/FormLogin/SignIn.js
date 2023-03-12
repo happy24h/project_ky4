@@ -40,7 +40,7 @@ function SignIn() {
 
     return (
         <form className="sign-in-form" onSubmit={formik.handleSubmit}>
-            <h2 className="title">Sign In</h2>
+            <h2 className="title">Đăng nhập</h2>
             <div className="input-field">
                 <i className="fas fa-user"></i>
                 {/* <FontAwesomeIcon icon={faUser} /> */}

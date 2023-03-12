@@ -23,12 +23,14 @@ function FormLogin() {
                 <div className="panels-container">
                     <div className="panel left-panel">
                         <div className="content">
-                            <h3>Not a User ?</h3>
+                            <h3>Đăng ký ngay</h3>
                             <p>
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis, ex ratione. Aliquid!
+                                Sẵn sàng để sáng tạo? <br />
+                                Chúng tôi có thể giúp bạn phát triển.
                             </p>
+
                             <button onClick={() => setModeForm(false)} className="btn transparent" id="sign-up-btn">
-                                Sign up
+                                Đăng ký
                             </button>
                         </div>
 
@@ -36,12 +38,10 @@ function FormLogin() {
                     </div>
                     <div className="panel right-panel">
                         <div className="content">
-                            <h3>Already a User ?</h3>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum laboriosam ad deleniti.
-                            </p>
+                            <h3>Chào mừng trở lại !</h3>
+                            <p>Bắt đầu sáng tạo.</p>
                             <button onClick={() => setModeForm(true)} className="btn transparent" id="sign-in-btn">
-                                Login
+                                Đăng nhập
                             </button>
                         </div>
                         <img src={images.imageTransparent2} class="image" alt="" />
