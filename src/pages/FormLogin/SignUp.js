@@ -56,7 +56,7 @@ function SignUp() {
     });
     return (
         <form className="sign-up-form" onSubmit={formik.handleSubmit}>
-            <h2 className="title">Sign Up</h2>
+            <h2 className="title">Đăng ký</h2>
             <div className="input-field">
                 <i className="fas fa-envelope"></i>
                 <input
