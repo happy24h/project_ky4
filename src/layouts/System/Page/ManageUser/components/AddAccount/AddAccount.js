@@ -122,15 +122,8 @@ function AddAccount() {
                     Back
                 </Button>
             </Link>
-            <Card
-                title="Tạo tài khoản người dùng"
-                // extra={<a href="#">More</a>}
-                style={{
-                    width: 1200,
-                    margin: '0 auto',
-                }}
-            >
-                <form className={cx('loginForm')} onSubmit={formik.handleSubmit} style={{ width: '1150px' }}>
+            <Card title="Tạo tài khoản người dùng" className={cx('form-card')}>
+                <form className={cx('loginForm')} onSubmit={formik.handleSubmit}>
                     <div className="col l-6">
                         <div className={cx('customInput')}>
                             <Input

@@ -104,3 +104,9 @@
     cursor: pointer;
     border: 1px solid #ccc;
 }
+
+@media (max-width: 1450px) {
+    .wrapper {
+        width: calc(100% - 195px);
+    }
+}

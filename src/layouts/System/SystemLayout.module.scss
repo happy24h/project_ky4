@@ -17,3 +17,9 @@
 .page {
     margin-top: var(--default-layout-header-height);
 }
+
+@media (max-width: 1450px) {
+    .content {
+        padding-left: 195px;
+    }
+}

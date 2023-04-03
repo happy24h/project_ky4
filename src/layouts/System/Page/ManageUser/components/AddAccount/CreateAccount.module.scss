@@ -1,3 +1,8 @@
+.form-card {
+    width: 1200px;
+    margin: 0 auto;
+}
+
 .loginForm {
     text-align: center;
     padding-top: 2em;
@@ -189,4 +194,24 @@
 .text-link {
     text-align: center;
     font-size: 1.4rem;
+}
+
+@media (max-width: 1450px) {
+    .form-card {
+        width: 1050px;
+        margin: 0 auto;
+    }
+
+    .loginForm {
+        text-align: center;
+        padding-top: 2em;
+        display: flex;
+        flex-wrap: wrap;
+        width: 950px;
+        background: #f5f5f5;
+        min-height: 480px;
+        border-radius: 6px;
+        margin: 0 auto;
+        padding: 45px 20px 0px 20px;
+    }
 }
