@@ -1,4 +1,6 @@
 import axios from 'axios';
+import axiosExport from '~/service/HttpService';
+import ApiConfig from '~/service/ApiConfig';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -42,7 +44,7 @@ export const loginUser = async (user, dispatch, navigate) => {
 
     try {
         // dispatch login success
-        const res = await axios.post('http://localhost:8078/api/v1/login', user);
+        const res = await axios.post(ApiConfig.loginUser, user);
         dispatch(loginSuccess(res.data));
         if (res.data.isAdmin) {
             navigate('/system/manage-user');
@@ -61,7 +63,7 @@ export const loginUser = async (user, dispatch, navigate) => {
 export const registerUser = async (user, dispatch, navigate) => {
     dispatch(registerStart());
     try {
-        await axios.post('http://localhost:8078/api/v1/registerCustomer', user);
+        await axios.post(ApiConfig.registerCustomer, user);
         dispatch(registerSuccess());
         navigate('/form-login');
         toast.success('Đăng ký thành công');
@@ -86,7 +88,7 @@ export const logOut = async (dispatch, navigate) => {
 export const getAllAccount = async (account, dispatch, token) => {
     dispatch(accountStart());
     try {
-        const res = await axios.post('http://localhost:8078/api/v1/account/search', account);
+        const res = await axios.post(ApiConfig.getAllAccount, account);
         console.log('check ', res);
         dispatch(accountSuccess(res.data));
     } catch (err) {
@@ -98,12 +100,10 @@ export const getAllAccount = async (account, dispatch, token) => {
 export const getAllRoles = async (dispatch, accessToken) => {
     dispatch(roleStart());
     try {
-        const res = await axios.get('http://localhost:8078/api/v1/account/role', {
+        const res = await axios.get(ApiConfig.getAllRoles, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         dispatch(roleSuccess(res.data));
-        // navigate('/login');
-        // toast.success('Tạo tài khoản thành công');
     } catch (err) {
         dispatch(roleFailed());
         toast.error(err.response.data.message);
@@ -113,7 +113,7 @@ export const getAllRoles = async (dispatch, accessToken) => {
 export const deleteAccount = async (id, accessToken, dispatch) => {
     dispatch(deleteAccountStart());
     try {
-        const res = await axios.get(`http://localhost:8078/api/v1/account/delete/${id}`, {
+        const res = await axios.get(`${ApiConfig.deleteAccount}/${id}`, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         dispatch(deleteAccountsSuccess());
@@ -125,7 +125,7 @@ export const deleteAccount = async (id, accessToken, dispatch) => {
 export const createAccount = async (account, dispatch, accessToken, loadApi, navigate) => {
     dispatch(createAccountStart());
     try {
-        await axios.post('http://localhost:8078/api/v1/register', account, {
+        await axiosExport.post(ApiConfig.register, account, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         dispatch(createAccountSuccess());
@@ -141,7 +141,7 @@ export const createAccount = async (account, dispatch, accessToken, loadApi, nav
 export const createAccountCustomer = async (account, dispatch, accessToken) => {
     dispatch(createAccountStart());
     try {
-        await axios.post('http://localhost:8078/api/v1/registerCustomer', account, {
+        await axios.post(ApiConfig.createAccountCustomer, account, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         dispatch(createAccountSuccess());
@@ -156,7 +156,7 @@ export const createAccountCustomer = async (account, dispatch, accessToken) => {
 export const getDetailAccount = async (id, dispatch, accessToken) => {
     dispatch(detailAccountStart());
     try {
-        const res = await axios.get(`http://localhost:8078/api/v1/account/${id}`);
+        const res = await axios.get(`${ApiConfig.getDetailAccount}/${id}`);
         dispatch(detailAccountSuccess(res.data));
         // toast.success('Detail success');
     } catch (err) {
@@ -168,7 +168,7 @@ export const getDetailAccount = async (id, dispatch, accessToken) => {
 export const editDetailAccount = async (id, account, dispatch, accessToken, handleUpdateApi) => {
     dispatch(editAccountStart());
     try {
-        const res = await axios.post(`http://localhost:8078/api/v1/account/update/${id}`, account, {
+        const res = await axios.post(`${ApiConfig.editDetailAccount}/${id}`, account, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         dispatch(editAccountSuccess());
