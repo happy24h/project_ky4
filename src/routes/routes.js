@@ -11,7 +11,7 @@ import Contact from '~/pages/Contact';
 import HairStyle from '~/pages/HairStyle';
 import Blog from '~/pages/Blog';
 import ViewBranch from '~/pages/Home/Detail/Branch';
-import DetailServiceHome from '~/pages/Home/Detail/Course';
+// import DetailServiceHome from '~/pages/Home/Detail/Course';
 import DetailEmployee from '~/pages/Home/Detail/EmployeeClient/DetailEmployee';
 // import OrderModal from '~/pages/Home/Detail/EmployeeClient/OrderModal';
 import OrderModal from '~/layouts/components/OrderModal';
@@ -79,7 +79,7 @@ const publicRouters = [
     { path: config.routes.learn, component: Learn, changeLayout: HeaderOnly },
     { path: config.routes.blog, component: Blog },
     { path: config.routes.viewBranch, component: ViewBranch, changeLayout: HeaderOnly },
-    { path: config.routes.detailServiceHome, component: DetailServiceHome, changeLayout: HeaderOnly },
+    // { path: config.routes.detailServiceHome, component: DetailServiceHome, changeLayout: HeaderOnly },
     { path: config.routes.detailEmployee, component: DetailEmployee, changeLayout: HeaderOnly },
     { path: config.routes.orderModal, component: OrderModal, changeLayout: HeaderOnly },
     { path: config.routes.serviceClient, component: ServiceClient, changeLayout: HeaderOnly },
