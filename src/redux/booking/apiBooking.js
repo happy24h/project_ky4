@@ -20,10 +20,11 @@ import {
     editBookingSuccess,
     editBookingFailed,
 } from './bookingSlice';
+import ApiConfig from '~/service/ApiConfig';
 export const getBooking = async (booking, dispatch, accessToken) => {
     dispatch(getBookingStart());
     try {
-        const res = await axios.post('http://localhost:8078/api/v1/booking/search', booking);
+        const res = await axios.post(ApiConfig.getBooking, booking);
         dispatch(getBookingSuccess(res.data));
         // loadApi();
         // navigate('/system/manage-user');
@@ -37,7 +38,7 @@ export const getBooking = async (booking, dispatch, accessToken) => {
 export const createBooking = async (booking, dispatch, accessToken, navigate) => {
     dispatch(createBookingStart());
     try {
-        await axios.post('http://localhost:8078/api/v1/booking/create', booking, {
+        await axios.post(ApiConfig.createBooking, booking, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         dispatch(createBookingSuccess());
@@ -53,7 +54,7 @@ export const createBooking = async (booking, dispatch, accessToken, navigate) =>
 export const getDetailBooking = async (id, dispatch, accessToken, getBooking) => {
     dispatch(detailBookingStart());
     try {
-        const res = await axios.get(`http://localhost:8078/api/v1/booking/${id}`);
+        const res = await axios.get(`${ApiConfig.getDetailBooking}/${id}`);
         dispatch(detailBookingSuccess(res.data));
         // toast.success('Detail success');
     } catch (err) {
@@ -65,9 +66,7 @@ export const getDetailBooking = async (id, dispatch, accessToken, getBooking) =>
 export const getDetailBookingDate = async (id, date, dispatch) => {
     dispatch(detailBookingDateStart());
     try {
-        const res = await axios.get(
-            `http://localhost:8078/api/v1/booking/findAllByEmployee_idAndDate_booking?employee_id=${id}&date_booking=${date}`,
-        );
+        const res = await axios.get(`${ApiConfig.getDetailBookingDate}?employee_id=${id}&date_booking=${date}`);
         dispatch(detailBookingDateSuccess(res.data));
         // toast.success('Detail success');
     } catch (err) {
@@ -80,7 +79,7 @@ export const editBooking = async (id, account, dispatch, accessToken, handleUpda
     dispatch(editBookingStart());
 
     try {
-        await axios.post(`http://localhost:8078/api/v1/blog/update/${id}`, account, {
+        await axios.post(`${ApiConfig.editBooking}/${id}`, account, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         dispatch(editBookingSuccess());

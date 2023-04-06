@@ -12,12 +12,13 @@ import {
     createOderDetailFailed,
 } from '~/redux/order/orderSilce';
 import { orderDetailFailed, orderDetailStart, orderDetailSuccess } from '~/redux/order/orderDetailSilce';
+import ApiConfig from '~/service/ApiConfig';
 
 export const getAllOrder = async (orderSearch, dispatch, accessToken) => {
     dispatch(orderStart());
     console.log('kiem tra orderSearch' + orderSearch);
     try {
-        const res = await axios.post('http://localhost:8078/api/v1/order/search', orderSearch, {
+        const res = await axios.post(ApiConfig.getAllOrder, orderSearch, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         dispatch(orderSuccess(res.data));
@@ -30,7 +31,7 @@ export const getAllOrder = async (orderSearch, dispatch, accessToken) => {
 export const createOder = async (oder, dispatch, accessToken) => {
     dispatch(createOderStart());
     try {
-        const res = await axios.post('http://localhost:8078/api/v1/order/create', oder, {
+        const res = await axios.post(ApiConfig.createOder, oder, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         dispatch(createOderSuccess(res.data));
@@ -44,7 +45,7 @@ export const createOder = async (oder, dispatch, accessToken) => {
 export const createOderDetail = async (oder, dispatch, accessToken) => {
     dispatch(createOderDetailStart());
     try {
-        await axios.post('http://localhost:8078/api/v1/order/createOrderDetail', oder);
+        await axios.post(ApiConfig.createOderDetail, oder);
         dispatch(createOderDetailSuccess());
 
         toast.success('Quý khách đã đặt lịch thành công');
@@ -57,7 +58,7 @@ export const createOderDetail = async (oder, dispatch, accessToken) => {
 export const getDetailOrder = async (id, dispatch, accessToken) => {
     dispatch(orderDetailStart());
     try {
-        const res = await axios.get('http://localhost:8078/api/v1/order/' + id, {
+        const res = await axios.get(`${ApiConfig.getDetailOrder}/${id}`, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         dispatch(orderDetailSuccess(res.data));
@@ -69,7 +70,7 @@ export const getDetailOrder = async (id, dispatch, accessToken) => {
 
 export const updateStatusOrder = async (id, status, dispatch, accessToken) => {
     try {
-        const res = await axios.get('http://localhost:8078/api/v1/order/update/status/' + id + '?status=' + status, {
+        const res = await axios.get(`${ApiConfig.updateStatusOrder}/${id}?status=${status}`, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         toast.success('Đổi trạng thái đơn hàng thành công');

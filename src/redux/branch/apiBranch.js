@@ -18,11 +18,12 @@ import {
     editBranchSuccess,
     editBranchFailed,
 } from './branchSlice';
+import ApiConfig from '~/service/ApiConfig';
 
 export const getBranch = async (dataValues, dispatch, accessToken) => {
     dispatch(getBranchStart());
     try {
-        const res = await axios.post('http://localhost:8078/api/v1/branch/search', dataValues);
+        const res = await axios.post(ApiConfig.getBranch, dataValues);
         dispatch(getBranchSuccess(res.data));
     } catch (err) {
         dispatch(getBranchFailed());
@@ -33,7 +34,7 @@ export const getBranch = async (dataValues, dispatch, accessToken) => {
 export const createBranch = async (dataValues, dispatch, accessToken, loadApi, navigate) => {
     dispatch(createBranchStart());
     try {
-        await axios.post('http://localhost:8078/api/v1/branch/create', dataValues, {
+        await axios.post(ApiConfig.createBranch, dataValues, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         dispatch(createBranchSuccess());
@@ -49,7 +50,7 @@ export const createBranch = async (dataValues, dispatch, accessToken, loadApi, n
 export const deleteBranch = async (id, accessToken, dispatch, handleLoading) => {
     dispatch(deleteBranchStart());
     try {
-        await axios.get(`http://localhost:8078/api/v1/branch/delete/${id}`, {
+        await axios.get(`${ApiConfig.deleteBranch}/${id}`, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         dispatch(deleteBranchSuccess());
@@ -63,7 +64,7 @@ export const deleteBranch = async (id, accessToken, dispatch, handleLoading) => 
 export const getDetailBranch = async (id, dispatch, accessToken) => {
     dispatch(detailBranchStart());
     try {
-        const res = await axios.get(`http://localhost:8078/api/v1/branch/${id}`);
+        const res = await axios.get(`${ApiConfig.getDetailBranch}/${id}`);
         dispatch(detailBranchSuccess(res.data));
 
         // toast.success('Detail success');
@@ -77,7 +78,7 @@ export const editBranch = async (id, account, dispatch, accessToken, handleUpdat
     dispatch(editBranchStart());
 
     try {
-        await axios.post(`http://localhost:8078/api/v1/branch/update/${id}`, account, {
+        await axios.post(`${ApiConfig.editBranch}/${id}`, account, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         dispatch(editBranchSuccess());
