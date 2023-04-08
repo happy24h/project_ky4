@@ -27,7 +27,7 @@ function ManageBranch() {
         hot_line: state?.hot_line,
         start: '',
         end: '',
-        page: 1,
+        page: `${page}`,
         limit: 6,
         // sort: 'desc',
         sort: 'asc',

@@ -11,7 +11,7 @@ const ApiConfig = {
     getDetailAccount: `${baseUrl}api/v1/account`,
     editDetailAccount: `${baseUrl}api/v1/account/update`,
 
-    // service
+    // api service
     getAllService: `${baseUrl}api/v1/service/search`,
     getAllTypeService: `${baseUrl}api/v1/service/findAllTypeService`,
     createService: `${baseUrl}api/v1/service/create`,
@@ -19,14 +19,14 @@ const ApiConfig = {
     getDetailService: `${baseUrl}api/v1/service`,
     deleteService: `${baseUrl}api/v1/service/delete`,
 
-    // branch
+    // api branch
     getBranch: `${baseUrl}api/v1/branch/search`,
     createBranch: `${baseUrl}api/v1/branch/create`,
     deleteBranch: `${baseUrl}api/v1/branch/delete`,
     getDetailBranch: `${baseUrl}api/v1/branch`,
     editBranch: `${baseUrl}api/v1/branch/update`,
 
-    // booking
+    // api booking
     getBooking: `${baseUrl}api/v1/booking/search`,
     createBooking: `${baseUrl}api/v1/booking/create`,
     getDetailBooking: `${baseUrl}api/v1/booking`,
@@ -42,6 +42,27 @@ const ApiConfig = {
     createOderDetail: `${baseUrl}api/v1/order/createOrderDetail`,
     getDetailOrder: `${baseUrl}api/v1/order`,
     updateStatusOrder: `${baseUrl}api/v1/order/update/status`,
+
+    // api feedback
+    getAllFeedback: `${baseUrl}api/v1/feedback`,
+    createFeedback: `${baseUrl}api/v1/feedback/create`,
+    getDetailFeedback: `${baseUrl}api/v1/feedback`,
+    changeStatusDetailFeedback: `${baseUrl}api/v1/feedback/changeStatus`,
+    deleteFeedback: `${baseUrl}api/v1/feedback/deleteRead`,
+
+    // api type service
+    createTypeService: `${baseUrl}api/v1/type_service/create`,
+    getDetailTypeService: `${baseUrl}api/v1/type_service`,
+    updateTypeService: `${baseUrl}api/v1/type_service/update`,
+    deleteForTypeService: `${baseUrl}api/v1/type_service/delete`,
+    searchTypeService: `${baseUrl}api/v1/type_service/search`,
+
+    // api blog
+    getBlog: `${baseUrl}api/v1/blog/search`,
+    createBlog: `${baseUrl}api/v1/blog/create`,
+    getDetailBlog: `${baseUrl}api/v1/blog`,
+    editBlog: `${baseUrl}api/v1/blog/update`,
+    deleteBlog: `${baseUrl}api/v1/blog/delete`,
 };
 
 export default ApiConfig;

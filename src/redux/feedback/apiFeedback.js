@@ -1,6 +1,7 @@
 import {
     deleteFeedbackFailed,
-    deleteFeedbackStart, deleteFeedbackSuccess,
+    deleteFeedbackStart,
+    deleteFeedbackSuccess,
     detailFeedbackFailed,
     detailFeedbackStart,
     detailFeedbackSuccess,
@@ -11,12 +12,12 @@ import {
 import axios from 'axios';
 
 import { toast } from 'react-toastify';
-
+import ApiConfig from '~/service/ApiConfig';
 
 export const getAllFeedback = async (feedback, dispatch, token) => {
     dispatch(feedbackStart());
     try {
-        const res = await axios.post('http://localhost:8078/api/v1/feedback', feedback, {
+        const res = await axios.post(ApiConfig.getAllFeedback, feedback, {
             headers: { Authorization: `Bearer ${token}` },
         });
         dispatch(feedbackSuccess(res.data));
@@ -24,24 +25,24 @@ export const getAllFeedback = async (feedback, dispatch, token) => {
         dispatch(feedbackFailed());
         toast.error(err.response.data.message);
     }
-}
+};
 
 export const createFeedback = async (data, dispatch) => {
     dispatch(feedbackStart());
     try {
-        await axios.post('http://localhost:8078/api/v1/feedback/create', data);
+        await axios.post(ApiConfig.createFeedback, data);
         dispatch(feedbackSuccess());
         toast.success('Gửi phản hồi thành công');
     } catch (err) {
         dispatch(feedbackFailed(err.response.data.message));
         toast.error(err.response.data.message);
     }
-}
+};
 
 export const getDetailFeedback = async (id, dispatch, token) => {
     dispatch(detailFeedbackStart());
     try {
-        let res = await axios.get('http://localhost:8078/api/v1/feedback/'+id,{
+        let res = await axios.get(`${ApiConfig.getDetailFeedback}/${id}`, {
             headers: { Authorization: `Bearer ${token}` },
         });
         dispatch(detailFeedbackSuccess(res.data));
@@ -49,12 +50,12 @@ export const getDetailFeedback = async (id, dispatch, token) => {
         dispatch(detailFeedbackFailed(err.response.data.message));
         toast.error(err.response.data.message);
     }
-}
+};
 
-export const changeStatusDetailFeedback = async (id,status, dispatch, token) => {
+export const changeStatusDetailFeedback = async (id, status, dispatch, token) => {
     dispatch(detailFeedbackStart());
     try {
-        await axios.get('http://localhost:8078/api/v1/feedback/changeStatus/'+id+"?status="+status,{
+        await axios.get(`${ApiConfig.changeStatusDetailFeedback}/${id}?status=${status}`, {
             headers: { Authorization: `Bearer ${token}` },
         });
         dispatch(feedbackSuccess());
@@ -63,12 +64,12 @@ export const changeStatusDetailFeedback = async (id,status, dispatch, token) => 
         dispatch(detailFeedbackFailed(err.response.data.message));
         toast.error(err.response.data.message);
     }
-}
+};
 
 export const deleteFeedback = async (id, dispatch, token) => {
     dispatch(deleteFeedbackStart());
     try {
-        await axios.get('http://localhost:8078/api/v1/feedback/deleteRead/'+id,{
+        await axios.get(`${ApiConfig.deleteFeedback}/${id}`, {
             headers: { Authorization: `Bearer ${token}` },
         });
         dispatch(deleteFeedbackSuccess());
@@ -77,4 +78,4 @@ export const deleteFeedback = async (id, dispatch, token) => {
         dispatch(deleteFeedbackFailed(err.response.data.message));
         toast.error(err.response.data.message);
     }
-}
+};

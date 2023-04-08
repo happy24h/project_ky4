@@ -16,15 +16,16 @@ import {
     editBlogStart,
     editBlogSuccess,
     editBlogFailed,
+    deleteBlogStart,
+    deleteBlogSuccess,
+    deleteBlogFailed,
 } from './blogSlice';
+import ApiConfig from '~/service/ApiConfig';
 export const getBlog = async (account, dispatch, accessToken) => {
     dispatch(getBlogStart());
     try {
-        const res = await axios.post('http://localhost:8078/api/v1/blog/search', account);
+        const res = await axios.post(ApiConfig.getBlog, account);
         dispatch(getBlogSuccess(res.data));
-        // loadApi();
-        // navigate('/system/manage-user');
-        // toast.success('Tạo tài khoản thành công');
     } catch (err) {
         dispatch(getBlogFailed());
         toast.error(err.response.data.message);
@@ -34,7 +35,7 @@ export const getBlog = async (account, dispatch, accessToken) => {
 export const createBlog = async (account, dispatch, accessToken, loadApi, navigate) => {
     dispatch(createBlogStart());
     try {
-        await axios.post('http://localhost:8078/api/v1/blog/create', account, {
+        await axios.post(ApiConfig.createBlog, account, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         dispatch(createBlogSuccess());
@@ -50,7 +51,7 @@ export const createBlog = async (account, dispatch, accessToken, loadApi, naviga
 export const getDetailBlog = async (id, dispatch, accessToken, getBlog) => {
     dispatch(detailBlogStart());
     try {
-        const res = await axios.get(`http://localhost:8078/api/v1/blog/${id}`);
+        const res = await axios.get(`${ApiConfig.getDetailBlog}/${id}`);
         dispatch(detailBlogSuccess(res.data));
 
         // toast.success('Detail success');
@@ -64,7 +65,7 @@ export const editBlog = async (id, account, dispatch, accessToken, handleUpdateA
     dispatch(editBlogStart());
 
     try {
-        await axios.post(`http://localhost:8078/api/v1/blog/update/${id}`, account, {
+        await axios.post(`${ApiConfig.editBlog}/${id}`, account, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         dispatch(editBlogSuccess());
@@ -72,6 +73,20 @@ export const editBlog = async (id, account, dispatch, accessToken, handleUpdateA
         handleUpdateApi();
     } catch (err) {
         dispatch(editBlogFailed());
+        toast.error(err.response.data.message);
+    }
+};
+
+export const deleteBlog = async (id, dispatch, token) => {
+    dispatch(deleteBlogStart());
+    try {
+        await axios.get(`${ApiConfig.deleteBlog}/${id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+        dispatch(deleteBlogSuccess());
+        toast.success('xóa thành thành công');
+    } catch (err) {
+        dispatch(deleteBlogFailed(err.response.data.message));
         toast.error(err.response.data.message);
     }
 };
