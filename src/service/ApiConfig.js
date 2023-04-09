@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config();
 const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
 const ApiConfig = {
