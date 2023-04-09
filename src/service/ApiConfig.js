@@ -1,4 +1,5 @@
-const baseUrl = 'http://localhost:8078/';
+require('dotenv').config();
+const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
 const ApiConfig = {
     register: `${baseUrl}api/v1/register`,
@@ -63,6 +64,24 @@ const ApiConfig = {
     getDetailBlog: `${baseUrl}api/v1/blog`,
     editBlog: `${baseUrl}api/v1/blog/update`,
     deleteBlog: `${baseUrl}api/v1/blog/delete`,
+
+    // api voucher
+    createVoucher: `${baseUrl}api/v1/voucher/create`,
+    getDetailVoucher: `${baseUrl}api/v1/voucher`,
+    getAllVoucher: `${baseUrl}api/v1/voucher/search`,
+    deleteVoucherByVoucherCode: `${baseUrl}api/v1/voucher`,
+
+    // api dash board
+    getDashBoardHeat: `${baseUrl}api/v1/booking/dashboard-heat`,
+    getDashBoardRange: `${baseUrl}api/v1/booking/dashboard-range`,
+    getDashBoardPei: `${baseUrl}api/v1/booking/dashboard-pei`,
+    getDashBoardColumn: `${baseUrl}api/v1/booking/dashboard-column`,
+    getDashBoardLine: `${baseUrl}api/v1/order/dashboard-line`,
+    getDashBoardPeiOrder: `${baseUrl}api/v1/order/dashboard-pei`,
+    getDashBoardColumnOrder: `${baseUrl}api/v1/order/dashboard-column`,
+    getDashBoardStatusOrder: `${baseUrl}api/v1/order/dashboard-status`,
+    getDashBoardBarService: `${baseUrl}api/v1/service/dashboard-bar`,
+    getDashBoardCountServicesAndStaff: `${baseUrl}api/v1/service/dashboard-count`,
 };
 
 export default ApiConfig;

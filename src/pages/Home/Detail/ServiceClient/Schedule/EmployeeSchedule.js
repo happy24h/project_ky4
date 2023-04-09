@@ -10,6 +10,7 @@ import { Button, Card } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './EmployeeSchedule.module.scss';
 import { getBooking, getDetailBookingDate } from '~/redux/booking/apiBooking';
+import ApiConfig from '~/service/ApiConfig';
 
 const cx = classNames.bind(styles);
 function EmployeeSchedule({ employees_id, branch_id }) {
@@ -53,7 +54,7 @@ function EmployeeSchedule({ employees_id, branch_id }) {
 
         const fetchApi = async () => {
             const res = await axios.get(
-                `http://localhost:8078/api/v1/booking/findAllByEmployee_idAndDate_booking?employee_id=${valueId}&date_booking=${todayDetail}`,
+                `${ApiConfig.getDetailBookingDate}?employee_id=${valueId}&date_booking=${todayDetail}`,
             );
             if (res.data.length > 0) {
                 setDataApi((prev) => {

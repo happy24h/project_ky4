@@ -6,6 +6,7 @@ import './InfoAboutEmployee.scss';
 import axios from 'axios';
 import classNames from 'classnames/bind';
 import styles from './InfoAboutEmployee.module.scss';
+import ApiConfig from '~/service/ApiConfig';
 const cx = classNames.bind(styles);
 
 function InfoAboutEmployee({ EmployeeIdFromParent }) {
@@ -24,8 +25,7 @@ function InfoAboutEmployee({ EmployeeIdFromParent }) {
     useEffect(() => {
         // getDetailBranch(EmployeeIdFromParent, dispatch, user?.accessToken);
         const fetchApi = async () => {
-            const res = await axios.get(`http://localhost:8078/api/v1/branch/${EmployeeIdFromParent}`);
-
+            const res = await axios.get(`${ApiConfig.getDetailBranch}/${EmployeeIdFromParent}`);
             if (res.data) {
                 setDataApi((prev) => {
                     return { prev, ...res.data };

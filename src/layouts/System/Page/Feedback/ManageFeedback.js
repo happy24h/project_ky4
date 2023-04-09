@@ -1,4 +1,4 @@
-import "./ManageFeedback.css"
+import './ManageFeedback.css';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteFeedback, getAllFeedback } from '~/redux/feedback/apiFeedback';
@@ -27,21 +27,21 @@ function ManageFeedback() {
 
     //B2: gọi api
     let dataFeedback = {
-        title:state?.title,
-        email:state?.email,
-        phone:state?.phone,
-        status:"",
-        start:"",
-        end:"",
-        limit:4,
-        page:page,
-        sort:""
+        title: state?.title,
+        email: state?.email,
+        phone: state?.phone,
+        status: '',
+        start: '',
+        end: '',
+        limit: 4,
+        page: page,
+        sort: '',
     };
     let totalState = state?.title + state?.email + state?.phone;
     useEffect(() => {
         getAllFeedback(dataFeedback, dispatch, user?.accessToken);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [loadApiFeedback || page,totalState]);
+    }, [loadApiFeedback || page, totalState]);
 
     //B3: Lấy danh sách
     const listFeedback = useSelector((state) => state.feedback.feedback?.feedbackCurrent);
@@ -75,7 +75,7 @@ function ManageFeedback() {
             dataIndex: 'status',
             key: 'status',
             render: (text) => {
-                switch (text){
+                switch (text) {
                     case 1:
                         return <Tag color="success">Đã đọc</Tag>;
                     case 0:
@@ -92,7 +92,7 @@ function ManageFeedback() {
             dataIndex: 'account_id',
             key: 'account_id',
             render: (text) => {
-                switch (text){
+                switch (text) {
                     case 1:
                         return <Tag color="blue">Khách vãng lai</Tag>;
                     case 0:
@@ -108,18 +108,23 @@ function ManageFeedback() {
             render: (_, record) => (
                 <Space size="middle">
                     <Button
-                        style={{display: user.roles.map(item => (
-                                item === "ADMIN" || "CUSTOMER_CARE" ? "block" : "none"
-                            ))}}
-                        type="primary" ghost onClick={() => handleEditUser(record)}>
+                        style={{
+                            display: user.roles.map((item) => (item === 'ADMIN' || 'CUSTOMER_CARE' ? 'block' : 'none')),
+                        }}
+                        type="primary"
+                        ghost
+                        onClick={() => handleEditUser(record)}
+                    >
                         <EditOutlined />
                         Edit
                     </Button>
                     <Button
-                        style={{display: user.roles.map(item => (
-                                item === "ADMIN" ? "block" : "none"
-                            ))}}
-                        type="primary" danger ghost onClick={() => handleDeleteUser(record)}>
+                        style={{ display: user.roles.map((item) => (item === 'ADMIN' ? 'block' : 'none')) }}
+                        type="primary"
+                        danger
+                        ghost
+                        onClick={() => handleDeleteUser(record)}
+                    >
                         <DeleteOutlined />
                         Delete
                     </Button>
@@ -129,7 +134,7 @@ function ManageFeedback() {
     ];
 
     const handleDeleteUser = (feedback) => {
-        deleteFeedback(feedback.id,dispatch,user?.accessToken);
+        deleteFeedback(feedback.id, dispatch, user?.accessToken);
         setloadApiFeedback(!loadApiFeedback);
     };
 
@@ -146,7 +151,7 @@ function ManageFeedback() {
             <div className="container" style={{ width: '1200px', margin: '0 auto' }}>
                 <Card
                     size="small"
-                    title="Total Accounts"
+                    title="Total Feedbacks"
                     // extra={<a href="#">More</a>}
                     style={{
                         width: 180,
@@ -156,18 +161,11 @@ function ManageFeedback() {
                     <h3 style={{ fontSize: '28px' }}>{listFeedback?.totalItems}</h3>
                     <p>Phản hồi</p>
                 </Card>
-                {/*<Form.Item label="">*/}
-                {/*    <Link to={'/add-feedback'}>*/}
-                {/*        <Button style={{ display: 'flex', margin: '20px auto 0' }} type="primary" htmlType="submit">*/}
-                {/*            Add Feedback*/}
-                {/*        </Button>*/}
-                {/*    </Link>*/}
-                {/*</Form.Item>*/}
                 <div style={{ display: 'flex', margin: '20px auto 0' }} />
                 <Table
                     columns={columns}
                     // { listAccount && listAccount.length > 0 ? dataSource={listAccount} : null}
-                    title={ () =>
+                    title={() => (
                         <div className={cx('wrapper-input-group')}>
                             <Input.Group className={cx('input-group')} compact>
                                 <Input
@@ -193,7 +191,7 @@ function ManageFeedback() {
                                 />
                             </Input.Group>
                         </div>
-                    }
+                    )}
                     dataSource={listFeedback?.content}
                     rowKey={(feedbacks) => feedbacks.id}
                     pagination={{

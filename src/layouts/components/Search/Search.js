@@ -11,6 +11,7 @@ import { SearchIcon } from '~/components/Icons';
 import AccountItem from '~/components/AccountItem';
 import styles from './Search.module.scss';
 import useDebounce from '~/hooks/useDebounce';
+import ApiConfig from '~/service/ApiConfig';
 
 const cx = classNames.bind(styles);
 
@@ -44,7 +45,7 @@ function Search() {
         const fetchApi = async () => {
             setLoading(true);
             // const result = await searchServices.search(debouncedValue);
-            const res = await axios.post('http://localhost:8078/api/v1/service/search', data);
+            const res = await axios.post(ApiConfig.getAllService, data);
             setSearchResult(res.data.content);
             setLoading(false);
         };

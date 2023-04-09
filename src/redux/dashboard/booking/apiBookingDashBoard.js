@@ -1,10 +1,10 @@
-
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import ApiConfig from '~/service/ApiConfig';
 
 export const getDashBoardHeat = async (dataValues, accessToken) => {
     try {
-        const res = await axios.post('http://localhost:8078/api/v1/booking/dashboard-heat', dataValues, {
+        const res = await axios.post(ApiConfig.getDashBoardHeat, dataValues, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         return res.data;
@@ -14,7 +14,7 @@ export const getDashBoardHeat = async (dataValues, accessToken) => {
 };
 export const getDashBoardRange = async (dataValues, accessToken) => {
     try {
-        const res = await axios.post('http://localhost:8078/api/v1/booking/dashboard-range', dataValues, {
+        const res = await axios.post(ApiConfig.getDashBoardRange, dataValues, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         return res.data;
@@ -24,7 +24,7 @@ export const getDashBoardRange = async (dataValues, accessToken) => {
 };
 export const getDashBoardPei = async (dataValues, accessToken) => {
     try {
-        const res = await axios.post('http://localhost:8078/api/v1/booking/dashboard-pei', dataValues, {
+        const res = await axios.post(ApiConfig.getDashBoardPei, dataValues, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         return res.data;
@@ -34,7 +34,7 @@ export const getDashBoardPei = async (dataValues, accessToken) => {
 };
 export const getDashBoardColumn = async (dataValues, accessToken) => {
     try {
-        const res = await axios.post('http://localhost:8078/api/v1/booking/dashboard-column', dataValues, {
+        const res = await axios.post(ApiConfig.getDashBoardColumn, dataValues, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         return res.data;
@@ -42,4 +42,3 @@ export const getDashBoardColumn = async (dataValues, accessToken) => {
         toast.error(err.response.data.message);
     }
 };
-

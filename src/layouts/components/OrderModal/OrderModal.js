@@ -17,6 +17,7 @@ import classNames from 'classnames/bind';
 import styles from './OrderModal.module.scss';
 import { toast } from 'react-toastify';
 import Loading from '../Loading';
+import ApiConfig from '~/service/ApiConfig';
 const cx = classNames.bind(styles);
 // import moment from 'moment';
 
@@ -109,7 +110,7 @@ function OrderModal() {
                 toast.error('Vui lòng chọn dịch vụ');
             } else {
                 var res = await axios
-                    .post('http://localhost:8078/api/v1/order/create', values)
+                    .post(`${ApiConfig.createOder}`, values)
                     .then(function (response) {
                         return response.data;
                     })

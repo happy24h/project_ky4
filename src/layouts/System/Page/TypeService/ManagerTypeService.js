@@ -25,19 +25,19 @@ function ManagerTypeService() {
 
     //B2: gọi api
     let data = {
-        name:state?.name,
-        status:"",
-        start:"",
-        end:"",
-        limit:4,
-        page:page,
-        sort:"desc"
-    }
+        name: state?.name,
+        status: '',
+        start: '',
+        end: '',
+        limit: 4,
+        page: page,
+        sort: 'desc',
+    };
     let totalState = state?.name;
     useEffect(() => {
         searchTypeService(data, dispatch);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [loadApi || page,totalState]);
+    }, [loadApi || page, totalState]);
 
     //B3: Lấy danh sách
     const typeServices = useSelector((state) => state.typeService.typeService?.typeServiceCurrent);
@@ -60,7 +60,7 @@ function ManagerTypeService() {
             dataIndex: 'status',
             key: 'status',
             render: (text) => {
-                switch (text){
+                switch (text) {
                     case 1:
                         return <Tag color="success">Hoạt động</Tag>;
                     case -1:
@@ -75,16 +75,17 @@ function ManagerTypeService() {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <Button
-                        type="primary" ghost onClick={() => handleEditTypeService(record)}>
+                    <Button type="primary" ghost onClick={() => handleEditTypeService(record)}>
                         <EditOutlined />
                         Chi tiết
                     </Button>
                     <Button
-                        style={{display: user.roles.map(item => (
-                                item === "ADMIN" ? "block" : "none"
-                            ))}}
-                        type="primary" danger ghost onClick={() => handleDeleteTypeService(record)}>
+                        style={{ display: user.roles.map((item) => (item === 'ADMIN' ? 'block' : 'none')) }}
+                        type="primary"
+                        danger
+                        ghost
+                        onClick={() => handleDeleteTypeService(record)}
+                    >
                         <DeleteOutlined />
                         Delete
                     </Button>
@@ -98,7 +99,7 @@ function ManagerTypeService() {
     };
 
     const handleDeleteTypeService = (type_service) => {
-        deleteForTypeService(type_service?.id,dispatch,user?.accessToken);
+        deleteForTypeService(type_service?.id, dispatch, user?.accessToken);
         setloadApi(!loadApi);
     };
     const handleOnchangeInput = (e) => {
@@ -111,7 +112,7 @@ function ManagerTypeService() {
             <div className="container" style={{ width: '1200px', margin: '0 auto' }}>
                 <Card
                     size="small"
-                    title="Total Accounts"
+                    title="Total Type Services"
                     // extra={<a href="#">More</a>}
                     style={{
                         width: 180,
@@ -131,7 +132,7 @@ function ManagerTypeService() {
                 <Table
                     columns={columns}
                     // { listAccount && listAccount.length > 0 ? dataSource={listAccount} : null}
-                    title={ () =>
+                    title={() => (
                         <div className={cx('wrapper-input-group')}>
                             <Input.Group className={cx('input-group')} compact>
                                 <Input
@@ -143,7 +144,7 @@ function ManagerTypeService() {
                                 />
                             </Input.Group>
                         </div>
-                    }
+                    )}
                     dataSource={typeServices?.content}
                     pagination={{
                         pageSize: 4,

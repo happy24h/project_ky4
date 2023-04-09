@@ -8,6 +8,7 @@ import styles from './DetailOrder.module.scss';
 import { getDetailBooking } from '~/redux/booking/apiBooking';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import ApiConfig from '~/service/ApiConfig';
 const cx = classNames.bind(styles);
 const { Meta } = Card;
 
@@ -32,25 +33,27 @@ function OrderDetail() {
         const fetchApi = async () => {
             // await getDetailOrder(id, dispatch, user?.accessToken);
             try {
-                const res = await axios.get(`http://localhost:8078/api/v1/order/${id} `, {
+                const res = await axios.get(`${ApiConfig.getDetailOrder}/${id} `, {
                     headers: { Authorization: `Bearer ${user?.accessToken}` },
                 });
                 console.log('check res', res);
                 setStateApi(res.data);
                 await getDetailBooking(res.data[0]?.order.booking_id, dispatch);
 
-                if (res.data[0].order?.voucher_id){
+                if (res.data[0].order?.voucher_id) {
                     try {
-                        const voucherCheck = await axios.get(`http://localhost:8078/api/v1/voucher/${res.data[0].order?.voucher_id}`, {
-                            headers: { Authorization: `Bearer ${user?.accessToken}` },
-                        });
+                        const voucherCheck = await axios.get(
+                            `${ApiConfig.getDetailVoucher}/${res.data[0].order?.voucher_id}`,
+                            {
+                                headers: { Authorization: `Bearer ${user?.accessToken}` },
+                            },
+                        );
                         setDiscount(voucherCheck.data.discount);
-                    } catch (error){
+                    } catch (error) {
                         toast.error(error.response.data.message);
                     }
                 }
-
-            } catch (error){
+            } catch (error) {
                 toast.error(error.response.data.message);
             }
         };
@@ -118,9 +121,7 @@ function OrderDetail() {
                     </List>
                     <List className={cx('list-detail')}>
                         <strong>Mức giảm giá:</strong>{' '}
-                        <span className={cx('text-detail')}>
-                            {discount ? (discount * 100) +'%' : '' }
-                        </span>
+                        <span className={cx('text-detail')}>{discount ? discount * 100 + '%' : ''}</span>
                     </List>
                     <List className={cx('list-detail')}>
                         <strong>Mã đặt lịch:</strong>{' '}

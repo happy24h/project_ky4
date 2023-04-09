@@ -150,7 +150,7 @@ function ManagerService() {
             <div className="container" style={{ width: '1200px', margin: '0 auto' }}>
                 <Card
                     size="small"
-                    title="Total Accounts"
+                    title="Total Services"
                     // extra={<a href="#">More</a>}
                     style={{
                         width: 180,

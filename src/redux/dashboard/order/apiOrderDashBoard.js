@@ -1,10 +1,10 @@
-
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import ApiConfig from '~/service/ApiConfig';
 
 export const getDashBoardLine = async (dataValues, accessToken) => {
     try {
-        const res = await axios.post('http://localhost:8078/api/v1/order/dashboard-line', dataValues, {
+        const res = await axios.post(ApiConfig.getDashBoardLine, dataValues, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         return res.data;
@@ -14,7 +14,7 @@ export const getDashBoardLine = async (dataValues, accessToken) => {
 };
 export const getDashBoardPei = async (dataValues, accessToken) => {
     try {
-        const res = await axios.post('http://localhost:8078/api/v1/order/dashboard-pei', dataValues, {
+        const res = await axios.post(ApiConfig.getDashBoardPeiOrder, dataValues, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         return res.data;
@@ -24,7 +24,7 @@ export const getDashBoardPei = async (dataValues, accessToken) => {
 };
 export const getDashBoardColumn = async (dataValues, accessToken) => {
     try {
-        const res = await axios.post('http://localhost:8078/api/v1/order/dashboard-column', dataValues, {
+        const res = await axios.post(ApiConfig.getDashBoardColumnOrder, dataValues, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         return res.data;
@@ -35,7 +35,7 @@ export const getDashBoardColumn = async (dataValues, accessToken) => {
 
 export const getDashBoardStatus = async (dataValues, accessToken) => {
     try {
-        const res = await axios.post('http://localhost:8078/api/v1/order/dashboard-status', dataValues, {
+        const res = await axios.post(ApiConfig.getDashBoardStatusOrder, dataValues, {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
         return res.data;
